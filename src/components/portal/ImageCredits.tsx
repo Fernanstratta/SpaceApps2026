@@ -1,0 +1,39 @@
+import { IMAGE_TEXT } from '../../content/strings';
+import { images } from '../../data';
+import { commonsPageUrl } from '../../utils/commons';
+import { ExternalLink } from '../common/ExternalLink';
+
+/** Attribution for every photo used in the portal. */
+export function ImageCredits() {
+  return (
+    <section className="image-credits" aria-labelledby="creditos-imagenes">
+      <h2 id="creditos-imagenes" className="image-credits__title">
+        {IMAGE_TEXT.creditsTitle}
+      </h2>
+      <p className="image-credits__intro">{IMAGE_TEXT.creditsIntro}</p>
+      <ul className="image-credits__list">
+        {images.map((image) => (
+          <li key={image.id}>
+            <ExternalLink href={commonsPageUrl(image)}>{image.alt}</ExternalLink>
+            <span className="image-credits__meta">
+              {' '}
+              — {image.author}. {image.license}.
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** One-line credit under a banner photo. */
+export function ImageCredit({ imageId }: { imageId: string }) {
+  const image = images.find((item) => item.id === imageId);
+  if (!image) return null;
+  return (
+    <p className="photo-credit">
+      {IMAGE_TEXT.photo}: {image.author} · {image.license} ·{' '}
+      <ExternalLink href={commonsPageUrl(image)}>{IMAGE_TEXT.viewSource}</ExternalLink>
+    </p>
+  );
+}

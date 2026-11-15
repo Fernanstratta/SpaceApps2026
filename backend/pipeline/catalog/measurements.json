@@ -1,0 +1,837 @@
+{
+  "el_elegante": {
+    "slope": {
+      "value": 0.6672,
+      "status": "measured",
+      "source": "Copernicus DEM GLO-30, re-proyectado a UTM 12N (EPSG:32612) y re-muestreado a 30 m",
+      "source_url": "https://registry.opendata.aws/copernicus-dem/",
+      "method": "pipeline/slope_fsafe.py: Horn 3×3 sobre malla común de 30 m (nativo 30.89 m/px, bilinear); f_safe = fracción del AOI (r = 1200 m, cobertura 100%) con pendiente < 10°. Pendiente media 11.96°, p90 34.24°.",
+      "resolution_m": 30.0
+    },
+    "roughness": {
+      "raw": {
+        "value": -6.434,
+        "units": "dB",
+        "instrument": "Sentinel-1 RTC, CR = γ⁰VH/γ⁰VV"
+      },
+      "status": "measured",
+      "source": "Sentinel-1 GRD IW con corrección radiométrica de terreno (RTC), Microsoft Planetary Computer",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/sentinel-1-rtc",
+      "method": "pipeline/s1_roughness.py: CR = 10·log10(⟨γ⁰VH⟩/⟨γ⁰VV⟩) en el AOI; mediana de 3 escenas descendentes de julio–agosto de 2024 (-6.231, -6.486, -6.434 dB). Percentil dentro de 278764 celdas de 1 km de desierto del NO de México (ESA WorldCover 20, 30, 60).",
+      "observed_at": "2024-07/2024-08",
+      "resolution_m": 10
+    },
+    "mineralogy": {
+      "raw": {
+        "value": 1.0267,
+        "units": "ε29/ε31",
+        "instrument": "MODIS MOD21A2/MYD21A2"
+      },
+      "calibration": {
+        "felsic": 0.8411,
+        "mafic": 1.0222,
+        "source": "Anclas del mismo producto: félsico = erg de cuarzo y feldespato del Gran Desierto (círculo de 10 km en 32.271° N, -114.686°; ε29/ε31 = 0.8411); máfico = campo de lava basáltica del Pinacate (anillo de 6–15 km de la cumbre; 1.0222)."
+      },
+      "status": "measured",
+      "source": "Emisividad MODIS MOD21A2/MYD21A2 v061 (8.55 µm / 11 µm), Planetary Computer; sustituto abierto de ASTER GED AG100",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/modis-21A2-061",
+      "method": "pipeline/earth_mineralogy.py: mediana por píxel de 32 compuestos de mayo a agosto de 2023 y media de 6 píxel(es) de 1 km en el AOI. El índice responde sobre todo al cuarzo: el granito y la dacita quedan cerca del basalto, y las arcillas de una playa lo suben.",
+      "observed_at": "2023-05/2023-08",
+      "resolution_m": 1000
+    },
+    "albedo": {
+      "value": 0.1376,
+      "status": "measured",
+      "source": "Sentinel-2 L2A (Earth Search, AWS), albedo de banda ancha de Liang (2001)",
+      "source_url": "https://registry.opendata.aws/sentinel-2-l2a-cogs/",
+      "method": "pipeline/s2_aoi_stats.py: α = 0.356·B2 + 0.130·B4 + 0.373·B8 + 0.085·B11 + 0.072·B12 − 0.0018; mediana del AOI por escena y mediana de 6 escenas de mayo a agosto de 2024 (2024-05-01, 2024-05-11, 2024-05-26, 2024-06-15, 2024-08-14, 2024-08-29). Máscaras: SCL 0, 1, 3, 8, 9, 10, 11 y agua (SCL 6), más vegetación (NDVI > 0.2). Rango entre escenas 0.1327–0.1484.",
+      "observed_at": "2024-05/2024-08",
+      "resolution_m": 10
+    },
+    "thermal": {
+      "value": 31.36,
+      "status": "measured",
+      "source": "Aqua MODIS MYD11A2 v061 (Microsoft Planetary Computer), LST_Day_1km − LST_Night_1km",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/modis-11A2-061",
+      "method": "pipeline/modis_lst_amplitude.py: ΔT = (LST_Day − LST_Night)·0.02 en píxeles con QC aceptable (error ≤ 2 K) de día y de noche; media del AOI (6 píxeles de 1 km) por compuesto de 8 días y media de 44 compuestos de 2023. Rango estacional 20.96–43.41 K. Pasos de Aqua ≈ 13:30 y 01:30.",
+      "observed_at": "2023",
+      "resolution_m": 1000
+    },
+    "aridity": {
+      "value": 0.1045,
+      "status": "measured",
+      "source": "Sentinel-2 L2A (Earth Search, AWS), NDVI = (B8 − B4)/(B8 + B4)",
+      "source_url": "https://registry.opendata.aws/sentinel-2-l2a-cogs/",
+      "method": "pipeline/s2_aoi_stats.py: mediana del AOI por escena y mediana de 6 escenas de mayo a agosto de 2024 (2024-05-01, 2024-05-11, 2024-05-26, 2024-06-15, 2024-08-14, 2024-08-29). Máscaras: SCL 0, 1, 3, 8, 9, 10, 11 y agua (SCL 6). Vegetación (NDVI > 0.2) hasta 6.9% del AOI en temporada seca (88.5% en el año); sin ella, NDVI = 0.1041. Máximo anual 2024 (mediana de escena): 0.4222 en 16 escenas.",
+      "observed_at": "2024-05/2024-08",
+      "resolution_m": 10
+    },
+    "ice": {
+      "value": 0,
+      "status": "measured",
+      "source": "NASA POWER, humedad del suelo superficial GWETTOP de MERRA-2 (climatología); sustituto abierto de SMAP SPL3SMP_E",
+      "source_url": "https://power.larc.nasa.gov/",
+      "method": "pipeline/earth_ice_dust.py: humedad relativa media anual 0.24 (meses 0.11–0.34); mes más frío 12.17 °C. Clase 0 = seco (media < 0.4, ningún mes ≥ 0.6 y sin congelamiento). Celda de ~50 km: valor regional.",
+      "resolution_m": 50000
+    },
+    "dust": {
+      "value": 0.367,
+      "status": "measured",
+      "source": "SoilGrids 2.0 (ISRIC), limo + arcilla, 0–5 cm, 250 m",
+      "source_url": "https://soilgrids.org/",
+      "method": "pipeline/earth_ice_dust.py: (limo 253.4 + arcilla 113.4 g/kg)/1000, media del AOI. SoilGrids es un modelo predictivo: en roca desnuda (sierras, coladas) estima el suelo que habría, no lo observa.",
+      "resolution_m": 250
+    },
+    "craters": {
+      "value": 0.1525,
+      "status": "literature",
+      "source": "Gutmann y Turrin (2006), Geological Society of America",
+      "source_url": "https://gsa.confex.com/gsa/2006RM/webprogram/Paper104697.html",
+      "method": "Profundidad de 244 m dividida entre el diámetro medio de borde a borde de 1600 m."
+    }
+  },
+  "linne": {
+    "slope": {
+      "value": 0.4105,
+      "status": "measured",
+      "source": "LROC NAC DTM LINNECRATER (2 m/px) re-muestreado a 30 m",
+      "source_url": "https://data.lroc.im-ldi.com/lroc/view_rdr/NAC_DTM_LINNECRATER",
+      "method": "pipeline/slope_fsafe.py: Horn 3×3 sobre malla común de 30 m (nativo 2.0 m/px, average); f_safe = fracción del AOI (r = 1650 m, cobertura 100%) con pendiente < 10°. Pendiente media 17.47°, p90 34.78°.",
+      "resolution_m": 30.0
+    },
+    "roughness": {
+      "raw": {
+        "value": 0.5662,
+        "units": "CPR",
+        "instrument": "LRO Mini-RF, banda S"
+      },
+      "status": "measured",
+      "source": "LRO Mini-RF, mosaico global de razón de polarización circular (CPR), banda S, 32 ppd",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/",
+      "method": "pipeline/moon_cpr_cf.py: CPR medio de 10 píxel(es) de ~948 m en el AOI. Percentil dentro de todo el mosaico lunar ponderado por área (1001 cuantiles).",
+      "resolution_m": 948
+    },
+    "mineralogy": {
+      "raw": {
+        "value": 8.134,
+        "units": "µm",
+        "instrument": "Diviner Christiansen Feature (NEN)"
+      },
+      "calibration": {
+        "felsic": 8.135,
+        "mafic": 8.345,
+        "source": "Anclas del mismo producto: félsico = moda del CF en tierras altas feldespáticas de la cara oculta (8.135 µm); máfico = moda en Imbrium, Serenitatis oriental, Tranquillitatis oriental y Crisium (8.345 µm)."
+      },
+      "status": "measured",
+      "source": "LRO Diviner GDR L3, posición de la Christiansen Feature (versión NEN), 32 ppd",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/",
+      "method": "pipeline/moon_cpr_cf.py: mediana de 11 píxel(es) de ~948 m a menos de 3.65 km del centro (cuartiles 8.104–8.154 µm). Diviner enmascara el CF en pendientes fuertes y cráteres frescos, así que el radio crece hasta reunir 5 píxeles. El CF también baja con suelos inmaduros (eyecta fresca), no solo con la composición.",
+      "resolution_m": 948
+    },
+    "albedo": {
+      "value": 0.107,
+      "status": "measured",
+      "source": "LRO Diviner GDR L2, reflectancia del canal 1 (0.35–2.8 µm) cerca del mediodía",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l2/",
+      "method": "pipeline/diviner_lunar.py: I/F en nadir a 128 ppd (~237 m) normalizado a incidencia 0 con Lommel–Seeliger; media del AOI por mapa y mediana de 5 mapas observados a ±1.5 h del mediodía (2013-02-13, 2013-09-05, 2015-01-22, 2015-07-18, 2015-08-15); 2 mapa(s) atípico(s) descartado(s) por 3·MAD. Rango 0.1041–0.1124; I/F sin normalizar 0.0997.",
+      "observed_at": "2010-2016",
+      "resolution_m": 237
+    },
+    "thermal": {
+      "value": 281.5,
+      "status": "measured",
+      "source": "LRO Diviner GCP (Williams et al. 2017), temperatura bolométrica acumulada 2009–2015",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gcp/",
+      "method": "pipeline/diviner_lunar.py: ΔT = T_max − T_min de la curva diurna media (96 intervalos de 0.25 h) en la celda de 0.5° centrada en 27.75°, 11.75°: T_max 378.2 K a las 12.6 h, T_min 96.8 K a las 5.4 h (T(12:00) − T(05:30) = 281.4 K). La celda mide ~15 km: valor regional de contexto.",
+      "observed_at": "2009-07/2015-04",
+      "resolution_m": 15160
+    },
+    "aridity": {
+      "value": 0.0,
+      "status": "reference",
+      "source": "Convención didáctica del ILS: referencia lunar de vegetación = 0. Este valor carece de una observación espectral."
+    },
+    "ice": {
+      "value": 0,
+      "status": "reference",
+      "source": "Paige et al. (2010): fuera de los polos no hay trampas frías; Diviner GCP como verificación",
+      "source_url": "https://doi.org/10.1126/science.1187726",
+      "method": "Temperatura máxima diurna de Diviner GCP 378.2 K, muy por encima del umbral de estabilidad del hielo (~110 K)."
+    },
+    "dust": {
+      "value": 0.384,
+      "status": "literature",
+      "source": "Carrier (2003), Particle Size Distribution of Lunar Soil; abundancia de rocas de Diviner (Bandfield et al. 2011)",
+      "source_url": "https://doi.org/10.1061/(ASCE)1090-0241(2003)129:10(956)",
+      "method": "Suelos Apolo: distribución log-normal con mediana de ~70 µm y 10–20 % bajo 20 µm → 46.5 % bajo 63 µm. Se descuenta la fracción cubierta por rocas de Diviner RA = 0.1739 (172 píxeles de 237 m)."
+    },
+    "craters": {
+      "value": 0.23318385650224216,
+      "status": "literature",
+      "source": "Martellato et al. (2017), Meteoritics & Planetary Science",
+      "source_url": "https://doi.org/10.1111/maps.12892",
+      "method": "Profundidad de 520 m dividida entre el diámetro de 2230 m, ambos determinados con el DTM de LROC NAC."
+    }
+  },
+  "pinacate": {
+    "slope": {
+      "value": 0.5651,
+      "status": "measured",
+      "source": "Copernicus DEM GLO-30, re-proyectado a UTM 12N (EPSG:32612) y re-muestreado a 30 m",
+      "source_url": "https://registry.opendata.aws/copernicus-dem/",
+      "method": "pipeline/slope_fsafe.py: Horn 3×3 sobre malla común de 30 m (nativo 30.89 m/px, bilinear); f_safe = fracción del AOI (r = 5000 m, cobertura 100%) con pendiente < 10°. Pendiente media 10.83°, p90 21.66°.",
+      "resolution_m": 30.0
+    },
+    "albedo": {
+      "value": 0.146,
+      "status": "measured",
+      "source": "Sentinel-2 L2A (Earth Search, AWS), albedo de banda ancha de Liang (2001)",
+      "source_url": "https://registry.opendata.aws/sentinel-2-l2a-cogs/",
+      "method": "pipeline/s2_aoi_stats.py: α = 0.356·B2 + 0.130·B4 + 0.373·B8 + 0.085·B11 + 0.072·B12 − 0.0018; mediana del AOI por escena y mediana de 6 escenas de mayo a agosto de 2024 (2024-05-01, 2024-05-11, 2024-05-26, 2024-06-15, 2024-08-14, 2024-08-29). Máscaras: SCL 0, 1, 3, 8, 9, 10, 11 y agua (SCL 6), más vegetación (NDVI > 0.2). Rango entre escenas 0.134–0.156.",
+      "observed_at": "2024-05/2024-08",
+      "resolution_m": 10
+    },
+    "aridity": {
+      "value": 0.1356,
+      "status": "measured",
+      "source": "Sentinel-2 L2A (Earth Search, AWS), NDVI = (B8 − B4)/(B8 + B4)",
+      "source_url": "https://registry.opendata.aws/sentinel-2-l2a-cogs/",
+      "method": "pipeline/s2_aoi_stats.py: mediana del AOI por escena y mediana de 6 escenas de mayo a agosto de 2024 (2024-05-01, 2024-05-11, 2024-05-26, 2024-06-15, 2024-08-14, 2024-08-29). Máscaras: SCL 0, 1, 3, 8, 9, 10, 11 y agua (SCL 6). Vegetación (NDVI > 0.2) hasta 37.8% del AOI en temporada seca (87.7% en el año); sin ella, NDVI = 0.1351. Máximo anual 2024 (mediana de escena): 0.2637 en 16 escenas.",
+      "observed_at": "2024-05/2024-08",
+      "resolution_m": 10
+    },
+    "thermal": {
+      "value": 25.96,
+      "status": "measured",
+      "source": "Aqua MODIS MYD11A2 v061 (Microsoft Planetary Computer), LST_Day_1km − LST_Night_1km",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/modis-11A2-061",
+      "method": "pipeline/modis_lst_amplitude.py: ΔT = (LST_Day − LST_Night)·0.02 en píxeles con QC aceptable (error ≤ 2 K) de día y de noche; media del AOI (89 píxeles de 1 km) por compuesto de 8 días y media de 44 compuestos de 2023. Rango estacional 17.52–35.31 K. Pasos de Aqua ≈ 13:30 y 01:30.",
+      "observed_at": "2023",
+      "resolution_m": 1000
+    },
+    "roughness": {
+      "raw": {
+        "value": -7.315,
+        "units": "dB",
+        "instrument": "Sentinel-1 RTC, CR = γ⁰VH/γ⁰VV"
+      },
+      "status": "measured",
+      "source": "Sentinel-1 GRD IW con corrección radiométrica de terreno (RTC), Microsoft Planetary Computer",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/sentinel-1-rtc",
+      "method": "pipeline/s1_roughness.py: CR = 10·log10(⟨γ⁰VH⟩/⟨γ⁰VV⟩) en el AOI; mediana de 3 escenas descendentes de julio–agosto de 2024 (-7.306, -7.315, -7.349 dB). Percentil dentro de 278764 celdas de 1 km de desierto del NO de México (ESA WorldCover 20, 30, 60).",
+      "observed_at": "2024-07/2024-08",
+      "resolution_m": 10
+    },
+    "mineralogy": {
+      "raw": {
+        "value": 1.0251,
+        "units": "ε29/ε31",
+        "instrument": "MODIS MOD21A2/MYD21A2"
+      },
+      "calibration": {
+        "felsic": 0.8411,
+        "mafic": 1.0222,
+        "source": "Anclas del mismo producto: félsico = erg de cuarzo y feldespato del Gran Desierto (círculo de 10 km en 32.271° N, -114.686°; ε29/ε31 = 0.8411); máfico = campo de lava basáltica del Pinacate (anillo de 6–15 km de la cumbre; 1.0222)."
+      },
+      "status": "measured",
+      "source": "Emisividad MODIS MOD21A2/MYD21A2 v061 (8.55 µm / 11 µm), Planetary Computer; sustituto abierto de ASTER GED AG100",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/modis-21A2-061",
+      "method": "pipeline/earth_mineralogy.py: mediana por píxel de 32 compuestos de mayo a agosto de 2023 y media de 92 píxel(es) de 1 km en el AOI. El índice responde sobre todo al cuarzo: el granito y la dacita quedan cerca del basalto, y las arcillas de una playa lo suben.",
+      "observed_at": "2023-05/2023-08",
+      "resolution_m": 1000
+    },
+    "ice": {
+      "value": 0,
+      "status": "measured",
+      "source": "NASA POWER, humedad del suelo superficial GWETTOP de MERRA-2 (climatología); sustituto abierto de SMAP SPL3SMP_E",
+      "source_url": "https://power.larc.nasa.gov/",
+      "method": "pipeline/earth_ice_dust.py: humedad relativa media anual 0.23 (meses 0.11–0.33); mes más frío 12.26 °C. Clase 0 = seco (media < 0.4, ningún mes ≥ 0.6 y sin congelamiento). Celda de ~50 km: valor regional.",
+      "resolution_m": 50000
+    },
+    "dust": {
+      "value": 0.362,
+      "status": "measured",
+      "source": "SoilGrids 2.0 (ISRIC), limo + arcilla, 0–5 cm, 250 m",
+      "source_url": "https://soilgrids.org/",
+      "method": "pipeline/earth_ice_dust.py: (limo 227.7 + arcilla 133.9 g/kg)/1000, media del AOI. SoilGrids es un modelo predictivo: en roca desnuda (sierras, coladas) estima el suelo que habría, no lo observa.",
+      "resolution_m": 250
+    },
+    "craters": {
+      "value": 0.1004,
+      "status": "measured",
+      "source": "Copernicus DEM GLO-30 a 60 m",
+      "source_url": "https://registry.opendata.aws/copernicus-dem/",
+      "method": "pipeline/morphometry_hd.py cones: mediana de h/D de 84 conos detectados en 40 × 40 km del campo volcánico (cuartiles 0.0897–0.1144).",
+      "resolution_m": 60
+    }
+  },
+  "marius_hills": {
+    "aridity": {
+      "value": 0,
+      "status": "reference",
+      "source": "Convención didáctica del ILS: referencia lunar de vegetación = 0. Este valor carece de una observación espectral."
+    },
+    "slope": {
+      "value": 0.9549,
+      "status": "measured",
+      "source": "LROC NAC DTM MARIUSPIT01 (4 m/px) re-muestreado a 30 m",
+      "source_url": "https://data.lroc.im-ldi.com/lroc/view_rdr/NAC_DTM_MARIUSPIT01",
+      "method": "pipeline/slope_fsafe.py: Horn 3×3 sobre malla común de 30 m (nativo 4.0 m/px, average); f_safe = fracción del AOI (r = 5000 m, cobertura 96%) con pendiente < 10°. Pendiente media 2.8°, p90 6.32°.",
+      "resolution_m": 30.0
+    },
+    "thermal": {
+      "value": 295.4,
+      "status": "measured",
+      "source": "LRO Diviner GCP (Williams et al. 2017), temperatura bolométrica acumulada 2009–2015",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gcp/",
+      "method": "pipeline/diviner_lunar.py: ΔT = T_max − T_min de la curva diurna media (96 intervalos de 0.25 h) en la celda de 0.5° centrada en 14.25°, -56.75°: T_max 392.0 K a las 12.6 h, T_min 96.7 K a las 5.1 h (T(12:00) − T(05:30) = 292.2 K). La celda mide ~15 km: valor regional de contexto.",
+      "observed_at": "2009-07/2015-04",
+      "resolution_m": 15160
+    },
+    "albedo": {
+      "value": 0.0735,
+      "status": "measured",
+      "source": "LRO Diviner GDR L2, reflectancia del canal 1 (0.35–2.8 µm) cerca del mediodía",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l2/",
+      "method": "pipeline/diviner_lunar.py: I/F en nadir a 128 ppd (~237 m) normalizado a incidencia 0 con Lommel–Seeliger; media del AOI por mapa y mediana de 3 mapas observados a ±1.5 h del mediodía (2013-08-09, 2015-01-22, 2016-08-03); 0 mapa(s) atípico(s) descartado(s) por 3·MAD. Rango 0.0661–0.0773; I/F sin normalizar 0.0713.",
+      "observed_at": "2010-2016",
+      "resolution_m": 237
+    },
+    "roughness": {
+      "raw": {
+        "value": 0.6944,
+        "units": "CPR",
+        "instrument": "LRO Mini-RF, banda S"
+      },
+      "status": "measured",
+      "source": "LRO Mini-RF, mosaico global de razón de polarización circular (CPR), banda S, 32 ppd",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/",
+      "method": "pipeline/moon_cpr_cf.py: CPR medio de 41 píxel(es) de ~948 m en el AOI. Percentil dentro de todo el mosaico lunar ponderado por área (1001 cuantiles).",
+      "resolution_m": 948
+    },
+    "mineralogy": {
+      "raw": {
+        "value": 8.32,
+        "units": "µm",
+        "instrument": "Diviner Christiansen Feature (NEN)"
+      },
+      "calibration": {
+        "felsic": 8.135,
+        "mafic": 8.345,
+        "source": "Anclas del mismo producto: félsico = moda del CF en tierras altas feldespáticas de la cara oculta (8.135 µm); máfico = moda en Imbrium, Serenitatis oriental, Tranquillitatis oriental y Crisium (8.345 µm)."
+      },
+      "status": "measured",
+      "source": "LRO Diviner GDR L3, posición de la Christiansen Feature (versión NEN), 32 ppd",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/",
+      "method": "pipeline/moon_cpr_cf.py: mediana de 41 píxel(es) de ~948 m a menos de 5 km del centro (cuartiles 8.308–8.329 µm). Diviner enmascara el CF en pendientes fuertes y cráteres frescos, así que el radio crece hasta reunir 5 píxeles. El CF también baja con suelos inmaduros (eyecta fresca), no solo con la composición.",
+      "resolution_m": 948
+    },
+    "ice": {
+      "value": 0,
+      "status": "reference",
+      "source": "Paige et al. (2010): fuera de los polos no hay trampas frías; Diviner GCP como verificación",
+      "source_url": "https://doi.org/10.1126/science.1187726",
+      "method": "Temperatura máxima diurna de Diviner GCP 392.0 K, muy por encima del umbral de estabilidad del hielo (~110 K)."
+    },
+    "dust": {
+      "value": 0.462,
+      "status": "literature",
+      "source": "Carrier (2003), Particle Size Distribution of Lunar Soil; abundancia de rocas de Diviner (Bandfield et al. 2011)",
+      "source_url": "https://doi.org/10.1061/(ASCE)1090-0241(2003)129:10(956)",
+      "method": "Suelos Apolo: distribución log-normal con mediana de ~70 µm y 10–20 % bajo 20 µm → 46.5 % bajo 63 µm. Se descuenta la fracción cubierta por rocas de Diviner RA = 0.0055 (1440 píxeles de 237 m)."
+    },
+    "craters": {
+      "value": 0.0611,
+      "status": "measured",
+      "source": "SLDEM2015 a 60 m",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/sldem2015/",
+      "method": "pipeline/morphometry_hd.py cones: mediana de h/D de 17 conos detectados en 80 × 80 km de Marius Hills (cuartiles 0.0517–0.0824), con la misma regla que en el Pinacate.",
+      "resolution_m": 60
+    }
+  },
+  "cerro_prieto": {
+    "slope": {
+      "value": 0.6777,
+      "status": "measured",
+      "source": "Copernicus DEM GLO-30, re-proyectado a UTM 11N (EPSG:32611) y re-muestreado a 30 m",
+      "source_url": "https://registry.opendata.aws/copernicus-dem/",
+      "method": "pipeline/slope_fsafe.py: Horn 3×3 sobre malla común de 30 m (nativo 30.89 m/px, bilinear); f_safe = fracción del AOI (r = 1200 m, cobertura 100%) con pendiente < 10°. Pendiente media 8.22°, p90 23.33°.",
+      "resolution_m": 30.0
+    },
+    "albedo": {
+      "value": 0.2733,
+      "status": "measured",
+      "source": "Sentinel-2 L2A (Earth Search, AWS), albedo de banda ancha de Liang (2001)",
+      "source_url": "https://registry.opendata.aws/sentinel-2-l2a-cogs/",
+      "method": "pipeline/s2_aoi_stats.py: α = 0.356·B2 + 0.130·B4 + 0.373·B8 + 0.085·B11 + 0.072·B12 − 0.0018; mediana del AOI por escena y mediana de 6 escenas de mayo a agosto de 2024 (2024-05-04, 2024-05-19, 2024-06-13, 2024-07-03, 2024-08-02, 2024-08-27). Máscaras: SCL 0, 1, 3, 8, 9, 10, 11 y agua (SCL 6), más vegetación (NDVI > 0.2). Rango entre escenas 0.2612–0.2802.",
+      "observed_at": "2024-05/2024-08",
+      "resolution_m": 10
+    },
+    "aridity": {
+      "value": 0.0804,
+      "status": "measured",
+      "source": "Sentinel-2 L2A (Earth Search, AWS), NDVI = (B8 − B4)/(B8 + B4)",
+      "source_url": "https://registry.opendata.aws/sentinel-2-l2a-cogs/",
+      "method": "pipeline/s2_aoi_stats.py: mediana del AOI por escena y mediana de 6 escenas de mayo a agosto de 2024 (2024-05-04, 2024-05-19, 2024-06-13, 2024-07-03, 2024-08-02, 2024-08-27). Máscaras: SCL 0, 1, 3, 8, 9, 10, 11 y agua (SCL 6). Vegetación (NDVI > 0.2) hasta 0.8% del AOI en temporada seca (27.9% en el año); sin ella, NDVI = 0.0804. Máximo anual 2024 (mediana de escena): 0.1417 en 16 escenas.",
+      "observed_at": "2024-05/2024-08",
+      "resolution_m": 10
+    },
+    "thermal": {
+      "value": 25.8,
+      "status": "measured",
+      "source": "Aqua MODIS MYD11A2 v061 (Microsoft Planetary Computer), LST_Day_1km − LST_Night_1km",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/modis-11A2-061",
+      "method": "pipeline/modis_lst_amplitude.py: ΔT = (LST_Day − LST_Night)·0.02 en píxeles con QC aceptable (error ≤ 2 K) de día y de noche; media del AOI (6 píxeles de 1 km) por compuesto de 8 días y media de 44 compuestos de 2023. Rango estacional 8.43–35.38 K. Pasos de Aqua ≈ 13:30 y 01:30.",
+      "observed_at": "2023",
+      "resolution_m": 1000
+    },
+    "roughness": {
+      "raw": {
+        "value": -6.477,
+        "units": "dB",
+        "instrument": "Sentinel-1 RTC, CR = γ⁰VH/γ⁰VV"
+      },
+      "status": "measured",
+      "source": "Sentinel-1 GRD IW con corrección radiométrica de terreno (RTC), Microsoft Planetary Computer",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/sentinel-1-rtc",
+      "method": "pipeline/s1_roughness.py: CR = 10·log10(⟨γ⁰VH⟩/⟨γ⁰VV⟩) en el AOI; mediana de 3 escenas descendentes de julio–agosto de 2024 (-6.477, -7.112, -6.282 dB). Percentil dentro de 278764 celdas de 1 km de desierto del NO de México (ESA WorldCover 20, 30, 60).",
+      "observed_at": "2024-07/2024-08",
+      "resolution_m": 10
+    },
+    "mineralogy": {
+      "raw": {
+        "value": 0.9729,
+        "units": "ε29/ε31",
+        "instrument": "MODIS MOD21A2/MYD21A2"
+      },
+      "calibration": {
+        "felsic": 0.8411,
+        "mafic": 1.0222,
+        "source": "Anclas del mismo producto: félsico = erg de cuarzo y feldespato del Gran Desierto (círculo de 10 km en 32.271° N, -114.686°; ε29/ε31 = 0.8411); máfico = campo de lava basáltica del Pinacate (anillo de 6–15 km de la cumbre; 1.0222)."
+      },
+      "status": "measured",
+      "source": "Emisividad MODIS MOD21A2/MYD21A2 v061 (8.55 µm / 11 µm), Planetary Computer; sustituto abierto de ASTER GED AG100",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/modis-21A2-061",
+      "method": "pipeline/earth_mineralogy.py: mediana por píxel de 32 compuestos de mayo a agosto de 2023 y media de 6 píxel(es) de 1 km en el AOI. El índice responde sobre todo al cuarzo: el granito y la dacita quedan cerca del basalto, y las arcillas de una playa lo suben.",
+      "observed_at": "2023-05/2023-08",
+      "resolution_m": 1000
+    },
+    "ice": {
+      "value": 0,
+      "status": "measured",
+      "source": "NASA POWER, humedad del suelo superficial GWETTOP de MERRA-2 (climatología); sustituto abierto de SMAP SPL3SMP_E",
+      "source_url": "https://power.larc.nasa.gov/",
+      "method": "pipeline/earth_ice_dust.py: humedad relativa media anual 0.21 (meses 0.1–0.33); mes más frío 12.37 °C. Clase 0 = seco (media < 0.4, ningún mes ≥ 0.6 y sin congelamiento). Celda de ~50 km: valor regional.",
+      "resolution_m": 50000
+    },
+    "dust": {
+      "value": 0.532,
+      "status": "measured",
+      "source": "SoilGrids 2.0 (ISRIC), limo + arcilla, 0–5 cm, 250 m",
+      "source_url": "https://soilgrids.org/",
+      "method": "pipeline/earth_ice_dust.py: (limo 269.5 + arcilla 262.8 g/kg)/1000, media del AOI. SoilGrids es un modelo predictivo: en roca desnuda (sierras, coladas) estima el suelo que habría, no lo observa.",
+      "resolution_m": 250
+    },
+    "craters": {
+      "value": 0.0929,
+      "status": "measured",
+      "source": "Copernicus DEM GLO-30 a 60 m",
+      "source_url": "https://registry.opendata.aws/copernicus-dem/",
+      "method": "pipeline/morphometry_hd.py dome: altura/diámetro del domo de dacita: 206.3 m / 2220 m. Para domos y conos el eje 9 usa h/D, el análogo de d/D en formas positivas.",
+      "resolution_m": 60
+    }
+  },
+  "gruithuisen": {
+    "aridity": {
+      "value": 0,
+      "status": "reference",
+      "source": "Convención didáctica del ILS: referencia lunar de vegetación = 0. Este valor carece de una observación espectral."
+    },
+    "slope": {
+      "value": 0.5795,
+      "status": "measured",
+      "source": "LROC NAC DTM GRUITHUI_2M (mosaico de 2 m/px) re-muestreado a 30 m",
+      "source_url": "https://data.lroc.im-ldi.com/lroc/view_rdr/NAC_DTM_GRUITHUI_2M",
+      "method": "pipeline/slope_fsafe.py: Horn 3×3 sobre malla común de 30 m (nativo 2.0 m/px, average); f_safe = fracción del AOI (r = 2000 m, cobertura 100%) con pendiente < 10°. Pendiente media 9.34°, p90 17.64°.",
+      "resolution_m": 30.0
+    },
+    "thermal": {
+      "value": 283.8,
+      "status": "measured",
+      "source": "LRO Diviner GCP (Williams et al. 2017), temperatura bolométrica acumulada 2009–2015",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gcp/",
+      "method": "pipeline/diviner_lunar.py: ΔT = T_max − T_min de la curva diurna media (96 intervalos de 0.25 h) en la celda de 0.5° centrada en 36.25°, -40.75°: T_max 374.5 K a las 12.6 h, T_min 90.8 K a las 5.1 h (T(12:00) − T(05:30) = 283.1 K). La celda mide ~15 km: valor regional de contexto.",
+      "observed_at": "2009-07/2015-04",
+      "resolution_m": 15160
+    },
+    "albedo": {
+      "value": 0.1061,
+      "status": "measured",
+      "source": "LRO Diviner GDR L2, reflectancia del canal 1 (0.35–2.8 µm) cerca del mediodía",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l2/",
+      "method": "pipeline/diviner_lunar.py: I/F en nadir a 128 ppd (~237 m) normalizado a incidencia 0 con Lommel–Seeliger; media del AOI por mapa y mediana de 5 mapas observados a ±1.5 h del mediodía (2012-03-23, 2013-02-13, 2013-03-12, 2015-07-18, 2015-08-15); 0 mapa(s) atípico(s) descartado(s) por 3·MAD. Rango 0.1017–0.1145; I/F sin normalizar 0.0917.",
+      "observed_at": "2010-2016",
+      "resolution_m": 237
+    },
+    "roughness": {
+      "raw": {
+        "value": 0.5043,
+        "units": "CPR",
+        "instrument": "LRO Mini-RF, banda S"
+      },
+      "status": "measured",
+      "source": "LRO Mini-RF, mosaico global de razón de polarización circular (CPR), banda S, 32 ppd",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/",
+      "method": "pipeline/moon_cpr_cf.py: CPR medio de 18 píxel(es) de ~948 m en el AOI. Percentil dentro de todo el mosaico lunar ponderado por área (1001 cuantiles).",
+      "resolution_m": 948
+    },
+    "mineralogy": {
+      "raw": {
+        "value": 7.943,
+        "units": "µm",
+        "instrument": "Diviner Christiansen Feature (NEN)"
+      },
+      "calibration": {
+        "felsic": 8.135,
+        "mafic": 8.345,
+        "source": "Anclas del mismo producto: félsico = moda del CF en tierras altas feldespáticas de la cara oculta (8.135 µm); máfico = moda en Imbrium, Serenitatis oriental, Tranquillitatis oriental y Crisium (8.345 µm)."
+      },
+      "status": "measured",
+      "source": "LRO Diviner GDR L3, posición de la Christiansen Feature (versión NEN), 32 ppd",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/",
+      "method": "pipeline/moon_cpr_cf.py: mediana de 11 píxel(es) de ~948 m a menos de 4 km del centro (cuartiles 7.765–8.046 µm). Diviner enmascara el CF en pendientes fuertes y cráteres frescos, así que el radio crece hasta reunir 5 píxeles. El CF también baja con suelos inmaduros (eyecta fresca), no solo con la composición.",
+      "resolution_m": 948
+    },
+    "ice": {
+      "value": 0,
+      "status": "reference",
+      "source": "Paige et al. (2010): fuera de los polos no hay trampas frías; Diviner GCP como verificación",
+      "source_url": "https://doi.org/10.1126/science.1187726",
+      "method": "Temperatura máxima diurna de Diviner GCP 374.5 K, muy por encima del umbral de estabilidad del hielo (~110 K)."
+    },
+    "dust": {
+      "value": 0.464,
+      "status": "literature",
+      "source": "Carrier (2003), Particle Size Distribution of Lunar Soil; abundancia de rocas de Diviner (Bandfield et al. 2011)",
+      "source_url": "https://doi.org/10.1061/(ASCE)1090-0241(2003)129:10(956)",
+      "method": "Suelos Apolo: distribución log-normal con mediana de ~70 µm y 10–20 % bajo 20 µm → 46.5 % bajo 63 µm. Se descuenta la fracción cubierta por rocas de Diviner RA = 0.0028 (279 píxeles de 237 m)."
+    },
+    "craters": {
+      "value": 0.0708,
+      "status": "measured",
+      "source": "SLDEM2015 a 60 m",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/sldem2015/",
+      "method": "pipeline/morphometry_hd.py dome: altura/diámetro del domo Gruithuisen Gamma: 1797.2 m / 25380 m, con la misma regla que en Cerro Prieto.",
+      "resolution_m": 60
+    }
+  },
+  "laguna_salada": {
+    "aridity": {
+      "value": 0.0545,
+      "status": "measured",
+      "source": "Sentinel-2 L2A (Earth Search, AWS), NDVI = (B8 − B4)/(B8 + B4)",
+      "source_url": "https://registry.opendata.aws/sentinel-2-l2a-cogs/",
+      "method": "pipeline/s2_aoi_stats.py: mediana del AOI por escena y mediana de 6 escenas de mayo a agosto de 2024 (2024-05-04, 2024-05-14, 2024-05-29, 2024-07-03, 2024-08-02, 2024-08-27). Máscaras: SCL 0, 1, 3, 8, 9, 10, 11 y agua (SCL 6). Vegetación (NDVI > 0.2) hasta 0.0% del AOI en temporada seca (0.4% en el año); sin ella, NDVI = 0.0545. Máximo anual 2024 (mediana de escena): 0.0945 en 17 escenas.",
+      "observed_at": "2024-05/2024-08",
+      "resolution_m": 10
+    },
+    "albedo": {
+      "value": 0.3271,
+      "status": "measured",
+      "source": "Sentinel-2 L2A (Earth Search, AWS), albedo de banda ancha de Liang (2001)",
+      "source_url": "https://registry.opendata.aws/sentinel-2-l2a-cogs/",
+      "method": "pipeline/s2_aoi_stats.py: α = 0.356·B2 + 0.130·B4 + 0.373·B8 + 0.085·B11 + 0.072·B12 − 0.0018; mediana del AOI por escena y mediana de 6 escenas de mayo a agosto de 2024 (2024-05-04, 2024-05-14, 2024-05-29, 2024-07-03, 2024-08-02, 2024-08-27). Máscaras: SCL 0, 1, 3, 8, 9, 10, 11 y agua (SCL 6), más vegetación (NDVI > 0.2). Rango entre escenas 0.2992–0.3358.",
+      "observed_at": "2024-05/2024-08",
+      "resolution_m": 10
+    },
+    "slope": {
+      "value": 1.0,
+      "status": "measured",
+      "source": "Copernicus DEM GLO-30, UTM 11N (EPSG:32611), promediado a 60 m",
+      "source_url": "https://registry.opendata.aws/copernicus-dem/",
+      "method": "pipeline/slope_fsafe.py: Horn 3×3 sobre malla común de 60 m (nativo 30.89 m/px, average); f_safe = fracción del AOI (r = 5000 m, cobertura 100%) con pendiente < 10°. Pendiente media 0.06°, p90 0.1°. Se compara a 60 m porque el NAC DTM de Apolo 11 solo cubre el 49 % del AOI lunar; a 30 m da el mismo f_safe (1.0).",
+      "resolution_m": 60.0
+    },
+    "thermal": {
+      "value": 30.52,
+      "status": "measured",
+      "source": "Aqua MODIS MYD11A2 v061 (Microsoft Planetary Computer), LST_Day_1km − LST_Night_1km",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/modis-11A2-061",
+      "method": "pipeline/modis_lst_amplitude.py: ΔT = (LST_Day − LST_Night)·0.02 en píxeles con QC aceptable (error ≤ 2 K) de día y de noche; media del AOI (90 píxeles de 1 km) por compuesto de 8 días y media de 40 compuestos de 2023. Rango estacional 20.4–39.79 K. Pasos de Aqua ≈ 13:30 y 01:30.",
+      "observed_at": "2023",
+      "resolution_m": 1000
+    },
+    "roughness": {
+      "raw": {
+        "value": -8.384,
+        "units": "dB",
+        "instrument": "Sentinel-1 RTC, CR = γ⁰VH/γ⁰VV"
+      },
+      "status": "measured",
+      "source": "Sentinel-1 GRD IW con corrección radiométrica de terreno (RTC), Microsoft Planetary Computer",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/sentinel-1-rtc",
+      "method": "pipeline/s1_roughness.py: CR = 10·log10(⟨γ⁰VH⟩/⟨γ⁰VV⟩) en el AOI; mediana de 3 escenas descendentes de julio–agosto de 2024 (-8.556, -8.384, -8.145 dB). Percentil dentro de 278764 celdas de 1 km de desierto del NO de México (ESA WorldCover 20, 30, 60).",
+      "observed_at": "2024-07/2024-08",
+      "resolution_m": 10
+    },
+    "mineralogy": {
+      "raw": {
+        "value": 0.9988,
+        "units": "ε29/ε31",
+        "instrument": "MODIS MOD21A2/MYD21A2"
+      },
+      "calibration": {
+        "felsic": 0.8411,
+        "mafic": 1.0222,
+        "source": "Anclas del mismo producto: félsico = erg de cuarzo y feldespato del Gran Desierto (círculo de 10 km en 32.271° N, -114.686°; ε29/ε31 = 0.8411); máfico = campo de lava basáltica del Pinacate (anillo de 6–15 km de la cumbre; 1.0222)."
+      },
+      "status": "measured",
+      "source": "Emisividad MODIS MOD21A2/MYD21A2 v061 (8.55 µm / 11 µm), Planetary Computer; sustituto abierto de ASTER GED AG100",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/modis-21A2-061",
+      "method": "pipeline/earth_mineralogy.py: mediana por píxel de 32 compuestos de mayo a agosto de 2023 y media de 93 píxel(es) de 1 km en el AOI. El índice responde sobre todo al cuarzo: el granito y la dacita quedan cerca del basalto, y las arcillas de una playa lo suben.",
+      "observed_at": "2023-05/2023-08",
+      "resolution_m": 1000
+    },
+    "ice": {
+      "value": 0,
+      "status": "measured",
+      "source": "NASA POWER, humedad del suelo superficial GWETTOP de MERRA-2 (climatología); sustituto abierto de SMAP SPL3SMP_E",
+      "source_url": "https://power.larc.nasa.gov/",
+      "method": "pipeline/earth_ice_dust.py: humedad relativa media anual 0.2 (meses 0.09–0.32); mes más frío 12.7 °C. Clase 0 = seco (media < 0.4, ningún mes ≥ 0.6 y sin congelamiento). Celda de ~50 km: valor regional.",
+      "resolution_m": 50000
+    },
+    "dust": {
+      "value": 0.526,
+      "status": "measured",
+      "source": "SoilGrids 2.0 (ISRIC), limo + arcilla, 0–5 cm, 250 m",
+      "source_url": "https://soilgrids.org/",
+      "method": "pipeline/earth_ice_dust.py: (limo 289.1 + arcilla 237.0 g/kg)/1000, media del AOI. SoilGrids es un modelo predictivo: en roca desnuda (sierras, coladas) estima el suelo que habría, no lo observa.",
+      "resolution_m": 250
+    }
+  },
+  "tranquillitatis_apollo11": {
+    "aridity": {
+      "value": 0,
+      "status": "reference",
+      "source": "Convención didáctica del ILS: referencia lunar de vegetación = 0. Este valor carece de una observación espectral."
+    },
+    "albedo": {
+      "value": 0.0857,
+      "status": "measured",
+      "source": "LRO Diviner GDR L2, reflectancia del canal 1 (0.35–2.8 µm) cerca del mediodía",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l2/",
+      "method": "pipeline/diviner_lunar.py: I/F en nadir a 128 ppd (~237 m) normalizado a incidencia 0 con Lommel–Seeliger; media del AOI por mapa y mediana de 8 mapas observados a ±1.5 h del mediodía (2010-09-10, 2011-08-30, 2012-03-23, 2013-09-05, 2015-01-22, 2015-07-18, 2015-08-15, 2016-02-08); 1 mapa(s) atípico(s) descartado(s) por 3·MAD. Rango 0.0798–0.0955; I/F sin normalizar 0.0844.",
+      "observed_at": "2010-2016",
+      "resolution_m": 237
+    },
+    "slope": {
+      "value": 0.9802,
+      "status": "measured",
+      "source": "SLDEM2015 (LOLA + SELENE TC, 512 ppd ≈ 59 m), promediado a 60 m",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/sldem2015/",
+      "method": "pipeline/slope_fsafe.py: Horn 3×3 sobre malla común de 60 m (nativo 59.23 m/px, average); f_safe = fracción del AOI (r = 5000 m, cobertura 100%) con pendiente < 10°. Pendiente media 2.39°, p90 4.25°. Par a 60 m: el NAC DTM APOLLO11 solo cubre el 49 % del AOI; en esa franja da 0.974 a 60 m.",
+      "resolution_m": 60.0
+    },
+    "thermal": {
+      "value": 300.4,
+      "status": "measured",
+      "source": "LRO Diviner GCP (Williams et al. 2017), temperatura bolométrica acumulada 2009–2015",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gcp/",
+      "method": "pipeline/diviner_lunar.py: ΔT = T_max − T_min de la curva diurna media (96 intervalos de 0.25 h) en la celda de 0.5° centrada en 0.75°, 23.25°: T_max 395.6 K a las 12.1 h, T_min 95.2 K a las 5.9 h (T(12:00) − T(05:30) = 300.3 K). La celda mide ~15 km: valor regional de contexto.",
+      "observed_at": "2009-07/2015-04",
+      "resolution_m": 15160
+    },
+    "roughness": {
+      "raw": {
+        "value": 0.4569,
+        "units": "CPR",
+        "instrument": "LRO Mini-RF, banda S"
+      },
+      "status": "measured",
+      "source": "LRO Mini-RF, mosaico global de razón de polarización circular (CPR), banda S, 32 ppd",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/",
+      "method": "pipeline/moon_cpr_cf.py: CPR medio de 71 píxel(es) de ~948 m en el AOI. Percentil dentro de todo el mosaico lunar ponderado por área (1001 cuantiles).",
+      "resolution_m": 948
+    },
+    "mineralogy": {
+      "raw": {
+        "value": 8.296,
+        "units": "µm",
+        "instrument": "Diviner Christiansen Feature (NEN)"
+      },
+      "calibration": {
+        "felsic": 8.135,
+        "mafic": 8.345,
+        "source": "Anclas del mismo producto: félsico = moda del CF en tierras altas feldespáticas de la cara oculta (8.135 µm); máfico = moda en Imbrium, Serenitatis oriental, Tranquillitatis oriental y Crisium (8.345 µm)."
+      },
+      "status": "measured",
+      "source": "LRO Diviner GDR L3, posición de la Christiansen Feature (versión NEN), 32 ppd",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/",
+      "method": "pipeline/moon_cpr_cf.py: mediana de 87 píxel(es) de ~948 m a menos de 5 km del centro (cuartiles 8.279–8.309 µm). Diviner enmascara el CF en pendientes fuertes y cráteres frescos, así que el radio crece hasta reunir 5 píxeles. El CF también baja con suelos inmaduros (eyecta fresca), no solo con la composición.",
+      "resolution_m": 948
+    },
+    "ice": {
+      "value": 0,
+      "status": "reference",
+      "source": "Paige et al. (2010): fuera de los polos no hay trampas frías; Diviner GCP como verificación",
+      "source_url": "https://doi.org/10.1126/science.1187726",
+      "method": "Temperatura máxima diurna de Diviner GCP 395.6 K, muy por encima del umbral de estabilidad del hielo (~110 K)."
+    },
+    "dust": {
+      "value": 0.463,
+      "status": "literature",
+      "source": "Carrier (2003), Particle Size Distribution of Lunar Soil; abundancia de rocas de Diviner (Bandfield et al. 2011)",
+      "source_url": "https://doi.org/10.1061/(ASCE)1090-0241(2003)129:10(956)",
+      "method": "Suelos Apolo: distribución log-normal con mediana de ~70 µm y 10–20 % bajo 20 µm → 46.5 % bajo 63 µm. Se descuenta la fracción cubierta por rocas de Diviner RA = 0.004 (1399 píxeles de 237 m)."
+    }
+  },
+  "sierra_cucapa": {
+    "slope": {
+      "value": 0.0199,
+      "status": "measured",
+      "source": "Copernicus DEM GLO-30, re-proyectado a UTM 11N (EPSG:32611) y re-muestreado a 30 m",
+      "source_url": "https://registry.opendata.aws/copernicus-dem/",
+      "method": "pipeline/slope_fsafe.py: Horn 3×3 sobre malla común de 30 m (nativo 30.89 m/px, bilinear); f_safe = fracción del AOI (r = 2500 m, cobertura 100%) con pendiente < 10°. Pendiente media 31.38°, p90 40.73°.",
+      "resolution_m": 30.0
+    },
+    "albedo": {
+      "value": 0.2721,
+      "status": "measured",
+      "source": "Sentinel-2 L2A (Earth Search, AWS), albedo de banda ancha de Liang (2001)",
+      "source_url": "https://registry.opendata.aws/sentinel-2-l2a-cogs/",
+      "method": "pipeline/s2_aoi_stats.py: α = 0.356·B2 + 0.130·B4 + 0.373·B8 + 0.085·B11 + 0.072·B12 − 0.0018; mediana del AOI por escena y mediana de 6 escenas de mayo a agosto de 2024 (2024-05-04, 2024-05-19, 2024-06-13, 2024-07-03, 2024-08-02, 2024-08-27). Máscaras: SCL 0, 1, 3, 8, 9, 10, 11 y agua (SCL 6), más vegetación (NDVI > 0.2). Rango entre escenas 0.2602–0.286.",
+      "observed_at": "2024-05/2024-08",
+      "resolution_m": 10
+    },
+    "aridity": {
+      "value": 0.0633,
+      "status": "measured",
+      "source": "Sentinel-2 L2A (Earth Search, AWS), NDVI = (B8 − B4)/(B8 + B4)",
+      "source_url": "https://registry.opendata.aws/sentinel-2-l2a-cogs/",
+      "method": "pipeline/s2_aoi_stats.py: mediana del AOI por escena y mediana de 6 escenas de mayo a agosto de 2024 (2024-05-04, 2024-05-19, 2024-06-13, 2024-07-03, 2024-08-02, 2024-08-27). Máscaras: SCL 0, 1, 3, 8, 9, 10, 11 y agua (SCL 6). Vegetación (NDVI > 0.2) hasta 0.0% del AOI en temporada seca (21.2% en el año); sin ella, NDVI = 0.0633. Máximo anual 2024 (mediana de escena): 0.1345 en 16 escenas.",
+      "observed_at": "2024-05/2024-08",
+      "resolution_m": 10
+    },
+    "thermal": {
+      "value": 16.82,
+      "status": "measured",
+      "source": "Aqua MODIS MYD11A2 v061 (Microsoft Planetary Computer), LST_Day_1km − LST_Night_1km",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/modis-11A2-061",
+      "method": "pipeline/modis_lst_amplitude.py: ΔT = (LST_Day − LST_Night)·0.02 en píxeles con QC aceptable (error ≤ 2 K) de día y de noche; media del AOI (23 píxeles de 1 km) por compuesto de 8 días y media de 42 compuestos de 2023. Rango estacional 8.28–22.39 K. Pasos de Aqua ≈ 13:30 y 01:30.",
+      "observed_at": "2023",
+      "resolution_m": 1000
+    },
+    "roughness": {
+      "raw": {
+        "value": -7.016,
+        "units": "dB",
+        "instrument": "Sentinel-1 RTC, CR = γ⁰VH/γ⁰VV"
+      },
+      "status": "measured",
+      "source": "Sentinel-1 GRD IW con corrección radiométrica de terreno (RTC), Microsoft Planetary Computer",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/sentinel-1-rtc",
+      "method": "pipeline/s1_roughness.py: CR = 10·log10(⟨γ⁰VH⟩/⟨γ⁰VV⟩) en el AOI; mediana de 3 escenas descendentes de julio–agosto de 2024 (-7.074, -7.016, -6.914 dB). Percentil dentro de 278764 celdas de 1 km de desierto del NO de México (ESA WorldCover 20, 30, 60).",
+      "observed_at": "2024-07/2024-08",
+      "resolution_m": 10
+    },
+    "mineralogy": {
+      "raw": {
+        "value": 0.9815,
+        "units": "ε29/ε31",
+        "instrument": "MODIS MOD21A2/MYD21A2"
+      },
+      "calibration": {
+        "felsic": 0.8411,
+        "mafic": 1.0222,
+        "source": "Anclas del mismo producto: félsico = erg de cuarzo y feldespato del Gran Desierto (círculo de 10 km en 32.271° N, -114.686°; ε29/ε31 = 0.8411); máfico = campo de lava basáltica del Pinacate (anillo de 6–15 km de la cumbre; 1.0222)."
+      },
+      "status": "measured",
+      "source": "Emisividad MODIS MOD21A2/MYD21A2 v061 (8.55 µm / 11 µm), Planetary Computer; sustituto abierto de ASTER GED AG100",
+      "source_url": "https://planetarycomputer.microsoft.com/dataset/modis-21A2-061",
+      "method": "pipeline/earth_mineralogy.py: mediana por píxel de 32 compuestos de mayo a agosto de 2023 y media de 23 píxel(es) de 1 km en el AOI. El índice responde sobre todo al cuarzo: el granito y la dacita quedan cerca del basalto, y las arcillas de una playa lo suben.",
+      "observed_at": "2023-05/2023-08",
+      "resolution_m": 1000
+    },
+    "ice": {
+      "value": 0,
+      "status": "measured",
+      "source": "NASA POWER, humedad del suelo superficial GWETTOP de MERRA-2 (climatología); sustituto abierto de SMAP SPL3SMP_E",
+      "source_url": "https://power.larc.nasa.gov/",
+      "method": "pipeline/earth_ice_dust.py: humedad relativa media anual 0.2 (meses 0.09–0.32); mes más frío 12.7 °C. Clase 0 = seco (media < 0.4, ningún mes ≥ 0.6 y sin congelamiento). Celda de ~50 km: valor regional.",
+      "resolution_m": 50000
+    },
+    "dust": {
+      "value": 0.453,
+      "status": "measured",
+      "source": "SoilGrids 2.0 (ISRIC), limo + arcilla, 0–5 cm, 250 m",
+      "source_url": "https://soilgrids.org/",
+      "method": "pipeline/earth_ice_dust.py: (limo 256.0 + arcilla 197.4 g/kg)/1000, media del AOI. SoilGrids es un modelo predictivo: en roca desnuda (sierras, coladas) estima el suelo que habría, no lo observa.",
+      "resolution_m": 250
+    }
+  },
+  "shackleton": {
+    "aridity": {
+      "value": 0,
+      "status": "reference",
+      "source": "Convención didáctica del ILS: referencia lunar de vegetación = 0. Este valor carece de una observación espectral."
+    },
+    "slope": {
+      "value": 0.2098,
+      "status": "measured",
+      "source": "LROC NAC DTM ESALL_SR12 (2 m/px, estereográfica polar) re-muestreado a 30 m",
+      "source_url": "https://data.lroc.im-ldi.com/lroc/view_rdr/NAC_DTM_ESALL_SR12",
+      "method": "pipeline/slope_fsafe.py: Horn 3×3 sobre malla común de 30 m (nativo 2.0 m/px, average); f_safe = fracción del AOI (r = 900 m, cobertura 99%) con pendiente < 10°. Pendiente media 16.54°, p90 29.2°.",
+      "resolution_m": 30.0
+    },
+    "thermal": {
+      "value": 84.0,
+      "status": "measured",
+      "source": "LRO Diviner PCP polar (Williams et al. 2019), temperatura bolométrica a 240 m, 2009–2019",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_pcp/",
+      "method": "pipeline/diviner_lunar.py: media del AOI en cada una de las 24 horas locales, en verano y en invierno; ΔT = media de las amplitudes diurnas (verano 72.4 K, invierno 95.7 K). Extremos anuales: máx. de verano 209.9 K, mín. de invierno 77.6 K (rango 132.3 K).",
+      "observed_at": "2009-07/2019-02",
+      "resolution_m": 240
+    },
+    "roughness": {
+      "raw": {
+        "value": 0.7419,
+        "units": "CPR",
+        "instrument": "LRO Mini-RF, banda S"
+      },
+      "status": "measured",
+      "source": "LRO Mini-RF, mosaico global de razón de polarización circular (CPR), banda S, 32 ppd",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/",
+      "method": "pipeline/moon_cpr_cf.py: CPR medio de 848 píxel(es) de ~948 m en el AOI. Percentil dentro de todo el mosaico lunar ponderado por área (1001 cuantiles).",
+      "resolution_m": 948
+    },
+    "mineralogy": {
+      "value": 0.0,
+      "status": "literature",
+      "source": "Gawronska et al. (2020) y Haruyama et al. (2013): anortosita pura (PAN) expuesta en el borde y la pared de Shackleton",
+      "source_url": "https://doi.org/10.1016/j.asr.2020.05.035",
+      "method": "Diviner no mide el CF a más de 60° de latitud. La anortosita es el extremo feldespático de la escala, igual que el ancla félsica lunar, así que se asigna 0."
+    },
+    "albedo": {
+      "value": 0.3845,
+      "status": "measured",
+      "source": "LRO LOLA, albedo normal a 1064 nm (Lemelin et al. 2016), mapa polar sur de 1 km/píxel (LDAM_50S_1000M)",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/polar/float_img/",
+      "method": "Media de 4 píxeles de 1 km en el AOI (0.377–0.396). LOLA es un láser activo y no depende de la iluminación rasante del polo. Es albedo a una sola longitud de onda (1064 nm), no de banda ancha: la Luna refleja más en el infrarrojo cercano, así que tiende a ser mayor que el albedo de Diviner de los otros sitios.",
+      "resolution_m": 1000
+    },
+    "ice": {
+      "value": 1,
+      "status": "measured",
+      "source": "LRO Diviner, producto polar de recursos PRP (modelo térmico calibrado con Diviner, Paige et al.)",
+      "source_url": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_prp/",
+      "method": "19 triángulos del modelo en el AOI del borde: T_max 209–251 K (ninguno < 110 K, sin hielo superficial); el hielo es estable bajo la superficie, a ~0.57 m, solo en el 10 % del área → clase 1. Contexto: el interior del cráter (5 km) tiene T_max de 87 K y sería clase 3."
+    },
+    "dust": {
+      "value": 0.465,
+      "status": "literature",
+      "source": "Carrier (2003), Particle Size Distribution of Lunar Soil; abundancia de rocas de Diviner (Bandfield et al. 2011)",
+      "source_url": "https://doi.org/10.1061/(ASCE)1090-0241(2003)129:10(956)",
+      "method": "Suelos Apolo: distribución log-normal con mediana de ~70 µm y 10–20 % bajo 20 µm → 46.5 % bajo 63 µm. Sin abundancia de rocas de Diviner a más de 80° de latitud: se usa el valor de los suelos Apolo."
+    }
+  }
+}

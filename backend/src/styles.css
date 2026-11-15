@@ -1,0 +1,267 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #eef3ff;
+  background: #0b1427;
+  line-height: 1.55;
+}
+
+.explorer-controls { display:flex; flex-wrap:wrap; gap:1rem; margin-block:1rem; }
+.explorer-controls select { font:inherit; padding:0.4rem; color:#eef3ff; background:#142340; border:1px solid #7db4ef; border-radius:0.4rem; }
+.baja-card { margin-block:1rem; }
+.baja-card details { margin-block:0.8rem; }
+.baja-card summary { cursor:pointer; color:#b7d9ff; }
+.baja-card fieldset { border:1px solid #446188; }
+.quiz-option { display:block; margin-block:0.5rem; }
+.quiz-option input { margin-inline-end:0.5rem; }
+select:focus-visible, summary:focus-visible, input:focus-visible { outline:2px solid #eef3ff; outline-offset:3px; }
+
+main {
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+section {
+  margin-block: 2rem;
+}
+
+article, li {
+  background: #142340;
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+}
+
+h3 {
+  margin-block: 0 0.55rem;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-block-start: 1rem;
+  border-radius: 0.5rem;
+}
+
+ol {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  gap: 1rem;
+  padding-inline-start: 1.5rem;
+}
+
+li::marker {
+  font-weight: 700;
+  color: #b7d9ff;
+}
+
+a {
+  color: #b7d9ff;
+}
+
+.explorer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.explorer-nav a {
+  padding: 0.3rem 0.75rem;
+  background: #142340;
+  border: 1px solid #446188;
+  border-radius: 0.5rem;
+  text-underline-offset: 0.2em;
+}
+
+a:focus-visible {
+  outline: 2px solid #eef3ff;
+  outline-offset: 3px;
+}
+
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  align-items: start;
+  gap: 1rem;
+}
+
+.evidence-card h4,
+.analogy h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+.evidence-figure {
+  margin: 0;
+}
+
+.evidence-figure img {
+  width: 100%;
+  margin-block-start: 0.5rem;
+}
+
+.evidence-figure figcaption,
+.evidence-meta {
+  font-size: 0.9rem;
+  color: #cbdaf0;
+}
+
+.evidence-figure figcaption {
+  margin-block-start: 0.4rem;
+}
+
+.evidence-meta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.3rem 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.evidence-meta dt {
+  font-weight: 700;
+}
+
+.evidence-meta dd {
+  margin: 0;
+}
+
+.thermal-samples {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.thermal-samples caption {
+  color: #cbdaf0;
+  text-align: left;
+  margin-block: 0.25rem;
+}
+
+.thermal-samples th,
+.thermal-samples td {
+  text-align: left;
+  padding: 0.35rem;
+  border-bottom: 1px solid #446188;
+}
+
+.analogy {
+  margin-block-start: 1rem;
+  padding-inline-start: 1rem;
+  border-inline-start: 2px solid #7db4ef;
+}
+
+.analogy p {
+  margin: 0 0 0.85rem;
+}
+
+.lunar-picker {
+  display: grid;
+  gap: 0.375rem;
+  max-width: 32rem;
+  margin-block: 1rem 1.5rem;
+  font-weight: 700;
+}
+
+.lunar-picker select {
+  min-width: 0;
+  padding: 0.65rem 0.75rem;
+  color: inherit;
+  background: #142340;
+  font: inherit;
+  border: 1px solid #7595c0;
+  border-radius: 0.5rem;
+}
+
+.lunar-site-label {
+  margin: 0 0 0.35rem;
+  color: #b7d9ff;
+  font-weight: 700;
+}
+
+#lunar-analogs article h4 {
+  margin: 0;
+}
+
+.lunar-result,
+.lunar-warning {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #142340;
+}
+
+.lunar-warning {
+  border-inline-start: 0.25rem solid #ffd88e;
+  color: #ffe0a6;
+}
+
+.lunar-table-wrap {
+  overflow-x: auto;
+  margin-block: 1rem;
+  border-radius: 0.5rem;
+}
+
+.lunar-picker select:focus-visible,
+.lunar-table-wrap:focus-visible {
+  outline: 2px solid #eef3ff;
+  outline-offset: 3px;
+}
+
+.lunar-axes {
+  width: 100%;
+  min-width: 38rem;
+  border-collapse: collapse;
+  background: #142340;
+  text-align: start;
+  font-variant-numeric: tabular-nums;
+}
+
+.lunar-axes th,
+.lunar-axes td {
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1px solid #3a5275;
+  text-align: start;
+  vertical-align: top;
+}
+
+.lunar-axes small {
+  display: block;
+  margin-top: 0.25rem;
+  font-weight: normal;
+}
+
+.lunar-axes meter {
+  display: block;
+  width: 100%;
+  min-width: 5rem;
+  margin-top: 0.25rem;
+}
+
+.lunar-note,
+.lunar-axes small {
+  color: #cbdaf0;
+}
+
+.lunar-badge {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 0.3rem;
+  background: #22395d;
+  color: #eef3ff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.lunar-badge[data-provisional="true"] {
+  background: #4d370f;
+  color: #ffe0a6;
+}

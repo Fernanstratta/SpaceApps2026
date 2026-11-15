@@ -1,0 +1,33 @@
+# Starman Space Explorer API
+
+> Public, read-only JSON API for planet content, Earth analog maps, curated Earth–Moon and Earth–Mars comparisons, and the nine-axis Lunar Similarity Index (ILS).
+
+Use the origin serving this file as the API base URL. For local development, run `npm ci` and `npm run dev:vercel` using Node.js 24. The default local origin is `http://localhost:3000`. The API has no version prefix and requires no API key or authentication.
+
+## Documentation
+
+- [OpenAPI 3.1](/docs/openapi.json): Authoritative machine-readable reference for documented methods, operation IDs, parameters, response schemas, and captured JSON examples.
+- [Interactive reference](/docs/index.html): Browse and search the endpoints, inspect fields, copy curl commands, and send GET requests. For a browser client, start on the API origin.
+- [Markdown documentation](https://github.com/ClydioSeven/Starman-Backend/blob/Main/docs/README.md): Repository guide with a task-to-endpoint quick reference, scientific provenance, ILS formulas, and React + TypeScript examples. Requires access to the repository.
+
+## Choose a route
+
+- Connectivity: `GET /api/health` returns `{"status":"ok"}`.
+- Space cards: `GET /api/planets` returns eight planet summaries. `GET /api/apod` returns the newest usable NASA entry or a bundled archive entry. Check `data.source` and the image's credit.
+- Maps and site pickers: `GET /api/locations?format=geojson` returns Earth points with longitude first. `GET /api/planetary?planet=Mars` or `planet=Moon` returns curated planetary sites.
+- Regional comparison: Start with `GET /api/analogs?planet=Mars` or `planet=Moon`. Pass the row's `earthLocationId` as `earth` and `planetaryLocationId` as `planetary` to `GET /api/compare`. Use `GET /api/rankings` for selectable weights and evidence coverage. Only curated pairs resolve.
+- Lunar ILS: Start with `GET /api/lunar-analogs`. Pass one exact `pair_id` as `id` to get the two sites, nine axis records, and educational context. Example: `GET /api/lunar-analogs?id=elegante_linne`.
+- Evidence: Use `GET /api/sources?id=<sourceId>` for claim and measurement citations, `GET /api/datasets` for dataset and portal metadata, and `GET /api/imagery?location=<locationId>` for imagery metadata. Preserve attribution and the source link.
+- Vercel aliases: `/api/analogs/{id}`, `/api/locations/{id}`, `/api/planets/mars`, and `/api/planets/moon` are equivalent to the corresponding parameterized regional requests.
+
+## Interpret responses and scores
+
+- Regional lists return `{data,meta}`. Pagination uses `page` and `limit`. An empty page returns HTTP 200 with an empty array. Detail usually returns `{data}`. GeoJSON returns `{type,features,meta}`. Health returns a top-level `status`.
+- Use exact IDs from the appropriate list. Regional IDs use hyphens and lunar pair IDs use underscores. Planet filters are case-sensitive. Regional handlers reject unknown query keys and repeated values.
+- Report a `null` score as pending or unavailable. Zero is a computed value. For lunar ILS, show `ils.data_completeness` as a percentage with `ils.axes_used`. For regional scoring, show `ranking.coverage` and `ranking.reason`. These are separate scoring systems.
+- The nine-axis lunar ILS uses only axes with two eligible values. Keep placeholders labeled and excluded, preserve each side's status and source, and treat `source_plan` as planned inputs.
+- Regional Earth coordinates are WGS84. Regional lunar and Martian longitudes use east-positive [0, 360). Lunar ILS site longitudes use east-positive [-180, 180]. Keep each body's markers in its own coordinate system.
+- Application errors have `{error:{code,message}}`. Use HTTP status and the stable error code in integrations. APOD can return HTTP 200 with archive content during an upstream failure.
+- All routes support GET with no request body. The eight regional handlers and their aliases support OPTIONS for browser preflight and emit cross-origin access headers only for origins configured in `STARMAN_ALLOWED_ORIGINS`. Use same-origin access for the four other routes.
+
+Use OpenAPI for the exact contract. Fetch the API when you need current catalog records or scores. Captured responses illustrate the contract at the documented baseline.

@@ -1,0 +1,83 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "cerro-prieto",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.305,
+          32.418
+        ]
+      },
+      "properties": {
+        "name": "Cerro Prieto geothermal region",
+        "country": "Mexico",
+        "state": "Baja California",
+        "region": "Mexicali Valley",
+        "coordinateRole": "GVP volcano reference point; not geothermal reservoir centroid",
+        "coordinateSourceIds": [
+          "gvp-cerro",
+          "cerro-alteration"
+        ],
+        "qualityFlags": [
+          "regional-marker-not-sampling-site",
+          "boundary-unavailable",
+          "source-datum-unspecified"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "algodones",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.1329,
+          32.98303333333333
+        ]
+      },
+      "properties": {
+        "name": "Algodones / Imperial Sand Dunes",
+        "country": "United States",
+        "state": "California",
+        "region": "Imperial County; Osborne Overlook",
+        "coordinateRole": "Osborne Overlook WGS84 reference point, converted from degrees and decimal minutes",
+        "coordinateSourceIds": [
+          "algodones-blm"
+        ],
+        "qualityFlags": [
+          "regional-marker-not-sampling-site",
+          "boundary-unavailable"
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "san-quintin",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.012,
+          30.467
+        ]
+      },
+      "properties": {
+        "name": "San Quintín Volcanic Field",
+        "country": "Mexico",
+        "state": "Baja California",
+        "region": "San Quintín Bay",
+        "coordinateRole": "GVP field reference point",
+        "coordinateSourceIds": [
+          "gvp-quintin"
+        ],
+        "qualityFlags": [
+          "regional-marker-not-sampling-site",
+          "boundary-unavailable",
+          "source-datum-unspecified"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "0": "spaceApi.ts",
+  "1": "spaceApiTypes.ts",
+  "2": "compilerOptions",
+  "3": "server/apod.ts",
+  "4": "package.json",
+  "5": "dependencies",
+  "6": "devDependencies",
+  "7": "scripts",
+  "8": "allowScripts",
+  "9": "vite",
+  "10": "vercel.json",
+  "11": "@playwright/test@^1.65.1",
+  "12": "@types/react@^19.3.0",
+  "13": "@types/react-dom@^19.3.0",
+  "14": "vercel@^65.2.0",
+  "15": "vite-env.d.ts"
+}

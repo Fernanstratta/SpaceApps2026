@@ -1,0 +1,95 @@
+[
+  {
+    "name": "Cráter Linné",
+    "region": "Noroeste de Mare Serenitatis, Luna",
+    "type_es": "Cráter de impacto simple (Copernicano)",
+    "lat": 27.73,
+    "lon": 11.79,
+    "aoi": {
+      "shape": "circle",
+      "radius_m": 1650,
+      "note": "Interior + borde del cráter (borde a ~1,115 m del centro)"
+    },
+    "facts": {
+      "diameter_m": 2230,
+      "depth_m": 520
+    },
+    "site_id": "linne",
+    "body": "moon",
+    "coordinate_status": "reference",
+    "coordinate_source_url": "https://planetarynames.wr.usgs.gov/Feature/3413"
+  },
+  {
+    "site_id": "marius_hills",
+    "body": "moon",
+    "name": "Marius Hills",
+    "region": "Oceanus Procellarum, Luna",
+    "type_es": "Campo volcánico",
+    "lat": 14.0917,
+    "lon": -56.7701,
+    "coordinate_status": "reference",
+    "aoi": {
+      "shape": "circle",
+      "radius_m": 5000,
+      "note": "Radio de trabajo provisional centrado en el pozo Marius Hills."
+    },
+    "facts": {},
+    "coordinate_source_url": "https://lroc.im-ldi.com/atlases/pits/1"
+  },
+  {
+    "site_id": "gruithuisen",
+    "body": "moon",
+    "name": "Domos de Gruithuisen",
+    "region": "Borde de Mare Imbrium, Luna",
+    "type_es": "Domos volcánicos silícicos",
+    "lat": 36.45715,
+    "lon": -40.79602,
+    "coordinate_status": "reference",
+    "aoi": {
+      "shape": "circle",
+      "radius_m": 2000,
+      "note": "Radio provisional. La referencia publicada está en el domo Gamma."
+    },
+    "facts": {},
+    "coordinate_source_url": "https://pubs.usgs.gov/publication/70278944"
+  },
+  {
+    "site_id": "tranquillitatis_apollo11",
+    "body": "moon",
+    "name": "Mare Tranquillitatis",
+    "region": "Sitio de alunizaje de Apolo 11, Luna",
+    "type_es": "Planicie basáltica",
+    "lat": 0.67416,
+    "lon": 23.47314,
+    "coordinate_status": "reference",
+    "aoi": {
+      "shape": "circle",
+      "radius_m": 5000,
+      "note": "Radio de trabajo provisional alrededor del módulo lunar."
+    },
+    "facts": {},
+    "coordinate_source_url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html"
+  },
+  {
+    "site_id": "shackleton",
+    "body": "moon",
+    "name": "Borde de Shackleton",
+    "region": "Polo sur lunar",
+    "type_es": "Borde de un cráter de impacto",
+    "lat": -89.7815,
+    "lon": -155.253,
+    "coordinate_status": "reference",
+    "aoi": {
+      "shape": "circle",
+      "radius_m": 900,
+      "note": "Tramo del borde de Shackleton centrado en la cresta (1739 m), en el sitio candidato de la ESA. Radio máximo con ≥ 99 % de cobertura del NAC DTM ESALL_SR12 (2 m/px). El centro del cráter (referencia cartográfica) está en 89.67° S, 129.78° E, a ~10.5 km."
+    },
+    "facts": {
+      "crater_center_lat": -89.67,
+      "crater_center_lon": 129.78,
+      "crest_to_center_m": 10471
+    },
+    "coordinate_source_url": "https://data.lroc.im-ldi.com/lroc/view_rdr/NAC_DTM_ESALL_SR12",
+    "coordinate_method": "Punto más alto del NAC DTM ESALL_SR12 sobre el borde (a 10.47 km del centro del cráter)."
+  }
+]

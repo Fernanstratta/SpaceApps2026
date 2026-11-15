@@ -1,6 +1,5 @@
 import { useId, useMemo, useState } from 'react';
-import { LunitaFeature } from '../components/mission/LunitaFeature';
-import { MissionFeature } from '../components/mission/MissionFeature';
+import { MissionsShowcase } from '../components/mission/MissionsShowcase';
 import { ImageCredits } from '../components/portal/ImageCredits';
 import { TopicRow } from '../components/portal/TopicRow';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
@@ -82,16 +81,16 @@ export function EducationalPortalPage() {
             ) : null}
           </div>
         </header>
+      </div>
 
-        {/* La misión destacada se oculta mientras se buscan módulos. */}
-        {isSearching ? null : (
-          <div className="portal__missions">
-            {/* Primero la misión de 12–17 años; justo debajo, la 4Kids (6–12). */}
-            <MissionFeature />
-            <LunitaFeature />
-          </div>
-        )}
+      {/*
+        Las misiones se ocultan mientras se buscan módulos. Primero la de
+        12–17 años; justo debajo, la 4Kids (6–12). Van en salas de ancho
+        completo (diseño «Museo»), en modo claro y en oscuro.
+      */}
+      {isSearching ? null : <MissionsShowcase />}
 
+      <div className="container">
         <p className={isSearching ? 'portal__count' : 'visually-hidden'} role="status">
           {isSearching ? PORTAL_TEXT.resultCount(resultCount) : ''}
         </p>

@@ -7,6 +7,7 @@ export const roverEn: RoverMissionText = {
     lab: 'Mission lab',
     title: 'Where would you test a rover before sending it to the Moon?',
     lead: 'Compare two craters on Earth with a crater on the Moon, choose where to rehearse a rover maneuver, and defend your decision with evidence.',
+    ages: 'Ages 12–17',
     badges: ['Free', 'No account', '45-minute class', 'Open data from NASA and other agencies'],
     startCta: 'Start mission',
     teachCta: 'Teach this class',

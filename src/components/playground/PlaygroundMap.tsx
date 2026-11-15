@@ -2,14 +2,16 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useEffect, useMemo, useRef } from 'react';
 import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet';
+import type { PairId } from '../../data/lunarAnalogs';
 import type { PlaygroundArea } from '../../data/playground';
 import { useMessages } from '../../i18n/I18nContext';
 
 export interface PlaygroundMapProps {
+  /** Áreas visibles (ya filtradas). Cada una conserva su número fijo. */
   areas: readonly PlaygroundArea[];
-  activeIndex: number;
-  onSelect: (index: number) => void;
-  /** Nombre accesible de cada marcador («Área 1: Cráter El Elegante»). */
+  activeId: PairId;
+  onSelect: (id: PairId) => void;
+  /** Nombre accesible de cada marcador visible, en el mismo orden que `areas`. */
   markerLabels: string[];
   /** Cambia (se incrementa) cada vez que se pide ver todas las áreas. */
   overview: number;
@@ -40,11 +42,11 @@ function KeepSize() {
   return null;
 }
 
-/** Encuadra todas las áreas cuando cambia `overview` (botón «Ver todas las áreas»). */
+/** Encuadra las áreas visibles cuando cambia `overview` (botón «Ver todas las áreas»). */
 function FitAll({ areas, overview }: { areas: readonly PlaygroundArea[]; overview: number }) {
   const map = useMap();
   useEffect(() => {
-    if (overview === 0) return;
+    if (overview === 0 || areas.length === 0) return;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     map.flyToBounds(
       areas.map((a) => [a.lat, a.lon] as [number, number]),
@@ -75,13 +77,13 @@ function FlyToActive({ area }: { area: PlaygroundArea }) {
  * mapa de ubicaciones del proyecto). Un marcador por área; al pulsarlo
  * (clic, toque o Enter con el teclado) se selecciona esa área.
  */
-export default function PlaygroundMap({ areas, activeIndex, onSelect, markerLabels, overview }: PlaygroundMapProps) {
+export default function PlaygroundMap({ areas, activeId, onSelect, markerLabels, overview }: PlaygroundMapProps) {
   const { LOCATION_TEXT } = useMessages();
-  const active = areas[activeIndex] ?? areas[0];
+  const active = areas.find((area) => area.id === activeId) ?? areas[0];
   const markerRefs = useRef<(L.Marker | null)[]>([]);
   const icons = useMemo(
-    () => areas.map((area, i) => markerIcon(i + 1, area, i === activeIndex)),
-    [areas, activeIndex],
+    () => areas.map((area) => markerIcon(area.number, area, area.id === activeId)),
+    [areas, activeId],
   );
 
   // Nombre accesible y estado de cada marcador (Leaflet ya los hace enfocables con role="button").
@@ -90,10 +92,11 @@ export default function PlaygroundMap({ areas, activeIndex, onSelect, markerLabe
     const el = markerRefs.current[i]?.getElement();
     if (!el) return;
     el.setAttribute('aria-label', markerLabels[i] ?? '');
-    el.setAttribute('aria-pressed', String(i === activeIndex));
+    el.setAttribute('aria-pressed', String(areas[i]?.id === activeId));
     el.removeAttribute('title');
   };
   useEffect(() => {
+    markerRefs.current.length = areas.length;
     markerRefs.current.forEach((_, i) => describe(i));
   });
 
@@ -124,13 +127,13 @@ export default function PlaygroundMap({ areas, activeIndex, onSelect, markerLabe
           position={[area.lat, area.lon]}
           icon={icons[i]!}
           keyboard
-          zIndexOffset={i === activeIndex ? 1000 : 0}
+          zIndexOffset={area.id === activeId ? 1000 : 0}
           eventHandlers={{
             add: () => describe(i),
-            click: () => onSelect(i),
+            click: () => onSelect(area.id),
             keypress: (event) => {
               const key = (event.originalEvent as KeyboardEvent).key;
-              if (key === 'Enter' || key === ' ') onSelect(i);
+              if (key === 'Enter' || key === ' ') onSelect(area.id);
             },
           }}
         />

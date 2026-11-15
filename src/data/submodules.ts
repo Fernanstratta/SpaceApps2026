@@ -1,38 +1,76 @@
-import type { Submodule, SubmoduleKey, TopicId } from '../types';
+import type { Submodule, SubmoduleKey, SubmoduleStage, TopicId } from '../types';
 
 /**
- * Submodules shown as cards in each topic's row of the Portal Educativo.
+ * Submodules of each comparative axis. Every axis follows the same learning
+ * progression (see `SubmoduleStage`): concept → measurement → analogs, in
+ * both the student and the teacher view. Several titles and photos come from
+ * the previous topics (e.g. «El clima en la Luna», «Huellas en el polvo
+ * lunar», «Salida de la Tierra») and were moved to the axis they illustrate.
  *
- * INITIAL DATA STATE
- * - Titles and tags are PROPOSALS for the team to review; rename freely.
- * - `summary` is `null`: no educational content is generated here.
+ * `summary` stays `null` until the team writes one.
  */
-export const submodules: Submodule[] = [
-  // Tamaño y escala
-  { id: 'tierra-desde-el-espacio', topicId: 'size-scale', title: 'La Tierra vista desde el espacio', tag: 'Astronomía', imageId: 'blue-marble', order: 1, summary: null },
-  { id: 'tierra-sobre-la-luna', topicId: 'size-scale', title: 'La Tierra, pequeña sobre la Luna', tag: 'Escala', imageId: 'first-earthrise', order: 2, summary: null },
-  // Gravedad
-  { id: 'saltar-en-la-luna', topicId: 'gravity', title: 'Saltar en la Luna', tag: 'Física', imageId: 'young-jump', order: 1, summary: null },
-  { id: 'caminar-con-menos-peso', topicId: 'gravity', title: 'Caminar con menos peso', tag: 'Física', imageId: 'aldrin', order: 2, summary: null },
-  // Superficie y terreno
-  { id: 'rocas-lunares-en-la-tierra', topicId: 'surface-terrain', title: 'Rocas lunares en la Tierra', tag: 'Geología', imageId: 'genesis-rock', order: 1, summary: null },
-  { id: 'huellas-en-el-polvo-lunar', topicId: 'surface-terrain', title: 'Huellas en el polvo lunar', tag: 'Geología', imageId: 'bootprint', order: 2, summary: null },
-  // Distancia entre la Tierra y la Luna
-  { id: 'salida-de-la-tierra', topicId: 'earth-moon-distance', title: 'Salida de la Tierra', tag: 'Astronomía', imageId: 'earthrise', order: 1, summary: null },
-  { id: 'medir-la-distancia-con-laser', topicId: 'earth-moon-distance', title: 'Medir la distancia con láser', tag: 'Física', imageId: 'laser-reflector', order: 2, summary: null },
-  // Temperatura
-  { id: 'el-clima-en-la-luna', topicId: 'temperature', title: 'El clima en la Luna', tag: 'Climatología', imageId: 'diviner-south-pole', order: 1, summary: null },
-  { id: 'mexico-visto-desde-el-espacio', topicId: 'temperature', title: 'México visto desde el espacio', tag: 'Geografía', imageId: 'mexico-from-iss', order: 2, summary: null },
-  // Cráteres de impacto
-  { id: 'crater-barringer', topicId: 'impact-craters', title: 'Cráter Barringer, Arizona', tag: 'Geología', imageId: 'barringer', order: 1, summary: null },
-  { id: 'crater-tycho', topicId: 'impact-craters', title: 'El cráter Tycho', tag: 'Astronomía', imageId: 'tycho', order: 2, summary: null },
-  // Atmósfera
-  { id: 'la-capa-que-nos-protege', topicId: 'atmosphere', title: 'La delgada capa que nos protege', tag: 'Meteorología', imageId: 'top-of-atmosphere', order: 1, summary: null },
-  { id: 'atardecer-desde-el-espacio', topicId: 'atmosphere', title: 'Atardecer desde el espacio', tag: 'Meteorología', imageId: 'iss-sunset', order: 2, summary: null },
-  // Agua y hielo
-  { id: 'icebergs-en-groenlandia', topicId: 'water-ice', title: 'Icebergs en Groenlandia', tag: 'Geografía', imageId: 'greenland-iceberg', order: 1, summary: null },
-  { id: 'hielo-marino-en-la-antartida', topicId: 'water-ice', title: 'Hielo marino en la Antártida', tag: 'Climatología', imageId: 'antarctic-sea-ice', order: 2, summary: null },
-];
+type SubmoduleSeed = [id: string, stage: SubmoduleStage, title: string, tag: string, imageId: string];
+
+const SEEDS: Record<TopicId, [SubmoduleSeed, SubmoduleSeed, SubmoduleSeed]> = {
+  slope: [
+    ['terreno-plano-para-aterrizar', 'concept', 'Terreno plano para aterrizar', 'Ingeniería', 'aldrin'],
+    ['medir-pendientes-desde-el-espacio', 'measurement', 'Medir pendientes desde el espacio', 'Cartografía', 'apollo11-lro'],
+    ['donde-si-y-donde-no-aterrizar', 'analogs', 'Dónde sí y dónde no aterrizar', 'Análogos', 'shackleton-lroc'],
+  ],
+  roughness: [
+    ['superficies-lisas-y-rocosas', 'concept', 'Superficies lisas y rocosas', 'Geología', 'young-jump'],
+    ['ver-la-rugosidad-con-radar', 'measurement', 'Ver la rugosidad con radar', 'Física', 'tycho'],
+    ['campos-de-lava-y-sierras', 'analogs', 'Campos de lava y sierras', 'Análogos', 'marius-pit'],
+  ],
+  mineralogy: [
+    ['rocas-oscuras-y-rocas-claras', 'concept', 'Rocas oscuras y rocas claras', 'Geología', 'genesis-rock'],
+    ['leer-la-composicion-desde-el-espacio', 'measurement', 'Leer la composición desde el espacio', 'Percepción remota', 'mexico-from-iss'],
+    ['volcanes-de-baja-california-y-sonora', 'analogs', 'Volcanes de Baja California y Sonora', 'Análogos', 'gruithuisen-apollo15'],
+  ],
+  albedo: [
+    ['cuanta-luz-refleja-una-superficie', 'concept', '¿Cuánta luz refleja una superficie?', 'Física', 'blue-marble'],
+    ['medir-el-albedo-con-satelites', 'measurement', 'Medir el albedo con satélites', 'Percepción remota', 'first-earthrise'],
+    ['sitios-claros-y-oscuros', 'analogs', 'Sitios claros y sitios oscuros', 'Análogos', 'apollo11-lro'],
+  ],
+  thermal: [
+    ['el-clima-en-la-luna', 'concept', 'El clima en la Luna', 'Climatología', 'diviner-south-pole'],
+    ['medir-la-temperatura-desde-orbita', 'measurement', 'Medir la temperatura desde la órbita', 'Percepción remota', 'top-of-atmosphere'],
+    ['del-dia-a-la-noche', 'analogs', 'Del día a la noche en Sonora y en la Luna', 'Análogos', 'iss-sunset'],
+  ],
+  aridity: [
+    ['salida-de-la-tierra', 'concept', 'Salida de la Tierra', 'Astronomía', 'earthrise'],
+    ['mexico-visto-desde-el-espacio', 'measurement', 'México visto desde el espacio', 'Geografía', 'mexico-from-iss'],
+    ['desiertos-como-analogos-lunares', 'analogs', 'Desiertos como análogos lunares', 'Análogos', 'apollo11-lro'],
+  ],
+  volatiles: [
+    ['agua-en-la-tierra-hielo-en-la-luna', 'concept', 'Agua en la Tierra, hielo en la Luna', 'Hidrología', 'greenland-iceberg'],
+    ['buscar-agua-desde-el-espacio', 'measurement', 'Buscar agua desde el espacio', 'Percepción remota', 'antarctic-sea-ice'],
+    ['seco-contra-helado', 'analogs', 'Seco contra helado: Cucapá y Shackleton', 'Análogos', 'shackleton-lroc'],
+  ],
+  dust: [
+    ['huellas-en-el-polvo-lunar', 'concept', 'Huellas en el polvo lunar', 'Geología', 'bootprint'],
+    ['cuanto-polvo-fino-tiene-un-suelo', 'measurement', 'Cuánto polvo fino tiene un suelo', 'Edafología', 'laser-reflector'],
+    ['polvo-en-la-laguna-salada', 'analogs', 'Polvo en la Laguna Salada y en la Luna', 'Análogos', 'aldrin'],
+  ],
+  craters: [
+    ['crater-barringer', 'concept', 'Cómo se forma un cráter', 'Geología', 'barringer'],
+    ['crater-tycho', 'measurement', 'Medir la forma de un cráter', 'Geometría', 'tycho'],
+    ['crateres-y-cavidades-de-la-region', 'analogs', 'Cráteres y cavidades de la región', 'Análogos', 'linne-lro'],
+  ],
+};
+
+export const submodules: Submodule[] = (Object.keys(SEEDS) as TopicId[]).flatMap((topicId) =>
+  SEEDS[topicId].map(([id, stage, title, tag, imageId], index) => ({
+    id,
+    topicId,
+    stage,
+    title,
+    tag,
+    imageId,
+    order: index + 1,
+    summary: null,
+  })),
+);
 
 export function getSubmodulesByTopic(topicId: TopicId): Submodule[] {
   return submodules.filter((item) => item.topicId === topicId).sort((a, b) => a.order - b.order);

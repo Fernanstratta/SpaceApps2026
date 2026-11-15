@@ -52,6 +52,7 @@ const PENDING_LESSON_PLAN: LessonPlan = {
   discussionQuestions: null,
   experimentsOrDemonstrations: null,
   assessmentMethods: null,
+  expectedOutcomes: null,
 };
 
 function collectSources(content: TeacherSubmodule): string[] {

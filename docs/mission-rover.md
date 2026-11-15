@@ -9,8 +9,8 @@ decisión con evidencia topográfica.
 | Estudiantes · «Iniciar misión» | `/es/portal-educativo/mision/rover-lunar/iniciar` · `/en/educational-portal/mission/lunar-rover/start` | `src/pages/MissionStudentPage.tsx` |
 | Docentes · «Impartir esta clase» | `/es/portal-educativo/mision/rover-lunar/clase` · `/en/educational-portal/mission/lunar-rover/teach` | `src/pages/MissionTeacherPage.tsx` |
 
-Se entra desde la misión destacada del Portal Educativo y desde las pestañas Aprender / Enseñar de los temas
-*Superficie y terreno*, *Cráteres de impacto* y *Gravedad*.
+Se entra desde la misión destacada del Portal Educativo y desde las pestañas Aprender / Enseñar de los ejes
+*Pendiente y seguridad de aterrizaje* y *Morfología de cráteres y cavidades*.
 
 ## Recorrido del estudiante (5 pasos)
 

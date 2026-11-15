@@ -1,61 +1,36 @@
+import { playgroundEs } from '../i18n/playground.es';
 import type { Topic, TopicId } from '../types';
 import { TOPIC_IDS } from '../types';
+import { ILS_AXES } from './lunarAnalogs';
 
 /**
- * Shared topics for the Portal Educativo. Both student and teacher modules
- * reference these ids. Descriptions describe the topic only; they contain no
- * measurements or comparisons.
+ * Shared topics for the Portal Educativo: the nine Earth–Moon comparative
+ * axes. Both student and teacher modules reference these ids, and Starman
+ * Playground uses them as filters.
+ *
+ * - `name` is the axis name, read from the Playground texts so the portal and
+ *   the filters can never drift apart.
+ * - `order` is the axis number in the team's ILS document (1–9).
+ * - Descriptions describe the topic only; they contain no measurements.
  */
-export const topics: Topic[] = [
-  {
-    id: 'size-scale',
-    name: 'Tamaño y escala',
-    description: 'Cómo se relacionan el tamaño de la Tierra y el de la Luna, y cómo representarlos a escala.',
-    order: 1,
-  },
-  {
-    id: 'gravity',
-    name: 'Gravedad',
-    description: 'Qué es la gravedad y cómo influye en los objetos y en las personas en cada cuerpo celeste.',
-    order: 2,
-  },
-  {
-    id: 'surface-terrain',
-    name: 'Superficie y terreno',
-    description: 'Las formas del relieve de la Tierra y de la Luna: montañas, llanuras, valles y mares lunares.',
-    order: 3,
-  },
-  {
-    id: 'earth-moon-distance',
-    name: 'Distancia entre la Tierra y la Luna',
-    description: 'Cuánto nos separa de la Luna y cómo se puede imaginar esa distancia.',
-    order: 4,
-  },
-  {
-    id: 'temperature',
-    name: 'Temperatura',
-    description: 'Por qué la temperatura cambia de forma distinta en la Tierra y en la Luna.',
-    order: 5,
-  },
-  {
-    id: 'impact-craters',
-    name: 'Cráteres de impacto',
-    description: 'Cómo se forman los cráteres y por qué se conservan de manera diferente en cada cuerpo.',
-    order: 6,
-  },
-  {
-    id: 'atmosphere',
-    name: 'Atmósfera',
-    description: 'Qué es una atmósfera y qué diferencias existen entre la de la Tierra y el entorno lunar.',
-    order: 7,
-  },
-  {
-    id: 'water-ice',
-    name: 'Agua y hielo',
-    description: 'Dónde se encuentra el agua en la Tierra y qué se sabe sobre el hielo en la Luna.',
-    order: 8,
-  },
-];
+const DESCRIPTIONS: Record<TopicId, string> = {
+  slope: 'Qué tan plano es un terreno y por qué eso decide dónde puede aterrizar una nave o circular un vehículo.',
+  roughness: 'Qué tan lisa o rocosa es una superficie y cómo el radar permite verlo desde el espacio.',
+  mineralogy: 'De qué están hechas las rocas de la Tierra y de la Luna, y cómo se reconoce su composición desde el espacio.',
+  albedo: 'Cuánta luz solar refleja una superficie y qué revela eso sobre su composición y su temperatura.',
+  thermal: 'Cuánto cambia la temperatura entre el día y la noche, y por qué la falta de atmósfera hace extrema a la Luna.',
+  aridity: 'Qué tan seco y libre de vegetación es un lugar, y por qué los desiertos son buenos análogos de un mundo sin vida.',
+  volatiles: 'Dónde puede haber agua o hielo bajo la superficie, y por qué el hielo lunar es clave para una base permanente.',
+  dust: 'Qué tan fino es el suelo y por qué el polvo lunar es un reto para los astronautas y sus equipos.',
+  craters: 'Cómo se forman los cráteres y las cavidades, y qué revela su forma sobre su origen y su erosión.',
+};
+
+export const topics: Topic[] = ILS_AXES.map((axis) => ({
+  id: axis.id,
+  name: playgroundEs.axes[axis.id].name,
+  description: DESCRIPTIONS[axis.id],
+  order: axis.number,
+}));
 
 const topicMap = new Map<TopicId, Topic>(topics.map((topic) => [topic.id, topic]));
 

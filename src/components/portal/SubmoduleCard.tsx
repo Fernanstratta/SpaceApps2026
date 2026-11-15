@@ -55,9 +55,7 @@ export function SubmoduleCard({ submodule, view, current = false, meta }: Submod
           </Link>
         </h3>
         {view ? (
-          <p className={`sub-card__summary${submodule.summary ? '' : ' is-pending'}`}>
-            {submodule.summary ?? MODULE_TEXT.summaryPending}
-          </p>
+          <p className="sub-card__summary">{submodule.summary ?? MODULE_TEXT.stageSummaries[submodule.stage]}</p>
         ) : null}
         <span className="topic-pill">{submodule.tag}</span>
         {view ? (

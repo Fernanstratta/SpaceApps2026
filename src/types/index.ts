@@ -1,3 +1,4 @@
+export * from './Axis';
 export * from './Topic';
 export * from './Location';
 export * from './Comparison';

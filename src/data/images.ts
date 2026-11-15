@@ -135,6 +135,47 @@ export const images: CommonsImage[] = [
     author: 'NASA / Michael Studinger (Operación IceBridge)',
     license: 'Dominio público',
   },
+  // Sitios lunares de los pares de Starman Playground (mismos archivos que su catálogo).
+  {
+    id: 'apollo11-lro',
+    file: 'LRO_Gets_Additional_View_of_Apollo_11_Landing_Site_(4092985062).jpg',
+    commonsPath: 'a/a5',
+    alt: 'Vista orbital de la planicie de Mare Tranquillitatis con pequeños cráteres, donde alunizó el Apolo 11.',
+    author: 'NASA Goddard Space Flight Center (LRO)',
+    license: 'Dominio público',
+  },
+  {
+    id: 'shackleton-lroc',
+    file: 'Shackleton_Crater.jpg',
+    commonsPath: 'd/d5',
+    alt: 'El cráter Shackleton, en el polo sur lunar, con el interior en sombra y el borde iluminado.',
+    author: 'Equipos de LROC y ShadowCam (NASA/KARI/ASU)',
+    license: 'Dominio público',
+  },
+  {
+    id: 'marius-pit',
+    file: 'Marius_hills_pit.png',
+    commonsPath: '6/63',
+    alt: 'Dos vistas orbitales de un pozo oscuro en la superficie lunar, en Marius Hills.',
+    author: 'NASA / equipo LROC, Arizona State University',
+    license: 'Dominio público',
+  },
+  {
+    id: 'gruithuisen-apollo15',
+    file: 'Gruithuisen_domes_AS15-93-12717.jpg',
+    commonsPath: '6/65',
+    alt: 'Vista oblicua desde la órbita de los domos volcánicos de Gruithuisen junto a un mar lunar.',
+    author: 'James Stuby, a partir de una imagen de NASA (Apolo 15)',
+    license: 'Dominio público',
+  },
+  {
+    id: 'linne-lro',
+    file: 'Linne_(LRO)_1.png',
+    commonsPath: '9/92',
+    alt: 'El cráter lunar Linné, circular y en forma de tazón, visto desde la órbita.',
+    author: 'NASA (LRO, cámara NAC)',
+    license: 'Dominio público',
+  },
 ];
 
 const imageMap = new Map(images.map((image) => [image.id, image]));

@@ -3,8 +3,8 @@ import { useRoverMissionText } from '../../i18n/missions';
 import { Link } from '../../router/Link';
 import { ROUTES } from '../../router/routes';
 
-/** Temas cuyo contenido conecta con la Misión 01 (relieve y cráteres). */
-export const ROVER_MISSION_TOPICS: readonly TopicId[] = ['surface-terrain', 'impact-craters', 'gravity'];
+/** Ejes cuyo contenido conecta con la Misión 01 (pendientes y perfiles de cráteres). */
+export const ROVER_MISSION_TOPICS: readonly TopicId[] = ['slope', 'craters'];
 
 /**
  * Acceso a la misión desde las pestañas de un tema: «Aprender» lleva a la

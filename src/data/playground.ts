@@ -1,4 +1,6 @@
-import { type AnalogPair, type AnalogyType, getLunarAnalogCatalog, type PairId, type PhotoCredit } from './lunarAnalogs';
+import { ROUTES } from '../router/routes';
+import { type AxisId, isAxisId } from '../types/Axis';
+import { type AnalogPair, type AnalogyType, getLunarAnalogCatalog, isPairId, type PairId, type PhotoCredit } from './lunarAnalogs';
 
 export type PlaygroundPhoto = PhotoCredit;
 
@@ -35,3 +37,33 @@ export const PLAYGROUND_AREAS: readonly PlaygroundArea[] = getLunarAnalogCatalog
   approximate: pair.data.earth_site.coordinate_status === 'provisional',
   pair,
 }));
+
+/* ------------------------------------------------------------------ */
+/* Enlaces al Playground con un par y un eje ya elegidos               */
+/* ------------------------------------------------------------------ */
+
+export interface PlaygroundTarget {
+  pair: PairId | null;
+  axis: AxisId | null;
+}
+
+/**
+ * Ruta del Playground con un par y un eje seleccionados. Va en el `#` de la
+ * URL (`/playground#par=laguna_salada_tranquillitatis&eje=slope`) para que el
+ * enlace se pueda compartir sin cambiar el router.
+ */
+export function playgroundLink(target: Partial<PlaygroundTarget> = {}): string {
+  const params = new URLSearchParams();
+  if (target.pair) params.set('par', target.pair);
+  if (target.axis) params.set('eje', target.axis);
+  const hash = params.toString();
+  return hash ? `${ROUTES.playground}#${hash}` : ROUTES.playground;
+}
+
+/** Lee el par y el eje del `#` de la URL; ignora valores desconocidos. */
+export function readPlaygroundTarget(hash: string): PlaygroundTarget {
+  const params = new URLSearchParams(hash.replace(/^#/, ''));
+  const pair = params.get('par');
+  const axis = params.get('eje');
+  return { pair: isPairId(pair) ? pair : null, axis: isAxisId(axis) ? axis : null };
+}

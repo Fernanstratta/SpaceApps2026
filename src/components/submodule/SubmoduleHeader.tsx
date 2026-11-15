@@ -13,7 +13,7 @@ interface SubmoduleHeaderProps {
 
 /** Submodule header: back link to the topic, icon and submodule name. */
 export function SubmoduleHeader({ topic, submodule, total }: SubmoduleHeaderProps) {
-  const { PORTAL_TEXT, SUBMODULE_TEXT } = useMessages();
+  const { PORTAL_TEXT, SUBMODULE_TEXT, EDUCATION_LEVEL_LABELS, LEVEL_LABEL } = useMessages();
   return (
     <header className="submodule-header" style={topicStyle(topic.id)}>
       <div className="container">
@@ -31,7 +31,13 @@ export function SubmoduleHeader({ topic, submodule, total }: SubmoduleHeaderProp
             </p>
             <h1 className="submodule-header__title">{submodule.title}</h1>
           </div>
-          <span className="topic-pill submodule-header__pill">{submodule.tag}</span>
+          <span className="submodule-header__pills">
+            <span className="topic-pill submodule-header__pill">{submodule.tag}</span>
+            <span className={`level-pill level-pill--${submodule.level}`}>
+              <span className="visually-hidden">{LEVEL_LABEL}: </span>
+              {EDUCATION_LEVEL_LABELS[submodule.level]}
+            </span>
+          </span>
         </div>
       </div>
     </header>

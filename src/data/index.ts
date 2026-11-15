@@ -4,7 +4,6 @@ import { teacherModules, teacherSubmodules } from './teacherModules';
 
 export * from './topics';
 export * from './resources';
-export * from './comparisons';
 export * from './locations';
 export * from './images';
 export * from './submodules';

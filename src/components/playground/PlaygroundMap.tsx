@@ -1,7 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useEffect, useMemo, useRef } from 'react';
-import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet';
+import { Circle, MapContainer, Marker, TileLayer, useMap } from 'react-leaflet';
 import type { PairId } from '../../data/lunarAnalogs';
 import type { PlaygroundArea } from '../../data/playground';
 import { useMessages } from '../../i18n/I18nContext';
@@ -118,6 +118,19 @@ export default function PlaygroundMap({ areas, activeId, onSelect, markerLabels,
       <KeepSize />
       <FlyToActive area={active} />
       <FitAll areas={areas} overview={overview} />
+      {/* Área de análisis de cada sitio (círculo del backend) */}
+      {areas.map((area) => (
+        <Circle
+          key={`aoi-${area.id}`}
+          center={[area.lat, area.lon]}
+          radius={area.radiusM}
+          interactive={false}
+          pathOptions={{
+            className: `pg-aoi${area.id === activeId ? ' is-active' : ''}`,
+            dashArray: area.approximate ? '6 6' : undefined,
+          }}
+        />
+      ))}
       {areas.map((area, i) => (
         <Marker
           key={area.id}

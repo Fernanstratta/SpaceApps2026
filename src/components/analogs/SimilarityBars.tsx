@@ -23,7 +23,8 @@ const HIGHLIGHTS = 2;
 export function SimilarityBars({ pair, onSelectAxis }: { pair: AnalogPair; onSelectAxis?: (axisId: string) => void }) {
   const { t, language, similarity, weight } = useAnalogText();
   const labels = getPairLabels(pair, language);
-  const ranked = axesBySimilarity(pair);
+  // «Similitud por ausencia» (los dos son secos) no se presenta como coincidencia fuerte.
+  const ranked = axesBySimilarity(pair).filter((axis) => axis.flag !== 'similitud_por_ausencia');
   const most = ranked.slice(0, HIGHLIGHTS);
   const least = ranked.slice(-HIGHLIGHTS).reverse();
   const list = (axes: typeof ranked) => axes.map((axis) => `${t.axes[axis.key].name.toLocaleLowerCase(language)} (${similarity(axis)})`).join(', ');

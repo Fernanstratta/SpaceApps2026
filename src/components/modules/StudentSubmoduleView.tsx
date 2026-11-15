@@ -8,8 +8,13 @@ import { LocationMap } from '../maps/LocationMap';
 import type { SubmoduleSectionLink } from '../submodule/SubmoduleLayout';
 import { SubmoduleReferences } from '../submodule/SubmoduleReferences';
 import { CelestialBodyPanel } from './CelestialBodyPanel';
-import { ComparisonTable } from './ComparisonTable';
 import { SubmodulePhoto } from './SubmodulePhoto';
+import { getPair, isPairId } from '../../data/lunarAnalogs';
+import { playgroundLink } from '../../data/playground';
+import { Link } from '../../router/Link';
+import { KnowledgeCheck } from '../lesson/KnowledgeCheck';
+import { LessonComparison } from '../lesson/LessonComparison';
+import { LessonVisual } from '../lesson/LessonVisual';
 import { useMessages } from '../../i18n/I18nContext';
 
 type Messages = ReturnType<typeof useMessages>;
@@ -23,6 +28,7 @@ const ID = {
   locations: 'lugares',
   facts: 'datos',
   activities: 'actividades',
+  quiz: 'comprueba',
   conclusion: 'conclusion',
   references: 'referencias',
 } as const;
@@ -48,6 +54,7 @@ export function studentSubmoduleSections(
     { id: ID.locations, label: STUDENT_SECTIONS.relatedLocations },
     { id: ID.facts, label: STUDENT_SECTIONS.additionalFacts },
     { id: ID.activities, label: STUDENT_SECTIONS.learningActivities },
+    ...(content.knowledgeCheck && content.knowledgeCheck.length > 0 ? [{ id: ID.quiz, label: STUDENT_SECTIONS.knowledgeCheck }] : []),
     { id: ID.conclusion, label: STUDENT_SECTIONS.conclusion },
     { id: ID.references, label: SUBMODULE_TEXT.references },
   ];
@@ -59,7 +66,6 @@ function collectSources(content: StudentSubmodule): string[] {
     ...(content.sourceIds ?? []),
     ...(content.earthInformation?.sourceIds ?? []),
     ...(content.moonInformation?.sourceIds ?? []),
-    ...(content.comparisons ?? []).flatMap((comparison) => comparison.sourceIds),
     ...(content.relatedLocations ?? []).flatMap((item) => item.location.sourceIds ?? []),
   ];
 }
@@ -75,6 +81,8 @@ interface StudentSubmoduleViewProps {
  */
 export function StudentSubmoduleView({ submodule, content }: StudentSubmoduleViewProps) {
   const { STUDENT_SECTIONS, LEARNING_ACTIVITY_TYPE_LABELS } = useMessages();
+  const lessonPairs = (content.comparison?.pairIds ?? []).filter(isPairId).map(getPair);
+  const firstPair = lessonPairs[0];
   const introductionState = getDataState(content.introduction);
   const bodiesState =
     getDataState(content.earthInformation) === 'pending' && getDataState(content.moonInformation) === 'pending'
@@ -107,7 +115,7 @@ export function StudentSubmoduleView({ submodule, content }: StudentSubmoduleVie
           <section
             key={block.id}
             id={blockId(block.id)}
-            className={`content-section submodule-section submodule-block${block.imageId ? ' submodule-block--media' : ''}${
+            className={`content-section submodule-section submodule-block${block.imageId && !block.visual ? ' submodule-block--media' : ''}${
               index % 2 === 1 ? ' submodule-block--reverse' : ''
             }`}
             aria-labelledby={`${blockId(block.id)}-titulo`}
@@ -119,8 +127,14 @@ export function StudentSubmoduleView({ submodule, content }: StudentSubmoduleVie
               <div className="submodule-prose">
                 <Paragraphs text={block.body} />
               </div>
-              {block.imageId ? <SubmodulePhoto imageId={block.imageId} topicId={submodule.topicId} /> : null}
+              {block.imageId && !block.visual ? <SubmodulePhoto imageId={block.imageId} topicId={submodule.topicId} /> : null}
             </div>
+            {block.visual ? (
+              <LessonVisual
+                kind={block.visual}
+                pairs={block.visualPairId && isPairId(block.visualPairId) ? [getPair(block.visualPairId)] : lessonPairs}
+              />
+            ) : null}
           </section>
         ))
       ) : (
@@ -166,25 +180,10 @@ export function StudentSubmoduleView({ submodule, content }: StudentSubmoduleVie
         id={ID.comparison}
         title={STUDENT_SECTIONS.comparisons}
         description={STUDENT_SECTIONS.comparisonsDescription}
-        data={content.comparisons}
+        data={content.comparison}
         className="submodule-section"
       >
-        {(comparisons) => (
-          <>
-            <ComparisonTable comparisons={comparisons} />
-            {comparisons.some((comparison) => comparison.explanation) ? (
-              <ul className="comparison-notes">
-                {comparisons
-                  .filter((comparison) => comparison.explanation)
-                  .map((comparison) => (
-                    <li key={comparison.id}>
-                      <strong>{comparison.label}:</strong> {comparison.explanation}
-                    </li>
-                  ))}
-              </ul>
-            ) : null}
-          </>
-        )}
+        {(comparison) => <LessonComparison comparison={comparison} />}
       </NullableSection>
 
       <NullableSection
@@ -243,11 +242,31 @@ export function StudentSubmoduleView({ submodule, content }: StudentSubmoduleVie
         )}
       </NullableSection>
 
+      {content.knowledgeCheck && content.knowledgeCheck.length > 0 ? (
+        <section id={ID.quiz} className="content-section submodule-section" aria-labelledby={`${ID.quiz}-titulo`}>
+          <h2 id={`${ID.quiz}-titulo`} className="content-section__title" data-section-heading="">
+            {STUDENT_SECTIONS.knowledgeCheck}
+          </h2>
+          <KnowledgeCheck questions={content.knowledgeCheck} />
+        </section>
+      ) : null}
+
       <NullableSection id={ID.conclusion} title={STUDENT_SECTIONS.conclusion} data={content.conclusion} className="submodule-section">
         {(text) => (
-          <div className="submodule-prose submodule-conclusion">
-            <Paragraphs text={text} />
-          </div>
+          <>
+            <div className="submodule-prose submodule-conclusion">
+              <Paragraphs text={text} />
+            </div>
+            {content.comparison ? (
+              <aside className="explore-callout">
+                <h3 className="explore-callout__title">{STUDENT_SECTIONS.exploreTitle}</h3>
+                <p>{STUDENT_SECTIONS.exploreText}</p>
+                <Link className="button button--primary" to={playgroundLink({ pair: firstPair?.id ?? null, axis: content.comparison.axisId })}>
+                  Starman Playground →
+                </Link>
+              </aside>
+            ) : null}
+          </>
         )}
       </NullableSection>
 

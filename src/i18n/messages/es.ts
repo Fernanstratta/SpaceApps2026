@@ -315,7 +315,17 @@ export const es = {
     relatedLocations: 'Lugares de la Tierra relacionados',
     additionalFacts: '¿Sabías que…?',
     learningActivities: 'Actividades de aprendizaje',
+    knowledgeCheck: 'Comprueba lo que aprendiste',
+    quizQuestion: (n: number, total: number) => `Pregunta ${n} de ${total}`,
+    quizCorrect: '¡Correcto!',
+    quizWrong: 'No exactamente.',
+    quizAnswer: (answer: string) => `La respuesta es: ${answer}`,
+    exploreTitle: 'Explora más en Starman Playground',
+    exploreText: 'Abre la comparación completa: los nueve ejes, las fotos de los dos sitios, las fuentes y dónde se rompe la analogía.',
   },
+
+  EDUCATION_LEVEL_LABELS: { primaria: 'Primaria', secundaria: 'Secundaria', preparatoria: 'Preparatoria' },
+  LEVEL_LABEL: 'Nivel',
 
   TEACHER_SECTIONS: {
     general: 'Información general',
@@ -338,6 +348,9 @@ export const es = {
     geographicalRecommendations: 'Recomendaciones geográficas',
     fieldTrips: 'Excursiones educativas',
     classroomAlternatives: 'Alternativas dentro del aula',
+    priorKnowledge: 'Conocimientos previos',
+    playground: 'Para proyectar en clase',
+    playgroundText: 'Abre la comparación de los pares de esta sesión en Starman Playground.',
   },
 
   LOCATION_TEXT: {

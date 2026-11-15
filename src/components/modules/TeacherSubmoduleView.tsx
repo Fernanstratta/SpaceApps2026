@@ -13,7 +13,10 @@ import { SubmoduleReferences } from '../submodule/SubmoduleReferences';
 import { ClassroomActivityList } from './ClassroomActivityList';
 import { ClassroomAlternativesView } from './ClassroomAlternativesView';
 import { LessonPlanView } from './LessonPlanView';
-import { useMessages } from '../../i18n/I18nContext';
+import { useData, useMessages } from '../../i18n/I18nContext';
+import { isPairId } from '../../data/lunarAnalogs';
+import { playgroundLink } from '../../data/playground';
+import { Link } from '../../router/Link';
 
 type Messages = ReturnType<typeof useMessages>;
 
@@ -71,8 +74,11 @@ interface TeacherSubmoduleViewProps {
 }
 
 /** "Enseñar" view of a submodule (teaching guide). All teacher content is null-safe. */
-export function TeacherSubmoduleView({ topic, submodule, module, content }: TeacherSubmoduleViewProps) {
-  const { LOCATION_TEXT, TEACHER_SECTIONS } = useMessages();
+export function TeacherSubmoduleView({ topic, submodule, content }: TeacherSubmoduleViewProps) {
+  const { LOCATION_TEXT, TEACHER_SECTIONS, EDUCATION_LEVEL_LABELS } = useMessages();
+  const { getStudentSubmodule } = useData();
+  const comparison = getStudentSubmodule(content.key)?.comparison ?? null;
+  const firstPair = comparison?.pairIds.find(isPairId) ?? null;
   const { referenceLocation } = useReferenceLocation();
   const recommendations = content.geographicalRecommendations;
   const recommendationsState = getDataState(recommendations);
@@ -87,11 +93,15 @@ export function TeacherSubmoduleView({ topic, submodule, module, content }: Teac
           fields={[
             { label: TEACHER_SECTIONS.topicName, value: topic.name },
             { label: TEACHER_SECTIONS.submoduleName, value: submodule.title },
-            { label: TEACHER_SECTIONS.gradeLevel, value: module.gradeLevel },
+            { label: TEACHER_SECTIONS.gradeLevel, value: EDUCATION_LEVEL_LABELS[content.level] },
             { label: TEACHER_SECTIONS.estimatedDuration, value: content.estimatedDuration },
             {
               label: TEACHER_SECTIONS.learningObjectives,
               value: content.learningObjectives ? <TextList items={content.learningObjectives} /> : null,
+            },
+            {
+              label: TEACHER_SECTIONS.priorKnowledge,
+              value: content.priorKnowledge ? <TextList items={content.priorKnowledge} /> : null,
             },
             {
               label: TEACHER_SECTIONS.requiredMaterials,
@@ -109,7 +119,20 @@ export function TeacherSubmoduleView({ topic, submodule, module, content }: Teac
       </section>
 
       <NullableSection id={ID.activities} title={TEACHER_SECTIONS.activities} data={content.activities} className="submodule-section">
-        {(activities) => <ClassroomActivityList activities={activities} />}
+        {(activities) => (
+          <>
+            <ClassroomActivityList activities={activities} />
+            {comparison ? (
+              <aside className="explore-callout explore-callout--teacher">
+                <h3 className="explore-callout__title">{TEACHER_SECTIONS.playground}</h3>
+                <p>{TEACHER_SECTIONS.playgroundText}</p>
+                <Link className="button button--primary" to={playgroundLink({ pair: firstPair, axis: comparison.axisId })}>
+                  Starman Playground →
+                </Link>
+              </aside>
+            ) : null}
+          </>
+        )}
       </NullableSection>
 
       <section

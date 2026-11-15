@@ -23,7 +23,7 @@ interface SubmoduleCardProps {
 /** Card for one submodule: photo, topic icon, title and subject pill. */
 export function SubmoduleCard({ submodule, view, current = false, meta }: SubmoduleCardProps) {
   const { getImage } = useData();
-  const { MODULE_TEXT, SUBMODULE_TEXT } = useMessages();
+  const { MODULE_TEXT, SUBMODULE_TEXT, EDUCATION_LEVEL_LABELS, LEVEL_LABEL } = useMessages();
   const number = String(submodule.order).padStart(2, '0');
   const cta = view === 'teach' ? MODULE_TEXT.openTeacherGuide : MODULE_TEXT.startLearning;
 
@@ -57,7 +57,13 @@ export function SubmoduleCard({ submodule, view, current = false, meta }: Submod
         {view ? (
           <p className="sub-card__summary">{submodule.summary ?? MODULE_TEXT.stageSummaries[submodule.stage]}</p>
         ) : null}
-        <span className="topic-pill">{submodule.tag}</span>
+        <span className="sub-card__pills">
+          <span className="topic-pill">{submodule.tag}</span>
+          <span className={`level-pill level-pill--${submodule.level}`}>
+            <span className="visually-hidden">{LEVEL_LABEL}: </span>
+            {EDUCATION_LEVEL_LABELS[submodule.level]}
+          </span>
+        </span>
         {view ? (
           <span className="sub-card__cta" aria-hidden="true">
             {current ? SUBMODULE_TEXT.current : `${cta} →`}

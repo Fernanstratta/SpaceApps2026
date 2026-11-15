@@ -1,3 +1,4 @@
+import type { PairId } from '../../data/lunarAnalogs';
 import type { AxisId, ClassroomAlternativeType, EducationLevel, LearningActivityType, LessonVisualKind, SubmoduleStage } from '../../types';
 
 /**
@@ -21,7 +22,9 @@ import type { AxisId, ClassroomAlternativeType, EducationLevel, LearningActivity
  *   [[times elegante thermal]]  cuántas veces mayor           → «9»
  *   [[ils laguna]]           ILS del par                      → «66.1»
  *   [[completeness laguna]]  completitud del par              → «89 %»
- *   [[R slope]] [[weight slope]] [[conf slope]]  tolerancia, peso y confianza del eje
+ *   [[pct earth laguna slope]]  valor de un lado como porcentaje → «100 %»
+ *   [[R slope]] [[weight slope]] [[conf slope]]  tolerancia, peso nominal y confianza del eje
+ *   [[w laguna ice]]         peso del eje en ese par (con «similitud por ausencia» baja) → «0.5»
  *   [[fact elegante earth depth_m]]  dato del sitio (`facts`) → «244»
  *
  * Si una marca apunta a un dato que el backend no tiene, la construcción
@@ -48,6 +51,8 @@ export interface BlockText {
   imageId?: string;
   /** Figura o visualización contextual (ver `LessonVisualKind`). */
   visual?: LessonVisualKind;
+  /** Par del catálogo que muestra la figura; por omisión, los pares de la lección. */
+  visualPair?: PairId;
 }
 
 export interface QuizText {

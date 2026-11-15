@@ -77,10 +77,21 @@ function resolveToken(token: string, kind: string, args: string[], language: Lan
       if (value === null) fail(token, 'el par no tiene ILS');
       return formatScore(value, locale);
     }
+    case 'pct': {
+      // Valor de un lado como porcentaje («98 %»): solo formato, el valor es el del backend.
+      const body = args[0];
+      if (body !== 'earth' && body !== 'moon') fail(token, 'falta «earth» o «moon»');
+      const value = pairAxis(pairOf(args[1], token), axisOf(args[2], token))[body];
+      if (!value) fail(token, 'el backend no tiene ese valor');
+      return formatPercent(value.value, locale);
+    }
     case 'completeness':
       return formatPercent(pairOf(args[0], token).data.ils.data_completeness, locale);
     case 'R':
       return formatNumber(getAxisDefinition(axisOf(args[0], token)).tolerance_R, locale, 2);
+    case 'w':
+      // Peso con el que el eje entra al ILS de ese par (el backend lo baja con «similitud por ausencia»).
+      return formatNumber(pairAxis(pairOf(args[0], token), axisOf(args[1], token)).weight, locale, 2);
     case 'weight':
       return formatNumber(getAxisDefinition(axisOf(args[0], token)).weight, locale, 2);
     case 'conf':

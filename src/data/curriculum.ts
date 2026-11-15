@@ -141,6 +141,7 @@ function buildCurriculum(language: Language): CurriculumContent {
         body: fill(block.body),
         imageId: block.imageId ?? null,
         visual: block.visual ?? null,
+        visualPairId: block.visualPair ?? null,
       }));
       const handsOn: LearningActivity[] = text.student.activities.map((activity, index) => ({
         id: `${prefix}-actividad-${index + 1}`,

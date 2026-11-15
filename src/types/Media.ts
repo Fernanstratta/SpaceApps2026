@@ -10,9 +10,10 @@ export interface CommonsImage {
   file: string;
   /** Commons storage folder, e.g. `8/89`. */
   commonsPath: string;
-  /** Spanish alternative text describing what the photo shows. */
+  /** Alternative text describing what the photo shows (Spanish; English in `i18n/content/en.ts`). */
   alt: string;
   /** Author / institution as credited on Commons. */
   author: string;
-  license: 'Dominio público' | 'CC0 1.0';
+  /** Original license; only its label is translated ("Dominio público" ↔ "Public domain"). */
+  license: 'Dominio público' | 'Public domain' | 'CC0 1.0';
 }

@@ -1,5 +1,5 @@
-import { LOCATION_TEXT, TEACHER_SECTIONS } from '../../content/strings';
 import { useReferenceLocation } from '../../hooks/useReferenceLocation';
+import { useMessages } from '../../i18n/I18nContext';
 import type { TeacherModule, Topic } from '../../types';
 import { getDataState } from '../../utils/nullable';
 import { DataStateMessage } from '../common/DataStateMessage';
@@ -14,7 +14,7 @@ import { ClassroomAlternativesView } from './ClassroomAlternativesView';
 import { LessonPlanView } from './LessonPlanView';
 import { SectionNav } from './SectionNav';
 
-const SECTIONS = [
+const sectionsFor = (TEACHER_SECTIONS: ReturnType<typeof useMessages>['TEACHER_SECTIONS']) => [
   { id: 'informacion-general', label: TEACHER_SECTIONS.general },
   { id: 'plan-de-clase', label: TEACHER_SECTIONS.lessonPlan },
   { id: 'actividades', label: TEACHER_SECTIONS.activities },
@@ -30,13 +30,14 @@ interface TeacherModuleViewProps {
 
 /** Teacher view of a topic. All teacher content is null-safe. */
 export function TeacherModuleView({ topic, module }: TeacherModuleViewProps) {
+  const { LOCATION_TEXT, TEACHER_SECTIONS } = useMessages();
   const { referenceLocation } = useReferenceLocation();
   const recommendations = module.geographicalRecommendations;
   const recommendationsState = getDataState(recommendations);
 
   return (
     <div className="module-view module-view--teacher">
-      <SectionNav sections={SECTIONS} />
+      <SectionNav sections={sectionsFor(TEACHER_SECTIONS)} />
 
       <div className="module-view__sections">
         <section id="informacion-general" className="content-section" aria-labelledby="informacion-general-titulo">

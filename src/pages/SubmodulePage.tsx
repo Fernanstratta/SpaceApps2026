@@ -2,15 +2,16 @@ import { NullableSection } from '../components/common/NullableSection';
 import { PageHeader } from '../components/layout/PageHeader';
 import { TopicBanner } from '../components/modules/TopicBanner';
 import { SubmoduleList } from '../components/portal/TopicRow';
-import { PORTAL_TEXT, SUBMODULE_TEXT, UI } from '../content/strings';
 import { topicStyle } from '../content/topicVisuals';
-import { getSubmodule, getSubmodulesByTopic, getTopicById, isTopicId } from '../data';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { Link } from '../router/Link';
 import { ROUTES } from '../router/routes';
+import { useMessages, useData } from '../i18n/I18nContext';
 
 /** A submodule: banner with its photo, its (pending) content and sibling modules. */
 export function SubmodulePage({ topicId, submoduleId }: { topicId: string; submoduleId: string }) {
+  const { PORTAL_TEXT, SUBMODULE_TEXT, UI } = useMessages();
+  const { getSubmodule, getSubmodulesByTopic, getTopicById, isTopicId } = useData();
   const topic = isTopicId(topicId) ? getTopicById(topicId) : null;
   const submodule = topic ? getSubmodule(topic.id, submoduleId) : undefined;
   useDocumentTitle(submodule ? submodule.title : SUBMODULE_TEXT.notFoundTitle);

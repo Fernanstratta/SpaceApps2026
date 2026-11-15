@@ -7,3 +7,8 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 *.log
+
+# Variables de entorno locales (la plantilla .env.example sí se versiona)
+.env
+.env.*
+!.env.example

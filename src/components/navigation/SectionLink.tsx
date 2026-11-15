@@ -1,6 +1,6 @@
 import type { AnchorHTMLAttributes, MouseEvent } from 'react';
 import { useSectionNavigation } from '../../hooks/useSectionNavigation';
-import { toHref } from '../../router/Router';
+import { useRouter } from '../../router/Router';
 import { sectionHref, type SectionId } from '../../router/routes';
 
 type SectionLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & {
@@ -14,6 +14,7 @@ type SectionLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & 
  */
 export function SectionLink({ sectionId, onClick, ...rest }: SectionLinkProps) {
   const goToSection = useSectionNavigation();
+  const { href } = useRouter();
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     onClick?.(event);
@@ -23,5 +24,5 @@ export function SectionLink({ sectionId, onClick, ...rest }: SectionLinkProps) {
     goToSection(sectionId);
   };
 
-  return <a href={toHref(sectionHref(sectionId))} onClick={handleClick} {...rest} />;
+  return <a href={href(sectionHref(sectionId))} onClick={handleClick} {...rest} />;
 }

@@ -1,10 +1,11 @@
-import { IMAGE_TEXT } from '../../content/strings';
-import { images } from '../../data';
 import { commonsPageUrl } from '../../utils/commons';
 import { ExternalLink } from '../common/ExternalLink';
+import { useMessages, useData } from '../../i18n/I18nContext';
 
 /** Attribution for every photo used in the portal. */
 export function ImageCredits() {
+  const { IMAGE_TEXT } = useMessages();
+  const { images } = useData();
   return (
     <section className="image-credits" aria-labelledby="creditos-imagenes">
       <h2 id="creditos-imagenes" className="image-credits__title">
@@ -28,6 +29,8 @@ export function ImageCredits() {
 
 /** One-line credit under a banner photo. */
 export function ImageCredit({ imageId }: { imageId: string }) {
+  const { IMAGE_TEXT } = useMessages();
+  const { images } = useData();
   const image = images.find((item) => item.id === imageId);
   if (!image) return null;
   return (

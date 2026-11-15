@@ -20,19 +20,26 @@ export function distanceInKm(from: Coordinates, to: Coordinates): number {
   return 2 * EARTH_MEAN_RADIUS_KM * Math.asin(Math.min(1, Math.sqrt(a)));
 }
 
-const kmFormatter = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 0 });
-const coordFormatter = new Intl.NumberFormat('es-MX', {
-  minimumFractionDigits: 4,
-  maximumFractionDigits: 4,
-});
-
-export function formatDistanceKm(km: number): string {
-  return `${kmFormatter.format(km)} km`;
+/** Abreviaturas de los puntos cardinales en el idioma activo (vienen de los mensajes). */
+export interface CardinalLabels {
+  north: string;
+  south: string;
+  east: string;
+  west: string;
 }
 
-export function formatCoordinates({ latitude, longitude }: Coordinates): string {
-  const lat = `${coordFormatter.format(Math.abs(latitude))}° ${latitude >= 0 ? 'N' : 'S'}`;
-  const lon = `${coordFormatter.format(Math.abs(longitude))}° ${longitude >= 0 ? 'E' : 'O'}`;
+export function formatDistanceKm(km: number, locale: string): string {
+  return `${new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(km)} km`;
+}
+
+export function formatCoordinates(
+  { latitude, longitude }: Coordinates,
+  locale: string,
+  cardinal: CardinalLabels,
+): string {
+  const format = new Intl.NumberFormat(locale, { minimumFractionDigits: 4, maximumFractionDigits: 4 }).format;
+  const lat = `${format(Math.abs(latitude))}° ${latitude >= 0 ? cardinal.north : cardinal.south}`;
+  const lon = `${format(Math.abs(longitude))}° ${longitude >= 0 ? cardinal.east : cardinal.west}`;
   return `${lat}, ${lon}`;
 }
 

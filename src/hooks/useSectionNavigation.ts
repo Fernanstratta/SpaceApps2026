@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { toHref, useRouter } from '../router/Router';
+import { useRouter } from '../router/Router';
 import { ROUTES, sectionHref, type SectionId } from '../router/routes';
 import { scrollToSection } from '../utils/scroll';
 
@@ -11,7 +11,7 @@ import { scrollToSection } from '../utils/scroll';
  *    Inicio page scrolls to the section once it renders.
  */
 export function useSectionNavigation() {
-  const { path, navigate } = useRouter();
+  const { path, navigate, href } = useRouter();
 
   return useCallback(
     (id: SectionId) => {
@@ -20,11 +20,11 @@ export function useSectionNavigation() {
         return;
       }
       scrollToSection(id);
-      const url = toHref(sectionHref(id));
+      const url = href(sectionHref(id));
       if (window.location.pathname + window.location.hash !== url) {
         window.history.replaceState(null, '', url);
       }
     },
-    [path, navigate],
+    [path, navigate, href],
   );
 }

@@ -1,5 +1,5 @@
+import { useMessages } from '../../i18n/I18nContext';
 import { useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
-import { TOPIC_TABS } from '../../content/strings';
 
 export type TopicTab = 'learn' | 'teach';
 
@@ -22,6 +22,7 @@ interface TopicTabsProps {
  * arrow keys, Home and End move between tabs; only the active panel renders.
  */
 export function TopicTabs({ idPrefix, renderPanel }: TopicTabsProps) {
+  const { TOPIC_TABS } = useMessages();
   const [active, setActive] = useState<TopicTab>(readInitialTab);
   const tabRefs = useRef<Record<TopicTab, HTMLButtonElement | null>>({ learn: null, teach: null });
 

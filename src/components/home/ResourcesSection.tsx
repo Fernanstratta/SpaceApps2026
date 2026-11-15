@@ -1,10 +1,11 @@
-import { RESOURCE_TEXT } from '../../content/strings';
-import { getResourcesByCategory, resourceCategories } from '../../data';
 import { SECTION_IDS } from '../../router/routes';
 import { ResourceCategorySection } from '../resources/ResourceCategorySection';
+import { useMessages, useData } from '../../i18n/I18nContext';
 
 /** "Recursos" section of Inicio (formerly its own page). */
 export function ResourcesSection() {
+  const { RESOURCE_TEXT } = useMessages();
+  const { getResourcesByCategory, resourceCategories } = useData();
   return (
     <section id={SECTION_IDS.resources} className="home-band home-band--resources" aria-labelledby="recursos-titulo">
       <div className="container">

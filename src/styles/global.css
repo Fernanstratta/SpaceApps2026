@@ -5,7 +5,33 @@
  * Mobile-first: base styles target phones; media queries add space for
  * tablets (≥ 48rem) and desktops (≥ 64rem).
  */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
 
+.hero__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.hero__earth {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.hero__earth-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .hero__earth {
+    opacity: 0.35;
+  }
+}
 :root {
   --color-bg: #f5f7fb;
   --color-surface: #ffffff;
@@ -24,6 +50,27 @@
   --color-about-card: #1b2c54;
   --color-resources-bg: #faf5ea;
   --color-cta-text: #111111;
+  --color-border-strong: #c5cede;
+  --color-accent-ink: #9a6400;
+  /* Header, footer y bandas de Inicio (se redefinen en modo oscuro). */
+  --page-backdrop: #f5f7fb;
+  --header-bg: rgba(255, 255, 255, 0.88);
+  --header-text: #1b2333;
+  --header-border: #dbe1ec;
+  --header-hover: rgba(15, 25, 50, 0.06);
+  --header-active: rgba(15, 25, 50, 0.09);
+  --footer-bg: #ffffff;
+  --hero-bg:
+    radial-gradient(55% 65% at 80% 45%, rgba(79, 156, 249, 0.18), transparent 70%),
+    linear-gradient(180deg, #e7eefa 0%, #f5f7fb 100%);
+  --hero-fade: #f5f7fb;
+  --band-start: #f5f7fb;
+  --band-bg: #f5f7fb;
+  --band-end: #f5f7fb;
+  --glow-blue: rgba(79, 156, 249, 0.08);
+  --glow-orange: rgba(226, 113, 74, 0.06);
+  --space-earth: #2b6fd6;
+  --space-mars: #c4532c;
   --header-height: 3.75rem;
   --color-accent: #f2b544;
   --color-student: #0e7d72;
@@ -63,6 +110,11 @@ html {
   scroll-behavior: smooth;
   /* Anchors and scrollIntoView stop just below the fixed header. */
   scroll-padding-top: var(--header-height);
+  /*
+   * Lo que se ve "detrás" de la página al hacer overscroll (rebote elástico
+   * del touchpad) sigue el color del header según el tema.
+   */
+  background: var(--page-backdrop);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -211,6 +263,8 @@ ol[class] {
  * Fixed (not sticky) header: browsers don't scroll fixed elements into view,
  * so focusing a nav link never makes the page jump, while
  * `scroll-padding-top` keeps anchored sections clear of the header.
+ * Left: ☰ menu button + brand. Right: main navigation (wide screens) and
+ * the light/dark toggle. On small screens navigation lives in the drawer.
  */
 .site-header {
   position: fixed;
@@ -218,18 +272,32 @@ ol[class] {
   left: 0;
   right: 0;
   z-index: 50;
-  background: var(--color-black);
-  color: #fff;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: var(--header-bg);
+  color: var(--header-text);
+  border-bottom: 1px solid var(--header-border);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  backdrop-filter: saturate(160%) blur(12px);
 }
 
 .site-header__inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
   height: var(--header-height);
-  position: relative;
+}
+
+.site-header__start {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.site-header__end {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
 }
 
 .brand {
@@ -237,7 +305,7 @@ ol[class] {
   align-items: center;
   gap: 0.55rem;
   min-height: var(--tap);
-  color: #fff;
+  color: var(--header-text);
   text-decoration: none;
   font-weight: 800;
   font-size: 1.2rem;
@@ -245,95 +313,74 @@ ol[class] {
 }
 
 .brand:hover {
-  color: #fff;
+  color: var(--header-text);
 }
 
-.nav-toggle {
+.icon-button {
   display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  flex-shrink: 0;
   width: var(--tap);
   height: var(--tap);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0;
+  border: 1px solid transparent;
   border-radius: var(--radius-sm);
   background: transparent;
+  color: inherit;
   cursor: pointer;
+  transition: background-color 0.15s ease;
 }
 
-.nav-toggle__bar {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: #fff;
-  border-radius: 2px;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+.icon-button:hover {
+  background: var(--header-hover);
 }
 
-.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(2) {
-  opacity: 0;
-}
-
-.nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+/* Aligns the ☰ icon with the container edge. */
+.menu-button {
+  margin-left: -0.6rem;
 }
 
 .main-nav {
   display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: var(--color-black);
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 0.5rem var(--gutter) 1rem;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
-}
-
-.main-nav.is-open {
-  display: block;
 }
 
 .main-nav__list {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 0.25rem;
 }
 
 .main-nav__link {
   display: flex;
   align-items: center;
-  min-height: 48px;
+  min-height: var(--tap);
   padding: 0 0.85rem;
-  color: #fff;
+  color: var(--header-text);
   text-decoration: none;
   font-weight: 600;
   border-radius: var(--radius-sm);
 }
 
 .main-nav__link:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--header-text);
+  background: var(--header-hover);
 }
 
 .main-nav__link.is-active {
-  background: rgba(255, 255, 255, 0.14);
-  box-shadow: inset 3px 0 0 var(--color-accent);
+  background: var(--header-active);
+  box-shadow: inset 0 -3px 0 var(--color-accent);
 }
 
 /* Portal Educativo: primary call to action, yellow rectangle. */
 .main-nav__item--cta {
-  margin-top: 0.5rem;
+  margin-left: 0.75rem;
 }
 
 .main-nav__link--cta,
 .main-nav__link--cta.is-active {
-  justify-content: center;
+  min-height: 40px;
+  padding: 0 1.1rem;
   background: var(--color-accent);
   color: var(--color-cta-text);
   font-weight: 800;
@@ -351,59 +398,299 @@ ol[class] {
   box-shadow: inset 0 0 0 2px var(--color-cta-text);
 }
 
-@media (min-width: 48rem) {
-  .nav-toggle {
-    display: none;
-  }
-
-  .main-nav,
-  .main-nav.is-open {
+@media (min-width: 62rem) {
+  .main-nav {
     display: block;
-    position: static;
-    padding: 0;
-    border: 0;
-    box-shadow: none;
-    background: transparent;
+    margin-left: auto;
   }
 
-  .main-nav__list {
-    flex-direction: row;
-    gap: 0.25rem;
+  .site-header__end {
+    margin-left: 0.25rem;
   }
+}
 
-  .main-nav__link {
-    min-height: var(--tap);
-  }
+/* ---------- Drawer (☰ menu) ---------- */
 
-  .main-nav__link.is-active {
-    box-shadow: inset 0 -3px 0 var(--color-accent);
-  }
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  visibility: hidden;
+  transition: visibility 0s linear 0.28s;
+}
 
-  .main-nav__list {
-    align-items: center;
-  }
+.drawer.is-open {
+  visibility: visible;
+  transition-delay: 0s;
+}
 
-  .main-nav__item--cta {
-    margin-top: 0;
-    margin-left: 0.75rem;
-  }
+.drawer__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 4, 10, 0.55);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
 
-  .main-nav__link--cta {
-    min-height: 40px;
-    padding: 0 1.1rem;
-  }
+.drawer.is-open .drawer__backdrop {
+  opacity: 1;
+}
 
-  .main-nav__link--cta.is-active {
-    box-shadow: inset 0 0 0 2px var(--color-cta-text);
+.drawer__panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: min(22rem, 88vw);
+  display: flex;
+  flex-direction: column;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-right: 1px solid var(--color-border);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+  transform: translateX(-100%);
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.drawer.is-open .drawer__panel {
+  transform: none;
+}
+
+.drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-shrink: 0;
+  height: var(--header-height);
+  padding: 0 0.6rem 0 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.drawer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+
+.drawer__head .icon-button:hover {
+  background: var(--color-surface-alt);
+}
+
+.drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 1rem 1.5rem;
+}
+
+.drawer-account {
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-alt);
+}
+
+.drawer-account__info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.drawer-account__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-primary) 16%, transparent);
+  color: var(--color-primary);
+}
+
+.drawer-account__name {
+  margin: 0;
+  font-weight: 700;
+}
+
+.drawer-account__hint {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.drawer-account__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.drawer-group__title {
+  margin: 0 0 0.4rem;
+  padding: 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.drawer-group__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.drawer-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: var(--tap);
+  padding: 0 0.75rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.drawer-item svg {
+  flex-shrink: 0;
+  color: var(--color-muted);
+}
+
+.drawer-item:hover {
+  color: var(--color-text);
+  background: var(--color-surface-alt);
+}
+
+.drawer-item.is-active {
+  background: color-mix(in srgb, var(--color-primary) 14%, transparent);
+  color: var(--color-primary);
+}
+
+.drawer-item.is-active svg {
+  color: inherit;
+}
+
+.drawer-item--soon,
+.drawer-item--soon:hover {
+  background: none;
+  color: var(--color-muted);
+  cursor: default;
+}
+
+.drawer-item__badge {
+  margin-left: auto;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-alt);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-muted);
+}
+
+.drawer-setting__label {
+  margin: 0.25rem 0.75rem 0.5rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.theme-switch {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin: 0 0.25rem;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-alt);
+}
+
+.theme-switch__option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 38px;
+  padding: 0 0.5rem;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-muted);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.theme-switch__option:hover {
+  color: var(--color-text);
+}
+
+.theme-switch__option[aria-checked='true'] {
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow);
+}
+
+.drawer-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: var(--tap);
+  margin-top: 0.5rem;
+  padding: 0 0.75rem;
+}
+
+.drawer-setting__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-weight: 600;
+}
+
+.drawer-setting__name svg {
+  color: var(--color-muted);
+}
+
+.drawer-setting__value {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.drawer__foot {
+  margin: 0;
+  padding: 0.9rem 1.25rem calc(0.9rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--color-border);
+  font-size: 0.78rem;
+  color: var(--color-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawer__backdrop,
+  .drawer__panel {
+    transition: none;
   }
 }
 
 /* ---------- Footer ---------- */
 
 .site-footer {
-  background: var(--color-black);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.85);
+  background: var(--footer-bg);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
   padding: 2rem 0;
 }
 
@@ -415,7 +702,7 @@ ol[class] {
 
 .site-footer__brand {
   font-weight: 800;
-  color: #fff;
+  color: var(--color-text);
   margin: 0;
 }
 
@@ -434,7 +721,7 @@ ol[class] {
   display: inline-flex;
   align-items: center;
   min-height: var(--tap);
-  color: #fff;
+  color: var(--color-text);
 }
 
 @media (min-width: 48rem) {
@@ -527,9 +814,9 @@ ol[class] {
 /* ---------- Hero (Inicio) ---------- */
 
 .hero {
-  /* Solid black; with the black header it fills the whole first screen. */
-  background: var(--color-black);
-  color: #fff;
+  /* Fills the whole first screen; its background follows the theme. */
+  background: var(--hero-bg);
+  color: var(--color-text);
   display: flex;
   align-items: center;
   min-height: calc(100vh - var(--header-height));
@@ -545,7 +832,7 @@ ol[class] {
 }
 
 .hero__title {
-  color: #fff;
+  color: var(--color-text);
   font-size: clamp(3rem, 1.9rem + 5vw, 5.5rem);
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -556,7 +843,7 @@ ol[class] {
 .hero__lead {
   font-size: clamp(1.08rem, 0.98rem + 0.45vw, 1.35rem);
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--color-muted);
   max-width: 34rem;
   margin-bottom: 2rem;
 }
@@ -838,14 +1125,14 @@ ol[class] {
 }
 
 .topic-chip svg {
-  color: var(--topic-strong, var(--color-primary));
+  color: var(--topic-ink, var(--color-primary));
   flex-shrink: 0;
 }
 
 .topic-chip:hover {
   border-color: var(--topic, var(--color-primary));
-  background: var(--topic-soft, var(--color-surface));
-  color: var(--topic-strong, var(--color-primary));
+  background: var(--topic-tint, var(--color-surface));
+  color: var(--topic-ink, var(--color-primary));
 }
 
 .link-cards {
@@ -1051,12 +1338,12 @@ ol[class] {
   align-items: center;
   min-height: var(--tap);
   font-weight: 700;
-  color: var(--topic-strong);
+  color: var(--topic-ink);
   text-decoration: none;
 }
 
 .topic-row__more:hover {
-  color: var(--topic-strong);
+  color: var(--topic-ink);
   text-decoration: underline;
 }
 
@@ -1142,7 +1429,7 @@ ol[class] {
 }
 
 .sub-card__link:hover {
-  color: var(--topic-strong);
+  color: var(--topic-ink);
 }
 
 /* The whole card is the touch target. */
@@ -1168,8 +1455,8 @@ ol[class] {
   margin-top: auto;
   padding: 0.2rem 0.75rem;
   border-radius: 999px;
-  background: var(--topic-soft);
-  color: var(--topic-strong);
+  background: var(--topic-tint);
+  color: var(--topic-ink);
   font-size: 0.85rem;
   font-weight: 700;
 }
@@ -1177,7 +1464,7 @@ ol[class] {
 /* Real-world photos (with icon fallback when an image cannot load). */
 .topic-photo {
   aspect-ratio: 4 / 3;
-  background: var(--topic-soft, var(--color-surface-alt));
+  background: var(--topic-tint, var(--color-surface-alt));
   overflow: hidden;
 }
 
@@ -1350,8 +1637,8 @@ ol[class] {
 }
 
 .topic-tabs__tab:hover {
-  background: var(--topic-soft);
-  color: var(--topic-strong);
+  background: var(--topic-tint);
+  color: var(--topic-ink);
 }
 
 .topic-tabs__tab[aria-selected='true'] {
@@ -1915,4 +2202,584 @@ ol[class] {
 /* Leaflet attribution links should stay readable */
 .leaflet-container {
   font-family: var(--font-sans);
+}
+
+/*ABOUT US 
+*/
+.about {
+  position: relative;
+  padding: 96px 0;
+  color: var(--space-text);
+  /* Negro arriba para unirse al hero, con un resplandor azul muy tenue */
+  background:
+    radial-gradient(60% 50% at 85% 0%, rgba(79, 156, 249, 0.1), transparent 70%),
+    linear-gradient(180deg, #000 0%, var(--space-bg) 30%);
+}
+
+.about__eyebrow {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--space-gold);
+}
+
+.about__title {
+  margin: 0 0 16px;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+}
+
+.about__lead {
+  margin: 0 0 48px;
+  max-width: 60ch;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--space-text-muted);
+}
+
+.about__subtitle {
+  margin: 64px 0 20px;
+  font-size: 1.5rem;
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* Tarjeta base */
+.about-card {
+  --card-accent: var(--space-moon);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px;
+  background: var(--space-bg-raised);
+  border: 1px solid var(--space-border);
+  border-radius: 16px;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.about-card:hover {
+  border-color: color-mix(in srgb, var(--card-accent) 55%, transparent);
+  transform: translateY(-2px);
+}
+
+.about-card--earth {
+  --card-accent: var(--space-earth);
+}
+
+.about-card--mars {
+  --card-accent: var(--space-mars);
+}
+
+.about-card--gold {
+  --card-accent: var(--space-gold);
+}
+
+/* "Planeta" pequeño que identifica cada tarjeta por su color */
+.about-card__planet {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 32% 30%,
+    color-mix(in srgb, var(--card-accent) 70%, #fff),
+    var(--card-accent) 45%,
+    color-mix(in srgb, var(--card-accent) 35%, #000) 100%
+  );
+  box-shadow: 0 0 24px color-mix(in srgb, var(--card-accent) 35%, transparent);
+}
+
+.about-card__title {
+  margin: 4px 0 0;
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.about-card__audience {
+  color: var(--card-accent);
+}
+
+.about-card__text {
+  margin: 0;
+  line-height: 1.65;
+  color: var(--space-text-muted);
+}
+
+/* Botón principal: el mismo dorado del hero */
+.about__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 40px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: var(--space-gold);
+  color: var(--space-gold-ink);
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.about__cta:hover {
+  background: #ffc75a;
+  transform: translateY(-1px);
+}
+
+.about__cta:focus-visible {
+  outline: 3px solid var(--space-earth);
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 64px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-card,
+  .about__cta {
+    transition: none;
+  }
+
+  .about-card:hover,
+  .about__cta:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Inicio: bandas ----------
+ * Todas las bandas comparten el fondo del tema y los brillos de color quedan
+ * en el centro, lejos de los bordes, para que no se note el corte entre
+ * secciones.
+ */
+.hero__earth {
+  /*
+   * Desvanece la parte baja del planeta (se vuelve transparente, no se pinta
+   * encima), así se funde con el fondo en ambos temas sin corte recto.
+   */
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+}
+
+.home-band--portal {
+  background:
+    radial-gradient(50% 40% at 10% 55%, var(--glow-blue), transparent 100%),
+    linear-gradient(180deg, var(--band-start) 0%, var(--band-bg) 40%);
+}
+
+section.about {
+  background:
+    radial-gradient(50% 40% at 90% 50%, var(--glow-blue), transparent 100%),
+    var(--band-bg);
+}
+
+.home-band--resources {
+  background:
+    radial-gradient(50% 30% at 15% 45%, var(--glow-orange), transparent 100%),
+    linear-gradient(180deg, var(--band-bg) 0%, var(--band-bg) 85%, var(--band-end) 100%);
+}
+
+/* Tarjetas: misma sensación que las de Sobre Nosotros. */
+.home-band--portal .info-block,
+.home-band--portal .audience-card,
+.home-band--resources .resource-card {
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.home-band--portal .info-block:hover,
+.home-band--portal .audience-card:hover,
+.home-band--resources .resource-card:hover {
+  border-color: rgba(79, 156, 249, 0.45);
+  transform: translateY(-2px);
+}
+
+/* Chips de temas: el fondo "soft" claro no encaja en oscuro. */
+.home-band--portal .topic-chip:hover {
+  background: color-mix(in srgb, var(--topic, var(--color-primary)) 18%, var(--color-surface));
+  color: var(--color-text);
+}
+
+.home-band--portal .topic-chip svg {
+  color: var(--topic, var(--color-primary));
+}
+
+.home-band--resources .chip:hover {
+  background: rgba(79, 156, 249, 0.12);
+}
+
+/* Botón secundario sobre fondo oscuro. */
+.home-band--portal .button--secondary,
+.home-band--resources .button--secondary {
+  background: transparent;
+}
+
+.home-band--portal .button--secondary:hover,
+.home-band--resources .button--secondary:hover {
+  background: var(--color-primary);
+  color: #05070d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-band--portal .info-block,
+  .home-band--portal .audience-card,
+  .home-band--resources .resource-card {
+    transition: none;
+  }
+
+  .home-band--portal .info-block:hover,
+  .home-band--portal .audience-card:hover,
+  .home-band--resources .resource-card:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Modo oscuro ----------
+ * Mismos tokens que :root, con la paleta "espacio". Toda la app cambia de
+ * tema solo con `data-theme` en <html> (lo gestiona ThemeContext).
+ */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #05070d;
+  --color-surface: #0d1220;
+  --color-surface-alt: #121a2e;
+  --color-text: #eef1f7;
+  --color-muted: #a7b0c4;
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+  --color-primary: #4f9cf9;
+  --color-primary-hover: #7ab5fb;
+  --color-accent-ink: #f2b33d;
+  --color-student: #2fb5a5;
+  --color-student-soft: rgba(47, 181, 165, 0.14);
+  --color-teacher: #a07ce8;
+  --color-teacher-soft: rgba(160, 124, 232, 0.14);
+  --color-pending-bg: rgba(242, 179, 61, 0.08);
+  --color-pending-border: rgba(242, 179, 61, 0.35);
+  --color-pending-text: #f2c97a;
+  --color-error-bg: rgba(226, 113, 74, 0.1);
+  --color-error-text: #f0a287;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.35);
+
+  --page-backdrop: #000000;
+  --header-bg: rgba(0, 0, 0, 0.88);
+  --header-text: #ffffff;
+  --header-border: rgba(255, 255, 255, 0.1);
+  --header-hover: rgba(255, 255, 255, 0.08);
+  --header-active: rgba(255, 255, 255, 0.14);
+  --footer-bg: #000000;
+
+  --hero-bg: #000000;
+  --hero-fade: #000000;
+  --band-start: #000000;
+  --band-bg: #05070d;
+  --band-end: #000000;
+  --glow-blue: rgba(79, 156, 249, 0.06);
+  --glow-orange: rgba(226, 113, 74, 0.05);
+
+  --space-earth: #4f9cf9;
+  --space-mars: #e2714a;
+}
+
+/* La sección "Sobre Nosotros" inyecta su paleta --space-*; aquí se enlaza al tema. */
+:root[data-theme] {
+  --space-bg: var(--band-bg);
+  --space-bg-raised: var(--color-surface);
+  --space-border: var(--color-border);
+  --space-text: var(--color-text);
+  --space-text-muted: var(--color-muted);
+}
+
+.about .about__eyebrow {
+  color: var(--color-accent-ink);
+}
+
+/*
+ * Colores por tema de cada módulo: `--topic-strong` / `--topic-soft` están
+ * pensados para fondo blanco; en oscuro el texto se aclara y los fondos
+ * suaves se oscurecen.
+ */
+* {
+  --topic-ink: var(--topic-strong);
+  --topic-tint: var(--topic-soft);
+}
+
+:root[data-theme='dark'] * {
+  --topic-ink: color-mix(in srgb, var(--topic) 55%, #fff);
+  --topic-tint: color-mix(in srgb, var(--topic) 22%, #0d1220);
+}
+
+/* Mapas: teselas atenuadas para no deslumbrar en modo oscuro. */
+:root[data-theme='dark'] .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9) saturate(0.6);
+}
+
+:root[data-theme='dark'] .data-state--error {
+  border-color: rgba(226, 113, 74, 0.4);
+}
+
+/* ---------- Iniciar sesión / Crear cuenta ---------- */
+
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - var(--header-height));
+  padding: 3rem var(--gutter) 4rem;
+  background:
+    radial-gradient(50% 40% at 50% 0%, var(--glow-blue), transparent 100%),
+    var(--band-bg);
+}
+
+.auth__card {
+  width: 100%;
+  max-width: 26rem;
+  padding: 2rem 1.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: var(--shadow);
+}
+
+@media (min-width: 40rem) {
+  .auth {
+    padding-top: 4.5rem;
+  }
+
+  .auth__card {
+    padding: 2.25rem 2.25rem 2rem;
+  }
+}
+
+.auth__head {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.auth__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.75rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+  color: var(--color-accent-ink);
+}
+
+.auth__title {
+  font-size: 1.6rem;
+  margin-bottom: 0.35rem;
+}
+
+.auth__lead {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.field label,
+.field legend {
+  padding: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.field input[type='text'],
+.field input[type='email'],
+.field input[type='password'] {
+  min-height: var(--tap);
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.field input:focus-visible {
+  border-color: var(--color-primary);
+}
+
+.field__hint {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+
+.role-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.role-picker__option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--tap);
+  padding: 0 0.8rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.role-picker__option:has(input:checked) {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.92rem;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.auth input[type='checkbox'],
+.auth input[type='radio'] {
+  width: 1.05rem;
+  height: 1.05rem;
+  margin: 0;
+  accent-color: var(--color-primary);
+}
+
+.auth__submit {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.auth__notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  text-align: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-alt);
+}
+
+.auth__notice p {
+  margin: 0;
+}
+
+.auth__switch {
+  margin: 1.5rem 0 0.25rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+
+.auth__switch a {
+  font-weight: 700;
+}
+
+.auth__guest {
+  margin: 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.auth__guest a {
+  color: var(--color-muted);
+}
+
+/* ---------- Selector de idioma ES / EN ---------- */
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 3px;
+  border: 1px solid var(--header-border);
+  border-radius: 999px;
+}
+
+.lang-switch__option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 36 px de alto dentro del borde: área táctil de 44 px con el padding del grupo. */
+  min-width: 2.4rem;
+  min-height: 36px;
+  padding: 0 0.6rem;
+  border-radius: 999px;
+  color: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  opacity: 0.7;
+  transition:
+    background-color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.lang-switch__option:hover {
+  color: inherit;
+  opacity: 1;
+  background: var(--header-hover);
+}
+
+.lang-switch__option[aria-current='true'] {
+  opacity: 1;
+  background: var(--color-accent);
+  color: var(--color-cta-text);
+}
+
+/* Dentro del menú lateral usa los colores del panel. */
+.drawer .lang-switch {
+  border-color: var(--color-border);
+}
+
+.drawer .lang-switch__option:hover {
+  background: var(--color-surface-alt);
+}
+
+.drawer .lang-switch__option[aria-current='true'] {
+  background: var(--color-accent);
+}
+
+/* Teléfonos muy estrechos (≈320 px): ☰, logo, ES/EN y tema deben caber en una fila. */
+@media (max-width: 22.4rem) {
+  .site-header__inner {
+    gap: 0.5rem;
+  }
+
+  .brand__name {
+    display: none;
+  }
 }

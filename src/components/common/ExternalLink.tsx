@@ -1,10 +1,11 @@
+import { useMessages } from '../../i18n/I18nContext';
 import type { AnchorHTMLAttributes } from 'react';
-import { UI } from '../../content/strings';
 
 type ExternalLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
 
 /** Link to an external site, opened in a new tab with an accessible hint. */
 export function ExternalLink({ children, ...rest }: ExternalLinkProps) {
+  const { UI } = useMessages();
   return (
     <a target="_blank" rel="noopener noreferrer" {...rest}>
       {children}

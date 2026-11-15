@@ -1,16 +1,12 @@
-import { getSortedTopics } from '../../data/topics';
 import { Link } from '../../router/Link';
 import { ROUTES } from '../../router/routes';
 import type { TopicId } from '../../types';
-
-const TEXT = {
-  label: 'Navegación entre temas',
-  previous: 'Tema anterior',
-  next: 'Tema siguiente',
-} as const;
+import { useData, useMessages } from '../../i18n/I18nContext';
 
 /** Previous / next topic links at the end of a module page. */
 export function TopicPager({ currentId }: { currentId: TopicId }) {
+  const { getSortedTopics } = useData();
+  const { PAGER: TEXT } = useMessages();
   const topics = getSortedTopics();
   const index = topics.findIndex((topic) => topic.id === currentId);
   const previous = index > 0 ? topics[index - 1] : undefined;

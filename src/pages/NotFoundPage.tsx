@@ -1,10 +1,11 @@
 import { PageHeader } from '../components/layout/PageHeader';
-import { NOT_FOUND_TEXT } from '../content/strings';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { Link } from '../router/Link';
 import { ROUTES } from '../router/routes';
+import { useMessages } from '../i18n/I18nContext';
 
 export function NotFoundPage() {
+  const { NOT_FOUND_TEXT } = useMessages();
   useDocumentTitle(NOT_FOUND_TEXT.title);
   return (
     <>

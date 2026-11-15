@@ -31,6 +31,8 @@ export const roverEs = {
     lab: 'Laboratorio de misiones',
     title: '¿Dónde probarías un rover antes de enviarlo a la Luna?',
     lead: 'Compara dos cráteres de la Tierra con un cráter de la Luna, elige dónde ensayar una maniobra del rover y defiende tu decisión con evidencia.',
+    /** Etiqueta de edad (la misma que el público de la guía docente). */
+    ages: '12–17 años',
     badges: ['Gratis', 'Sin cuenta', 'Clase de 45 min', 'Datos abiertos de NASA y otras agencias'],
     startCta: 'Iniciar misión',
     teachCta: 'Impartir esta clase',

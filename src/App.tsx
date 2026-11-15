@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Layout } from './components/layout/Layout';
 import { ReferenceLocationProvider } from './context/ReferenceLocationContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -21,6 +21,14 @@ import {
   TOPIC_ROUTE_PATTERN,
   type SectionId,
 } from './router/routes';
+
+/**
+ * Vista previa de propuestas de diseño (solo en desarrollo). Se carga aparte
+ * y con sus propios estilos, así que no toca la página actual ni el build.
+ */
+const MissionsPreviewPage = import.meta.env.DEV
+  ? lazy(() => import('./pages/MissionsPreviewPage').then((m) => ({ default: m.MissionsPreviewPage })))
+  : null;
 
 /** Keeps old links (/sobre-nosotros, /recursos) working by sending them to the section on Inicio. */
 function RedirectToSection({ sectionId }: { sectionId: SectionId }) {
@@ -52,6 +60,14 @@ function AppRoutes() {
       return <MissionTeacherPage />;
     case ROUTES.lunita:
       return <LunitaMissionPage />;
+    case ROUTES.missionsPreview:
+      return MissionsPreviewPage ? (
+        <Suspense fallback={null}>
+          <MissionsPreviewPage />
+        </Suspense>
+      ) : (
+        <NotFoundPage />
+      );
     default: {
       const submoduleMatch = matchPath(SUBMODULE_ROUTE_PATTERN, path);
       if (submoduleMatch?.topicId && submoduleMatch.submoduleId) {

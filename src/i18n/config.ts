@@ -62,5 +62,7 @@ export const LOCALIZED_SEGMENTS: Record<Language, Readonly<Record<string, string
     'rover-lunar': 'lunar-rover',
     iniciar: 'start',
     clase: 'teach',
+    'vista-previa': 'preview',
+    misiones: 'missions',
   },
 };

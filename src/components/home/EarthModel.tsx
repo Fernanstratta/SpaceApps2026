@@ -42,6 +42,34 @@ const EARTH_CENTER_FROM_RIGHT = 0.3;
 const CAMERA_FOV = 45;
 
 /**
+ * Hover sobre el planeta (solo con mouse y sin «reducir movimiento»):
+ *  - Al entrar se encoge, se acerca un poco al centro y gira cada vez más
+ *    rápido; al terminar de encogerse recupera su velocidad habitual.
+ *  - Al salir vuelve a su lugar con un pequeño rebote.
+ */
+const HOVER = {
+  /** Tamaño al encogerse (1 = tamaño normal). */
+  scale: 0.66,
+  /** Posición del centro, en alturas del hero desde el borde derecho, al encogerse. */
+  centerFromRight: 0.48,
+  /** Duración de cada animación (ms). */
+  enterMs: 950,
+  leaveMs: 850,
+  /** Cuántas veces más rápido gira en el punto más veloz de cada animación. */
+  enterSpin: 9,
+  leaveSpin: 3,
+};
+
+const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+/** Sale con un pequeño rebote al llegar (sobrepasa y se asienta). */
+const easeOutBack = (t: number) => {
+  const c1 = 1.6;
+  const c3 = c1 + 1;
+  return 1 + c3 * (t - 1) ** 3 + c1 * (t - 1) ** 2;
+};
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+/**
  * Hero Earth. Esfera 3D hecha con three: icosaedro con el mapa de la
  * superficie, una capa aditiva con las luces nocturnas y la inclinación axial
  * de 23.4°. Cada cierto tiempo cambia de textura: Tierra, Luna y Marte. El canvas es transparente y cubre todo el hero; el planeta se
@@ -123,17 +151,26 @@ export function EarthModel() {
     ambientRef.current = ambient;
     scene.add(ambient);
 
+    // Progreso del hover: 0 = en su lugar, 1 = encogido y más al centro.
+    let hoverProgress = 0;
+
+    // Desplaza la vista para que el centro del planeta caiga cerca del borde
+    // derecho. Al mover la vista (y no el planeta) sigue viéndose redondo.
+    const placeCamera = () => {
+      const { clientWidth: w, clientHeight: h } = container;
+      if (w === 0 || h === 0) return;
+      const centerX = w - lerp(EARTH_CENTER_FROM_RIGHT, HOVER.centerFromRight, hoverProgress) * h;
+      camera.setViewOffset(w, h, w / 2 - centerX, 0, w, h);
+      camera.updateProjectionMatrix();
+    };
+
     // El canvas sigue el tamaño del contenedor
     const resize = () => {
       const { clientWidth: w, clientHeight: h } = container;
       if (w === 0 || h === 0) return;
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
-      // Desplaza la vista para que el centro del planeta caiga cerca del borde
-      // derecho. Al mover la vista (y no el planeta) sigue viéndose redondo.
-      const centerX = w - EARTH_CENTER_FROM_RIGHT * h;
-      camera.setViewOffset(w, h, w / 2 - centerX, 0, w, h);
-      camera.updateProjectionMatrix();
+      placeCamera();
     };
     resize();
     const observer = new ResizeObserver(resize);
@@ -141,6 +178,64 @@ export function EarthModel() {
 
     // Sin giro para quien pide menos movimiento
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---- Hover sobre el planeta ----
+    // El canvas no recibe el puntero (el texto del hero va encima), así que se
+    // escucha en el hero y se comprueba si el puntero cae dentro del círculo.
+    const hoverEnabled = !reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const hoverArea = container.closest('.hero') ?? container.parentElement;
+    let hovered = false;
+    let anim: { from: number; to: number; start: number; duration: number; enter: boolean } | null = null;
+
+    /** ¿Está el punto dentro del planeta en (centro desde la derecha, escala)? */
+    const insidePlanet = (x: number, y: number, fromRight: number, scale: number) => {
+      const rect = container.getBoundingClientRect();
+      const h = rect.height;
+      const cx = rect.right - fromRight * h;
+      const cy = rect.top + h / 2;
+      const r = ((EARTH_SIZE * h) / 2) * scale;
+      return Math.hypot(x - cx, y - cy) <= r;
+    };
+
+    const setHovered = (next: boolean) => {
+      if (next === hovered) return;
+      hovered = next;
+      const to = next ? 1 : 0;
+      const full = next ? HOVER.enterMs : HOVER.leaveMs;
+      // Si se interrumpe a medias, la animación sigue desde donde va.
+      anim = { from: hoverProgress, to, start: performance.now(), duration: Math.max(200, full * Math.abs(to - hoverProgress)), enter: next };
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      if (event.pointerType !== 'mouse') return;
+      const { clientX: x, clientY: y } = event;
+      // Cuenta tanto el planeta en su lugar como el encogido: así no parpadea
+      // cuando el puntero queda en el borde mientras se encoge.
+      const inside =
+        insidePlanet(x, y, EARTH_CENTER_FROM_RIGHT, 1) ||
+        insidePlanet(x, y, lerp(EARTH_CENTER_FROM_RIGHT, HOVER.centerFromRight, hoverProgress), lerp(1, HOVER.scale, hoverProgress));
+      setHovered(inside);
+    };
+    const onPointerLeave = () => setHovered(false);
+    if (hoverEnabled && hoverArea) {
+      hoverArea.addEventListener('pointermove', onPointerMove as EventListener);
+      hoverArea.addEventListener('pointerleave', onPointerLeave);
+    }
+
+    /** Avanza la animación del hover; devuelve cuántas veces más rápido debe girar. */
+    const updateHover = () => {
+      if (!anim) return 1;
+      const t = Math.min(1, (performance.now() - anim.start) / anim.duration);
+      const eased = anim.enter ? easeInOutCubic(t) : easeOutBack(t);
+      hoverProgress = lerp(anim.from, anim.to, eased);
+      earthGroup.scale.setScalar(lerp(1, HOVER.scale, hoverProgress));
+      placeCamera();
+      // Acelera y vuelve a su velocidad habitual justo al terminar.
+      const boost = (anim.enter ? HOVER.enterSpin : HOVER.leaveSpin) - 1;
+      const spin = 1 + boost * Math.sin(Math.PI * t);
+      if (t >= 1) anim = null;
+      return spin;
+    };
 
     // Cambio de cuerpo: la esfera se funde a negro, cambia de textura y vuelve
     let current = 0;
@@ -175,10 +270,11 @@ export function EarthModel() {
     const animate = () => {
       frameId = requestAnimationFrame(animate);
       updatePlanet();
+      const spin = updateHover();
       if (!reduceMotion) {
-        earthMesh.rotation.y += 0.002;
-        lightsMesh.rotation.y += 0.002;
-        earthGroup.rotation.y += 0.002;
+        earthMesh.rotation.y += 0.002 * spin;
+        lightsMesh.rotation.y += 0.002 * spin;
+        earthGroup.rotation.y += 0.002 * spin;
       }
       renderer.render(scene, camera);
     };
@@ -187,6 +283,8 @@ export function EarthModel() {
     return () => {
       cancelAnimationFrame(frameId);
       observer.disconnect();
+      hoverArea?.removeEventListener('pointermove', onPointerMove as EventListener);
+      hoverArea?.removeEventListener('pointerleave', onPointerLeave);
       geometry.dispose();
       surfaceMat.dispose();
       lightsMat.dispose();

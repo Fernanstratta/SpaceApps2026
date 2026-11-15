@@ -12,6 +12,8 @@ export const ROUTES = {
   missionTeach: '/portal-educativo/mision/rover-lunar/clase',
   /** Misión 4Kids (6–12 años): «Lunita necesita un camino». */
   lunita: '/portal-educativo/mision/lunita',
+  /** Solo en desarrollo (`npm run dev`): vista previa de tres propuestas de modo claro para las misiones. */
+  missionsPreview: '/vista-previa/misiones',
   topic: (topicId: TopicId) => `/portal-educativo/${topicId}`,
   submodule: (topicId: TopicId, submoduleId: string) => `/portal-educativo/${topicId}/${submoduleId}`,
 } as const;

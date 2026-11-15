@@ -1,0 +1,711 @@
+/* ==========================================================================
+   Vista previa de propuestas de modo claro (solo en desarrollo).
+   Aislada: todo selector empieza con .mp-; los colores de la propuesta salen
+   solo de las variables --mp-* (definidas en src/preview/missionPalettes.ts).
+   La barra superior (.mp-bar) sigue el tema actual del sitio.
+   ========================================================================== */
+
+/* ---------- Barra de selección (sigue el tema del sitio) ---------- */
+
+.mp-bar {
+  padding: 1.5rem 0 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.mp-bar__eyebrow {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-ink);
+}
+
+.mp-bar__title {
+  margin: 0.25rem 0 0.4rem;
+  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
+  line-height: 1.15;
+}
+
+.mp-bar__intro,
+.mp-bar__note {
+  margin: 0 0 0.4rem;
+  max-width: 62rem;
+  color: var(--color-muted);
+}
+
+.mp-bar__note {
+  font-size: 0.9rem;
+}
+
+.mp-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.mp-picker__option {
+  position: relative;
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 2px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  cursor: pointer;
+}
+
+.mp-picker__option:has(input:checked) {
+  border-color: var(--color-primary);
+  box-shadow: inset 0 0 0 1px var(--color-primary);
+}
+
+.mp-picker__option:has(input:focus-visible) {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.mp-picker__option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mp-picker__number {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--color-surface-alt);
+  font-weight: 900;
+}
+
+.mp-picker__option:has(input:checked) .mp-picker__number {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+.mp-picker__text {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.mp-picker__name {
+  font-weight: 800;
+}
+
+.mp-picker__summary {
+  font-size: 0.88rem;
+  color: var(--color-muted);
+}
+
+.mp-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.7rem;
+  margin-top: 0.2rem;
+}
+
+.mp-swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.mp-swatch__dot {
+  width: 0.95rem;
+  height: 0.95rem;
+  border: 1px solid rgb(0 0 0 / 0.25);
+  border-radius: 50%;
+}
+
+.mp-changes {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+}
+
+.mp-changes summary {
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.mp-changes__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 0.5rem 1.5rem;
+}
+
+.mp-changes h2 {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.mp-changes ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  list-style: disc;
+  font-size: 0.92rem;
+}
+
+/* ---------- Propuesta: base común ---------- */
+
+.mp {
+  color-scheme: light;
+  background: var(--mp-bg);
+  color: var(--mp-text);
+}
+
+.mp a {
+  color: var(--mp-accent);
+}
+
+.mp-section-head {
+  padding: 2.5rem 0 1rem;
+}
+
+.mp-section-head__title {
+  margin: 0;
+  font-size: clamp(1.8rem, 1.3rem + 2vw, 2.6rem);
+  line-height: 1.1;
+  color: var(--mp-title);
+}
+
+.mp-section-head__lead {
+  margin: 0.5rem 0 0;
+  max-width: 46rem;
+  font-size: 1.05rem;
+  color: var(--mp-muted);
+}
+
+.mp-band {
+  padding: 2rem 0;
+}
+
+.mp-band--1 {
+  background: var(--mp-band1);
+}
+
+.mp-band--2 {
+  background: var(--mp-band2);
+}
+
+/* Títulos: nunca se cortan; parten la palabra solo si no cabe. */
+.mp-title {
+  margin: 0.35rem 0 0.5rem;
+  font-size: clamp(1.35rem, 1.05rem + 1.3vw, 2rem);
+  line-height: 1.15;
+  color: var(--mp-title);
+  overflow-wrap: break-word;
+  hyphens: manual;
+  text-wrap: balance;
+}
+
+.mp-title--big {
+  font-size: clamp(1.45rem, 1.05rem + 1.9vw, 2.5rem);
+}
+
+.mp-lead {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--mp-text);
+}
+
+.mp-eyebrow {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mp-accent);
+}
+
+.mp-age {
+  display: inline-flex;
+  margin-top: 0.45rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  background: var(--mp-chip);
+  color: var(--mp-chip-text);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.mp-kids-tag {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.mp-kids-tag .mp-age {
+  margin-top: 0;
+}
+
+.mp-kids-badge {
+  display: inline-flex;
+  padding: 0.2rem 0.75rem;
+  border: 2px solid var(--mp-kids-yellow-text);
+  border-radius: 999px;
+  background: var(--mp-kids-yellow);
+  color: var(--mp-kids-yellow-text);
+  font-weight: 900;
+  transform: rotate(-3deg);
+}
+
+.mp-kids-dot {
+  font-weight: 900;
+  color: var(--mp-muted);
+}
+
+ul.mp-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 1.1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.mp-badges li {
+  padding: 0.2rem 0.65rem;
+  border: 1px solid var(--mp-rule);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: var(--mp-muted);
+}
+
+.mp-inline-badges {
+  margin: 0 0 1.1rem;
+  font-size: 0.9rem;
+  color: var(--mp-muted);
+}
+
+.mp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.mp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 48px;
+  padding: 0.65rem 1.25rem;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+}
+
+.mp .mp-btn--primary {
+  background: var(--mp-action);
+  color: var(--mp-action-text);
+}
+
+.mp .mp-btn--primary:hover {
+  background: var(--mp-action-hover);
+  color: var(--mp-action-text);
+}
+
+.mp .mp-btn--secondary {
+  border-color: var(--mp-action);
+  background: transparent;
+  color: var(--mp-action-alt);
+}
+
+.mp .mp-btn--secondary:hover {
+  background: var(--mp-action);
+  color: var(--mp-action-text);
+}
+
+.mp .mp-btn--kids {
+  border-color: var(--mp-kids-yellow-text);
+  background: var(--mp-kids-yellow);
+  color: var(--mp-kids-yellow-text);
+  box-shadow: 0 4px 0 var(--mp-kids-yellow-text);
+}
+
+.mp .mp-btn--kids:hover {
+  color: var(--mp-kids-yellow-text);
+  transform: translateY(-1px);
+}
+
+.mp .mp-btn:focus-visible {
+  outline: 3px solid var(--mp-title);
+  outline-offset: 3px;
+}
+
+@media (max-width: 29.99rem) {
+  .mp-actions .mp-btn {
+    flex: 1 1 100%;
+  }
+}
+
+.mp-illustrative {
+  display: inline-block;
+  padding: 0.05rem 0.5rem;
+  border: 1.5px dashed var(--mp-kids-teal-text);
+  border-radius: 999px;
+  color: var(--mp-kids-teal-text);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.mp figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--mp-muted);
+}
+
+.mp-lunita-map {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- 1. Atlas Tierra–Luna ---------- */
+
+.mp-atlas {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 56rem) {
+  .mp-atlas {
+    grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr);
+    align-items: stretch;
+  }
+
+  .mp-atlas--kids {
+    grid-template-columns: minmax(16rem, 1fr) minmax(0, 2fr);
+  }
+}
+
+/* En móvil, la imagen va primero en ambas misiones. */
+@media (max-width: 55.99rem) {
+  .mp-atlas--kids .mp-atlas__map--kids {
+    order: -1;
+  }
+}
+
+.mp-atlas__map {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  padding: 0.85rem;
+  border-radius: 18px;
+  background: var(--mp-surface);
+}
+
+.mp-atlas__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1.25rem;
+  border-radius: 18px;
+  background: var(--mp-surface-alt);
+}
+
+.mp-atlas__side .mp-actions {
+  width: 100%;
+}
+
+.mp-atlas__map--kids .mp-lunita-map {
+  border-radius: 12px;
+  border: 3px solid var(--mp-title);
+}
+
+ul.mp-relief {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 40rem) {
+  /* Los tres mapas se desplazan de lado en lugar de encogerse demasiado. */
+  ul.mp-relief {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 72%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.35rem;
+  }
+
+  .mp-relief__item {
+    scroll-snap-align: start;
+  }
+}
+
+.mp-relief .terrain-map {
+  border-radius: 12px;
+}
+
+.mp-relief__name {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--mp-title);
+}
+
+.mp-relief__body {
+  display: inline-block;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: var(--mp-title);
+  color: var(--mp-surface);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- 2. Cuaderno de campo ---------- */
+
+.mp-notebook {
+  display: grid;
+  gap: 2rem;
+}
+
+.mp-entry {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 48rem) {
+  .mp-entry {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    align-items: center;
+    gap: 2.25rem;
+  }
+}
+
+.mp-entry__figure {
+  margin: 0;
+}
+
+.mp-entry__figure img,
+.mp-entry__figure .mp-lunita-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--mp-rule);
+  border-radius: 4px;
+  background: var(--mp-surface);
+  padding: 0.4rem;
+}
+
+.mp-entry__figure figcaption {
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--mp-rule);
+  font-style: italic;
+}
+
+.mp-entry__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.mp-entry__meta .mp-age {
+  margin-top: 0;
+}
+
+.mp-entry__body {
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--mp-rule);
+}
+
+@media (max-width: 47.99rem) {
+  .mp-entry__body {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+.mp-rule {
+  height: 0;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--mp-rule);
+}
+
+.mp--cuaderno .mp-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+}
+
+.mp--cuaderno .mp-section-head__title {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* ---------- 3. Museo interactivo ---------- */
+
+.mp-room {
+  padding: 0 0 2.5rem;
+}
+
+.mp-room--kids {
+  padding-top: 2.5rem;
+}
+
+.mp-panorama {
+  margin: 0 0 1.5rem;
+}
+
+.mp-panorama img {
+  display: block;
+  width: 100%;
+  height: clamp(7rem, 14vw, 13rem);
+  object-fit: cover;
+  object-position: 55% 50%;
+  background: #000;
+}
+
+.mp-room__label {
+  display: grid;
+  gap: 0.5rem 2.5rem;
+}
+
+@media (min-width: 52rem) {
+  .mp-room__label {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: end;
+  }
+}
+
+.mp-room__label > div:last-child {
+  padding: 1.1rem 1.25rem;
+  border-top: 4px solid var(--mp-action);
+  border-radius: 0 0 14px 14px;
+  background: var(--mp-surface);
+}
+
+.mp-puzzle {
+  display: grid;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+@media (min-width: 52rem) {
+  .mp-puzzle {
+    grid-template-columns: minmax(8rem, 0.7fr) minmax(0, 1.6fr) minmax(8rem, 0.7fr);
+  }
+}
+
+.mp-piece {
+  display: block;
+  width: 100%;
+  max-width: 11rem;
+  aspect-ratio: 200 / 360;
+  height: auto;
+  border: 3px solid var(--mp-kids-yellow-text);
+  border-radius: 14px;
+  box-shadow: 6px 6px 0 var(--mp-kids-teal);
+  background: var(--mp-surface);
+}
+
+.mp-piece--a {
+  justify-self: end;
+  transform: rotate(-6deg);
+}
+
+.mp-puzzle__stack {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.mp-puzzle__stack .mp-piece {
+  max-width: 9rem;
+}
+
+.mp-piece--b {
+  transform: rotate(5deg);
+  box-shadow: 6px 6px 0 var(--mp-kids-yellow);
+}
+
+.mp-piece--c {
+  transform: rotate(-3deg) translateX(1.5rem);
+}
+
+.mp-puzzle__center {
+  padding: 1.5rem;
+  border: 3px solid var(--mp-kids-teal);
+  border-radius: 22px;
+  background: var(--mp-surface-alt);
+  box-shadow: 8px 8px 0 var(--mp-kids-yellow);
+}
+
+.mp-puzzle__note {
+  margin: 0.9rem 0 0;
+}
+
+@media (max-width: 51.99rem) {
+  /* Las piezas forman una fila sobre el texto. */
+  .mp-puzzle {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .mp-puzzle__stack {
+    display: contents;
+  }
+
+  .mp-piece,
+  .mp-puzzle__stack .mp-piece {
+    max-width: none;
+    justify-self: stretch;
+    transform: none;
+    box-shadow: 3px 3px 0 var(--mp-kids-teal);
+  }
+
+  .mp-piece--a {
+    order: 1;
+  }
+
+  .mp-piece--b {
+    order: 2;
+    transform: translateY(0.6rem);
+  }
+
+  .mp-piece--c {
+    order: 3;
+  }
+
+  .mp-puzzle__center {
+    order: 4;
+    grid-column: 1 / -1;
+    padding: 1.1rem;
+    box-shadow: 5px 5px 0 var(--mp-kids-yellow);
+  }
+}

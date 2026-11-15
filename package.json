@@ -13,6 +13,7 @@
     "verify:i18n": "tsx scripts/verify-i18n.ts",
     "verify:mission": "tsx scripts/verify-mission.ts",
     "verify:lunita": "tsx scripts/verify-lunita.ts",
+    "verify:preview": "tsx scripts/verify-preview.ts",
     "fetch:terrain": "tsx scripts/fetch-mission-terrain.ts"
   },
   "dependencies": {

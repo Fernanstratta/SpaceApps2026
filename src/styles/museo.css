@@ -1,0 +1,489 @@
+/* ==========================================================================
+   Modo claro «Museo interactivo» (propuesta 3, elegida en la vista previa).
+
+   - Salas de ancho completo que alternan azul hielo y lavanda suave.
+   - Superficies "vitrina" (#f8fbfd) en lugar de blanco puro.
+   - Acciones en índigo; el amarillo y el turquesa quedan para 4Kids.
+
+   TODO va bajo :root[data-theme='light'] (ThemeContext siempre marca el tema
+   ya resuelto), así que el modo oscuro no cambia en nada.
+   ========================================================================== */
+
+:root[data-theme='light'] {
+  /* Salas */
+  --museo-ice: #d3e8f5;
+  --museo-lavender: #e2d9f4;
+  /* Versiones suaves para salas largas (filas de temas del Portal). */
+  --museo-ice-soft: #e2f0f8;
+  --museo-lavender-soft: #ebe5f7;
+  --museo-title: #1a2040;
+  --museo-chip-bg: #1a2040;
+  --museo-chip-text: #ffffff;
+  --museo-kids-card: #f6f3fd;
+  --museo-illustrative: #0a6158;
+  --museo-piece-line: #1c2b4f;
+
+  /* Fondo general, superficies y texto */
+  --color-bg: #f1f2f7;
+  --page-backdrop: #f1f2f7;
+  --color-surface: #f8fbfd;
+  --color-surface-alt: #e9edf5;
+  --color-text: #272d4a;
+  --color-muted: #4a5070;
+  --color-border: #d5dbe8;
+  --color-border-strong: #b9c3d8;
+  --color-portal-bg: #f1f2f7;
+  --color-resources-bg: #f1f2f7;
+
+  /* Acciones */
+  --color-primary: #3a3d9b;
+  --color-primary-hover: #2e3180;
+  --color-focus: #3a3d9b;
+  /* Dorado más oscuro: los antetítulos deben leerse también sobre azul hielo. */
+  --color-accent-ink: #7a5000;
+
+  /* Cabecera, pie y bandas */
+  --header-bg: rgba(248, 251, 253, 0.92);
+  --header-text: #1a2040;
+  --header-border: #d5dbe8;
+  --header-hover: rgba(58, 61, 155, 0.08);
+  --header-active: rgba(58, 61, 155, 0.13);
+  --footer-bg: #e9edf5;
+  --hero-bg:
+    radial-gradient(55% 65% at 80% 45%, rgba(58, 61, 155, 0.1), transparent 70%),
+    linear-gradient(180deg, var(--museo-ice) 0%, #e4eff7 55%, var(--color-bg) 100%);
+  --hero-fade: var(--color-bg);
+  --band-start: var(--color-bg);
+  --band-bg: var(--color-bg);
+  --band-end: var(--color-bg);
+  --glow-blue: transparent;
+  --glow-orange: transparent;
+
+  --shadow: 0 1px 2px rgba(26, 32, 64, 0.05), 0 6px 18px rgba(26, 32, 64, 0.06);
+}
+
+/*
+ * Salas en modo oscuro: el mismo acomodo que en claro (Portal y Submódulos),
+ * con hielo y lavanda nocturnos sobre el negro del tema. Solo se definen
+ * aquí los colores de las salas; el resto del modo oscuro no cambia.
+ */
+:root[data-theme='dark'] {
+  --museo-ice: #0b1a2c;
+  --museo-lavender: #161131;
+  --museo-ice-soft: #0a1828;
+  --museo-lavender-soft: #14102b;
+  --museo-title: #eef1f7;
+  --museo-chip-bg: #eef1f7;
+  --museo-chip-text: #0b1a2c;
+  --museo-kids-card: #1b1638;
+  --museo-illustrative: #5fe0d2;
+  --museo-piece-line: #8fa3c7;
+}
+
+/* ---------- Salas (bandas de ancho completo, ambos temas) ---------- */
+
+.room--ice {
+  background: var(--museo-ice);
+}
+
+.room--lavender {
+  background: var(--museo-lavender);
+}
+
+/* ---------- Acciones en índigo ---------- */
+
+:root[data-theme='light'] .button--primary,
+:root[data-theme='light'] .button--primary:hover {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+:root[data-theme='light'] .button--primary:hover {
+  background: var(--color-primary-hover);
+}
+
+:root[data-theme='light'] .button--secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+:root[data-theme='light'] .button--secondary:hover,
+:root[data-theme='light'] .home-band--portal .button--secondary:hover,
+:root[data-theme='light'] .home-band--resources .button--secondary:hover {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+:root[data-theme='light'] .main-nav__link--cta,
+:root[data-theme='light'] .main-nav__link--cta.is-active {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+:root[data-theme='light'] .main-nav__link--cta:hover {
+  background: var(--color-primary-hover);
+  color: #ffffff;
+}
+
+:root[data-theme='light'] .main-nav__link--cta.is-active {
+  box-shadow:
+    inset 0 0 0 2px var(--color-primary),
+    inset 0 0 0 4px #ffffff;
+}
+
+:root[data-theme='light'] .about__cta {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+:root[data-theme='light'] .about__cta:hover {
+  background: var(--color-primary-hover);
+}
+
+:root[data-theme='light'] .about__cta:focus-visible {
+  outline-color: var(--color-primary);
+}
+
+/* ---------- Inicio: tres salas tras el hero ---------- */
+
+:root[data-theme='light'] .home-band--portal {
+  background: var(--museo-lavender);
+}
+
+:root[data-theme='light'] section.about {
+  background: var(--museo-ice);
+}
+
+:root[data-theme='light'] .home-band--resources {
+  background: var(--museo-lavender);
+}
+
+/* Vitrinas: superficie clara con borde fino, sin sombra pesada. */
+:root[data-theme='light'] .info-block,
+:root[data-theme='light'] .audience-card,
+:root[data-theme='light'] .about-card,
+:root[data-theme='light'] .resource-card {
+  background: var(--color-surface);
+  border-color: rgba(26, 32, 64, 0.12);
+  box-shadow: var(--shadow);
+}
+
+:root[data-theme='light'] .home-band--portal .info-block:hover,
+:root[data-theme='light'] .home-band--portal .audience-card:hover,
+:root[data-theme='light'] .home-band--resources .resource-card:hover,
+:root[data-theme='light'] .about-card:hover {
+  border-color: var(--color-primary);
+}
+
+/* El «·» de la audiencia toma el color del texto para que se lea. */
+:root[data-theme='light'] .about-card__audience {
+  color: color-mix(in srgb, var(--card-accent) 55%, var(--museo-title));
+}
+
+:root[data-theme='light'] .home-band--portal .topic-chip,
+:root[data-theme='light'] .home-band--resources .chip {
+  background: var(--color-surface);
+}
+
+/* ---------- Portal (ambos temas) ---------- */
+
+.portal {
+  padding-bottom: 0;
+}
+
+:root .portal__rows {
+  gap: 0;
+  margin-top: 0;
+}
+
+/*
+ * Cada tema es una sala de ancho completo (alterna hielo y lavanda suaves).
+ * La sombra extendida + clip-path pinta el fondo de borde a borde sin crear
+ * desplazamiento horizontal.
+ */
+:root .portal__rows .topic-row {
+  padding-block: 2rem 2.25rem;
+  background: var(--museo-ice-soft);
+  box-shadow: 0 0 0 100vmax var(--museo-ice-soft);
+  clip-path: inset(0 -100vmax);
+}
+
+:root .portal__rows .topic-row:nth-child(even) {
+  background: var(--museo-lavender-soft);
+  box-shadow: 0 0 0 100vmax var(--museo-lavender-soft);
+}
+
+:root .portal .image-credits {
+  margin-top: 0;
+  padding-block: 2.5rem 3rem;
+}
+
+:root[data-theme='light'] .sub-card {
+  background: var(--color-surface);
+  border-color: rgba(26, 32, 64, 0.12);
+}
+
+/* ---------- Páginas de tema: sala de Submódulos (ambos temas) ---------- */
+
+:root .topic-submodules {
+  padding-block: 1.5rem 2rem;
+  background: var(--museo-ice-soft);
+  box-shadow: 0 0 0 100vmax var(--museo-ice-soft);
+  clip-path: inset(0 -100vmax);
+}
+
+:root .page-body > .topic-submodules:first-child {
+  margin-top: calc(-1 * 2.25rem);
+  padding-top: 2.25rem;
+}
+
+/* ---------- Misiones (vista del estudiante y guía docente) ---------- */
+
+:root[data-theme='light'] .mission__head,
+:root[data-theme='light'] .guide__head {
+  background: var(--museo-ice);
+  border-bottom-color: rgba(26, 32, 64, 0.1);
+}
+
+/* ---------- Iniciar sesión ---------- */
+
+:root[data-theme='light'] .auth {
+  background: linear-gradient(180deg, var(--museo-lavender) 0%, var(--color-bg) 70%);
+}
+
+/* ==========================================================================
+   Misiones del Portal en modo claro: MissionsShowcase
+   ========================================================================== */
+
+.showcase__rover {
+  padding: 0 0 2.75rem;
+}
+
+.showcase__panorama {
+  margin: 0 0 1.75rem;
+}
+
+.showcase__panorama img {
+  display: block;
+  width: 100%;
+  height: clamp(7.5rem, 15vw, 14rem);
+  object-fit: cover;
+  object-position: 55% 50%;
+  background: #000000;
+}
+
+.showcase__panorama figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.showcase__label {
+  display: grid;
+  gap: 0.75rem 2.5rem;
+}
+
+@media (min-width: 52rem) {
+  .showcase__label {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: end;
+  }
+}
+
+.showcase__eyebrow {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.showcase__age {
+  display: inline-flex;
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  background: var(--museo-chip-bg);
+  color: var(--museo-chip-text);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.showcase__title {
+  margin: 0.4rem 0 0;
+  font-size: clamp(1.5rem, 1.05rem + 1.9vw, 2.5rem);
+  line-height: 1.15;
+  color: var(--museo-title);
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+.showcase__plaque {
+  padding: 1.1rem 1.25rem;
+  border-top: 4px solid var(--color-primary);
+  border-radius: 0 0 14px 14px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow);
+}
+
+.showcase__lead {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.showcase__plaque ul.badge-list {
+  margin: 0 0 1.1rem;
+}
+
+.showcase__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+@media (max-width: 29.99rem) {
+  .showcase__actions .button {
+    flex: 1 1 100%;
+  }
+}
+
+/* 4Kids: el rompecabezas rodea el texto */
+
+.showcase__kids {
+  padding: 2.75rem 0 3rem;
+}
+
+.showcase__puzzle {
+  display: grid;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+@media (min-width: 52rem) {
+  .showcase__puzzle {
+    grid-template-columns: minmax(8rem, 0.7fr) minmax(0, 1.6fr) minmax(8rem, 0.7fr);
+  }
+}
+
+.showcase__piece {
+  display: block;
+  width: 100%;
+  max-width: 11rem;
+  height: auto;
+  aspect-ratio: 200 / 360;
+  border: 3px solid var(--museo-piece-line);
+  border-radius: 14px;
+  background: var(--color-surface);
+  box-shadow: 6px 6px 0 var(--l-teal);
+}
+
+.showcase__piece--a {
+  justify-self: end;
+  transform: rotate(-6deg);
+}
+
+.showcase__stack {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.showcase__stack .showcase__piece {
+  max-width: 9rem;
+}
+
+.showcase__piece--b {
+  transform: rotate(5deg);
+  box-shadow: 6px 6px 0 var(--l-yellow);
+}
+
+.showcase__piece--c {
+  transform: rotate(-3deg) translateX(1.5rem);
+}
+
+.showcase__kids-card {
+  padding: 1.5rem;
+  border: 3px solid var(--l-teal);
+  border-radius: 22px;
+  background: var(--museo-kids-card);
+  box-shadow: 8px 8px 0 var(--l-yellow);
+}
+
+.showcase__kids-tag {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.showcase__kids-tag .showcase__age {
+  margin-top: 0;
+}
+
+.showcase__dot {
+  font-weight: 900;
+  color: var(--color-muted);
+}
+
+.showcase__kids-card .showcase__title {
+  margin-bottom: 0.5rem;
+}
+
+.showcase__note {
+  margin: 0.9rem 0 0;
+}
+
+.showcase__illustrative {
+  display: inline-block;
+  padding: 0.05rem 0.5rem;
+  border: 1.5px dashed var(--museo-illustrative);
+  border-radius: 999px;
+  color: var(--museo-illustrative);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 51.99rem) {
+  /* En móvil las piezas forman una fila sobre el texto. */
+  .showcase__puzzle {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .showcase__stack {
+    display: contents;
+  }
+
+  .showcase__piece,
+  .showcase__stack .showcase__piece {
+    max-width: none;
+    justify-self: stretch;
+    transform: none;
+    box-shadow: 3px 3px 0 var(--l-teal);
+  }
+
+  .showcase__piece--a {
+    order: 1;
+  }
+
+  .showcase__piece--b {
+    order: 2;
+    transform: translateY(0.6rem);
+  }
+
+  .showcase__piece--c {
+    order: 3;
+  }
+
+  .showcase__kids-card {
+    order: 4;
+    grid-column: 1 / -1;
+    padding: 1.1rem;
+    box-shadow: 5px 5px 0 var(--l-yellow);
+  }
+}

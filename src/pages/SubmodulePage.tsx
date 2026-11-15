@@ -1,26 +1,55 @@
-import { NullableSection } from '../components/common/NullableSection';
 import { PageHeader } from '../components/layout/PageHeader';
-import { TopicBanner } from '../components/modules/TopicBanner';
-import { SubmoduleList } from '../components/portal/TopicRow';
+import { StudentSubmoduleView, studentSubmoduleSections } from '../components/modules/StudentSubmoduleView';
+import { TeacherSubmoduleView, teacherSubmoduleSections } from '../components/modules/TeacherSubmoduleView';
+import { SubmoduleCarousel } from '../components/portal/SubmoduleCarousel';
+import { SubmoduleHeader } from '../components/submodule/SubmoduleHeader';
+import { SubmoduleLayout } from '../components/submodule/SubmoduleLayout';
+import { SubmodulePager } from '../components/submodule/SubmodulePager';
 import { PORTAL_TEXT, SUBMODULE_TEXT, UI } from '../content/strings';
 import { topicStyle } from '../content/topicVisuals';
-import { getSubmodule, getSubmodulesByTopic, getTopicById, isTopicId } from '../data';
+import {
+  getStudentSubmodule,
+  getSubmodule,
+  getSubmodulesByTopic,
+  getTeacherModule,
+  getTeacherSubmodule,
+  getTopicById,
+  isTopicId,
+  submoduleKey,
+} from '../data';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { usePortalView } from '../hooks/usePortalView';
 import { Link } from '../router/Link';
 import { ROUTES } from '../router/routes';
 
-/** A submodule: banner with its photo, its (pending) content and sibling modules. */
+const SUBMODULES_ID = 'submodulos';
+
+/**
+ * A submodule. Same shell in both views — header, collapsible sidebar and
+ * reading column — while the content follows the active view (see
+ * `PortalViewContext`): the student lesson or the teacher's teaching guide.
+ */
 export function SubmodulePage({ topicId, submoduleId }: { topicId: string; submoduleId: string }) {
+  const { view } = usePortalView();
   const topic = isTopicId(topicId) ? getTopicById(topicId) : null;
   const submodule = topic ? getSubmodule(topic.id, submoduleId) : undefined;
-  useDocumentTitle(submodule ? submodule.title : SUBMODULE_TEXT.notFoundTitle);
+  useDocumentTitle(topic && submodule ? `${submodule.title} · ${topic.name}` : SUBMODULE_TEXT.notFoundTitle);
 
-  if (!topic || !submodule) {
+  const key = submodule ? submoduleKey(submodule) : null;
+  const studentContent = key && view === 'learn' ? getStudentSubmodule(key) : undefined;
+  const teacherContent = key && view === 'teach' ? getTeacherSubmodule(key) : undefined;
+
+  if (!topic || !submodule || (!studentContent && !teacherContent)) {
     return (
       <>
         <PageHeader title={SUBMODULE_TEXT.notFoundTitle} lead={SUBMODULE_TEXT.notFoundBody} />
-        <div className="container page-body">
-          <Link to={ROUTES.portal} className="button button--primary">
+        <div className="container page-body button-row">
+          {topic ? (
+            <Link to={ROUTES.topic(topic.id)} className="button button--primary">
+              {SUBMODULE_TEXT.backToTopic(topic.name)}
+            </Link>
+          ) : null}
+          <Link to={ROUTES.portal} className={`button ${topic ? 'button--secondary' : 'button--primary'}`}>
             {UI.backToTopics}
           </Link>
         </div>
@@ -28,40 +57,48 @@ export function SubmodulePage({ topicId, submoduleId }: { topicId: string; submo
     );
   }
 
-  const siblings = getSubmodulesByTopic(topic.id).filter((item) => item.id !== submodule.id);
+  const siblings = getSubmodulesByTopic(topic.id);
+  const sections = [
+    ...(studentContent ? studentSubmoduleSections(studentContent) : teacherSubmoduleSections()),
+    { id: SUBMODULES_ID, label: SUBMODULE_TEXT.submodules },
+  ];
 
   return (
     <>
-      <TopicBanner
-        topicId={topic.id}
-        title={submodule.title}
-        imageId={submodule.imageId}
-        eyebrow={
-          <>
-            <Link to={ROUTES.topic(topic.id)} className="banner-back">
-              ← {topic.name}
-            </Link>
-            <span className="banner-tag">{submodule.tag}</span>
-          </>
-        }
-      />
+      <SubmoduleHeader topic={topic} submodule={submodule} total={siblings.length} />
       <div className="container page-body submodule-page" style={topicStyle(topic.id)}>
-        <NullableSection id="contenido-modulo" title={SUBMODULE_TEXT.contentTitle} data={submodule.summary}>
-          {(text) => <p>{text}</p>}
-        </NullableSection>
+        <SubmoduleLayout sections={sections} topicId={topic.id} submoduleId={submodule.id}>
+          {studentContent ? <StudentSubmoduleView submodule={submodule} content={studentContent} /> : null}
+          {teacherContent ? (
+            <TeacherSubmoduleView
+              topic={topic}
+              submodule={submodule}
+              module={getTeacherModule(topic.id)}
+              content={teacherContent}
+            />
+          ) : null}
 
-        <Link to={ROUTES.topic(topic.id)} className="button button--topic">
-          {SUBMODULE_TEXT.backToTopic(topic.name)}
-        </Link>
-
-        {siblings.length > 0 ? (
-          <section className="topic-submodules" aria-labelledby="otros-modulos">
-            <h2 id="otros-modulos" className="section-title">
-              {SUBMODULE_TEXT.otherInTopic}
+          <section
+            id={SUBMODULES_ID}
+            className="content-section submodule-section"
+            aria-labelledby={`${SUBMODULES_ID}-titulo`}
+          >
+            <h2 id={`${SUBMODULES_ID}-titulo`} className="content-section__title" data-section-heading="">
+              {SUBMODULE_TEXT.submodules}
             </h2>
-            <SubmoduleList submodules={siblings} label={`${PORTAL_TEXT.submodulesTitle}: ${topic.name}`} />
+            <SubmoduleCarousel
+              submodules={siblings}
+              label={`${PORTAL_TEXT.submodulesTitle}: ${topic.name}`}
+              view={view}
+              currentId={submodule.id}
+              getMeta={
+                view === 'teach' ? (item) => getTeacherSubmodule(submoduleKey(item))?.estimatedDuration ?? null : undefined
+              }
+            />
           </section>
-        ) : null}
+
+          <SubmodulePager topic={topic} submodules={siblings} current={submodule} />
+        </SubmoduleLayout>
       </div>
     </>
   );

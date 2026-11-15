@@ -2,8 +2,9 @@ import type { TopicId } from './Topic';
 
 /**
  * A submodule inside a topic (shown as a card in the topic's row of the
- * Portal Educativo). Titles are proposals pending review by the team; the
- * educational content (`summary`) stays `null` until it is provided.
+ * Portal Educativo and in the topic page). Titles are proposals pending review
+ * by the team; the educational content (`summary`) stays `null` until it is
+ * provided.
  */
 export interface Submodule {
   id: string;
@@ -16,3 +17,6 @@ export interface Submodule {
   order: number;
   summary: string | null;
 }
+
+/** Globally unique submodule key: `topicId/submoduleId`. */
+export type SubmoduleKey = `${TopicId}/${string}`;

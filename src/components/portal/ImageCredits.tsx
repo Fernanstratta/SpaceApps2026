@@ -26,12 +26,12 @@ export function ImageCredits() {
   );
 }
 
-/** One-line credit under a banner photo. */
-export function ImageCredit({ imageId }: { imageId: string }) {
+/** One-line credit under a photo. Use `light` on white backgrounds. */
+export function ImageCredit({ imageId, light = false }: { imageId: string; light?: boolean }) {
   const image = images.find((item) => item.id === imageId);
   if (!image) return null;
   return (
-    <p className="photo-credit">
+    <p className={`photo-credit${light ? ' photo-credit--light' : ''}`}>
       {IMAGE_TEXT.photo}: {image.author} · {image.license} ·{' '}
       <ExternalLink href={commonsPageUrl(image)}>{IMAGE_TEXT.viewSource}</ExternalLink>
     </p>

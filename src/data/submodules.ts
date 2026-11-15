@@ -1,4 +1,4 @@
-import type { Submodule, TopicId } from '../types';
+import type { Submodule, SubmoduleKey, TopicId } from '../types';
 
 /**
  * Submodules shown as cards in each topic's row of the Portal Educativo.
@@ -40,4 +40,16 @@ export function getSubmodulesByTopic(topicId: TopicId): Submodule[] {
 
 export function getSubmodule(topicId: TopicId, id: string): Submodule | undefined {
   return submodules.find((item) => item.topicId === topicId && item.id === id);
+}
+
+/** Unique key of a submodule (`topicId/submoduleId`), used by per-submodule content. */
+export function submoduleKey(item: Pick<Submodule, 'topicId' | 'id'>): SubmoduleKey {
+  return `${item.topicId}/${item.id}`;
+}
+
+export const SUBMODULE_KEYS: SubmoduleKey[] = submodules.map(submoduleKey);
+
+/** Builds a record with one entry per submodule by calling `build` for each key. */
+export function mapSubmodules<T>(build: (key: SubmoduleKey) => T): Record<SubmoduleKey, T> {
+  return Object.fromEntries(SUBMODULE_KEYS.map((key) => [key, build(key)])) as Record<SubmoduleKey, T>;
 }

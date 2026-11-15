@@ -1,19 +1,32 @@
 import { PageHeader } from '../components/layout/PageHeader';
-import { StudentModuleView } from '../components/modules/StudentModuleView';
-import { TeacherModuleView } from '../components/modules/TeacherModuleView';
+import { StudentModuleIntro, TeacherModuleIntro } from '../components/modules/ModuleIntro';
 import { TopicBanner } from '../components/modules/TopicBanner';
-import { TopicTabs } from '../components/modules/TopicTabs';
-import { SubmoduleList } from '../components/portal/TopicRow';
+import { SubmoduleCarousel } from '../components/portal/SubmoduleCarousel';
 import { TopicPager } from '../components/portal/TopicPager';
-import { PORTAL_TEXT, UI } from '../content/strings';
+import { MODULE_TEXT, PORTAL_TEXT, UI } from '../content/strings';
 import { TOPIC_VISUALS, topicStyle } from '../content/topicVisuals';
-import { getStudentModule, getSubmodulesByTopic, getTeacherModule, getTopicById, isTopicId } from '../data';
+import {
+  getStudentModule,
+  getSubmodulesByTopic,
+  getTeacherModule,
+  getTeacherSubmodule,
+  getTopicById,
+  isTopicId,
+  submoduleKey,
+} from '../data';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { usePortalView } from '../hooks/usePortalView';
 import { Link } from '../router/Link';
 import { ROUTES } from '../router/routes';
 
-/** A topic: banner, its submodules, then the "Aprender" / "Enseñar" tabs. */
+/**
+ * A topic ("módulo"): banner with its photo, tagline and explanatory
+ * paragraph, then its submodules. The active view (see `PortalViewContext`)
+ * picks the content: "Enseñar" adds the topic's teaching sheet and opens each
+ * submodule's teaching guide.
+ */
 export function TopicModulePage({ topicId }: { topicId: string }) {
+  const { view } = usePortalView();
   const topic = isTopicId(topicId) ? getTopicById(topicId) : null;
   useDocumentTitle(topic ? topic.name : PORTAL_TEXT.topicNotFoundTitle);
 
@@ -47,29 +60,40 @@ export function TopicModulePage({ topicId }: { topicId: string }) {
             <span className="banner-tag">
               {PORTAL_TEXT.topicNumber} {String(topic.order).padStart(2, '0')}
             </span>
+            <span className="banner-tag">{MODULE_TEXT.submoduleCount(submodules.length)}</span>
           </>
         }
       />
-      <div className="container page-body" style={topicStyle(topic.id)}>
-        {submodules.length > 0 ? (
-          <section className="topic-submodules" aria-labelledby="submodulos-titulo">
-            <h2 id="submodulos-titulo" className="section-title">
+      <div className="container page-body topic-page" style={topicStyle(topic.id)}>
+        {view === 'learn' ? (
+          <StudentModuleIntro module={getStudentModule(topic.id)} />
+        ) : (
+          <TeacherModuleIntro module={getTeacherModule(topic.id)} />
+        )}
+
+        <section className="topic-submodules" aria-labelledby="submodulos-titulo">
+          <div className="topic-submodules__header">
+            <h2 id="submodulos-titulo" className="topic-submodules__title">
               {PORTAL_TEXT.submodulesTitle}
             </h2>
-            <SubmoduleList submodules={submodules} label={`${PORTAL_TEXT.submodulesTitle}: ${topic.name}`} />
-          </section>
-        ) : null}
+            <p className="topic-submodules__intro">
+              {view === 'learn' ? MODULE_TEXT.submodulesLearnIntro : MODULE_TEXT.submodulesTeachIntro}
+            </p>
+          </div>
+          {submodules.length > 0 ? (
+            <SubmoduleCarousel
+              submodules={submodules}
+              label={`${PORTAL_TEXT.submodulesTitle}: ${topic.name}`}
+              view={view}
+              getMeta={
+                view === 'teach' ? (item) => getTeacherSubmodule(submoduleKey(item))?.estimatedDuration ?? null : undefined
+              }
+            />
+          ) : (
+            <p className="data-state data-state--empty">{UI.empty}</p>
+          )}
+        </section>
 
-        <TopicTabs
-          idPrefix={`tema-${topic.id}`}
-          renderPanel={(tab) =>
-            tab === 'learn' ? (
-              <StudentModuleView module={getStudentModule(topic.id)} />
-            ) : (
-              <TeacherModuleView topic={topic} module={getTeacherModule(topic.id)} />
-            )
-          }
-        />
         <TopicPager currentId={topic.id} />
       </div>
     </>

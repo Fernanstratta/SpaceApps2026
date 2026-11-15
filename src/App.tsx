@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Layout } from './components/layout/Layout';
+import { PortalViewProvider } from './context/PortalViewContext';
 import { ReferenceLocationProvider } from './context/ReferenceLocationContext';
 import { EducationalPortalPage } from './pages/EducationalPortalPage';
 import { HomePage } from './pages/HomePage';
@@ -54,11 +55,13 @@ function AppRoutes() {
 export default function App() {
   return (
     <RouterProvider>
-      <ReferenceLocationProvider>
-        <Layout>
-          <AppRoutes />
-        </Layout>
-      </ReferenceLocationProvider>
+      <PortalViewProvider>
+        <ReferenceLocationProvider>
+          <Layout>
+            <AppRoutes />
+          </Layout>
+        </ReferenceLocationProvider>
+      </PortalViewProvider>
     </RouterProvider>
   );
 }

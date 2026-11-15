@@ -60,12 +60,41 @@ export const PORTAL_TEXT = {
   topicNotFoundBody: 'El tema que buscas no existe o cambió de dirección.',
 } as const;
 
+/** Topic ("módulo") page. */
+export const MODULE_TEXT = {
+  submoduleCount: (n: number) => (n === 1 ? '1 submódulo' : `${n} submódulos`),
+  aboutTopic: 'Acerca de este tema',
+  submodulesLearnIntro: 'Cada submódulo explora una parte del tema. Síguelos en orden o elige el que más te interese.',
+  submodulesTeachIntro: 'Cada submódulo incluye su guía docente: objetivos, plan de clase, actividades y recursos.',
+  submoduleNumber: 'Submódulo',
+  summaryPending: 'Resumen pendiente',
+  startLearning: 'Comenzar',
+  openTeacherGuide: 'Ver guía docente',
+  teacherSheet: 'Ficha docente',
+  carouselPrevious: 'Ver submódulos anteriores',
+  carouselNext: 'Ver más submódulos',
+} as const;
+
+/** Submodule page. */
 export const SUBMODULE_TEXT = {
-  notFoundTitle: 'Módulo no encontrado',
-  notFoundBody: 'El módulo que buscas no existe o cambió de dirección.',
-  contentTitle: 'Contenido del módulo',
-  backToTopic: (topic: string) => `Ir al tema «${topic}»`,
-  otherInTopic: 'Más módulos de este tema',
+  notFoundTitle: 'Submódulo no encontrado',
+  notFoundBody: 'El submódulo que buscas no existe o cambió de dirección.',
+  backToTopic: (topic: string) => `Volver a ${topic}`,
+  position: (current: number, total: number) => `Submódulo ${current} de ${total}`,
+  sidebarLabel: 'Índice del submódulo',
+  hideSidebar: 'Esconder',
+  showSidebar: 'Mostrar índice',
+  modules: 'Módulos',
+  topicOverview: 'Presentación del tema',
+  relatedPhoto: 'Foto relacionada',
+  references: 'Referencias',
+  referencesPending: 'Las referencias se mostrarán cuando este submódulo tenga contenido con fuentes verificadas.',
+  submodules: 'Submódulos',
+  current: 'Estás aquí',
+  pagerLabel: 'Navegación entre submódulos',
+  previous: 'Submódulo anterior',
+  next: 'Submódulo siguiente',
+  nextTopic: 'Siguiente tema',
 } as const;
 
 export const IMAGE_TEXT = {
@@ -78,19 +107,23 @@ export const IMAGE_TEXT = {
 
 export const STUDENT_SECTIONS = {
   introduction: 'Introducción',
+  development: 'Desarrollo del tema',
+  conclusion: 'Conclusión',
   scientificConcepts: 'Conceptos científicos',
   earth: 'La Tierra',
   moon: 'La Luna',
   bodies: 'La Tierra y la Luna',
-  comparisons: 'Comparaciones entre la Tierra y la Luna',
+  comparisons: 'Comparación',
+  comparisonsDescription: 'Cómo se comparan la Tierra y la Luna en este submódulo.',
   relatedLocations: 'Lugares de la Tierra relacionados',
-  additionalFacts: 'Datos adicionales',
+  additionalFacts: '¿Sabías que…?',
   learningActivities: 'Actividades de aprendizaje',
 } as const;
 
 export const TEACHER_SECTIONS = {
   general: 'Información general',
-  topicName: 'Nombre del tema',
+  topicName: 'Tema',
+  submoduleName: 'Submódulo',
   description: 'Descripción',
   gradeLevel: 'Nivel educativo recomendado',
   estimatedDuration: 'Duración estimada',

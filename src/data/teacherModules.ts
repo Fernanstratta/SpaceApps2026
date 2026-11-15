@@ -1,107 +1,65 @@
-import type { ByTopic, TeacherModule } from '../types';
-import { fieldTripsByTopic, geographicalRecommendationsByTopic } from './locations';
+import type { ByTopic, SubmoduleKey, TeacherModule, TeacherSubmodule, TopicId } from '../types';
+import { fieldTripsBySubmodule, geographicalRecommendationsBySubmodule } from './locations';
+import { mapSubmodules } from './submodules';
+
+function pendingTeacherModule(topicId: TopicId): TeacherModule {
+  return {
+    topicId,
+    tagline: null,
+    overview: null,
+    gradeLevel: null,
+    estimatedDuration: null,
+    learningObjectives: null,
+    requiredMaterials: null,
+  };
+}
 
 /**
- * Teacher modules, one per shared topic.
+ * "Enseñar" presentation and general information of each topic.
  *
  * INITIAL DATA STATE: every teacher-specific field is `null`.
  * Do NOT generate lesson plans, activities or recommendations here.
  */
 export const teacherModules: ByTopic<TeacherModule> = {
-  'size-scale': {
-    topicId: 'size-scale',
-    gradeLevel: null,
-    estimatedDuration: null,
-    learningObjectives: null,
-    requiredMaterials: null,
-    lessonPlan: null,
-    activities: null,
-    geographicalRecommendations: geographicalRecommendationsByTopic['size-scale'],
-    fieldTrips: fieldTripsByTopic['size-scale'],
-    classroomAlternatives: null,
-  },
-  gravity: {
-    topicId: 'gravity',
-    gradeLevel: null,
-    estimatedDuration: null,
-    learningObjectives: null,
-    requiredMaterials: null,
-    lessonPlan: null,
-    activities: null,
-    geographicalRecommendations: geographicalRecommendationsByTopic.gravity,
-    fieldTrips: fieldTripsByTopic.gravity,
-    classroomAlternatives: null,
-  },
-  'surface-terrain': {
-    topicId: 'surface-terrain',
-    gradeLevel: null,
-    estimatedDuration: null,
-    learningObjectives: null,
-    requiredMaterials: null,
-    lessonPlan: null,
-    activities: null,
-    geographicalRecommendations: geographicalRecommendationsByTopic['surface-terrain'],
-    fieldTrips: fieldTripsByTopic['surface-terrain'],
-    classroomAlternatives: null,
-  },
-  'earth-moon-distance': {
-    topicId: 'earth-moon-distance',
-    gradeLevel: null,
-    estimatedDuration: null,
-    learningObjectives: null,
-    requiredMaterials: null,
-    lessonPlan: null,
-    activities: null,
-    geographicalRecommendations: geographicalRecommendationsByTopic['earth-moon-distance'],
-    fieldTrips: fieldTripsByTopic['earth-moon-distance'],
-    classroomAlternatives: null,
-  },
-  temperature: {
-    topicId: 'temperature',
-    gradeLevel: null,
-    estimatedDuration: null,
-    learningObjectives: null,
-    requiredMaterials: null,
-    lessonPlan: null,
-    activities: null,
-    geographicalRecommendations: geographicalRecommendationsByTopic.temperature,
-    fieldTrips: fieldTripsByTopic.temperature,
-    classroomAlternatives: null,
-  },
-  'impact-craters': {
-    topicId: 'impact-craters',
-    gradeLevel: null,
-    estimatedDuration: null,
-    learningObjectives: null,
-    requiredMaterials: null,
-    lessonPlan: null,
-    activities: null,
-    geographicalRecommendations: geographicalRecommendationsByTopic['impact-craters'],
-    fieldTrips: fieldTripsByTopic['impact-craters'],
-    classroomAlternatives: null,
-  },
-  atmosphere: {
-    topicId: 'atmosphere',
-    gradeLevel: null,
-    estimatedDuration: null,
-    learningObjectives: null,
-    requiredMaterials: null,
-    lessonPlan: null,
-    activities: null,
-    geographicalRecommendations: geographicalRecommendationsByTopic.atmosphere,
-    fieldTrips: fieldTripsByTopic.atmosphere,
-    classroomAlternatives: null,
-  },
-  'water-ice': {
-    topicId: 'water-ice',
-    gradeLevel: null,
-    estimatedDuration: null,
-    learningObjectives: null,
-    requiredMaterials: null,
-    lessonPlan: null,
-    activities: null,
-    geographicalRecommendations: geographicalRecommendationsByTopic['water-ice'],
-    fieldTrips: fieldTripsByTopic['water-ice'],
-    classroomAlternatives: null,
-  },
+  'size-scale': pendingTeacherModule('size-scale'),
+  gravity: pendingTeacherModule('gravity'),
+  'surface-terrain': pendingTeacherModule('surface-terrain'),
+  'earth-moon-distance': pendingTeacherModule('earth-moon-distance'),
+  temperature: pendingTeacherModule('temperature'),
+  'impact-craters': pendingTeacherModule('impact-craters'),
+  atmosphere: pendingTeacherModule('atmosphere'),
+  'water-ice': pendingTeacherModule('water-ice'),
 };
+
+type EditableTeacherContent = Partial<
+  Omit<TeacherSubmodule, 'key' | 'geographicalRecommendations' | 'fieldTrips'>
+>;
+
+/**
+ * Teaching guide per submodule. Add verified content here, keyed by
+ * submodule (e.g. `'gravity/saltar-en-la-luna': { estimatedDuration: '50 min' }`).
+ * Geographical recommendations and field trips come from `locations.ts`.
+ */
+const teacherSubmoduleContent: Partial<Record<SubmoduleKey, EditableTeacherContent>> = {};
+
+function pendingTeacherSubmodule(key: SubmoduleKey): TeacherSubmodule {
+  return {
+    key,
+    estimatedDuration: null,
+    learningObjectives: null,
+    requiredMaterials: null,
+    lessonPlan: null,
+    activities: null,
+    geographicalRecommendations: null,
+    fieldTrips: null,
+    classroomAlternatives: null,
+    sourceIds: null,
+  };
+}
+
+export const teacherSubmodules: Record<SubmoduleKey, TeacherSubmodule> = mapSubmodules((key) => ({
+  ...pendingTeacherSubmodule(key),
+  ...teacherSubmoduleContent[key],
+  geographicalRecommendations: geographicalRecommendationsBySubmodule[key] ?? null,
+  fieldTrips: fieldTripsBySubmodule[key] ?? null,
+}));

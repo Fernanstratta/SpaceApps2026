@@ -42,7 +42,7 @@ export function NullableSection<T>({
       aria-labelledby={headingId}
       data-state={state}
     >
-      <Heading id={headingId} className="content-section__title">
+      <Heading id={headingId} className="content-section__title" data-section-heading={id ? '' : undefined}>
         {title}
       </Heading>
       {description ? <p className="content-section__description">{description}</p> : null}

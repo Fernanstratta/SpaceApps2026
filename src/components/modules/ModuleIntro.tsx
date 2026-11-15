@@ -6,23 +6,25 @@ import { FieldList } from '../common/FieldList';
 import { Paragraphs } from '../common/Paragraphs';
 import { TextList } from '../common/TextList';
 import { useMessages } from '../../i18n/I18nContext';
+import { Link } from '../../router/Link';
 
 interface ModuleIntroProps {
   tagline: string | null;
   overview: string | null;
+  /** Heading used while `tagline` is pending. */
+  fallbackTitle: string;
   aside?: ReactNode;
 }
 
 /** Tagline + explanatory paragraph of a topic, with an optional side panel. */
-function ModuleIntro({ tagline, overview, aside }: ModuleIntroProps) {
-  const { MODULE_TEXT } = useMessages();
+function ModuleIntro({ tagline, overview, fallbackTitle, aside }: ModuleIntroProps) {
   const overviewState = getDataState(overview);
 
   return (
     <section className={`module-intro${aside ? ' module-intro--with-aside' : ''}`} aria-labelledby="module-intro-title">
       <div className="module-intro__main">
         <h2 id="module-intro-title" className="module-intro__tagline">
-          {tagline ?? MODULE_TEXT.aboutTopic}
+          {tagline ?? fallbackTitle}
         </h2>
         {overview && overviewState === 'available' ? (
           <div className="module-intro__text">
@@ -39,16 +41,30 @@ function ModuleIntro({ tagline, overview, aside }: ModuleIntroProps) {
 
 /** "Aprender": tagline and paragraph for students. */
 export function StudentModuleIntro({ module }: { module: StudentModule }) {
-  return <ModuleIntro tagline={module.tagline} overview={module.overview} />;
+  const { MODULE_TEXT } = useMessages();
+  return <ModuleIntro tagline={module.tagline} overview={module.overview} fallbackTitle={MODULE_TEXT.aboutTopic} />;
 }
 
-/** "Enseñar": same intro plus the topic's teaching sheet. */
-export function TeacherModuleIntro({ module }: { module: TeacherModule }) {
-  const { MODULE_TEXT, TEACHER_SECTIONS } = useMessages();
+/** One session of the module's lesson sequence (one per submodule, in order). */
+export interface LessonSession {
+  id: string;
+  title: string;
+  to: string;
+  duration: string | null;
+}
+
+/**
+ * "Enseñar": the module plan — the teacher's own tagline and overview, the
+ * teaching sheet (level, duration, objectives, materials) and the lesson
+ * sequence that links to each submodule's lesson plan.
+ */
+export function TeacherModuleIntro({ module, sessions }: { module: TeacherModule; sessions: LessonSession[] }) {
+  const { MODULE_TEXT, TEACHER_SECTIONS, UI } = useMessages();
   return (
     <ModuleIntro
       tagline={module.tagline}
       overview={module.overview}
+      fallbackTitle={MODULE_TEXT.teacherPlanTitle}
       aside={
         <aside className="teacher-sheet" aria-labelledby="teacher-sheet-title">
           <h3 id="teacher-sheet-title" className="teacher-sheet__title">
@@ -68,6 +84,24 @@ export function TeacherModuleIntro({ module }: { module: TeacherModule }) {
               },
             ]}
           />
+          {sessions.length > 0 ? (
+            <div className="lesson-sequence">
+              <h4 className="lesson-sequence__title">{MODULE_TEXT.lessonSequence}</h4>
+              <p className="lesson-sequence__hint">{MODULE_TEXT.lessonSequenceHint}</p>
+              <ol className="lesson-sequence__list">
+                {sessions.map((session) => (
+                  <li key={session.id} className="lesson-sequence__item">
+                    <Link to={session.to} className="lesson-sequence__link">
+                      {session.title}
+                    </Link>
+                    <span className={`lesson-sequence__duration${session.duration ? '' : ' is-pending'}`}>
+                      {session.duration ?? UI.fieldPending}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
         </aside>
       }
     />

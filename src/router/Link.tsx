@@ -26,12 +26,19 @@ export function Link({ to, onClick, target, ...rest }: LinkProps) {
 type NavLinkProps = LinkProps & {
   /** When true, only an exact path match counts as active. */
   end?: boolean;
+  /**
+   * Path whose section makes the link active, when it differs from `to`
+   * (e.g. «Portal Educativo» opens the entry screen but is active on every
+   * portal page).
+   */
+  match?: string;
 };
 
 /** Link that exposes `aria-current="page"` when its route is active. */
-export function NavLink({ to, end = false, className, ...rest }: NavLinkProps) {
+export function NavLink({ to, end = false, match, className, ...rest }: NavLinkProps) {
   const { path } = useRouter();
-  const isActive = end || to === '/' ? path === to : path === to || path.startsWith(`${to}/`);
+  const base = match ?? to;
+  const isActive = end || base === '/' ? path === base : path === base || path.startsWith(`${base}/`);
   const classes = [className, isActive ? 'is-active' : null].filter(Boolean).join(' ');
 
   return (

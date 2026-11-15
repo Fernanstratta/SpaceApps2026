@@ -1,11 +1,15 @@
 import { createContext, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useRouter } from '../router/Router';
+import { ROUTES } from '../router/routes';
 
 /**
  * The two views of every topic and submodule: "Aprender" (students) and
- * "Enseñar" (teachers). The choice is shared by the topic and submodule pages,
- * kept for the browser session and reflected in the URL (`?vista=ensenar`) so
- * a view can be shared. This is a local interface choice, not a login.
+ * "Enseñar" (teachers). The choice is made on the Portal's entry screen
+ * (`RoleSelectPage`), can be changed at any time with `PortalViewSwitch`
+ * (side menu, submodule sidebar, portal and topic pages), is shared by every
+ * portal page, kept for the browser session and reflected in the URL
+ * (`?vista=ensenar`) so a view can be shared. This is a local interface
+ * choice, not a login.
  */
 export type PortalView = 'learn' | 'teach';
 
@@ -32,15 +36,29 @@ function storeView(view: PortalView): void {
   }
 }
 
-function readInitialView(): PortalView {
+function readUrlView(): PortalView | null {
   const fromUrl = new URLSearchParams(window.location.search).get(QUERY_KEY);
   if (fromUrl === QUERY_VALUE.teach) return 'teach';
   if (fromUrl === QUERY_VALUE.learn) return 'learn';
-  return readStoredView() ?? 'learn';
+  return null;
+}
+
+/**
+ * Portal pages whose content depends on the view: the main portal page, topics
+ * and submodules. Missions have their own student/teacher routes and the entry
+ * screen is where the view is chosen.
+ */
+function isViewAwarePath(path: string): boolean {
+  if (path === ROUTES.portal) return true;
+  return (
+    path.startsWith(`${ROUTES.portal}/`) && !path.startsWith(`${ROUTES.portal}/mision/`) && path !== ROUTES.portalAccess
+  );
 }
 
 export interface PortalViewContextValue {
   view: PortalView;
+  /** False until a view is chosen in this session (entry screen, switch or a `?vista=` link). */
+  hasChosenView: boolean;
   setView: (view: PortalView) => void;
 }
 
@@ -48,24 +66,29 @@ export const PortalViewContext = createContext<PortalViewContextValue | null>(nu
 
 export function PortalViewProvider({ children }: { children: ReactNode }) {
   const { path } = useRouter();
-  const [view, setViewState] = useState<PortalView>(readInitialView);
+  const [initial] = useState(() => {
+    const fromUrl = readUrlView();
+    const stored = readStoredView();
+    return { view: fromUrl ?? stored ?? 'learn', chosen: fromUrl !== null || stored !== null };
+  });
+  const [view, setViewState] = useState<PortalView>(initial.view);
+  const [hasChosenView, setHasChosenView] = useState(initial.chosen);
 
   const setView = useCallback((next: PortalView) => {
     setViewState(next);
+    setHasChosenView(true);
     storeView(next);
   }, []);
 
-  // Keep `?vista=ensenar` on topic and submodule pages (the router drops the
-  // query string when navigating), and nowhere else.
+  // Keep `?vista=ensenar` on the portal, topic and submodule pages (the router
+  // drops the query string when navigating), and nowhere else.
   useEffect(() => {
     const url = new URL(window.location.href);
-    // Topic and submodule pages only (missions have their own student/teacher routes).
-    const onTopicPage = path.startsWith('/portal-educativo/') && !path.startsWith('/portal-educativo/mision/');
-    if (onTopicPage && view === 'teach') url.searchParams.set(QUERY_KEY, QUERY_VALUE.teach);
+    if (isViewAwarePath(path) && view === 'teach') url.searchParams.set(QUERY_KEY, QUERY_VALUE.teach);
     else url.searchParams.delete(QUERY_KEY);
     if (url.href !== window.location.href) window.history.replaceState(window.history.state, '', url);
   }, [path, view]);
 
-  const value = useMemo(() => ({ view, setView }), [view, setView]);
+  const value = useMemo(() => ({ view, hasChosenView, setView }), [view, hasChosenView, setView]);
   return <PortalViewContext.Provider value={value}>{children}</PortalViewContext.Provider>;
 }

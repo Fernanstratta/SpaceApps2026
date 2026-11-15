@@ -11,6 +11,7 @@ import { LunitaMissionPage } from './pages/LunitaMissionPage';
 import { EducationalPortalPage } from './pages/EducationalPortalPage';
 import { HomePage } from './pages/HomePage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { RoleSelectPage } from './pages/RoleSelectPage';
 import { SubmodulePage } from './pages/SubmodulePage';
 import { TopicModulePage } from './pages/TopicModulePage';
 import { matchPath, RouterProvider, useRouter } from './router/Router';
@@ -51,6 +52,8 @@ function AppRoutes() {
       return <HomePage />;
     case ROUTES.portal:
       return <EducationalPortalPage />;
+    case ROUTES.portalAccess:
+      return <RoleSelectPage />;
     case ROUTES.login:
       return <AuthPage key="login" mode="login" />;
     case ROUTES.register:

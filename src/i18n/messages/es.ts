@@ -86,6 +86,8 @@ export const es = {
     support: 'Soporte',
     helpCenter: 'Centro de ayuda',
     soon: 'Pronto',
+    portalGroup: 'Portal Educativo',
+    portalView: 'Ver el portal como',
   },
 
   AUTH: {
@@ -190,6 +192,34 @@ export const es = {
     },
   },
 
+  /** Selector de vista del Portal (menú lateral, barra lateral de submódulos, portal y temas). */
+  VIEW_SWITCH: {
+    label: 'Vista del Portal Educativo',
+    showingAs: 'Ver como',
+    learn: 'Estudiante',
+    teach: 'Docente',
+  },
+
+  /** Pantalla de entrada al Portal: elegir la vista. */
+  ROLE_SELECT: {
+    documentTitle: 'Elige tu vista',
+    title: '¿Cómo quieres entrar al Portal Educativo?',
+    lead: 'Los módulos son los mismos en las dos vistas; cambia el contenido que verás en cada uno.',
+    optionsLabel: 'Vistas disponibles',
+    learn: {
+      label: 'Soy estudiante',
+      description: 'Aprende cada tema con explicaciones, fotografías, ejemplos y actividades.',
+      cta: 'Entrar a aprender',
+    },
+    teach: {
+      label: 'Soy docente',
+      description: 'Consulta el plan de clase de cada módulo: objetivos, estructura de la sesión, actividades y evaluación.',
+      cta: 'Entrar a enseñar',
+    },
+    current: 'Vista actual',
+    note: 'Puedes cambiar de vista cuando quieras con el selector «Estudiante / Docente» del menú lateral.',
+  },
+
   PORTAL_TEXT: {
     title: 'Portal Educativo',
     modulesTitle: 'Módulos',
@@ -204,6 +234,9 @@ export const es = {
     submodulesTitle: 'Submódulos',
     topicNotFoundTitle: 'Tema no encontrado',
     topicNotFoundBody: 'El tema que buscas no existe o cambió de dirección.',
+    gamesEyebrow: 'Juegos educativos',
+    gamesTitle: 'Misiones interactivas',
+    gamesIntro: 'Pon en práctica lo que aprendiste en los módulos con estas misiones.',
   },
 
   PAGER: {
@@ -223,6 +256,9 @@ export const es = {
     startLearning: 'Comenzar',
     openTeacherGuide: 'Ver guía docente',
     teacherSheet: 'Ficha docente',
+    teacherPlanTitle: 'Plan del módulo',
+    lessonSequence: 'Secuencia de clases',
+    lessonSequenceHint: 'Una sesión por submódulo, en este orden.',
     carouselPrevious: 'Ver submódulos anteriores',
     carouselNext: 'Ver más submódulos',
   },

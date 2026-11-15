@@ -1,5 +1,5 @@
 import { useReferenceLocation } from '../../hooks/useReferenceLocation';
-import type { Submodule, TeacherModule, TeacherSubmodule, Topic } from '../../types';
+import type { LessonPlan, Submodule, TeacherModule, TeacherSubmodule, Topic } from '../../types';
 import { getDataState } from '../../utils/nullable';
 import { DataStateMessage } from '../common/DataStateMessage';
 import { FieldList } from '../common/FieldList';
@@ -39,6 +39,20 @@ export function teacherSubmoduleSections({ TEACHER_SECTIONS, SUBMODULE_TEXT }: M
     { id: ID.references, label: SUBMODULE_TEXT.references },
   ];
 }
+
+/**
+ * Lesson plan whose parts are all pending: shows the structure of the session
+ * (introduction → explanation → activities → discussion → demonstrations →
+ * assessment) until the team adds the verified plan. Nothing is generated.
+ */
+const PENDING_LESSON_PLAN: LessonPlan = {
+  introduction: null,
+  suggestedExplanation: null,
+  classroomActivities: null,
+  discussionQuestions: null,
+  experimentsOrDemonstrations: null,
+  assessmentMethods: null,
+};
 
 function collectSources(content: TeacherSubmodule): string[] {
   return [
@@ -86,9 +100,12 @@ export function TeacherSubmoduleView({ topic, submodule, module, content }: Teac
         />
       </section>
 
-      <NullableSection id={ID.lessonPlan} title={TEACHER_SECTIONS.lessonPlan} data={content.lessonPlan} className="submodule-section">
-        {(plan) => <LessonPlanView plan={plan} />}
-      </NullableSection>
+      <section id={ID.lessonPlan} className="content-section submodule-section" aria-labelledby={`${ID.lessonPlan}-titulo`}>
+        <h2 id={`${ID.lessonPlan}-titulo`} className="content-section__title" data-section-heading="">
+          {TEACHER_SECTIONS.lessonPlan}
+        </h2>
+        <LessonPlanView plan={content.lessonPlan ?? PENDING_LESSON_PLAN} />
+      </section>
 
       <NullableSection id={ID.activities} title={TEACHER_SECTIONS.activities} data={content.activities} className="submodule-section">
         {(activities) => <ClassroomActivityList activities={activities} />}

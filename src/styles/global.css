@@ -3036,11 +3036,16 @@ section.about {
 * {
   --topic-ink: var(--topic-strong);
   --topic-tint: var(--topic-soft);
+  /* Fondo de las bandas de cada tema (Portal y sala de Submódulos) y su borde. */
+  --topic-band: var(--topic-soft);
+  --topic-band-edge: color-mix(in srgb, var(--topic) 24%, transparent);
 }
 
 :root[data-theme='dark'] * {
   --topic-ink: color-mix(in srgb, var(--topic) 55%, #fff);
   --topic-tint: color-mix(in srgb, var(--topic) 22%, #0d1220);
+  --topic-band: color-mix(in srgb, var(--topic) 13%, #05070d);
+  --topic-band-edge: color-mix(in srgb, var(--topic) 38%, transparent);
 }
 
 /* Mapas: teselas atenuadas para no deslumbrar en modo oscuro. */
@@ -3305,4 +3310,363 @@ section.about {
   .brand__name {
     display: none;
   }
+}
+
+/* ---------- Vista del Portal: Estudiante / Docente ---------- */
+
+/* Selector de dos opciones (PortalViewSwitch). 36 px + 4 px de relleno = 44 px táctiles. */
+.view-switch {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface-alt);
+}
+
+.view-switch__option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 36px;
+  padding: 0 0.95rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-muted);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.view-switch__option:hover {
+  color: var(--color-text);
+}
+
+.view-switch__option:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.view-switch__option[aria-checked='true'] {
+  color: #ffffff;
+  box-shadow: var(--shadow);
+}
+
+.view-switch__option--learn[aria-checked='true'] {
+  background: var(--color-student);
+}
+
+.view-switch__option--teach[aria-checked='true'] {
+  background: var(--color-teacher);
+}
+
+/* En oscuro los colores de vista son claros: texto oscuro encima. */
+:root[data-theme='dark'] .view-switch__option[aria-checked='true'] {
+  color: #05070d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-switch__option {
+    transition: none;
+  }
+}
+
+/* «Ver como» + selector, en el Portal y en las páginas de tema. */
+.view-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.view-bar__label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-muted);
+}
+
+.portal__view {
+  margin-top: 1.1rem;
+}
+
+.topic-page__view {
+  margin-bottom: 1.75rem;
+}
+
+/* Menú lateral y barra lateral de submódulos: el selector ocupa todo el ancho. */
+.drawer-view-switch {
+  margin: 0 0.25rem;
+}
+
+.drawer-view-switch .view-switch,
+.submodule-sidebar__view .view-switch {
+  display: grid;
+  width: 100%;
+}
+
+.submodule-sidebar__view {
+  margin-bottom: 0.75rem;
+}
+
+/* Barra lateral contraída en escritorio: solo iconos, uno sobre otro. */
+@media (min-width: 64rem) {
+  .is-collapsed .submodule-sidebar__view .view-switch {
+    grid-template-columns: 1fr;
+    padding: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  .is-collapsed .submodule-sidebar__view .view-switch__option {
+    padding: 0;
+    border-radius: 6px;
+  }
+
+  .is-collapsed .view-switch__text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+}
+
+/* ---------- Entrada al Portal: elegir la vista ---------- */
+
+.role-select {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - var(--header-height));
+  padding: 3rem var(--gutter) 4rem;
+  background: var(--color-bg);
+}
+
+@media (min-width: 40rem) {
+  .role-select {
+    padding-top: 5.5rem;
+  }
+}
+
+.role-select__inner {
+  width: 100%;
+  max-width: 46rem;
+  text-align: center;
+}
+
+.role-select__eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.role-select__title {
+  margin-bottom: 0.6rem;
+  font-size: clamp(1.7rem, 1.3rem + 1.8vw, 2.4rem);
+}
+
+.role-select__lead {
+  max-width: 34rem;
+  margin: 0 auto 2.25rem;
+  color: var(--color-muted);
+}
+
+.role-select__options {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 40rem) {
+  .role-select__options {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+}
+
+.role-option {
+  --role: var(--color-student);
+  --role-soft: var(--color-student-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 1.4rem 1.3rem;
+  font: inherit;
+  text-align: left;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.role-option--teach {
+  --role: var(--color-teacher);
+  --role-soft: var(--color-teacher-soft);
+}
+
+.role-option:hover,
+.role-option.is-current {
+  border-color: var(--role);
+}
+
+.role-option:hover {
+  transform: translateY(-2px);
+}
+
+.role-option:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.role-option__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.25rem;
+  border-radius: 14px;
+  background: var(--role-soft);
+  color: var(--role);
+}
+
+.role-option__label {
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.role-option__description {
+  color: var(--color-muted);
+  font-size: 0.98rem;
+}
+
+.role-option__current {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--role);
+}
+
+.role-option__cta {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-weight: 800;
+  color: var(--role);
+}
+
+.role-select__note {
+  max-width: 34rem;
+  margin: 1.75rem auto 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .role-option {
+    transition: none;
+  }
+
+  .role-option:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Plan del módulo (vista Docente): secuencia de clases ---------- */
+
+.lesson-sequence {
+  margin: 0.5rem 0 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.lesson-sequence__title {
+  margin: 0 0 0.15rem;
+  font-size: 0.95rem;
+}
+
+.lesson-sequence__hint {
+  margin: 0 0 0.6rem;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.lesson-sequence__list {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: session;
+}
+
+.lesson-sequence__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.6rem;
+  counter-increment: session;
+}
+
+.lesson-sequence__item::before {
+  content: counter(session, decimal-leading-zero);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--topic-ink);
+}
+
+.lesson-sequence__link {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.lesson-sequence__link:hover {
+  color: var(--topic-ink);
+}
+
+.lesson-sequence__duration {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.lesson-sequence__duration.is-pending {
+  font-style: italic;
+}
+
+/* ---------- Portal: juegos educativos al final ---------- */
+
+.portal-games {
+  padding-top: 3rem;
+}
+
+.portal-games__head {
+  margin-bottom: 1.75rem;
+}
+
+.portal-games__title {
+  margin-bottom: 0.35rem;
+  font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2.2rem);
 }

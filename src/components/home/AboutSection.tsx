@@ -216,7 +216,7 @@ export function AboutSection() {
           ))}
         </div>
 
-        <Link to={ROUTES.portal} className="about__cta">
+        <Link to={ROUTES.portalAccess} className="about__cta">
           {ABOUT.cta} <span aria-hidden="true">→</span>
         </Link>
       </div>

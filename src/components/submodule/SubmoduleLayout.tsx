@@ -5,6 +5,7 @@ import { ROUTES } from '../../router/routes';
 import type { TopicId } from '../../types';
 import { scrollToSection } from '../../utils/scroll';
 import { Chevron } from '../common/Chevron';
+import { PortalViewSwitch } from '../portal/PortalViewSwitch';
 import { TopicIcon } from '../portal/TopicIcon';
 import { useData, useMessages } from '../../i18n/I18nContext';
 
@@ -49,8 +50,10 @@ function storeOpen(open: boolean): void {
 }
 
 /**
- * Two-column submodule layout: a collapsible sidebar ("En esta página" and the
- * tree of modules with their submodules) and the reading column.
+ * Two-column submodule layout: a sidebar — the Estudiante / Docente switch
+ * (always visible) and a collapsible panel with "En esta página" and the tree
+ * of modules with their submodules — and the reading column. Switching views
+ * keeps the same submodule open; only its content changes.
  */
 export function SubmoduleLayout({ sections, topicId, submoduleId, children }: SubmoduleLayoutProps) {
   const { SUBMODULE_TEXT, UI } = useMessages();
@@ -86,6 +89,7 @@ export function SubmoduleLayout({ sections, topicId, submoduleId, children }: Su
   return (
     <div className={`submodule-layout${open ? '' : ' is-collapsed'}`}>
       <aside className="submodule-sidebar" aria-label={SUBMODULE_TEXT.sidebarLabel}>
+        <PortalViewSwitch className="submodule-sidebar__view" />
         <button
           type="button"
           className="submodule-sidebar__toggle"

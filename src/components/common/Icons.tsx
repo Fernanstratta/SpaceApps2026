@@ -126,3 +126,22 @@ export const ChevronRightIcon = (props: IconProps) => (
     <path d="M9 6l6 6-6 6" />
   </Icon>
 );
+
+/** Estudiante (birrete): vista «Aprender» del Portal. */
+export const StudentIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="M22 9.5L12 5 2 9.5 12 14l10-4.5z" />
+    <path d="M6 11.5V16c3.5 2.5 8.5 2.5 12 0v-4.5" />
+    <path d="M22 9.5V15" />
+  </Icon>
+);
+
+/** Docente (pizarrón): vista «Enseñar» del Portal. */
+export const TeacherIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="M3 4h18" />
+    <path d="M4 4v10h16V4" />
+    <path d="M12 14v3" />
+    <path d="M8 21l4-4 4 4" />
+  </Icon>
+);

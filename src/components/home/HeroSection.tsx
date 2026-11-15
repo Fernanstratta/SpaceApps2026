@@ -15,7 +15,7 @@ export function HeroSection() {
             {hero.title}
           </h1>
           <p className="hero__lead">{hero.lead}</p>
-          <Link to={ROUTES.portal} className="button button--primary button--large">
+          <Link to={ROUTES.portalAccess} className="button button--primary button--large">
             {hero.primaryCta}
           </Link>
         </div>

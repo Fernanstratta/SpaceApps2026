@@ -62,6 +62,8 @@ export const en: Messages = {
     support: 'Support',
     helpCenter: 'Help center',
     soon: 'Soon',
+    portalGroup: 'Educational Portal',
+    portalView: 'View the portal as',
   },
 
   AUTH: {
@@ -165,6 +167,32 @@ export const en: Messages = {
     },
   },
 
+  VIEW_SWITCH: {
+    label: 'Educational Portal view',
+    showingAs: 'View as',
+    learn: 'Student',
+    teach: 'Teacher',
+  },
+
+  ROLE_SELECT: {
+    documentTitle: 'Choose your view',
+    title: 'How would you like to enter the Educational Portal?',
+    lead: 'The modules are the same in both views; what changes is the content you will see in each one.',
+    optionsLabel: 'Available views',
+    learn: {
+      label: 'I’m a student',
+      description: 'Learn each topic through explanations, photographs, examples and activities.',
+      cta: 'Start learning',
+    },
+    teach: {
+      label: 'I’m a teacher',
+      description: 'Open the lesson plan for each module: objectives, session structure, activities and assessment.',
+      cta: 'Start teaching',
+    },
+    current: 'Current view',
+    note: 'You can switch views at any time with the “Student / Teacher” selector in the side menu.',
+  },
+
   PORTAL_TEXT: {
     title: 'Educational Portal',
     modulesTitle: 'Modules',
@@ -179,6 +207,9 @@ export const en: Messages = {
     submodulesTitle: 'Submodules',
     topicNotFoundTitle: 'Topic not found',
     topicNotFoundBody: 'The topic you are looking for doesn’t exist or has moved.',
+    gamesEyebrow: 'Educational games',
+    gamesTitle: 'Interactive missions',
+    gamesIntro: 'Put what you learned in the modules into practice with these missions.',
   },
 
   PAGER: {
@@ -198,6 +229,9 @@ export const en: Messages = {
     startLearning: 'Start',
     openTeacherGuide: 'View teaching guide',
     teacherSheet: 'Teaching sheet',
+    teacherPlanTitle: 'Module plan',
+    lessonSequence: 'Lesson sequence',
+    lessonSequenceHint: 'One session per submodule, in this order.',
     carouselPrevious: 'Show previous submodules',
     carouselNext: 'Show more submodules',
   },

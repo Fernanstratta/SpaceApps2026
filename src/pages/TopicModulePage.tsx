@@ -2,6 +2,7 @@ import { PageHeader } from '../components/layout/PageHeader';
 import { MissionCallout } from '../components/mission/MissionCallout';
 import { StudentModuleIntro, TeacherModuleIntro } from '../components/modules/ModuleIntro';
 import { TopicBanner } from '../components/modules/TopicBanner';
+import { PortalViewSwitch } from '../components/portal/PortalViewSwitch';
 import { SubmoduleCarousel } from '../components/portal/SubmoduleCarousel';
 import { TopicPager } from '../components/portal/TopicPager';
 import { TOPIC_VISUALS, topicStyle } from '../content/topicVisuals';
@@ -13,10 +14,11 @@ import { Link } from '../router/Link';
 import { ROUTES } from '../router/routes';
 
 /**
- * A topic ("módulo"): banner with its photo, tagline and explanatory
- * paragraph, then its submodules. The active view (see `PortalViewContext`)
- * picks the content: "Enseñar" adds the topic's teaching sheet and opens each
- * submodule's teaching guide.
+ * A topic ("módulo"): banner with its photo, the Estudiante / Docente switch,
+ * then the intro and its submodules. The active view (see `PortalViewContext`)
+ * picks the content: "Aprender" shows the student presentation, "Enseñar" the
+ * module plan (teaching sheet + lesson sequence) and opens each submodule's
+ * lesson plan. Both views share the same layout and navigation.
  */
 export function TopicModulePage({ topicId }: { topicId: string }) {
   const { view } = usePortalView();
@@ -61,10 +63,20 @@ export function TopicModulePage({ topicId }: { topicId: string }) {
         }
       />
       <div className="container page-body topic-page" style={topicStyle(topic.id)}>
+        <PortalViewSwitch showLabel className="topic-page__view" />
+
         {view === 'learn' ? (
           <StudentModuleIntro module={getStudentModule(topic.id)} />
         ) : (
-          <TeacherModuleIntro module={getTeacherModule(topic.id)} />
+          <TeacherModuleIntro
+            module={getTeacherModule(topic.id)}
+            sessions={submodules.map((item) => ({
+              id: item.id,
+              title: item.title,
+              to: ROUTES.submodule(topic.id, item.id),
+              duration: getTeacherSubmodule(submoduleKey(item))?.estimatedDuration ?? null,
+            }))}
+          />
         )}
 
         <MissionCallout topicId={topic.id} view={view} />

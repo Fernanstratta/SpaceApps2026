@@ -20,11 +20,14 @@ export interface Demonstration {
 
 export interface LessonPlan {
   introduction: string | null;
+  /** Contents to teach in the session. */
   suggestedExplanation: string | null;
   classroomActivities: ClassroomActivity[] | null;
   discussionQuestions: string[] | null;
   experimentsOrDemonstrations: Demonstration[] | null;
   assessmentMethods: string[] | null;
+  /** What the group should be able to do at the end of the session. */
+  expectedOutcomes: string[] | null;
 }
 
 export type ClassroomAlternativeType =

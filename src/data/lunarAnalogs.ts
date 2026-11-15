@@ -1,3 +1,4 @@
+import { AXIS_IDS, type AxisId } from '../types/Axis';
 import type { AxisPairValues, AxisSpec, AxisValue } from '../utils/ils';
 import type { MissionSiteId } from './missions/roverMission';
 
@@ -23,8 +24,9 @@ export const ILS_DATA_DATE = '2026-11-15';
 /* Los nueve ejes                                                      */
 /* ------------------------------------------------------------------ */
 
-export const AXIS_IDS = ['slope', 'roughness', 'mineralogy', 'albedo', 'thermal', 'aridity', 'volatiles', 'dust', 'craters'] as const;
-export type AxisId = (typeof AXIS_IDS)[number];
+// Los ids viven en `types/Axis.ts` porque también son los temas del Portal Educativo.
+export { AXIS_IDS };
+export type { AxisId };
 
 export interface IlsAxis extends AxisSpec {
   id: AxisId;
@@ -131,10 +133,22 @@ export interface AnalogPair {
   moon: AnalogSite;
   /** Ejes que deberían mostrar mayor similitud. */
   strongAxes: AxisId[];
+  /**
+   * Otros ejes que el documento discute de forma explícita para este par
+   * (p. ej. el hielo en Shackleton), aunque no sean ejes fuertes ni tengan valores.
+   */
+  discussedAxes: AxisId[];
   /** Valores por eje. Los ejes sin entrada todavía no tienen datos. */
   axes: Partial<Record<AxisId, { earth?: CatalogValue; moon?: CatalogValue }>>;
   /** Posición en el ranking esperado del ILS (los empates comparten número). */
   expectedRank: number;
+  /**
+   * Porcentaje de similitud Tierra–Luna (0–100) del par, tal como lo publique
+   * el equipo o la API. `null` = TODAVÍA NO HAY DATO. No se estima ni se
+   * calcula aquí: el filtro de similitud del Playground lo usará en cuanto
+   * existan valores reales.
+   */
+  similarityPercent: number | null;
   /** Sitio con modelo de elevación en el proyecto (habilita la vista 3D). */
   terrainSiteId: MissionSiteId | null;
 }
@@ -196,6 +210,7 @@ const PAIRS: readonly AnalogPair[] = [
       ],
     },
     strongAxes: ['craters', 'mineralogy', 'albedo'],
+    discussedAxes: [],
     axes: {
       // d/D = profundidad / diámetro, de dimensiones publicadas: 244/1600 y 520/2230.
       craters: {
@@ -210,6 +225,7 @@ const PAIRS: readonly AnalogPair[] = [
       aridity: { moon: MOON_NDVI },
     },
     expectedRank: 1,
+    similarityPercent: null,
     terrainSiteId: 'el-elegante',
   },
   {
@@ -263,8 +279,10 @@ const PAIRS: readonly AnalogPair[] = [
       ],
     },
     strongAxes: ['mineralogy', 'albedo', 'craters', 'roughness'],
+    discussedAxes: [],
     axes: { aridity: { moon: MOON_NDVI } },
     expectedRank: 1,
+    similarityPercent: null,
     terrainSiteId: null,
   },
   {
@@ -295,8 +313,10 @@ const PAIRS: readonly AnalogPair[] = [
       ],
     },
     strongAxes: ['mineralogy', 'craters'],
+    discussedAxes: [],
     axes: { aridity: { moon: MOON_NDVI } },
     expectedRank: 3,
+    similarityPercent: null,
     terrainSiteId: null,
   },
   {
@@ -333,6 +353,7 @@ const PAIRS: readonly AnalogPair[] = [
       ],
     },
     strongAxes: ['slope', 'aridity', 'dust'],
+    discussedAxes: [],
     axes: {
       // Intervalos del documento (playa salina α ≈ 0.30–0.40; basalto del mar α ≈ 0.07–0.10), pendientes de medir.
       albedo: {
@@ -342,6 +363,7 @@ const PAIRS: readonly AnalogPair[] = [
       aridity: { moon: MOON_NDVI },
     },
     expectedRank: 4,
+    similarityPercent: null,
     terrainSiteId: null,
   },
   {
@@ -373,8 +395,11 @@ const PAIRS: readonly AnalogPair[] = [
       ],
     },
     strongAxes: ['slope', 'roughness', 'albedo'],
+    // «Eje 7: clase 3 en la Luna contra 0 en la sierra» (dónde se rompe la analogía).
+    discussedAxes: ['volatiles'],
     axes: { aridity: { moon: MOON_NDVI } },
     expectedRank: 5,
+    similarityPercent: null,
     terrainSiteId: null,
   },
 ];
@@ -389,6 +414,28 @@ export interface LunarAnalogCatalog {
 /** Punto único de acceso al catálogo (hoy local; después, la API). */
 export function getLunarAnalogCatalog(): LunarAnalogCatalog {
   return { schemaVersion: ILS_SCHEMA_VERSION, dataDate: ILS_DATA_DATE, axes: ILS_AXES, pairs: PAIRS };
+}
+
+/**
+ * Ejes comparativos con los que se asocia un par: sus ejes fuertes esperados,
+ * los ejes con valores en los dos sitios y los que el documento discute de
+ * forma explícita. Es la misma relación que usan el filtro por eje del
+ * Playground y los submódulos «Análogos» del Portal Educativo.
+ */
+export function pairAxes(pair: AnalogPair): AxisId[] {
+  return AXIS_IDS.filter((axis) => {
+    const values = pair.axes[axis];
+    return (
+      pair.strongAxes.includes(axis) ||
+      pair.discussedAxes.includes(axis) ||
+      Boolean(values?.earth && values.moon)
+    );
+  });
+}
+
+/** Pares asociados a un eje, en el orden del documento. */
+export function pairsForAxis(axis: AxisId): AnalogPair[] {
+  return PAIRS.filter((pair) => pairAxes(pair).includes(axis));
 }
 
 /** Valores de un par en la forma que espera `computeIls`. */

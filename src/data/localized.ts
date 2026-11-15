@@ -16,11 +16,10 @@ import type {
   Topic,
   TopicId,
 } from '../types';
+import { getCurriculum } from './curriculum';
 import { images } from './images';
 import { resourceCategories, resources } from './resources';
-import { studentModules, studentSubmodules } from './studentModules';
 import { submodules } from './submodules';
-import { teacherModules, teacherSubmodules } from './teacherModules';
 import { isTopicId, topics } from './topics';
 
 /**
@@ -61,6 +60,8 @@ const TRANSLATIONS: Record<Language, ContentTranslation | null> = {
 
 function buildDataApi(language: Language): DataApi {
   const t = TRANSLATIONS[language];
+  // Contenido de los dos modos, ya en el idioma activo (misma fuente para ambos).
+  const curriculum = getCurriculum(language);
 
   const localizedTopics: Topic[] = topics
     .map((topic) => (t ? { ...topic, ...t.topics[topic.id] } : topic))
@@ -110,12 +111,10 @@ function buildDataApi(language: Language): DataApi {
     resourceCategories: localizedCategories,
     resources: localizedResources,
     getResourcesByCategory: (categoryId) => localizedResources.filter((item) => item.categoryId === categoryId),
-    // Los módulos y submódulos todavía no tienen contenido (todo `null`);
-    // cuando lo tengan, sus textos se traducirán aquí igual que los temas.
-    getStudentModule: (topicId) => studentModules[topicId],
-    getTeacherModule: (topicId) => teacherModules[topicId],
-    getStudentSubmodule: (key) => studentSubmodules[key],
-    getTeacherSubmodule: (key) => teacherSubmodules[key],
+    getStudentModule: (topicId) => curriculum.studentModules[topicId],
+    getTeacherModule: (topicId) => curriculum.teacherModules[topicId],
+    getStudentSubmodule: (key) => curriculum.studentSubmodules[key],
+    getTeacherSubmodule: (key) => curriculum.teacherSubmodules[key],
     localizeReferenceLocation: (location) =>
       t?.referenceLocations[location.id] ? { ...location, ...t.referenceLocations[location.id] } : location,
   };

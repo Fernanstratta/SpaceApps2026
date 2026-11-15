@@ -1,3 +1,4 @@
+import { playgroundEn } from '../playground.en';
 import type { ContentTranslation } from './types';
 
 /**
@@ -5,58 +6,74 @@ import type { ContentTranslation } from './types';
  * fails if an id in the data has no translation here.
  */
 export const contentEn: ContentTranslation = {
+  // Topic names come from the Playground axis texts, so portal and filters match.
   topics: {
-    'size-scale': {
-      name: 'Size and scale',
-      description: 'How the sizes of the Earth and the Moon compare, and how to represent them to scale.',
+    slope: {
+      name: playgroundEn.axes.slope.name,
+      description: 'How flat the ground is and why that decides where a spacecraft can land or a vehicle can drive.',
     },
-    gravity: {
-      name: 'Gravity',
-      description: 'What gravity is and how it affects objects and people on each celestial body.',
+    roughness: {
+      name: playgroundEn.axes.roughness.name,
+      description: 'How smooth or rocky a surface is, and how radar lets us see it from space.',
     },
-    'surface-terrain': {
-      name: 'Surface and terrain',
-      description: 'The landforms of the Earth and the Moon: mountains, plains, valleys and lunar maria.',
+    mineralogy: {
+      name: playgroundEn.axes.mineralogy.name,
+      description: 'What the rocks of the Earth and the Moon are made of, and how their composition is recognized from space.',
     },
-    'earth-moon-distance': {
-      name: 'Distance between the Earth and the Moon',
-      description: 'How far away the Moon is and how we can picture that distance.',
+    albedo: {
+      name: playgroundEn.axes.albedo.name,
+      description: 'How much sunlight a surface reflects and what that reveals about its composition and temperature.',
     },
-    temperature: {
-      name: 'Temperature',
-      description: 'Why temperature changes differently on the Earth and on the Moon.',
+    thermal: {
+      name: playgroundEn.axes.thermal.name,
+      description: 'How much the temperature changes between day and night, and why the lack of an atmosphere makes the Moon extreme.',
     },
-    'impact-craters': {
-      name: 'Impact craters',
-      description: 'How craters form and why they are preserved differently on each body.',
+    aridity: {
+      name: playgroundEn.axes.aridity.name,
+      description: 'How dry and free of vegetation a place is, and why deserts are good analogs of a lifeless world.',
     },
-    atmosphere: {
-      name: 'Atmosphere',
-      description: 'What an atmosphere is and how the Earth’s differs from the lunar environment.',
+    volatiles: {
+      name: playgroundEn.axes.volatiles.name,
+      description: 'Where there may be water or ice below the surface, and why lunar ice is key for a permanent base.',
     },
-    'water-ice': {
-      name: 'Water and ice',
-      description: 'Where water is found on Earth and what we know about ice on the Moon.',
+    dust: {
+      name: playgroundEn.axes.dust.name,
+      description: 'How fine the soil is and why lunar dust is a challenge for astronauts and their equipment.',
+    },
+    craters: {
+      name: playgroundEn.axes.craters.name,
+      description: 'How craters and cavities form, and what their shape reveals about their origin and erosion.',
     },
   },
 
   submodules: {
-    'tierra-desde-el-espacio': { title: 'The Earth seen from space', tag: 'Astronomy' },
-    'tierra-sobre-la-luna': { title: 'The Earth, small above the Moon', tag: 'Scale' },
-    'saltar-en-la-luna': { title: 'Jumping on the Moon', tag: 'Physics' },
-    'caminar-con-menos-peso': { title: 'Walking with less weight', tag: 'Physics' },
-    'rocas-lunares-en-la-tierra': { title: 'Moon rocks on Earth', tag: 'Geology' },
-    'huellas-en-el-polvo-lunar': { title: 'Footprints in the lunar dust', tag: 'Geology' },
-    'salida-de-la-tierra': { title: 'Earthrise', tag: 'Astronomy' },
-    'medir-la-distancia-con-laser': { title: 'Measuring the distance with lasers', tag: 'Physics' },
+    'terreno-plano-para-aterrizar': { title: 'Flat ground for landing', tag: 'Engineering' },
+    'medir-pendientes-desde-el-espacio': { title: 'Measuring slopes from space', tag: 'Cartography' },
+    'donde-si-y-donde-no-aterrizar': { title: 'Where to land and where not to', tag: 'Analogs' },
+    'superficies-lisas-y-rocosas': { title: 'Smooth and rocky surfaces', tag: 'Geology' },
+    'ver-la-rugosidad-con-radar': { title: 'Seeing roughness with radar', tag: 'Physics' },
+    'campos-de-lava-y-sierras': { title: 'Lava fields and mountain ranges', tag: 'Analogs' },
+    'rocas-oscuras-y-rocas-claras': { title: 'Dark rocks and light rocks', tag: 'Geology' },
+    'leer-la-composicion-desde-el-espacio': { title: 'Reading composition from space', tag: 'Remote sensing' },
+    'volcanes-de-baja-california-y-sonora': { title: 'Volcanoes of Baja California and Sonora', tag: 'Analogs' },
+    'cuanta-luz-refleja-una-superficie': { title: 'How much light does a surface reflect?', tag: 'Physics' },
+    'medir-el-albedo-con-satelites': { title: 'Measuring albedo with satellites', tag: 'Remote sensing' },
+    'sitios-claros-y-oscuros': { title: 'Bright sites and dark sites', tag: 'Analogs' },
     'el-clima-en-la-luna': { title: 'The climate on the Moon', tag: 'Climatology' },
+    'medir-la-temperatura-desde-orbita': { title: 'Measuring temperature from orbit', tag: 'Remote sensing' },
+    'del-dia-a-la-noche': { title: 'From day to night in Sonora and on the Moon', tag: 'Analogs' },
+    'salida-de-la-tierra': { title: 'Earthrise', tag: 'Astronomy' },
     'mexico-visto-desde-el-espacio': { title: 'Mexico seen from space', tag: 'Geography' },
-    'crater-barringer': { title: 'Barringer Crater, Arizona', tag: 'Geology' },
-    'crater-tycho': { title: 'Tycho crater', tag: 'Astronomy' },
-    'la-capa-que-nos-protege': { title: 'The thin layer that protects us', tag: 'Meteorology' },
-    'atardecer-desde-el-espacio': { title: 'Sunset from space', tag: 'Meteorology' },
-    'icebergs-en-groenlandia': { title: 'Icebergs in Greenland', tag: 'Geography' },
-    'hielo-marino-en-la-antartida': { title: 'Sea ice in Antarctica', tag: 'Climatology' },
+    'desiertos-como-analogos-lunares': { title: 'Deserts as lunar analogs', tag: 'Analogs' },
+    'agua-en-la-tierra-hielo-en-la-luna': { title: 'Water on Earth, ice on the Moon', tag: 'Hydrology' },
+    'buscar-agua-desde-el-espacio': { title: 'Looking for water from space', tag: 'Remote sensing' },
+    'seco-contra-helado': { title: 'Dry versus icy: Cucapá and Shackleton', tag: 'Analogs' },
+    'huellas-en-el-polvo-lunar': { title: 'Footprints in the lunar dust', tag: 'Geology' },
+    'cuanto-polvo-fino-tiene-un-suelo': { title: 'How much fine dust a soil holds', tag: 'Soil science' },
+    'polvo-en-la-laguna-salada': { title: 'Dust in Laguna Salada and on the Moon', tag: 'Analogs' },
+    'crater-barringer': { title: 'How a crater forms', tag: 'Geology' },
+    'crater-tycho': { title: 'Measuring the shape of a crater', tag: 'Geometry' },
+    'crateres-y-cavidades-de-la-region': { title: 'Craters and cavities of the region', tag: 'Analogs' },
   },
 
   images: {
@@ -138,6 +155,31 @@ export const contentEn: ContentTranslation = {
     'antarctic-sea-ice': {
       alt: 'Sea ice covering the Bellingshausen Sea, off the coast of Antarctica.',
       author: 'NASA / Michael Studinger (Operation IceBridge)',
+      license: 'Public domain',
+    },
+    'apollo11-lro': {
+      alt: 'Orbital view of the Mare Tranquillitatis plain with small craters, where Apollo 11 landed.',
+      author: 'NASA Goddard Space Flight Center (LRO)',
+      license: 'Public domain',
+    },
+    'shackleton-lroc': {
+      alt: 'Shackleton crater, at the lunar south pole, with its interior in shadow and its rim lit.',
+      author: 'LROC and ShadowCam teams (NASA/KARI/ASU)',
+      license: 'Public domain',
+    },
+    'marius-pit': {
+      alt: 'Two orbital views of a dark pit in the lunar surface, in the Marius Hills.',
+      author: 'NASA / LROC team, Arizona State University',
+      license: 'Public domain',
+    },
+    'gruithuisen-apollo15': {
+      alt: 'Oblique orbital view of the Gruithuisen volcanic domes next to a lunar mare.',
+      author: 'James Stuby, based on a NASA image (Apollo 15)',
+      license: 'Public domain',
+    },
+    'linne-lro': {
+      alt: 'The lunar crater Linné, round and bowl-shaped, seen from orbit.',
+      author: 'NASA (LRO, NAC camera)',
       license: 'Public domain',
     },
   },

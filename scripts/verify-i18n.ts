@@ -74,7 +74,7 @@ scenario('País desconocido + navegador en francés', '/', { browserLanguages: [
 scenario('País desconocido sin idioma de navegador', '/', {}, { language: 'es', source: 'default', redirectTo: '/es' });
 scenario('Código "XX" (desconocido en Cloudflare)', '/', { countryCode: 'XX', browserLanguages: ['en-US'] }, { language: 'en', source: 'browser', redirectTo: '/en' });
 scenario('Código "T1" (Tor en Cloudflare)', '/', { countryCode: 'T1', browserLanguages: ['es'] }, { language: 'es', source: 'browser', redirectTo: '/es' });
-scenario('Enlace antiguo sin idioma, desde EE. UU.', '/portal-educativo/gravity', { countryCode: 'US' }, { language: 'en', source: 'country', redirectTo: '/en/educational-portal/gravity' });
+scenario('Enlace antiguo sin idioma, desde EE. UU.', '/portal-educativo/slope', { countryCode: 'US' }, { language: 'en', source: 'country', redirectTo: '/en/educational-portal/slope' });
 
 section('Cambio manual de idioma (elección guardada)');
 scenario('Eligió EN y vuelve desde México', '/', { savedLanguage: 'en', countryCode: 'MX' }, { language: 'en', source: 'saved', redirectTo: '/en' });
@@ -96,7 +96,7 @@ check(afterSwitch.language === 'en', 'Tras elegir EN, una visita desde México s
 console.log('  ✓ La elección se guarda y tiene prioridad sobre el país');
 
 section('Enlaces directos con idioma (se respetan, sin redirección)');
-scenario('/en/... con elección ES y país MX', '/en/educational-portal/gravity', { savedLanguage: 'es', countryCode: 'MX' }, { language: 'en', source: 'url', redirectTo: null });
+scenario('/en/... con elección ES y país MX', '/en/educational-portal/slope', { savedLanguage: 'es', countryCode: 'MX' }, { language: 'en', source: 'url', redirectTo: null });
 scenario('/es/... con elección EN y país US', '/es/portal-educativo', { savedLanguage: 'en', countryCode: 'US' }, { language: 'es', source: 'url', redirectTo: null });
 scenario('/en (raíz en inglés)', '/en', { countryCode: 'MX' }, { language: 'en', source: 'url', redirectTo: null });
 
@@ -128,7 +128,7 @@ for (const path of internalPaths) {
     );
   }
 }
-check(localizePath('/portal-educativo/gravity', 'en') === '/en/educational-portal/gravity', 'Slug traducido en inglés');
+check(localizePath('/portal-educativo/slope', 'en') === '/en/educational-portal/slope', 'Slug traducido en inglés');
 check(localizePath('/iniciar-sesion', 'en') === '/en/sign-in', 'Slug de inicio de sesión en inglés');
 check(localizePath(ROUTES.missionStart, 'en') === '/en/educational-portal/mission/lunar-rover/start', 'Slug de la misión en inglés');
 check(localizePath(ROUTES.missionTeach, 'en') === '/en/educational-portal/mission/lunar-rover/teach', 'Slug de la guía docente en inglés');

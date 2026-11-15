@@ -40,6 +40,9 @@ export function LessonPlanView({ plan }: { plan: LessonPlan }) {
       <NullableSection title={TEACHER_SECTIONS.assessment} data={plan.assessmentMethods} headingLevel={3}>
         {(methods) => <TextList items={methods} />}
       </NullableSection>
+      <NullableSection title={TEACHER_SECTIONS.expectedOutcomes} data={plan.expectedOutcomes} headingLevel={3}>
+        {(outcomes) => <TextList items={outcomes} />}
+      </NullableSection>
     </div>
   );
 }

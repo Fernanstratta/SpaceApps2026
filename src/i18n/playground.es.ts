@@ -74,6 +74,20 @@ export const playgroundEs = {
     results: (n: number, total: number) => (n === total ? `${total} pares` : `${n} de ${total} pares`),
     empty: 'Ningún par coincide con la búsqueda y los filtros.',
     emptyHint: 'Prueba con otra palabra o limpia los filtros.',
+    // Filtros por eje comparativo y por similitud (consola del Playground).
+    panelLabel: 'Filtros de comparaciones',
+    axesLegend: 'Ejes comparativos',
+    axesHint: 'Opcional: elige uno o varios ejes y verás solo las comparaciones asociadas a cualquiera de ellos.',
+    allAxes: 'Todos los ejes',
+    comparisons: (n: number, total: number) => (n === total ? `${total} comparaciones` : `${n} de ${total} comparaciones`),
+    similarity: 'Similitud Tierra–Luna mínima',
+    similarityValue: (n: number) => (n === 0 ? 'Cualquiera (0 %)' : `${n} % o más`),
+    similarityValueText: (n: number) => (n === 0 ? 'Cualquier similitud, 0 por ciento' : `${n} por ciento o más`),
+    similarityScale: ['0 %', '50 %', '100 %'],
+    similarityPending:
+      'Todavía no hay porcentajes de similitud calculados. El filtro está listo y se aplicará cuando existan datos reales; mientras tanto no oculta ninguna comparación.',
+    noMatches: 'Ninguna comparación coincide con los filtros elegidos.',
+    noMatchesHint: 'Quita algún eje o limpia los filtros para volver a la vista general.',
   },
   analogyTypes: {
     'crater-morphology': 'Morfología de cráter',
@@ -91,7 +105,9 @@ export const playgroundEs = {
   mapError: 'No se pudo cargar el mapa. El resto del panel sigue disponible.',
   showAll: 'Ver todos los sitios',
 
-  slider: 'Par seleccionado',
+  areaPicker: 'Área seleccionada',
+  areaPickerHint: 'Haz clic en un número para seleccionar su área.',
+  areaAxes: 'Ejes comparativos',
   counter: (n: number, total: number) => `${n} de ${total}`,
   viewer: 'Visor del par',
   earthTab: 'Tierra',

@@ -5,8 +5,7 @@ import { bootstrapLanguage } from './i18n/bootstrap';
 import './styles/global.css';
 import './styles/mission.css';
 import './styles/lunita.css';
-// TEMPORALMENTE DESACTIVADO: faltan src/data/playground.ts y src/i18n/playground.ts (no se subieron en el commit de freemode).
-// import './styles/playground.css';
+import './styles/playground.css';
 // Modo claro «Museo interactivo»: va al final para prevalecer; solo aplica con data-theme='light'.
 import './styles/museo.css';
 

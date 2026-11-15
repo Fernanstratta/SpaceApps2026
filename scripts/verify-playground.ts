@@ -3,7 +3,7 @@
  * áreas reales con fuente, fotos con crédito, textos ES/EN equivalentes y
  * modelo 3D solo donde el proyecto tiene datos de elevación.
  */
-import { MISSION_SOURCES, MISSION_SITE_IDS } from '../src/data/missions/roverMission';
+import { MISSION_SITE_IDS } from '../src/data/missions/roverMission';
 import { PLAYGROUND_AREAS } from '../src/data/playground';
 import { PLAYGROUND_TEXT } from '../src/i18n/playground';
 
@@ -20,30 +20,21 @@ function check(condition: boolean, message: string): void {
 const { es, en } = PLAYGROUND_TEXT;
 check(PLAYGROUND_AREAS.length >= 2, 'Hay al menos dos áreas');
 check(new Set(PLAYGROUND_AREAS.map((a) => a.id)).size === PLAYGROUND_AREAS.length, 'Ids de área únicos');
-check(PLAYGROUND_AREAS.some((a) => a.analogOf === 'moon') && PLAYGROUND_AREAS.some((a) => a.analogOf === 'mars'), 'Hay análogos de la Luna y de Marte');
 check(es.counter(1, PLAYGROUND_AREAS.length) === `1 de ${PLAYGROUND_AREAS.length}`, 'Indicador «1 de N» calculado de las áreas');
 
 for (const area of PLAYGROUND_AREAS) {
   const tag = area.id;
   check(Math.abs(area.lat) <= 90 && Math.abs(area.lon) <= 180, `${tag}: coordenadas válidas`);
-  check(Boolean(MISSION_SOURCES[area.locationSourceId]), `${tag}: la ubicación cita una fuente registrada`);
-  check(area.photos.length > 0, `${tag}: tiene fotos`);
   for (const photo of area.photos) {
     check(photo.src.startsWith('https://'), `${tag}: foto por https`);
-    check(Boolean(MISSION_SOURCES[photo.sourceId]), `${tag}: crédito de foto registrado (${photo.sourceId})`);
+    check(photo.page.startsWith('https://') && Boolean(photo.author.trim()), `${tag}: foto con crédito`);
   }
   check(area.terrainSiteId === null || MISSION_SITE_IDS.includes(area.terrainSiteId), `${tag}: el modelo 3D usa un DEM del proyecto`);
   for (const [lang, text] of [['es', es], ['en', en]] as const) {
-    const t = text.areas[area.id];
+    const t = text.pairs[area.id].earth;
     check(t.photos.length === area.photos.length, `${tag}/${lang}: una descripción por foto`);
     check(t.photos.every((p) => p.alt.trim() && p.caption.trim()), `${tag}/${lang}: fotos con texto alternativo y pie`);
-    check(t.bullets.length >= 3, `${tag}/${lang}: al menos tres viñetas`);
-    check(['location', 'terrain', 'analog'].every((k) => t.bullets.some((b) => b.kind === k)), `${tag}/${lang}: ubicación, terreno y comparación`);
-    for (const bullet of t.bullets) check(Boolean(MISSION_SOURCES[bullet.source]), `${tag}/${lang}: fuente registrada (${bullet.source})`);
   }
-  const esSources = es.areas[area.id].bullets.map((b) => b.source).join();
-  const enSources = en.areas[area.id].bullets.map((b) => b.source).join();
-  check(esSources === enSources, `${tag}: las viñetas citan las mismas fuentes en ES y EN`);
 }
 const with3d = PLAYGROUND_AREAS.filter((a) => a.terrainSiteId).map((a) => a.id);
 console.log(`  ✓ ${PLAYGROUND_AREAS.length} áreas; con vista 3D: ${with3d.join(', ') || 'ninguna'}`);

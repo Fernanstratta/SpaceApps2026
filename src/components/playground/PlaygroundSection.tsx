@@ -3,8 +3,6 @@ import { PLAYGROUND_AREAS } from '../../data/playground';
 import { useI18n } from '../../i18n/I18nContext';
 import { PLAYGROUND_TEXT } from '../../i18n/playground';
 import { ErrorBoundary } from '../common/ErrorBoundary';
-import { getSiteTerrain } from '../mission/missionTerrain';
-import { SourceLink } from '../mission/SourceLink';
 import { PhotoCarousel } from './PhotoCarousel';
 
 // Leaflet y three se cargan aparte: no retrasan el resto de Inicio.
@@ -21,7 +19,7 @@ type ViewMode = 'photos' | '3d';
  *  - Móvil: primero el mapa, debajo el panel.
  */
 export function PlaygroundSection() {
-  const { language, locale } = useI18n();
+  const { language } = useI18n();
   const t = PLAYGROUND_TEXT[language];
   const [active, setActive] = useState(0);
   const [mode, setMode] = useState<ViewMode>('photos');
@@ -29,22 +27,16 @@ export function PlaygroundSection() {
   const sliderId = useId();
   const total = PLAYGROUND_AREAS.length;
   const area = PLAYGROUND_AREAS[active] ?? PLAYGROUND_AREAS[0]!;
-  const text = t.areas[area.id];
+  const pair = t.pairs[area.id];
+  const text = pair.earth;
   const has3d = area.terrainSiteId !== null;
   const view: ViewMode = has3d ? mode : 'photos';
 
   const markerLabels = useMemo(
-    () => PLAYGROUND_AREAS.map((a, i) => t.marker(i + 1, t.areas[a.id].name)),
+    () => PLAYGROUND_AREAS.map((a, i) => t.marker(i + 1, t.pairs[a.id].earth.name)),
     [t],
   );
 
-  // Viñeta extra calculada del DEM (si el área lo tiene): profundidad y borde a borde.
-  const relief = useMemo(() => {
-    if (!area.terrainSiteId) return null;
-    const stats = getSiteTerrain(area.terrainSiteId).profiles['west-east'].stats;
-    const km = new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(stats.rimToRim / 1000);
-    return t.relief(Math.round(stats.depth / 10) * 10, km);
-  }, [area.terrainSiteId, locale, t]);
 
   const select = (index: number) => {
     setActive(Math.min(total - 1, Math.max(0, index)));
@@ -90,7 +82,7 @@ export function PlaygroundSection() {
                 {has3d ? (
                   <div className="pg-tabs" role="group" aria-label={t.viewer}>
                     <button type="button" className="pg-tab" aria-pressed={view === 'photos'} onClick={() => setMode('photos')}>
-                      {t.photosTab}
+                      {t.earthTab}
                     </button>
                     <button type="button" className="pg-tab" aria-pressed={view === '3d'} onClick={() => setMode('3d')}>
                       {t.view3dTab}
@@ -122,7 +114,7 @@ export function PlaygroundSection() {
                       counter: t.photoCounter,
                       error: t.photoError,
                       empty: t.noPhotos,
-                      region: `${t.photosTab}: ${text.name}`,
+                      region: `${t.earthTab}: ${text.name}`,
                     }}
                   />
                 )}
@@ -161,37 +153,36 @@ export function PlaygroundSection() {
 
               {/* 3. Título del área */}
               <div className="pg-area" aria-live="polite">
-                <p className={`pg-area__badge pg-area__badge--${area.analogOf}`}>{t.analog[area.analogOf]}</p>
+                <p className={`pg-area__badge pg-area__badge--${area.analogOf}`}>{t.analogyTypes[area.analogyType]}</p>
                 <h3 className="pg-area__title">{text.name}</h3>
                 <p className="pg-area__place">
-                  {text.place}
-                  {area.approximate ? (
-                    <>
-                      {' · '}
-                      <SourceLink id={area.locationSourceId}>{t.approximate}</SourceLink>
-                    </>
-                  ) : null}
+                  {text.region}
+                  {area.approximate ? ` · ${t.sheet.provisional}` : null}
                 </p>
               </div>
 
               {/* 4. Descripción con viñetas */}
               <ul className="pg-bullets">
-                {text.bullets.map((bullet) => (
-                  <li key={bullet.kind + bullet.text}>
-                    <span className="pg-bullets__label">{t.bulletLabels[bullet.kind]}</span>
-                    <span>
-                      {bullet.text} <SourceLink id={bullet.source} />
-                    </span>
-                  </li>
-                ))}
-                {relief && area.terrainSiteId ? (
+                <li>
+                  <span className="pg-bullets__label">{t.sheet.type}</span>
+                  <span>{text.type}</span>
+                </li>
+                <li>
+                  <span className="pg-bullets__label">{t.sheet.area}</span>
+                  <span>{text.area}</span>
+                </li>
+                {text.keyData ? (
                   <li>
-                    <span className="pg-bullets__label">{t.reliefLabel}</span>
-                    <span>
-                      {relief} <SourceLink id={area.locationSourceId} />
-                    </span>
+                    <span className="pg-bullets__label">{t.sheet.keyData}</span>
+                    <span>{text.keyData}</span>
                   </li>
                 ) : null}
+                <li>
+                  <span className="pg-bullets__label">{t.sections.similar}</span>
+                  <span>
+                    {pair.moon.name}: {pair.similar}
+                  </span>
+                </li>
               </ul>
             </div>
           </div>

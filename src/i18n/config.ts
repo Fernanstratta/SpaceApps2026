@@ -58,5 +58,9 @@ export const LOCALIZED_SEGMENTS: Record<Language, Readonly<Record<string, string
     'portal-educativo': 'educational-portal',
     'iniciar-sesion': 'sign-in',
     'crear-cuenta': 'sign-up',
+    mision: 'mission',
+    'rover-lunar': 'lunar-rover',
+    iniciar: 'start',
+    clase: 'teach',
   },
 };

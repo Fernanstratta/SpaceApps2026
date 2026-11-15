@@ -1,0 +1,979 @@
+/* ==========================================================================
+   Misión 4Kids «Lunita necesita un camino» (6–12 años)
+   Identidad lúdica dentro de Starman: amarillo y turquesa, botones grandes,
+   bordes redondeados y gruesos. Funciona en tema claro y oscuro.
+   ========================================================================== */
+
+:root {
+  --l-yellow: #ffc83d;
+  --l-yellow-soft: #fff4d1;
+  --l-yellow-ink: #7a5200;
+  --l-teal: #17b3a3;
+  --l-teal-soft: #ddf6f2;
+  --l-teal-ink: #0a6a60;
+  --l-ink: #1c2b4f;
+  --l-card: #ffffff;
+  --l-sky: #eef8ff;
+  --l-line: #1c2b4f;
+  --l-red: #c42b33;
+  --l-red-soft: #fde8e8;
+}
+
+:root[data-theme='dark'] {
+  --l-yellow-soft: #3a2f10;
+  --l-yellow-ink: #ffd66b;
+  --l-teal-soft: #0d3633;
+  --l-teal-ink: #5fe0d2;
+  --l-card: #0d1220;
+  --l-sky: #0a1326;
+  --l-line: #8fa3c7;
+  --l-red: #ff8f9c;
+  --l-red-soft: #3a1418;
+}
+
+/* ---------- Entrada en el Portal ---------- */
+
+.portal__missions {
+  display: grid;
+  gap: 1.25rem;
+  margin: 0 0 2rem;
+}
+
+.portal__missions .mission-feature {
+  margin: 0;
+}
+
+.lunita-feature {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  background:
+    radial-gradient(70% 90% at 0% 100%, color-mix(in srgb, var(--l-teal) 16%, transparent), transparent 100%),
+    radial-gradient(60% 80% at 100% 0%, color-mix(in srgb, var(--l-yellow) 22%, transparent), transparent 100%),
+    var(--l-card);
+  border: 3px solid var(--l-line);
+  border-radius: 22px;
+  box-shadow: 6px 6px 0 var(--l-teal);
+}
+
+@media (min-width: 56rem) {
+  .lunita-feature {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: center;
+    padding: 1.5rem;
+  }
+}
+
+.lunita-feature__media {
+  position: relative;
+  margin: 0;
+}
+
+.lunita-feature__media svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--l-line);
+  border-radius: 16px;
+}
+
+.lunita-feature__media .lunita-tag {
+  position: absolute;
+  left: 0.6rem;
+  bottom: 0.6rem;
+}
+
+.lunita-feature__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+}
+
+.lunita-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.8rem;
+  border: 2px solid var(--l-ink);
+  border-radius: 999px;
+  background: var(--l-yellow);
+  color: var(--l-ink);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  transform: rotate(-3deg);
+  box-shadow: 2px 2px 0 var(--l-ink);
+}
+
+.lunita-ages {
+  display: inline-flex;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: var(--l-teal-soft);
+  color: var(--l-teal-ink);
+  font-weight: 800;
+}
+
+.lunita-feature__title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.45rem, 1.1rem + 1.3vw, 2.1rem);
+  line-height: 1.15;
+}
+
+.lunita-feature__lead {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  color: var(--color-muted);
+}
+
+/* ---------- Botones grandes ---------- */
+
+.lunita-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 56px;
+  padding: 0.7rem 1.4rem;
+  border: 3px solid var(--l-ink);
+  border-radius: 18px;
+  background: var(--l-card);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--l-ink);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  touch-action: manipulation;
+}
+
+:root[data-theme='dark'] .lunita-button {
+  border-color: var(--l-line);
+  box-shadow: 0 4px 0 var(--l-line);
+}
+
+.lunita-button:hover {
+  color: var(--color-text);
+  transform: translateY(-1px);
+}
+
+.lunita-button:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--l-ink);
+}
+
+.lunita-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.lunita-button--go,
+.lunita-button--play {
+  background: var(--l-yellow);
+  color: var(--l-ink);
+}
+
+.lunita-button--go:hover,
+.lunita-button--play:hover {
+  color: var(--l-ink);
+}
+
+:root[data-theme='dark'] .lunita-button--go,
+:root[data-theme='dark'] .lunita-button--play {
+  border-color: var(--l-yellow);
+  box-shadow: 0 4px 0 #a37a12;
+}
+
+.lunita-button--teal {
+  background: var(--l-teal);
+  color: #ffffff;
+}
+
+.lunita-button--teal:hover {
+  color: #ffffff;
+}
+
+.lunita-button--danger {
+  background: var(--l-red-soft);
+  color: var(--l-red);
+}
+
+.lunita-button--wide {
+  min-width: min(100%, 16rem);
+}
+
+.lunita-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 48px;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: var(--l-card);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.lunita-chip--big {
+  min-height: 56px;
+  font-size: 1.05rem;
+}
+
+.lunita-chip[aria-pressed='true'] {
+  border-color: var(--l-teal);
+  background: var(--l-teal-soft);
+  color: var(--l-teal-ink);
+  box-shadow: inset 0 0 0 1px var(--l-teal);
+}
+
+.lunita-chip[aria-pressed='true']::after {
+  content: '✓';
+  font-weight: 900;
+}
+
+/* ---------- Página ---------- */
+
+.lunita {
+  background:
+    radial-gradient(60% 40% at 100% 0%, color-mix(in srgb, var(--l-yellow) 18%, transparent), transparent 100%),
+    radial-gradient(50% 40% at 0% 30%, color-mix(in srgb, var(--l-teal) 12%, transparent), transparent 100%),
+    var(--l-sky);
+  padding-bottom: 3rem;
+}
+
+.lunita__head {
+  padding: 1.25rem 0 0.5rem;
+}
+
+.lunita__title {
+  margin: 0.25rem 0 0;
+  font-size: clamp(1.7rem, 1.2rem + 2vw, 2.6rem);
+  line-height: 1.1;
+}
+
+.lunita__body {
+  display: grid;
+  gap: 1.25rem;
+}
+
+ol.lunita-steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.4rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lunita-steps li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.lunita-steps__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 3px solid var(--color-border-strong);
+  border-radius: 50%;
+  background: var(--l-card);
+  font-size: 1.15rem;
+}
+
+.lunita-steps li.is-current {
+  color: var(--color-text);
+}
+
+.lunita-steps li.is-current .lunita-steps__icon {
+  border-color: var(--l-ink);
+  background: var(--l-yellow);
+  transform: scale(1.12);
+}
+
+:root[data-theme='dark'] .lunita-steps li.is-current .lunita-steps__icon {
+  border-color: var(--l-yellow);
+}
+
+.lunita-steps li.is-done .lunita-steps__icon {
+  border-color: var(--l-teal);
+  background: var(--l-teal);
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.lunita-stage {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--l-card);
+  border: 3px solid var(--l-line);
+  border-radius: 24px;
+  box-shadow: 6px 6px 0 var(--l-yellow);
+}
+
+@media (max-width: 29.99rem) {
+  .lunita-stage {
+    padding: 0.9rem;
+    border-radius: 18px;
+    box-shadow: 4px 4px 0 var(--l-yellow);
+  }
+}
+
+.lunita-stage__count {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--l-teal-ink);
+}
+
+.lunita-stage__title {
+  margin: -0.5rem 0 0;
+  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
+}
+
+.lunita-stage__title:focus {
+  outline: none;
+}
+
+.lunita-stage__title:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* Lunita habla */
+.lunita-says {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem 0.6rem 0.6rem;
+  border: 2px solid var(--l-teal);
+  border-radius: 20px;
+  background: var(--l-teal-soft);
+}
+
+.lunita-says__text {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.lunita-says--big .lunita-says__text {
+  font-size: clamp(1.2rem, 1rem + 0.9vw, 1.55rem);
+}
+
+.lunita-says--blocked {
+  border-color: var(--l-red);
+  background: var(--l-red-soft);
+}
+
+.lunita-says--arrived {
+  border-color: var(--l-yellow);
+  background: var(--l-yellow-soft);
+}
+
+.lunita-avatar {
+  flex: none;
+  padding: 0.2rem;
+  border-radius: 50%;
+  background: var(--l-card);
+  border: 2px solid var(--l-ink);
+}
+
+:root[data-theme='dark'] .lunita-avatar {
+  background: #e9eef8;
+}
+
+.lunita-figure {
+  margin: 0;
+}
+
+.lunita-scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--l-line);
+  border-radius: 18px;
+}
+
+.lunita-scene__label {
+  font: 700 13px var(--font-sans);
+  fill: #ffffff;
+  paint-order: stroke;
+  stroke: #1c2b4f;
+  stroke-width: 3px;
+}
+
+.lunita-scene__label--teal {
+  fill: #7ff0e2;
+}
+
+.lunita-scene__ring {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lunita-scene__ring {
+    animation: lunita-pulse 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes lunita-pulse {
+  50% {
+    transform: scale(1.18);
+    opacity: 0.55;
+  }
+}
+
+.lunita-figure figcaption {
+  margin-top: 0.5rem;
+  font-size: 1.05rem;
+}
+
+.lunita-tag {
+  display: inline-block;
+  padding: 0.1rem 0.55rem;
+  border: 1.5px dashed currentColor;
+  border-radius: 999px;
+  background: var(--l-card);
+  color: var(--l-yellow-ink);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.lunita-tag--corner {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  pointer-events: none;
+}
+
+.lunita-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.lunita-nav > :only-child {
+  margin-left: auto;
+}
+
+@media (max-width: 29.99rem) {
+  .lunita-nav .lunita-button {
+    flex: 1 1 100%;
+  }
+}
+
+.lunita-hint {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.lunita-live {
+  min-height: 1.5em;
+  margin: 0;
+  font-weight: 700;
+}
+
+.lunita-feedback {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-left: 6px solid var(--l-yellow);
+  border-radius: 12px;
+  background: var(--l-yellow-soft);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.lunita-feedback.is-yes {
+  border-left-color: var(--l-teal);
+  background: var(--l-teal-soft);
+}
+
+.lunita-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.lunita-choices legend {
+  width: 100%;
+  margin-bottom: 0.6rem;
+  padding: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.lunita-errors {
+  margin: 0;
+  padding: 0.75rem 1rem 0.75rem 2rem;
+  border-radius: 12px;
+  background: var(--l-red-soft);
+  color: var(--l-red);
+  font-weight: 700;
+}
+
+/* ---------- Rompecabezas ---------- */
+
+.lunita-map-frame {
+  position: relative;
+}
+
+.lunita-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 3px solid var(--l-line);
+  border-radius: 18px;
+  overflow: hidden;
+  background: repeating-linear-gradient(45deg, var(--l-sky), var(--l-sky) 10px, var(--l-card) 10px, var(--l-card) 20px);
+}
+
+.lunita-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 200 / 360;
+  max-height: 22rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-right: 3px dashed color-mix(in srgb, var(--l-line) 50%, transparent);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.lunita-slot:last-child {
+  border-right: 0;
+}
+
+.lunita-slot.is-filled {
+  border-right-style: solid;
+  border-right-width: 1px;
+  cursor: default;
+}
+
+button.lunita-slot.is-filled {
+  cursor: pointer;
+}
+
+.lunita-slot.is-hovered {
+  background: color-mix(in srgb, var(--l-yellow) 35%, transparent);
+}
+
+.lunita-slot.is-wrong {
+  animation: lunita-shake 0.4s ease;
+  background: color-mix(in srgb, var(--l-red) 18%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lunita-slot.is-wrong {
+    animation-duration: 0.01s;
+  }
+}
+
+@keyframes lunita-shake {
+  25% {
+    transform: translateX(-6px);
+  }
+  75% {
+    transform: translateX(6px);
+  }
+}
+
+.lunita-slot__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 3px dashed var(--l-teal);
+  border-radius: 50%;
+  background: var(--l-card);
+  color: var(--l-teal-ink);
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.lunita-slot__empty {
+  margin-top: 0.4rem;
+  padding: 0 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-muted);
+}
+
+.lunita-slot__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lunita-slot__name {
+  position: absolute;
+  left: 50%;
+  bottom: 0.5rem;
+  max-width: calc(100% - 0.6rem);
+  padding: 0.25rem 0.6rem;
+  border: 2px solid var(--l-ink);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1c2b4f;
+  font-size: clamp(0.72rem, 0.6rem + 0.5vw, 0.95rem);
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+button.lunita-slot[aria-pressed='true'] {
+  outline: 5px solid var(--l-yellow);
+  outline-offset: -5px;
+  z-index: 1;
+}
+
+button.lunita-slot[aria-pressed='true'] .lunita-slot__name {
+  background: var(--l-yellow);
+}
+
+button.lunita-slot[aria-pressed='true'] .lunita-slot__name::before {
+  content: '★ ';
+}
+
+.lunita-tray__title {
+  margin: 0.75rem 0 0.4rem;
+  font-weight: 800;
+}
+
+ul.lunita-tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lunita-piece {
+  position: relative;
+  display: block;
+  width: clamp(5.5rem, 26vw, 8.5rem);
+  aspect-ratio: 200 / 360;
+  padding: 0;
+  overflow: hidden;
+  border: 3px solid var(--l-ink);
+  border-radius: 14px;
+  background: var(--l-card);
+  cursor: grab;
+  touch-action: none;
+  box-shadow: 0 4px 0 var(--l-ink);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+:root[data-theme='dark'] .lunita-piece {
+  border-color: var(--l-line);
+  box-shadow: 0 4px 0 var(--l-line);
+}
+
+.lunita-piece__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lunita-piece__name {
+  position: absolute;
+  left: 0.25rem;
+  right: 0.25rem;
+  bottom: 0.35rem;
+  padding: 0.2rem 0.3rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1c2b4f;
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.lunita-piece.is-selected,
+.lunita-piece[aria-pressed='true'] {
+  outline: 5px solid var(--l-yellow);
+  outline-offset: 2px;
+  transform: translateY(-4px);
+}
+
+.lunita-piece.is-dragging {
+  opacity: 0.3;
+}
+
+.lunita-piece--ghost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  pointer-events: none;
+  cursor: grabbing;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
+  rotate: 4deg;
+}
+
+/* ---------- Lienzo del camino ---------- */
+
+.lunita-canvas {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* El lienzo, la escena y el mapa no crecen más que la pantalla: los botones quedan a la vista. */
+.lunita-canvas__frame,
+.lunita-figure,
+.lunita-map-frame {
+  width: 100%;
+  max-width: min(100%, 44rem, calc((100svh - 17rem) * 1.6));
+  min-width: min(100%, 18rem);
+  margin-inline: auto;
+}
+
+.lunita-map-frame {
+  max-width: min(100%, 44rem);
+}
+
+.lunita-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.lunita-canvas__frame {
+  position: relative;
+}
+
+.lunita-field {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--l-line);
+  border-radius: 18px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: crosshair;
+}
+
+.lunita-field--points {
+  cursor: copy;
+}
+
+.lunita-field:focus {
+  outline: none;
+}
+
+.lunita-field:focus-visible {
+  outline: 4px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.lunita-field__label {
+  font: 800 12px var(--font-sans);
+  fill: #0a6a60;
+}
+
+.lunita-field__alert {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lunita-field__alert {
+    animation: lunita-pulse 0.9s ease-in-out infinite;
+  }
+}
+
+.lunita-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.lunita-tools .lunita-button--go {
+  margin-left: auto;
+}
+
+@media (max-width: 29.99rem) {
+  .lunita-tools .lunita-button {
+    flex: 1 1 calc(50% - 0.6rem);
+    padding-inline: 0.8rem;
+    font-size: 1rem;
+  }
+
+  .lunita-tools .lunita-button--go {
+    flex-basis: 100%;
+    order: -1;
+  }
+}
+
+/* ---------- Paso 5 ---------- */
+
+.lunita-tell {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.lunita-field-group {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+}
+
+.lunita-sentence {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.lunita-tell textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 3px solid var(--color-border-strong);
+  border-radius: 14px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 1.1rem;
+  resize: vertical;
+}
+
+.lunita-tell textarea:focus-visible {
+  border-color: var(--l-teal);
+  outline: 3px solid var(--color-focus);
+}
+
+.lunita-challenge {
+  display: grid;
+  gap: 0.4rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.9rem 1rem;
+  border: 3px dashed var(--l-teal);
+  border-radius: 16px;
+}
+
+.lunita-challenge__title {
+  margin: 0;
+  font-weight: 900;
+  color: var(--l-teal-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.lunita-challenge label {
+  font-weight: 700;
+}
+
+.lunita-done {
+  display: grid;
+  gap: 1rem;
+}
+
+.lunita-done__hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 20px;
+  background: var(--l-yellow-soft);
+}
+
+.lunita-done__hero p {
+  flex: 1 1 14rem;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.lunita-done__summary {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+}
+
+.lunita-done__summary div {
+  padding: 0.6rem 0.9rem;
+  border-left: 5px solid var(--l-teal);
+  border-radius: 10px;
+  background: var(--l-sky);
+}
+
+.lunita-done__summary dt {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--l-teal-ink);
+}
+
+.lunita-done__summary dd {
+  margin: 0.15rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.lunita-note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.lunita-restart {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.lunita-restart__confirm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.lunita-restart__confirm p {
+  flex: 1 1 100%;
+  margin: 0;
+  font-weight: 700;
+}

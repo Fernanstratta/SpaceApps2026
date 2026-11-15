@@ -14,6 +14,8 @@ import { SPANISH_SPEAKING_COUNTRIES } from '../src/i18n/config';
 import { contentEn } from '../src/i18n/content/en';
 import { languageForCountry, planInitialLanguage, type LanguageInput } from '../src/i18n/detect';
 import { en } from '../src/i18n/messages/en';
+import { roverEn } from '../src/i18n/missions/rover.en';
+import { roverEs } from '../src/i18n/missions/rover.es';
 import { es } from '../src/i18n/messages/es';
 import { localizePath, parsePath } from '../src/i18n/paths';
 import { readSavedLanguage, saveLanguage } from '../src/i18n/storage';
@@ -111,6 +113,8 @@ const internalPaths = [
   ROUTES.portal,
   ROUTES.login,
   ROUTES.register,
+  ROUTES.missionStart,
+  ROUTES.missionTeach,
   ...topics.map((topic) => ROUTES.topic(topic.id)),
   ...submodules.map((item) => ROUTES.submodule(item.topicId, item.id)),
 ];
@@ -126,6 +130,8 @@ for (const path of internalPaths) {
 }
 check(localizePath('/portal-educativo/gravity', 'en') === '/en/educational-portal/gravity', 'Slug traducido en inglés');
 check(localizePath('/iniciar-sesion', 'en') === '/en/sign-in', 'Slug de inicio de sesión en inglés');
+check(localizePath(ROUTES.missionStart, 'en') === '/en/educational-portal/mission/lunar-rover/start', 'Slug de la misión en inglés');
+check(localizePath(ROUTES.missionTeach, 'en') === '/en/educational-portal/mission/lunar-rover/teach', 'Slug de la guía docente en inglés');
 check(parsePath('/en/portal-educativo').path === '/portal-educativo', 'Acepta el slug en español bajo /en');
 check(parsePath('/portal-educativo').language === null, 'Ruta sin prefijo = sin idioma explícito');
 check(parsePath('/fr/portal-educativo').language === null, 'Un prefijo no soportado no cuenta como idioma');
@@ -196,6 +202,17 @@ for (const key of esKeys) {
 }
 for (const key of enKeys) check(esKeys.includes(key), `Clave sobrante en inglés: ${key}`);
 console.log(`  ✓ ${esKeys.length} textos con versión en ambos idiomas`);
+
+section('Textos de la Misión 01');
+const missionEsKeys = keyPaths(roverEs);
+const missionEnKeys = new Set(keyPaths(roverEn));
+for (const key of missionEsKeys) {
+  check(missionEnKeys.has(key), `Falta en inglés (misión): ${key}`);
+  const value = valueAt(roverEn, key);
+  check(typeof value === 'function' || typeof value === 'number' || (typeof value === 'string' && value.trim() !== ''), `Texto vacío en inglés (misión): ${key}`);
+}
+for (const key of missionEnKeys) check(missionEsKeys.includes(key), `Clave sobrante en inglés (misión): ${key}`);
+console.log(`  ✓ ${missionEsKeys.length} textos de la misión con versión en ambos idiomas`);
 
 // ---------------------------------------------------------------------------
 console.log('');

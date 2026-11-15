@@ -12,6 +12,7 @@ import { ReferenceLocationCard } from '../maps/ReferenceLocationCard';
 import { ClassroomActivityList } from './ClassroomActivityList';
 import { ClassroomAlternativesView } from './ClassroomAlternativesView';
 import { LessonPlanView } from './LessonPlanView';
+import { MissionCallout } from '../mission/MissionCallout';
 import { SectionNav } from './SectionNav';
 
 const sectionsFor = (TEACHER_SECTIONS: ReturnType<typeof useMessages>['TEACHER_SECTIONS']) => [
@@ -40,6 +41,7 @@ export function TeacherModuleView({ topic, module }: TeacherModuleViewProps) {
       <SectionNav sections={sectionsFor(TEACHER_SECTIONS)} />
 
       <div className="module-view__sections">
+        <MissionCallout topicId={topic.id} view="teach" />
         <section id="informacion-general" className="content-section" aria-labelledby="informacion-general-titulo">
           <h2 id="informacion-general-titulo" className="content-section__title">
             {TEACHER_SECTIONS.general}

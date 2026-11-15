@@ -1,101 +1,89 @@
+import indexJson from '../../backend/data/lunar-analogs/index.json';
+import cerroPrietoJson from '../../backend/data/lunar-analogs/pairs/cerro_prieto_gruithuisen.json';
+import cucapaJson from '../../backend/data/lunar-analogs/pairs/cucapa_shackleton.json';
+import eleganteJson from '../../backend/data/lunar-analogs/pairs/elegante_linne.json';
+import lagunaSaladaJson from '../../backend/data/lunar-analogs/pairs/laguna_salada_tranquillitatis.json';
+import pinacateJson from '../../backend/data/lunar-analogs/pairs/pinacate_marius.json';
+import type {
+  AnalogAxis,
+  AnalogPairSummary,
+  AxisNormalization,
+  AxisSideValue,
+  Comparison,
+  Confidence,
+  EarthSite,
+  Metric,
+  MoonSite,
+  SimilarityMode,
+  ValueStatus,
+} from '../../backend/src/lib/spaceApiTypes';
 import { AXIS_IDS, type AxisId } from '../types/Axis';
-import type { AxisPairValues, AxisSpec, AxisValue } from '../utils/ils';
-import type { MissionSiteId } from './missions/roverMission';
 
 /**
- * Catálogo de análogos lunares del Starman Playground.
+ * Catálogo de análogos lunares: los cinco pares del Índice de Similitud Lunar.
  *
- * Fuente: documento del equipo «Índice de Similitud Lunar (ILS): métricas y
- * criterios de comparación entre sitios de Baja California y Sonora y la
- * Luna», esquema de datos 1.0.0 (15 de noviembre de 2026).
+ * FUENTE ÚNICA: los JSON de `backend/data/lunar-analogs/`, los mismos que
+ * sirve `GET /api/lunar-analogs`. Aquí se importan tal cual (no se copian ni
+ * se recalculan): valores, estados, similitudes, pesos, ILS y completitud son
+ * los del backend. Los tipos son los de `backend/src/lib/spaceApiTypes.ts`.
  *
- * BACKEND: este archivo tiene la forma del catálogo que publicará la API
- * (`/api/lunar-analogs`). Cuando exista, basta con que `getLunarAnalogCatalog`
- * lea de ahí; el resto del Playground no cambia.
+ * Lo único propio del frontend es la presentación de cada par (fotos, zoom
+ * del mapa, tipo de analogía, modelo 3D): no son datos de comparación.
  *
- * Solo contiene lo que dice el documento. Los textos (nombres, analogías,
- * preguntas) están en `i18n/playground.ts`.
+ * BACKEND EN VIVO: `getLunarAnalogCatalog` es el único punto de acceso. Para
+ * leer de la API basta con que esta función obtenga `Comparison[]` de
+ * `getAnalogPairs` / `getAnalogPair` (ver `backend/src/lib/spaceApi.ts`).
  */
 
-export const ILS_SCHEMA_VERSION = '1.0.0';
-export const ILS_DATA_DATE = '2026-11-15';
-
-/* ------------------------------------------------------------------ */
-/* Los nueve ejes                                                      */
-/* ------------------------------------------------------------------ */
-
-// Los ids viven en `types/Axis.ts` porque también son los temas del Portal Educativo.
 export { AXIS_IDS };
-export type { AxisId };
+export type {
+  AnalogAxis,
+  AnalogPairSummary,
+  AxisId,
+  AxisNormalization,
+  Comparison,
+  Confidence,
+  EarthSite,
+  MoonSite,
+  SimilarityMode,
+  ValueStatus,
+};
 
-export interface IlsAxis extends AxisSpec {
-  id: AxisId;
-  /** Número del eje en el documento (1–9). */
-  number: number;
-  /** Nombre técnico de la métrica. */
-  metric: string;
-  /** Decimales con que se muestra un valor del eje. */
-  decimals: number;
-  /** Unidad corta para mostrar junto al valor ('' si es adimensional). */
-  unit: string;
-}
+/** Las claves de eje del frontend son las del backend (`Metric['key']`). */
+type AssertSame<A, B> = [A] extends [B] ? ([B] extends [A] ? true : never) : never;
+export const AXIS_KEYS_MATCH_BACKEND: AssertSame<AxisId, Metric['key']> = true;
 
-export const ILS_AXES: readonly IlsAxis[] = [
-  { id: 'slope', number: 1, metric: 'f_safe', formula: 'linear', tolerance: 0.5, weight: 1.5, confidence: 'A', decimals: 2, unit: '' },
-  { id: 'roughness', number: 2, metric: 'roughness_percentile', formula: 'linear', tolerance: 1.0, weight: 1.0, confidence: 'B', decimals: 2, unit: '' },
-  { id: 'mineralogy', number: 3, metric: 'mafic_score', formula: 'linear', tolerance: 1.0, weight: 1.5, confidence: 'B', decimals: 2, unit: '' },
-  { id: 'albedo', number: 4, metric: 'albedo_broadband', formula: 'linear', tolerance: 0.15, weight: 1.0, confidence: 'A', decimals: 2, unit: '' },
-  { id: 'thermal', number: 5, metric: 'delta_T', formula: 'log', tolerance: 10, weight: 1.0, confidence: 'A', decimals: 0, unit: 'K' },
-  { id: 'aridity', number: 6, metric: 'ndvi_median', formula: 'linear', tolerance: 0.3, weight: 0.5, confidence: 'A', decimals: 2, unit: '' },
-  { id: 'volatiles', number: 7, metric: 'volatile_class', formula: 'linear', tolerance: 3, weight: 1.0, weightIfBothAbsent: 0.5, confidence: 'C', decimals: 0, unit: '' },
-  { id: 'dust', number: 8, metric: 'fine_fraction', formula: 'linear', tolerance: 1.0, weight: 0.75, confidence: 'C', decimals: 2, unit: '' },
-  { id: 'craters', number: 9, metric: 'depth_diameter_ratio', formula: 'linear', tolerance: 0.2, weight: 1.0, confidence: 'B', decimals: 3, unit: '' },
-];
+/** Valor de un lado, con los campos que el JSON trae y el tipo del backend aún no declara. */
+export type AxisSide = AxisSideValue & {
+  /** Anclas de la escala félsica–máfica (eje 3). */
+  calibration?: { felsic: number; mafic: number; source: string };
+};
 
-export function getAxis(id: AxisId): IlsAxis {
-  const axis = ILS_AXES.find((a) => a.id === id);
-  if (!axis) throw new Error(`Eje desconocido: ${id}`);
-  return axis;
-}
+/** Sitio (terrestre o lunar) con el método con que se fijó su coordenada. */
+export type AnalogSite = (EarthSite | MoonSite) & { coordinate_method?: string };
+
+export type Body = 'earth' | 'moon';
+export const BODIES: readonly Body[] = ['earth', 'moon'];
 
 /* ------------------------------------------------------------------ */
-/* Fuentes de datos (sección 7 del documento)                          */
+/* Pares                                                               */
 /* ------------------------------------------------------------------ */
 
-export const ILS_SOURCES = [
-  { id: 'cop-dem', name: 'Copernicus DEM GLO-30', url: 'https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/DEM.html' },
-  { id: 'sentinel-1', name: 'Sentinel-1 GRD IW', url: 'https://documentation.dataspace.copernicus.eu/Data/SentinelMissions/Sentinel1.html' },
-  { id: 'sentinel-2', name: 'Sentinel-2 L2A', url: 'https://documentation.dataspace.copernicus.eu/Data/SentinelMissions/Sentinel2.html' },
-  { id: 'aster-ged', name: 'ASTER GED AG100 v3', url: 'https://doi.org/10.5067/COMMUNITY/ASTER_GED/AG100.003' },
-  { id: 'modis', name: 'Aqua MODIS MYD11A2 v061', url: 'https://doi.org/10.5067/MODIS/MYD11A2.061' },
-  { id: 'smap', name: 'SMAP SPL3SMP_E', url: 'https://nsidc.org/data/spl3smp_e' },
-  { id: 'soilgrids', name: 'ISRIC SoilGrids', url: 'https://www.isric.org/explore/soilgrids' },
-  { id: 'diviner', name: 'LRO Diviner (GDR, RCP, GCP, PRP)', url: 'https://pds-geosciences.wustl.edu/missions/lro/diviner.htm' },
-  { id: 'mini-rf', name: 'LRO Mini-RF', url: 'https://pds-geosciences.wustl.edu/missions/lro/mrf.htm' },
-  { id: 'lola', name: 'LRO LOLA', url: 'https://pds-geosciences.wustl.edu/missions/lro/lola.htm' },
-  { id: 'sldem2015', name: 'SLDEM2015', url: 'https://pgda.gsfc.nasa.gov/products/54' },
-  { id: 'lroc-nac', name: 'LROC NAC DTM', url: 'https://lroc.im-ldi.com/data' },
-  { id: 'gutmann-2006', name: 'Gutmann y Turrin (2006), El Elegante', url: 'https://gsa.confex.com/gsa/2006RM/webprogram/Paper104697.html' },
-  { id: 'martellato-2017', name: 'Martellato et al. (2017), Linné', url: 'https://doi.org/10.1111/maps.12892' },
+export const PAIR_IDS = [
+  'elegante_linne',
+  'pinacate_marius',
+  'cerro_prieto_gruithuisen',
+  'laguna_salada_tranquillitatis',
+  'cucapa_shackleton',
 ] as const;
-export type IlsSourceId = (typeof ILS_SOURCES)[number]['id'];
+export type PairId = (typeof PAIR_IDS)[number];
 
-export function getIlsSource(id: IlsSourceId) {
-  return ILS_SOURCES.find((s) => s.id === id)!;
+export function isPairId(value: unknown): value is PairId {
+  return typeof value === 'string' && (PAIR_IDS as readonly string[]).includes(value);
 }
-
-/* ------------------------------------------------------------------ */
-/* Pares de sitios                                                     */
-/* ------------------------------------------------------------------ */
 
 export const ANALOGY_TYPES = ['crater-morphology', 'basaltic-volcanism', 'silicic-volcanism', 'landing-terrain', 'risk-counterexample'] as const;
 export type AnalogyType = (typeof ANALOGY_TYPES)[number];
-
-export const EARTH_STATES = ['sonora', 'baja-california'] as const;
-export type EarthState = (typeof EARTH_STATES)[number];
-
-export const PAIR_IDS = ['elegante-linne', 'pinacate-marius', 'cerro-prieto-gruithuisen', 'laguna-salada-tranquillitatis', 'cucapa-shackleton'] as const;
-export type PairId = (typeof PAIR_IDS)[number];
 
 export interface PhotoCredit {
   src: string;
@@ -107,50 +95,23 @@ export interface PhotoCredit {
   page: string;
 }
 
-export interface AnalogSite {
-  /** Grados decimales; longitud positiva hacia el este. */
-  lat: number;
-  lon: number;
-  /** Coordenada de trabajo, pendiente de confirmar. */
-  provisionalCoords: boolean;
-  /** Radio del área de análisis circular (km); `null` si aún no está definida. */
-  analysisRadiusKm: number | null;
-  provisionalArea: boolean;
-  photos: PhotoCredit[];
-}
+/** Id de un relieve en `analog-terrain.generated.json` (= `site_id` del backend). */
+export type TerrainId = string;
 
-/** Valor de un eje con su origen; `range` cuando el documento da un intervalo. */
-export interface CatalogValue extends AxisValue {
-  range?: [number, number];
-  sourceId?: IlsSourceId;
-}
-
-export interface AnalogPair {
-  id: PairId;
+/** Presentación de un par: lo que el frontend añade a los datos del backend. */
+interface PairPresentation {
   analogyType: AnalogyType;
-  state: EarthState;
-  earth: AnalogSite & { zoom: number };
-  moon: AnalogSite;
-  /** Ejes que deberían mostrar mayor similitud. */
-  strongAxes: AxisId[];
-  /**
-   * Otros ejes que el documento discute de forma explícita para este par
-   * (p. ej. el hielo en Shackleton), aunque no sean ejes fuertes ni tengan valores.
-   */
-  discussedAxes: AxisId[];
-  /** Valores por eje. Los ejes sin entrada todavía no tienen datos. */
-  axes: Partial<Record<AxisId, { earth?: CatalogValue; moon?: CatalogValue }>>;
-  /** Posición en el ranking esperado del ILS (los empates comparten número). */
-  expectedRank: number;
-  /**
-   * Porcentaje de similitud Tierra–Luna (0–100) del par, tal como lo publique
-   * el equipo o la API. `null` = TODAVÍA NO HAY DATO. No se estima ni se
-   * calcula aquí: el filtro de similitud del Playground lo usará en cuanto
-   * existan valores reales.
-   */
-  similarityPercent: number | null;
-  /** Sitio con modelo de elevación en el proyecto (habilita la vista 3D). */
-  terrainSiteId: MissionSiteId | null;
+  /** Zoom inicial del mapa terrestre. */
+  zoom: number;
+  photos: Record<Body, PhotoCredit[]>;
+}
+
+export interface AnalogPair extends PairPresentation {
+  id: PairId;
+  /** Número fijo del par (1…5, orden del catálogo del backend). */
+  number: number;
+  /** Registro completo del backend, sin modificar. */
+  data: Comparison;
 }
 
 const COMMONS = 'https://upload.wikimedia.org/wikipedia/commons';
@@ -170,76 +131,33 @@ function commons(hashPath: string, file: string, width: number, height: number, 
   };
 }
 
-/** NDVI lunar = 0 por definición (no hay vegetación): valor de referencia en todos los pares. */
-const MOON_NDVI: CatalogValue = { value: 0, status: 'reference' };
+const PINACATE_SENTINEL = commons(
+  'f/f1',
+  'Craters_dot_the_lava_fields_of_El_Pinacate_in_Mexico_%28Copernicus_2026-11-08%29.webp',
+  4961,
+  3508,
+  'Unión Europea, Copernicus Sentinel-2',
+  'Atribución (datos Copernicus Sentinel modificados)',
+  1280,
+);
 
-const PAIRS: readonly AnalogPair[] = [
-  {
-    id: 'elegante-linne',
+const PRESENTATION: Record<PairId, PairPresentation> = {
+  elegante_linne: {
     analogyType: 'crater-morphology',
-    state: 'sonora',
-    earth: {
-      lat: 31.8467,
-      lon: -113.3913,
-      provisionalCoords: false,
-      analysisRadiusKm: 1.2,
-      provisionalArea: false,
-      zoom: 13,
-      photos: [
-        commons('8/86', 'Pinacate_volcanic_field.jpg', 640, 418, 'Richard Waitt, USGS', 'Dominio público'),
-        commons(
-          'f/f1',
-          'Craters_dot_the_lava_fields_of_El_Pinacate_in_Mexico_%28Copernicus_2026-11-08%29.webp',
-          4961,
-          3508,
-          'Unión Europea, Copernicus Sentinel-2',
-          'Atribución (datos Copernicus Sentinel modificados)',
-          1280,
-        ),
-      ],
-    },
-    moon: {
-      lat: 27.73,
-      lon: 11.79,
-      provisionalCoords: false,
-      analysisRadiusKm: 1.65,
-      provisionalArea: false,
-      photos: [
+    zoom: 13,
+    photos: {
+      earth: [commons('8/86', 'Pinacate_volcanic_field.jpg', 640, 418, 'Richard Waitt, USGS', 'Dominio público'), PINACATE_SENTINEL],
+      moon: [
         commons('9/92', 'Linne_%28LRO%29_1.png', 3000, 3000, 'NASA (LRO, cámara NAC)', 'Dominio público', 1280),
         commons('7/75', 'LRO_Linn%C3%A9_crater_color_coded_shaded_relief_map.png', 2307, 3725, 'NASA/GSFC/Arizona State University', 'Dominio público', 960),
       ],
     },
-    strongAxes: ['craters', 'mineralogy', 'albedo'],
-    discussedAxes: [],
-    axes: {
-      // d/D = profundidad / diámetro, de dimensiones publicadas: 244/1600 y 520/2230.
-      craters: {
-        earth: { value: 244 / 1600, status: 'published', sourceId: 'gutmann-2006' },
-        moon: { value: 520 / 2230, status: 'published', sourceId: 'martellato-2017' },
-      },
-      // Estimaciones del documento (~40 K y ~270 K), pendientes de medir: fuera del ILS.
-      thermal: {
-        earth: { value: 40, status: 'provisional' },
-        moon: { value: 270, status: 'provisional' },
-      },
-      aridity: { moon: MOON_NDVI },
-    },
-    expectedRank: 1,
-    similarityPercent: null,
-    terrainSiteId: 'el-elegante',
   },
-  {
-    id: 'pinacate-marius',
+  pinacate_marius: {
     analogyType: 'basaltic-volcanism',
-    state: 'sonora',
-    earth: {
-      lat: 31.77,
-      lon: -113.49,
-      provisionalCoords: true,
-      analysisRadiusKm: 5,
-      provisionalArea: true,
-      zoom: 11,
-      photos: [
+    zoom: 11,
+    photos: {
+      earth: [
         commons(
           'e/e9',
           'Reserva_de_la_Biosfera_El_Pinacate%2C_Sonora-Biosphere_Reserve%2C_El_Pinacate%2C_Sonora_%2823107632322%29.jpg',
@@ -249,24 +167,9 @@ const PAIRS: readonly AnalogPair[] = [
           'CC BY-SA 2.0',
           1280,
         ),
-        commons(
-          'f/f1',
-          'Craters_dot_the_lava_fields_of_El_Pinacate_in_Mexico_%28Copernicus_2026-11-08%29.webp',
-          4961,
-          3508,
-          'Unión Europea, Copernicus Sentinel-2',
-          'Atribución (datos Copernicus Sentinel modificados)',
-          1280,
-        ),
+        PINACATE_SENTINEL,
       ],
-    },
-    moon: {
-      lat: 14.09,
-      lon: -56.77,
-      provisionalCoords: false,
-      analysisRadiusKm: 5,
-      provisionalArea: false,
-      photos: [
+      moon: [
         commons('6/63', 'Marius_hills_pit.png', 1430, 908, 'NASA / equipo LROC, Arizona State University', 'Dominio público', 1280),
         commons(
           '2/20',
@@ -278,69 +181,27 @@ const PAIRS: readonly AnalogPair[] = [
         ),
       ],
     },
-    strongAxes: ['mineralogy', 'albedo', 'craters', 'roughness'],
-    discussedAxes: [],
-    axes: { aridity: { moon: MOON_NDVI } },
-    expectedRank: 1,
-    similarityPercent: null,
-    terrainSiteId: null,
   },
-  {
-    id: 'cerro-prieto-gruithuisen',
+  cerro_prieto_gruithuisen: {
     analogyType: 'silicic-volcanism',
-    state: 'baja-california',
-    earth: {
-      lat: 32.418,
-      lon: -115.305,
-      provisionalCoords: false,
-      analysisRadiusKm: 2,
-      provisionalArea: false,
-      zoom: 13,
-      photos: [
+    zoom: 13,
+    photos: {
+      earth: [
         commons('1/12', 'Cerro_Prieto.jpg', 640, 435, 'Marshall Reed, U.S. Department of Energy', 'Dominio público'),
         commons('e/e2', 'Cerro_prieto_visto_desde_el_noreste_1.jpg', 1382, 1037, 'Verdelunar', 'CC BY-SA 4.0', 1280),
       ],
-    },
-    moon: {
-      lat: 36.46,
-      lon: -40.8,
-      provisionalCoords: false,
-      analysisRadiusKm: 2,
-      provisionalArea: false,
-      photos: [
+      moon: [
         commons('6/65', 'Gruithuisen_domes_AS15-93-12717.jpg', 1700, 1000, 'James Stuby, a partir de una imagen de NASA (Apolo 15)', 'Dominio público', 1280),
         commons('a/af', 'Gruithuisen_domes_%28LRO%29.png', 677, 508, 'NASA (LRO)', 'Dominio público'),
       ],
     },
-    strongAxes: ['mineralogy', 'craters'],
-    discussedAxes: [],
-    axes: { aridity: { moon: MOON_NDVI } },
-    expectedRank: 3,
-    similarityPercent: null,
-    terrainSiteId: null,
   },
-  {
-    id: 'laguna-salada-tranquillitatis',
+  laguna_salada_tranquillitatis: {
     analogyType: 'landing-terrain',
-    state: 'baja-california',
-    earth: {
-      lat: 32.36,
-      lon: -115.65,
-      provisionalCoords: true,
-      analysisRadiusKm: 5,
-      provisionalArea: false,
-      zoom: 10,
-      photos: [
-        commons('b/b1', 'Entrada_norte_a_la_Laguna_salada..jpg', 4160, 3120, 'Tacicuri', 'CC BY-SA 4.0', 1280),
-      ],
-    },
-    moon: {
-      lat: 0.67,
-      lon: 23.47,
-      provisionalCoords: false,
-      analysisRadiusKm: 5,
-      provisionalArea: false,
-      photos: [
+    zoom: 10,
+    photos: {
+      earth: [commons('b/b1', 'Entrada_norte_a_la_Laguna_salada..jpg', 4160, 3120, 'Tacicuri', 'CC BY-SA 4.0', 1280)],
+      moon: [
         commons(
           'a/a5',
           'LRO_Gets_Additional_View_of_Apollo_11_Landing_Site_%284092985062%29.jpg',
@@ -352,93 +213,235 @@ const PAIRS: readonly AnalogPair[] = [
         ),
       ],
     },
-    strongAxes: ['slope', 'aridity', 'dust'],
-    discussedAxes: [],
-    axes: {
-      // Intervalos del documento (playa salina α ≈ 0.30–0.40; basalto del mar α ≈ 0.07–0.10), pendientes de medir.
-      albedo: {
-        earth: { value: 0.35, range: [0.3, 0.4], status: 'provisional' },
-        moon: { value: 0.085, range: [0.07, 0.1], status: 'provisional' },
-      },
-      aridity: { moon: MOON_NDVI },
-    },
-    expectedRank: 4,
-    similarityPercent: null,
-    terrainSiteId: null,
   },
-  {
-    id: 'cucapa-shackleton',
+  cucapa_shackleton: {
     analogyType: 'risk-counterexample',
-    state: 'baja-california',
-    earth: {
-      lat: 32.4,
-      lon: -115.5,
-      provisionalCoords: true,
-      analysisRadiusKm: 5,
-      provisionalArea: true,
-      zoom: 11,
-      photos: [
+    zoom: 12,
+    photos: {
+      earth: [
         commons('3/38', 'Vista_de_Mexicali_desde_la_Tinaja_Cucapah_-_panoramio.jpg', 2048, 1536, 'mbagoogle', 'CC BY 3.0', 1280),
         commons('2/21', 'Ca%C3%B1on_de_la_Tinaja_Cucapah_-_panoramio.jpg', 2048, 1536, 'mbagoogle', 'CC BY 3.0', 1280),
       ],
-    },
-    moon: {
-      lat: -89.67,
-      lon: 129.78,
-      provisionalCoords: false,
-      // «Hay que elegir un tramo del borde antes de medir».
-      analysisRadiusKm: null,
-      provisionalArea: true,
-      photos: [
+      moon: [
         commons('d/d5', 'Shackleton_Crater.jpg', 3032, 2637, 'Equipos de LROC y ShadowCam (NASA/KARI/ASU)', 'Dominio público', 1280),
         commons('9/9a', 'Rimlight-_Shackleton_Crater_%283929168011%29.jpg', 1182, 1170, 'NASA Goddard (LROC)', 'Dominio público'),
       ],
     },
-    strongAxes: ['slope', 'roughness', 'albedo'],
-    // «Eje 7: clase 3 en la Luna contra 0 en la sierra» (dónde se rompe la analogía).
-    discussedAxes: ['volatiles'],
-    axes: { aridity: { moon: MOON_NDVI } },
-    expectedRank: 5,
-    similarityPercent: null,
-    terrainSiteId: null,
   },
-];
+};
+
+/* ------------------------------------------------------------------ */
+/* Carga y validación del catálogo del backend                         */
+/* ------------------------------------------------------------------ */
+
+const SUMMARIES = indexJson as unknown as AnalogPairSummary[];
+const RECORDS = [eleganteJson, pinacateJson, cerroPrietoJson, lagunaSaladaJson, cucapaJson] as unknown as Comparison[];
+
+/** Mismas comprobaciones que `getAnalogPair` en el cliente del backend, más el orden de los ejes. */
+function assertBackendRecord(record: Comparison | undefined, id: PairId): Comparison {
+  if (!record) throw new Error(`El backend no trae el par «${id}».`);
+  if (!Array.isArray(record.axes) || record.axes.length !== AXIS_IDS.length) {
+    throw new Error(`El par «${id}» del backend no tiene ${AXIS_IDS.length} ejes.`);
+  }
+  record.axes.forEach((axis, index) => {
+    if (axis.key !== AXIS_IDS[index] || axis.id !== index + 1) {
+      throw new Error(`El par «${id}» tiene el eje ${index + 1} fuera de orden (${axis.key}).`);
+    }
+  });
+  return record;
+}
+
+if (SUMMARIES.length !== PAIR_IDS.length || SUMMARIES.some((summary, index) => summary.pair_id !== PAIR_IDS[index])) {
+  throw new Error('El índice del backend (index.json) no coincide con los pares que conoce el frontend.');
+}
+
+const PAIRS: readonly AnalogPair[] = PAIR_IDS.map((id, index) => ({
+  id,
+  number: index + 1,
+  data: assertBackendRecord(
+    RECORDS.find((record) => record.pair_id === id),
+    id,
+  ),
+  ...PRESENTATION[id],
+}));
 
 export interface LunarAnalogCatalog {
   schemaVersion: string;
-  dataDate: string;
-  axes: readonly IlsAxis[];
+  /** Fecha en que el pipeline generó los datos (ISO 8601). */
+  generatedAt: string;
+  /** Resúmenes de `index.json`, en el orden del backend. */
+  summaries: readonly AnalogPairSummary[];
   pairs: readonly AnalogPair[];
 }
 
-/** Punto único de acceso al catálogo (hoy local; después, la API). */
+/** Punto único de acceso al catálogo (hoy, los JSON del backend empaquetados; después, la API). */
 export function getLunarAnalogCatalog(): LunarAnalogCatalog {
-  return { schemaVersion: ILS_SCHEMA_VERSION, dataDate: ILS_DATA_DATE, axes: ILS_AXES, pairs: PAIRS };
+  const first = PAIRS[0]!.data;
+  return { schemaVersion: first.schema_version, generatedAt: first.generated_at, summaries: SUMMARIES, pairs: PAIRS };
+}
+
+export function getPair(id: PairId): AnalogPair {
+  const pair = PAIRS.find((item) => item.id === id);
+  if (!pair) throw new Error(`Par desconocido: ${id}`);
+  return pair;
+}
+
+export function getSite(pair: AnalogPair, body: Body): AnalogSite {
+  return body === 'earth' ? pair.data.earth_site : pair.data.moon_site;
+}
+
+/* ------------------------------------------------------------------ */
+/* Ejes                                                                */
+/* ------------------------------------------------------------------ */
+
+/** El eje de un par, tal como lo envía el backend. */
+export function pairAxis(pair: AnalogPair, axisId: AxisId): AnalogAxis {
+  const axis = pair.data.axes.find((item) => item.key === axisId);
+  if (!axis) throw new Error(`El par ${pair.id} no tiene el eje ${axisId}.`);
+  return axis;
+}
+
+export function axisSide(axis: AnalogAxis, body: Body): AxisSide | null {
+  return axis[body];
+}
+
+/** Definición de un eje (métrica, modo, tolerancia, peso nominal, confianza). */
+export type AxisDefinition = Metric;
+
+/**
+ * Definición nominal de cada eje, leída de los pares del backend. Los campos
+ * son iguales en los cinco pares salvo el peso del eje de hielo, que el
+ * backend baja a 0.5 cuando marca «similitud por ausencia»: la definición
+ * nominal se toma de un par sin esa marca.
+ */
+const AXIS_DEFINITIONS: Record<AxisId, AxisDefinition> = Object.fromEntries(
+  AXIS_IDS.map((axisId) => {
+    const candidates = PAIRS.map((pair) => pairAxis(pair, axisId));
+    const nominal = candidates.find((axis) => axis.flag === null) ?? candidates[0]!;
+    const { flag: _flag, earth: _earth, moon: _moon, similarity: _similarity, available: _available, ...definition } = nominal;
+    return [axisId, definition];
+  }),
+) as Record<AxisId, AxisDefinition>;
+
+export function getAxisDefinition(axisId: AxisId): AxisDefinition {
+  return AXIS_DEFINITIONS[axisId];
+}
+
+export const AXIS_DEFINITION_LIST: readonly AxisDefinition[] = AXIS_IDS.map((axisId) => AXIS_DEFINITIONS[axisId]);
+
+/** Peso del eje de hielo cuando el backend marca «similitud por ausencia» (leído de los datos; `null` si ningún par la tiene). */
+export const ABSENCE_WEIGHT: number | null =
+  PAIRS.map((pair) => pairAxis(pair, 'ice')).find((axis) => axis.flag === 'similitud_por_ausencia')?.weight ?? null;
+
+/** ¿El eje entra al ILS de este par? (`available` del backend; nunca se deduce de la similitud). */
+export function isComparable(axis: AnalogAxis): axis is AnalogAxis & { similarity: number; earth: AxisSide; moon: AxisSide } {
+  return axis.available && axis.similarity !== null && axis.earth !== null && axis.moon !== null;
 }
 
 /**
- * Ejes comparativos con los que se asocia un par: sus ejes fuertes esperados,
- * los ejes con valores en los dos sitios y los que el documento discute de
- * forma explícita. Es la misma relación que usan el filtro por eje del
- * Playground y los submódulos «Análogos» del Portal Educativo.
+ * Ejes comparables de un par, del más al menos parecido según la similitud
+ * que envía el backend (solo se ordenan; no se recalcula nada).
  */
-export function pairAxes(pair: AnalogPair): AxisId[] {
-  return AXIS_IDS.filter((axis) => {
-    const values = pair.axes[axis];
-    return (
-      pair.strongAxes.includes(axis) ||
-      pair.discussedAxes.includes(axis) ||
-      Boolean(values?.earth && values.moon)
-    );
+export function axesBySimilarity(pair: AnalogPair): AnalogAxis[] {
+  return pair.data.axes.filter(isComparable).sort((a, b) => (b.similarity ?? 0) - (a.similarity ?? 0));
+}
+
+export interface AxisAcrossPairs {
+  pair: AnalogPair;
+  axis: AnalogAxis;
+}
+
+/**
+ * Un eje en los cinco pares: primero los comparables, del más al menos
+ * parecido; al final, los que no tienen dato comparable en ese eje.
+ */
+export function axisAcrossPairs(axisId: AxisId, pairIds: readonly PairId[] = PAIR_IDS): AxisAcrossPairs[] {
+  const rows = pairIds.map((id) => {
+    const pair = getPair(id);
+    return { pair, axis: pairAxis(pair, axisId) };
   });
+  return [
+    ...rows.filter((row) => isComparable(row.axis)).sort((a, b) => (b.axis.similarity ?? 0) - (a.axis.similarity ?? 0)),
+    ...rows.filter((row) => !isComparable(row.axis)),
+  ];
 }
 
-/** Pares asociados a un eje, en el orden del documento. */
-export function pairsForAxis(axis: AxisId): AnalogPair[] {
-  return PAIRS.filter((pair) => pairAxes(pair).includes(axis));
+/** Pares con dato comparable en un eje, en el orden del catálogo. */
+export function pairsWithAxis(axisId: AxisId): AnalogPair[] {
+  return PAIRS.filter((pair) => isComparable(pairAxis(pair, axisId)));
 }
 
-/** Valores de un par en la forma que espera `computeIls`. */
-export function pairAxisValues(pair: AnalogPair): Record<string, AxisPairValues | undefined> {
-  return pair.axes;
+/* ------------------------------------------------------------------ */
+/* Textos del backend que el propio backend marcó como desactualizados  */
+/* ------------------------------------------------------------------ */
+
+/**
+ * `contexto.txt` (§8.7) avisa de textos del backend que ya no son ciertos y
+ * pide no repetirlos como actuales. Cada entrada sustituye el texto SOLO si
+ * el backend sigue enviando exactamente el original: en cuanto el backend lo
+ * corrija, se muestra su versión y `verify:data` avisa de que la entrada sobra.
+ */
+export interface StaleText {
+  id: string;
+  /** Texto exacto que hoy envía el backend. */
+  original: string;
+  /** Lo que se muestra mientras tanto (el mismo texto, sin la parte desactualizada). */
+  shown: string;
+  reason: string;
+}
+
+export const STALE_BACKEND_TEXTS: readonly StaleText[] = [
+  {
+    id: 'elegante_linne/breaks/thermal',
+    original:
+      'La atmósfera terrestre y la duración del día lunar influyen en las diferencias térmicas. Falta calcular la amplitud en las dos áreas con productos comparables.',
+    shown: 'La atmósfera terrestre y la duración del día lunar influyen en las diferencias térmicas.',
+    reason: 'La amplitud térmica de este par ya está medida en los dos sitios.',
+  },
+  {
+    id: 'marius_hills/aoi',
+    original: 'Radio de trabajo provisional centrado en el pozo Marius Hills.',
+    shown: 'Círculo centrado en el pozo de Marius Hills.',
+    reason: 'Las coordenadas ya son de referencia; el radio dejó de ser provisional.',
+  },
+  {
+    id: 'gruithuisen/aoi',
+    original: 'Radio provisional. La referencia publicada está en el domo Gamma.',
+    shown: 'La referencia publicada está en el domo Gamma.',
+    reason: 'Las coordenadas ya son de referencia; el radio dejó de ser provisional.',
+  },
+  {
+    id: 'tranquillitatis_apollo11/aoi',
+    original: 'Radio de trabajo provisional alrededor del módulo lunar.',
+    shown: 'Círculo alrededor del módulo lunar del Apolo 11.',
+    reason: 'Las coordenadas ya son de referencia; el radio dejó de ser provisional.',
+  },
+];
+
+/** Devuelve el texto a mostrar: el del backend, salvo que sea uno de los marcados como desactualizados. */
+export function currentText(id: string, backendText: string): string {
+  const stale = STALE_BACKEND_TEXTS.find((item) => item.id === id);
+  return stale && stale.original === backendText ? stale.shown : backendText;
+}
+
+/** Nota del área de análisis de un sitio, sin afirmaciones desactualizadas. */
+export function aoiNote(site: AnalogSite): string {
+  return currentText(`${site.site_id}/aoi`, site.aoi.note);
+}
+
+export interface EducationBreak {
+  /** Clave que envía el backend: un eje (`thermal`) u otra etiqueta (`origen`). */
+  key: string;
+  /** El eje, cuando la clave es uno de los nueve. */
+  axisId: AxisId | null;
+  text: string;
+}
+
+/** «Dónde se rompe la analogía», en español, tal como lo envía el backend. */
+export function educationBreaks(pair: AnalogPair): EducationBreak[] {
+  return pair.data.education.breaks_es.map((item) => ({
+    key: item.axis,
+    axisId: (AXIS_IDS as readonly string[]).includes(item.axis) ? (item.axis as AxisId) : null,
+    text: currentText(`${pair.id}/breaks/${item.axis}`, item.text),
+  }));
 }

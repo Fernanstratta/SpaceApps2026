@@ -32,9 +32,9 @@ export const contentEn: ContentTranslation = {
       name: playgroundEn.axes.aridity.name,
       description: 'How dry and free of vegetation a place is, and why deserts are good analogs of a lifeless world.',
     },
-    volatiles: {
-      name: playgroundEn.axes.volatiles.name,
-      description: 'Where there may be water or ice below the surface, and why lunar ice is key for a permanent base.',
+    ice: {
+      name: playgroundEn.axes.ice.name,
+      description: 'Where there is water or ice and where it can last, and why lunar ice is key for a permanent base.',
     },
     dust: {
       name: playgroundEn.axes.dust.name,
@@ -42,7 +42,7 @@ export const contentEn: ContentTranslation = {
     },
     craters: {
       name: playgroundEn.axes.craters.name,
-      description: 'How craters and cavities form, and what their shape reveals about their origin and erosion.',
+      description: 'How craters, cones and domes form, and what their shape reveals about their origin and erosion.',
     },
   },
 

@@ -69,9 +69,9 @@ for (const axis of AXIS_IDS) {
   check(shown.length > 0, `El eje ${axis} tiene al menos una comparación asociada`);
   check(shown.every((a) => a.axes.includes(axis)), `Con el eje ${axis} solo se ven áreas asociadas a él`);
 }
-const two = filterAreas(PLAYGROUND_AREAS, { axes: ['volatiles', 'dust'], minSimilarity: 0 });
+const two = filterAreas(PLAYGROUND_AREAS, { axes: ['ice', 'dust'], minSimilarity: 0 });
 check(
-  two.length > 0 && two.every((a) => a.axes.includes('volatiles') || a.axes.includes('dust')),
+  two.length > 0 && two.every((a) => a.axes.includes('ice') || a.axes.includes('dust')),
   'Varios ejes: se ven las áreas asociadas a cualquiera de ellos',
 );
 let selected = toggleAxis([], 'craters', AXIS_IDS);

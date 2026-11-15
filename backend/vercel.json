@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/api/analogs/:id", "destination": "/api/analogs?id=:id" },
+    { "source": "/api/locations/:id", "destination": "/api/locations?id=:id" },
+    { "source": "/api/planets/mars", "destination": "/api/planetary?planet=Mars" },
+    { "source": "/api/planets/moon", "destination": "/api/planetary?planet=Moon" }
+  ]
+}

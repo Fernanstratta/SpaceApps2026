@@ -1,0 +1,731 @@
+[
+  {
+    "id": "cerro-prieto-gusev",
+    "earthLocationId": "cerro-prieto",
+    "planetaryLocationId": "gusev",
+    "title": "Reading the traces of hot water",
+    "summary": "Near Mexicali, geothermal alteration offers a laboratory for asking how water changes rocks. Comparing these processes with ancient Martian evidence helps students investigate habitability without claiming identical conditions or life.",
+    "analogType": [
+      "process",
+      "geological"
+    ],
+    "dimensions": [
+      {
+        "name": "geology",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "Qualitative process rationale exists; paired calibrated measurements are absent.",
+        "sourceIds": [
+          "cerro-alteration",
+          "gusev-silica",
+          "silica-alternatives",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "terrain",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "No commensurate measured distribution or operational trial is available.",
+        "sourceIds": [
+          "cerro-alteration",
+          "gusev-silica",
+          "silica-alternatives",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "environment",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "No commensurate measured distribution or operational trial is available.",
+        "sourceIds": [
+          "cerro-alteration",
+          "gusev-silica",
+          "silica-alternatives",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "materials",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "Qualitative process rationale exists; paired calibrated measurements are absent.",
+        "sourceIds": [
+          "cerro-alteration",
+          "gusev-silica",
+          "silica-alternatives",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "water",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "Qualitative process rationale exists; paired calibrated measurements are absent.",
+        "sourceIds": [
+          "cerro-alteration",
+          "gusev-silica",
+          "silica-alternatives",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "operations",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "No commensurate measured distribution or operational trial is available.",
+        "sourceIds": [
+          "cerro-alteration",
+          "gusev-silica",
+          "silica-alternatives",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "subsurface",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "No commensurate measured distribution or operational trial is available.",
+        "sourceIds": [
+          "cerro-alteration",
+          "gusev-silica",
+          "silica-alternatives",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      }
+    ],
+    "overallScore": null,
+    "scoringMethod": "Unscored; proposed pair with no paired numerical observations",
+    "similarities": [
+      {
+        "text": "Water interacting with rock can modify mineral assemblages; alteration at both sites motivates testing competing formation mechanisms.",
+        "sourceIds": [
+          "cerro-alteration",
+          "gusev-silica",
+          "silica-alternatives",
+          "mars-facts"
+        ],
+        "status": "interpreted"
+      }
+    ],
+    "differences": [
+      {
+        "text": "Cerro Prieto is an active sediment-hosted geothermal system. Ancient Gusev alteration has competing interpretations; this is neither identical mineralogy nor a modern Mars environment.",
+        "sourceIds": [
+          "cerro-alteration",
+          "gusev-silica",
+          "silica-alternatives",
+          "mars-facts"
+        ],
+        "status": "interpreted"
+      },
+      {
+        "text": "Earth has a protective atmosphere, a different radiation environment, abundant biology and different weathering. Gravity, atmospheric pressure and composition, liquid-water stability, thermal cycles and geological timescales differ. Infrastructure also changes terrestrial sites.",
+        "sourceIds": [
+          "mars-facts",
+          "moon-facts"
+        ],
+        "status": "interpreted"
+      }
+    ],
+    "explorationApplications": [
+      "Sampling design",
+      "Planetary science education",
+      "Astrobiology hypothesis testing",
+      "Subsurface alteration investigation"
+    ],
+    "evidenceStatus": "hypothesis",
+    "sourceIds": [
+      "cerro-alteration",
+      "gusev-silica",
+      "silica-alternatives",
+      "mars-facts"
+    ],
+    "researchConfidence": "medium",
+    "researchPriority": 1,
+    "priorityReason": "Best local process study, with historical Earth mineralogical observations and rover alteration evidence; the pair itself remains a proposed analogy.",
+    "alternativeMatches": [
+      {
+        "name": "Gale silica-rich alteration",
+        "decision": "Retained as an alternative: similar ambiguity, but Gusev provides the stronger hydrothermal-focused teaching case.",
+        "sourceIds": [
+          "silica-alternatives"
+        ]
+      }
+    ],
+    "educational": {
+      "headline": "Reading the traces of hot water",
+      "summary30": "Near Mexicali, geothermal alteration offers a laboratory for asking how water changes rocks. Comparing these processes with ancient Martian evidence helps students investigate habitability without claiming identical conditions or life.",
+      "explanation": "Imagine choosing a rock that might preserve evidence of an old water system. You would first need to know what the rock looked like before it changed. Cerro Prieto gives researchers a place to investigate that question through altered sediments and geothermal observations. Spirit’s discoveries in Gusev raise related questions about ancient water on Mars. The useful connection is an investigative method: compare altered and less altered material, identify minerals, and test alternative explanations. A similar chemical signal can arise through different pathways. Students can design a sampling strategy and explain what result would challenge their preferred explanation. The comparison does not establish life on Mars, a shared mineral inventory, or equivalent modern surface conditions.",
+      "youngExplorers": "Could a changed rock tell a story about hot water? Near Mexicali, scientists can study such changes. On Mars, a rover found rocks that invite similar questions.",
+      "students": "An alteration mineral records a chemical reaction, not a complete environment. Compare altered material with its original rock and ask whether water added silica or removed other components.",
+      "advanced": "Proposed process analogy, not a published validation of this exact site pair. Compare primary host composition, alteration textures and fluid chemistry before computing overlap. The present release contains no paired assemblage measurements.",
+      "facts": [
+        {
+          "text": "Cerro Prieto research examined altered sediments near surface geothermal emissions.",
+          "sourceIds": [
+            "cerro-alteration"
+          ],
+          "status": "verified"
+        },
+        {
+          "text": "Spirit found silica-rich materials near Home Plate.",
+          "sourceIds": [
+            "gusev-silica"
+          ],
+          "status": "verified"
+        },
+        {
+          "text": "Silica enrichment can have competing alteration explanations.",
+          "sourceIds": [
+            "silica-alternatives"
+          ],
+          "status": "verified"
+        }
+      ],
+      "whyItMatters": "This comparison helps design a testable investigation. Best local process study, with historical Earth mineralogical observations and rover alteration evidence; the pair itself remains a proposed analogy.",
+      "analogyBreakdown": "Cerro Prieto is an active sediment-hosted geothermal system. Ancient Gusev alteration has competing interpretations; this is neither identical mineralogy nor a modern Mars environment. Earth has a protective atmosphere, a different radiation environment, abundant biology and different weathering. Gravity, atmospheric pressure and composition, liquid-water stability, thermal cycles and geological timescales differ. Infrastructure also changes terrestrial sites.",
+      "sourceIds": [
+        "cerro-alteration",
+        "gusev-silica",
+        "silica-alternatives",
+        "mars-facts"
+      ],
+      "quiz": {
+        "question": "What does silica enrichment alone prove?",
+        "options": [
+          "That microbes lived there",
+          "That the rock is identical to Cerro Prieto",
+          "Neither a unique formation mechanism nor life",
+          "That modern Mars has geothermal pools"
+        ],
+        "answerIndex": 2,
+        "explanation": "Alternative reactions can enrich silica; independent context is needed."
+      }
+    },
+    "experiment": {
+      "title": "Design an alteration transect",
+      "steps": [
+        "Use permitted archived samples or published spectra; do not enter industrial geothermal areas.",
+        "Choose altered and background controls from the same host material.",
+        "Compare mineral identifications and record detection limits.",
+        "Test both leaching and precipitation hypotheses."
+      ],
+      "measurements": [
+        "mineral presence and detection limit",
+        "host-rock composition",
+        "distance from alteration zone"
+      ],
+      "outcomeLabel": "Educational scenario; not a real mission prediction",
+      "limitations": "Cerro Prieto is an active sediment-hosted geothermal system. Ancient Gusev alteration has competing interpretations; this is neither identical mineralogy nor a modern Mars environment."
+    },
+    "imageryIds": [
+      "earth-cerro-prieto",
+      "planet-gusev"
+    ],
+    "qualityFlags": [
+      "proposed-pair-not-scientifically-validated",
+      "paired-measurements-missing",
+      "similarity-score-unavailable",
+      "regional-marker-only"
+    ]
+  },
+  {
+    "id": "algodones-bagnold",
+    "earthLocationId": "algodones",
+    "planetaryLocationId": "bagnold",
+    "title": "A rover meets moving sand",
+    "summary": "California’s Algodones dunes and Mars’s Bagnold dunes invite experiments with moving sand and rover wheels. Shared processes guide questions, while different gravity, atmosphere, and minerals prevent simple predictions across planets.",
+    "analogType": [
+      "process",
+      "operational"
+    ],
+    "dimensions": [
+      {
+        "name": "geology",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "Qualitative process rationale exists; paired calibrated measurements are absent.",
+        "sourceIds": [
+          "dune-spectra",
+          "bagnold",
+          "hirise-bagnold",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "terrain",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "No commensurate measured distribution or operational trial is available.",
+        "sourceIds": [
+          "dune-spectra",
+          "bagnold",
+          "hirise-bagnold",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "environment",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "No commensurate measured distribution or operational trial is available.",
+        "sourceIds": [
+          "dune-spectra",
+          "bagnold",
+          "hirise-bagnold",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "materials",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "Qualitative process rationale exists; paired calibrated measurements are absent.",
+        "sourceIds": [
+          "dune-spectra",
+          "bagnold",
+          "hirise-bagnold",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "water",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "Qualitative process rationale exists; paired calibrated measurements are absent.",
+        "sourceIds": [
+          "dune-spectra",
+          "bagnold",
+          "hirise-bagnold",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "operations",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "No commensurate measured distribution or operational trial is available.",
+        "sourceIds": [
+          "dune-spectra",
+          "bagnold",
+          "hirise-bagnold",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "subsurface",
+        "score": null,
+        "confidence": "medium",
+        "explanation": "No commensurate measured distribution or operational trial is available.",
+        "sourceIds": [
+          "dune-spectra",
+          "bagnold",
+          "hirise-bagnold",
+          "mars-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      }
+    ],
+    "overallScore": null,
+    "scoringMethod": "Unscored; proposed pair with no paired numerical observations",
+    "similarities": [
+      {
+        "text": "Wind redistributes granular material and creates dunes; both settings support questions about morphology and movement through sand.",
+        "sourceIds": [
+          "dune-spectra",
+          "bagnold",
+          "hirise-bagnold",
+          "mars-facts"
+        ],
+        "status": "interpreted"
+      }
+    ],
+    "differences": [
+      {
+        "text": "Different atmospheric density and gravity change transport thresholds. Earth traction tests do not predict Martian performance without scaling, and similar dune shapes do not establish equal sand mineralogy.",
+        "sourceIds": [
+          "dune-spectra",
+          "bagnold",
+          "hirise-bagnold",
+          "mars-facts"
+        ],
+        "status": "interpreted"
+      },
+      {
+        "text": "Earth has a protective atmosphere, a different radiation environment, abundant biology and different weathering. Gravity, atmospheric pressure and composition, liquid-water stability, thermal cycles and geological timescales differ. Infrastructure also changes terrestrial sites.",
+        "sourceIds": [
+          "mars-facts",
+          "moon-facts"
+        ],
+        "status": "interpreted"
+      }
+    ],
+    "explorationApplications": [
+      "Sampling design",
+      "Planetary science education",
+      "Robotic traversal experiment design"
+    ],
+    "evidenceStatus": "hypothesis",
+    "sourceIds": [
+      "dune-spectra",
+      "bagnold",
+      "hirise-bagnold",
+      "mars-facts"
+    ],
+    "researchConfidence": "medium",
+    "researchPriority": 2,
+    "priorityReason": "Direct terrestrial dune analog research includes Algodones; Bagnold has rover and orbital observations. Strong operational opportunity outside Baja California state.",
+    "alternativeMatches": [
+      {
+        "name": "Other orbital Martian dune fields",
+        "decision": "Bagnold selected because rover observations complement orbital context.",
+        "sourceIds": [
+          "bagnold",
+          "hirise-bagnold"
+        ]
+      }
+    ],
+    "educational": {
+      "headline": "A rover meets moving sand",
+      "summary30": "California’s Algodones dunes and Mars’s Bagnold dunes invite experiments with moving sand and rover wheels. Shared processes guide questions, while different gravity, atmosphere, and minerals prevent simple predictions across planets.",
+      "explanation": "A dune is both a geological feature and a navigation challenge. For Starman, the useful experiment begins with a small robot and a repeatable sand track. Keep the load and wheel speed fixed, change one design choice, and measure how much the robot slips. Then ask what the experiment leaves out. A terrestrial track has Earth’s gravity and atmosphere, and its grains may differ from those at Bagnold. Orbital images can help select terrain shapes to investigate, while mineral observations address a different question about the material itself. Combining these evidence types is more informative than declaring two photographs similar. Results from a classroom track are educational comparisons between designs, not forecasts of a real Mars mission.",
+      "youngExplorers": "How would you drive a robot across a pile of sand? Dunes on Earth let us try ideas before asking which ones could work on Mars.",
+      "students": "Separate dune shape from sand composition. A wheel experiment can compare designs under controlled conditions, but transporting its result to Mars requires a physical model.",
+      "advanced": "Algodones appears in published ASTER dune-analog work; Bagnold has orbital and rover context. No grain-size distribution, cohesion or slip measurements have been paired here. Avoid transferring Earth wind speeds directly to Mars.",
+      "facts": [
+        {
+          "text": "Algodones is included in a published terrestrial dune analog study.",
+          "sourceIds": [
+            "dune-spectra"
+          ],
+          "status": "verified"
+        },
+        {
+          "text": "Curiosity studied both crescent-shaped and linear dunes at Bagnold.",
+          "sourceIds": [
+            "bagnold"
+          ],
+          "status": "verified"
+        },
+        {
+          "text": "HiRISE provides an identified Gale dune-monitoring observation.",
+          "sourceIds": [
+            "hirise-bagnold"
+          ],
+          "status": "verified"
+        }
+      ],
+      "whyItMatters": "This comparison helps design a testable investigation. Direct terrestrial dune analog research includes Algodones; Bagnold has rover and orbital observations. Strong operational opportunity outside Baja California state.",
+      "analogyBreakdown": "Different atmospheric density and gravity change transport thresholds. Earth traction tests do not predict Martian performance without scaling, and similar dune shapes do not establish equal sand mineralogy. Earth has a protective atmosphere, a different radiation environment, abundant biology and different weathering. Gravity, atmospheric pressure and composition, liquid-water stability, thermal cycles and geological timescales differ. Infrastructure also changes terrestrial sites.",
+      "sourceIds": [
+        "dune-spectra",
+        "bagnold",
+        "hirise-bagnold",
+        "mars-facts"
+      ],
+      "quiz": {
+        "question": "Why can an Earth dune test not directly predict Mars wheel performance?",
+        "options": [
+          "Mars has no sand",
+          "Gravity and material conditions differ",
+          "All dunes are made of identical minerals",
+          "Robots cannot drive on Earth"
+        ],
+        "answerIndex": 1,
+        "explanation": "A useful operational test must still account for differences in gravity, grains and loading."
+      }
+    },
+    "experiment": {
+      "title": "Compare wheel slip in a sand tray",
+      "steps": [
+        "Build a contained tray using clean play sand and a small robot.",
+        "Hold load, sand preparation and wheel speed fixed.",
+        "Repeat each wheel design at least three times.",
+        "Measure travel distance and wheel rotations; discuss unmodeled gravity and grain differences."
+      ],
+      "measurements": [
+        "travel distance (m)",
+        "wheel circumference (m)",
+        "wheel rotations",
+        "slope (degrees)"
+      ],
+      "outcomeLabel": "Educational scenario; not a real mission prediction",
+      "limitations": "Different atmospheric density and gravity change transport thresholds. Earth traction tests do not predict Martian performance without scaling, and similar dune shapes do not establish equal sand mineralogy."
+    },
+    "imageryIds": [
+      "earth-algodones",
+      "planet-bagnold"
+    ],
+    "qualityFlags": [
+      "proposed-pair-not-scientifically-validated",
+      "paired-measurements-missing",
+      "similarity-score-unavailable",
+      "regional-marker-only"
+    ]
+  },
+  {
+    "id": "san-quintin-mare",
+    "earthLocationId": "san-quintin",
+    "planetaryLocationId": "tranquillitatis",
+    "title": "Basalt is a starting question",
+    "summary": "San Quintín’s volcanic field offers practice in describing rocks and planning traverses. Lunar basalt plains provide a comparison, but composition, surface history, gravity, and weathering require careful independent scientific checks.",
+    "analogType": [
+      "geological",
+      "operational"
+    ],
+    "dimensions": [
+      {
+        "name": "geology",
+        "score": null,
+        "confidence": "low",
+        "explanation": "Qualitative process rationale exists; paired calibrated measurements are absent.",
+        "sourceIds": [
+          "gvp-quintin",
+          "tranquillitatis",
+          "moon-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "terrain",
+        "score": null,
+        "confidence": "low",
+        "explanation": "No commensurate measured distribution or operational trial is available.",
+        "sourceIds": [
+          "gvp-quintin",
+          "tranquillitatis",
+          "moon-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "environment",
+        "score": null,
+        "confidence": "low",
+        "explanation": "No commensurate measured distribution or operational trial is available.",
+        "sourceIds": [
+          "gvp-quintin",
+          "tranquillitatis",
+          "moon-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "materials",
+        "score": null,
+        "confidence": "low",
+        "explanation": "Qualitative process rationale exists; paired calibrated measurements are absent.",
+        "sourceIds": [
+          "gvp-quintin",
+          "tranquillitatis",
+          "moon-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "water",
+        "score": null,
+        "confidence": "low",
+        "explanation": "Qualitative process rationale exists; paired calibrated measurements are absent.",
+        "sourceIds": [
+          "gvp-quintin",
+          "tranquillitatis",
+          "moon-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "operations",
+        "score": null,
+        "confidence": "low",
+        "explanation": "No commensurate measured distribution or operational trial is available.",
+        "sourceIds": [
+          "gvp-quintin",
+          "tranquillitatis",
+          "moon-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      },
+      {
+        "name": "subsurface",
+        "score": null,
+        "confidence": "low",
+        "explanation": "No commensurate measured distribution or operational trial is available.",
+        "sourceIds": [
+          "gvp-quintin",
+          "tranquillitatis",
+          "moon-facts"
+        ],
+        "measurementIds": [],
+        "method": "unscored"
+      }
+    ],
+    "overallScore": null,
+    "scoringMethod": "Unscored; proposed pair with no paired numerical observations",
+    "similarities": [
+      {
+        "text": "Volcanic materials support comparative field descriptions and sampling design, with basalt as a broad starting category.",
+        "sourceIds": [
+          "gvp-quintin",
+          "tranquillitatis",
+          "moon-facts"
+        ],
+        "status": "interpreted"
+      }
+    ],
+    "differences": [
+      {
+        "text": "San Quintín includes alkalic rocks and coastal volcanic histories; lunar mare terrain has vacuum exposure and impact-produced regolith. The field is not a lunar regolith or eruption-mechanics replica.",
+        "sourceIds": [
+          "gvp-quintin",
+          "tranquillitatis",
+          "moon-facts"
+        ],
+        "status": "interpreted"
+      },
+      {
+        "text": "Earth has a protective atmosphere, a different radiation environment, abundant biology and different weathering. Gravity, atmospheric pressure and composition, liquid-water stability, thermal cycles and geological timescales differ. Infrastructure also changes terrestrial sites.",
+        "sourceIds": [
+          "mars-facts",
+          "moon-facts"
+        ],
+        "status": "interpreted"
+      }
+    ],
+    "explorationApplications": [
+      "Sampling design",
+      "Planetary science education",
+      "Robotic traversal experiment design"
+    ],
+    "evidenceStatus": "hypothesis",
+    "sourceIds": [
+      "gvp-quintin",
+      "tranquillitatis",
+      "moon-facts"
+    ],
+    "researchConfidence": "low",
+    "researchPriority": 3,
+    "priorityReason": "Broad basaltic-material and fieldwork connection; exact compositions, regolith properties and terrain statistics are unpaired.",
+    "alternativeMatches": [
+      {
+        "name": "Gusev volcanic plains",
+        "decision": "Potential Mars comparison, but the lunar case adds a distinct vacuum/regolith limitation lesson.",
+        "sourceIds": [
+          "gusev-silica",
+          "moon-facts"
+        ]
+      }
+    ],
+    "educational": {
+      "headline": "Basalt is a starting question",
+      "summary30": "San Quintín’s volcanic field offers practice in describing rocks and planning traverses. Lunar basalt plains provide a comparison, but composition, surface history, gravity, and weathering require careful independent scientific checks.",
+      "explanation": "A team preparing for exploration must learn to describe what it sees before deciding what it means. San Quintín offers volcanic terrain for practicing that discipline. Students can map changes in rock texture, choose representative samples, and explain why an observation supports a hypothesis. Lunar mare plains provide a space context for asking similar questions about volcanic materials. The word basalt is only the beginning of the comparison. Chemical composition and surface processing still need independent tests. An Earth rock should not become a certified lunar material merely because it looks dark. A useful classroom mission therefore rewards careful descriptions and explicit uncertainty. Its success is a defensible sampling plan, not a claim that local terrain reproduces lunar conditions.",
+      "youngExplorers": "Can two dark rocks tell different stories? A volcano near San Quintín and lava plains on the Moon help us ask how rocks formed and changed.",
+      "students": "Basalt is a broad rock category. Before calling a terrestrial rock a lunar simulant, compare chemistry, minerals, grain shapes and the processes that produced the loose surface.",
+      "advanced": "Use the field as a proposed operational and broad geological analogy. GVP describes an alkalic suite; lunar mare materials require sample-specific chemistry. No regolith engineering equivalence or resource extraction efficiency is established.",
+      "facts": [
+        {
+          "text": "The San Quintín profile lists basaltic and alkalic rock types.",
+          "sourceIds": [
+            "gvp-quintin"
+          ],
+          "status": "verified"
+        },
+        {
+          "text": "Mare Tranquillitatis contains basaltic lava plains.",
+          "sourceIds": [
+            "tranquillitatis"
+          ],
+          "status": "verified"
+        },
+        {
+          "text": "The Moon has an extremely tenuous exosphere.",
+          "sourceIds": [
+            "moon-facts"
+          ],
+          "status": "verified"
+        }
+      ],
+      "whyItMatters": "This comparison helps design a testable investigation. Broad basaltic-material and fieldwork connection; exact compositions, regolith properties and terrain statistics are unpaired.",
+      "analogyBreakdown": "San Quintín includes alkalic rocks and coastal volcanic histories; lunar mare terrain has vacuum exposure and impact-produced regolith. The field is not a lunar regolith or eruption-mechanics replica. Earth has a protective atmosphere, a different radiation environment, abundant biology and different weathering. Gravity, atmospheric pressure and composition, liquid-water stability, thermal cycles and geological timescales differ. Infrastructure also changes terrestrial sites.",
+      "sourceIds": [
+        "gvp-quintin",
+        "tranquillitatis",
+        "moon-facts"
+      ],
+      "quiz": {
+        "question": "What must happen before local basalt is called a lunar regolith simulant?",
+        "options": [
+          "Paint it gray",
+          "Assume all basalt is identical",
+          "Compare relevant composition and engineering properties",
+          "Heat it in sunlight"
+        ],
+        "answerIndex": 2,
+        "explanation": "A rock name alone does not establish the properties needed for a particular experiment."
+      }
+    },
+    "experiment": {
+      "title": "Plan a volcanic sampling traverse",
+      "steps": [
+        "Use photographs or permitted existing specimens.",
+        "Classify texture before interpreting composition.",
+        "Choose sample targets that test different formation hypotheses.",
+        "Compare the plan with lunar fieldwork needs; record untested material properties."
+      ],
+      "measurements": [
+        "texture class",
+        "grain-size class",
+        "traverse distance (m)",
+        "measured sample chemistry if available"
+      ],
+      "outcomeLabel": "Educational scenario; not a real mission prediction",
+      "limitations": "San Quintín includes alkalic rocks and coastal volcanic histories; lunar mare terrain has vacuum exposure and impact-produced regolith. The field is not a lunar regolith or eruption-mechanics replica."
+    },
+    "imageryIds": [
+      "earth-san-quintin",
+      "planet-tranquillitatis"
+    ],
+    "qualityFlags": [
+      "proposed-pair-not-scientifically-validated",
+      "paired-measurements-missing",
+      "similarity-score-unavailable",
+      "regional-marker-only"
+    ]
+  }
+]

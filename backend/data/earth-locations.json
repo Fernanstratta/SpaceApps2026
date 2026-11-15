@@ -1,0 +1,141 @@
+[
+  {
+    "id": "cerro-prieto",
+    "name": "Cerro Prieto geothermal region",
+    "country": "Mexico",
+    "state": "Baja California",
+    "municipality": "Mexicali",
+    "region": "Mexicali Valley",
+    "latitude": 32.418,
+    "longitude": -115.305,
+    "coordinateSystem": "EPSG:4326",
+    "coordinateRole": "GVP volcano reference point; not geothermal reservoir centroid",
+    "coordinateSourceIds": [
+      "gvp-cerro",
+      "cerro-alteration"
+    ],
+    "coordinateUncertainty": "Source precision retained; positional accuracy not independently surveyed. Source datum unspecified; provisionally displayed as WGS84 for regional education only.",
+    "boundary": null,
+    "description": {
+      "text": "A geothermal system in Colorado River delta sediments provides evidence of water–rock alteration.",
+      "sourceIds": [
+        "gvp-cerro",
+        "cerro-alteration"
+      ],
+      "status": "verified"
+    },
+    "measurements": [
+      {
+        "id": "power-cerro-prieto",
+        "variable": "2024 mean of daily 2 m air temperature",
+        "value": 24.31,
+        "unit": "degC",
+        "status": "modeled",
+        "sourceIds": [
+          "power"
+        ],
+        "observedAt": "2024-01-01/2024-12-31",
+        "footprint": "POWER grid cell selected at representative marker; baseline meteorology grid, not a site polygon",
+        "resolution": "0.5 × 0.625 degrees",
+        "uncertainty": "Reanalysis; 366/366 valid daily values. Not land surface temperature or a weather station.",
+        "method": "Arithmetic mean after fill-value masking; raw data: research/raw/power-cerro-prieto-2024.json"
+      }
+    ],
+    "qualityFlags": [
+      "regional-marker-not-sampling-site",
+      "boundary-unavailable",
+      "source-datum-unspecified"
+    ]
+  },
+  {
+    "id": "algodones",
+    "name": "Algodones / Imperial Sand Dunes",
+    "country": "United States",
+    "state": "California",
+    "municipality": null,
+    "region": "Imperial County; Osborne Overlook",
+    "latitude": 32.98303333333333,
+    "longitude": -115.1329,
+    "coordinateSystem": "EPSG:4326",
+    "coordinateRole": "Osborne Overlook WGS84 reference point, converted from degrees and decimal minutes",
+    "coordinateSourceIds": [
+      "algodones-blm"
+    ],
+    "coordinateUncertainty": "Source precision retained; positional accuracy not independently surveyed. WGS84 explicitly stated.",
+    "boundary": null,
+    "description": {
+      "text": "A California dune region with a published WGS84 visitor marker; not inside Baja California.",
+      "sourceIds": [
+        "algodones-blm"
+      ],
+      "status": "verified"
+    },
+    "measurements": [
+      {
+        "id": "power-algodones",
+        "variable": "2024 mean of daily 2 m air temperature",
+        "value": 23.59,
+        "unit": "degC",
+        "status": "modeled",
+        "sourceIds": [
+          "power"
+        ],
+        "observedAt": "2024-01-01/2024-12-31",
+        "footprint": "POWER grid cell selected at representative marker; baseline meteorology grid, not a site polygon",
+        "resolution": "0.5 × 0.625 degrees",
+        "uncertainty": "Reanalysis; 366/366 valid daily values. Not land surface temperature or a weather station.",
+        "method": "Arithmetic mean after fill-value masking; raw data: research/raw/power-algodones-2024.json"
+      }
+    ],
+    "qualityFlags": [
+      "regional-marker-not-sampling-site",
+      "boundary-unavailable"
+    ]
+  },
+  {
+    "id": "san-quintin",
+    "name": "San Quintín Volcanic Field",
+    "country": "Mexico",
+    "state": "Baja California",
+    "municipality": null,
+    "region": "San Quintín Bay",
+    "latitude": 30.467,
+    "longitude": -116.012,
+    "coordinateSystem": "EPSG:4326",
+    "coordinateRole": "GVP field reference point",
+    "coordinateSourceIds": [
+      "gvp-quintin"
+    ],
+    "coordinateUncertainty": "Source precision retained; positional accuracy not independently surveyed. Source datum unspecified; provisionally displayed as WGS84 for regional education only.",
+    "boundary": null,
+    "description": {
+      "text": "A coastal volcanic field with basaltic materials, cones and lava flows.",
+      "sourceIds": [
+        "gvp-quintin"
+      ],
+      "status": "verified"
+    },
+    "measurements": [
+      {
+        "id": "power-san-quintin",
+        "variable": "2024 mean of daily 2 m air temperature",
+        "value": 17.18,
+        "unit": "degC",
+        "status": "modeled",
+        "sourceIds": [
+          "power"
+        ],
+        "observedAt": "2024-01-01/2024-12-31",
+        "footprint": "POWER grid cell selected at representative marker; baseline meteorology grid, not a site polygon",
+        "resolution": "0.5 × 0.625 degrees",
+        "uncertainty": "Reanalysis; 366/366 valid daily values. Not land surface temperature or a weather station.",
+        "method": "Arithmetic mean after fill-value masking; raw data: research/raw/power-san-quintin-2024.json"
+      }
+    ],
+    "qualityFlags": [
+      "regional-marker-not-sampling-site",
+      "boundary-unavailable",
+      "source-datum-unspecified"
+    ]
+  }
+]

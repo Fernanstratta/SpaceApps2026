@@ -1,0 +1,84 @@
+[
+  {
+    "id": "gusev",
+    "name": "Gusev crater / Spirit traverse",
+    "planet": "Mars",
+    "latitude": -14.5692,
+    "longitude": 175.4729,
+    "coordinateSystem": "Mars body-fixed geographic degrees; source convention recorded separately",
+    "longitudeDirection": "east-positive",
+    "latitudeType": "source-unspecified",
+    "coordinateRole": "Spirit landing point, not Home Plate",
+    "coordinateSourceIds": [
+      "spirit-location",
+      "gusev-silica"
+    ],
+    "coordinateUncertainty": "Regional display only; do not use for navigation or pixel extraction without product-label verification.",
+    "description": {
+      "text": "Spirit investigated silica-rich altered materials near Home Plate during its Gusev traverse.",
+      "sourceIds": [
+        "spirit-location",
+        "gusev-silica"
+      ],
+      "status": "verified"
+    },
+    "qualityFlags": [
+      "regional-marker-not-sampling-site",
+      "source-latitude-convention-unspecified"
+    ]
+  },
+  {
+    "id": "bagnold",
+    "name": "Bagnold dune field / Gale monitoring image",
+    "planet": "Mars",
+    "latitude": -4.7,
+    "longitude": 137.365,
+    "coordinateSystem": "Mars body-fixed geographic degrees; source convention recorded separately",
+    "longitudeDirection": "east-positive",
+    "latitudeType": "source-unspecified",
+    "coordinateRole": "HiRISE image center; not a surveyed dune crest",
+    "coordinateSourceIds": [
+      "hirise-bagnold",
+      "bagnold"
+    ],
+    "coordinateUncertainty": "Regional display only; do not use for navigation or pixel extraction without product-label verification.",
+    "description": {
+      "text": "Curiosity investigated active dunes in Gale crater.",
+      "sourceIds": [
+        "hirise-bagnold",
+        "bagnold"
+      ],
+      "status": "verified"
+    },
+    "qualityFlags": [
+      "regional-marker-not-sampling-site",
+      "source-latitude-convention-unspecified"
+    ]
+  },
+  {
+    "id": "tranquillitatis",
+    "name": "Mare Tranquillitatis basalt plains",
+    "planet": "Moon",
+    "latitude": 0.68,
+    "longitude": 23.43,
+    "coordinateSystem": "Moon body-fixed geographic degrees; source convention recorded separately",
+    "longitudeDirection": "east-positive",
+    "latitudeType": "source-unspecified",
+    "coordinateRole": "NASA regional marker, not a sample or Apollo landing coordinate",
+    "coordinateSourceIds": [
+      "tranquillitatis"
+    ],
+    "coordinateUncertainty": "Regional display only; do not use for navigation or pixel extraction without product-label verification.",
+    "description": {
+      "text": "Lunar mare plains contain solidified basaltic lava.",
+      "sourceIds": [
+        "tranquillitatis"
+      ],
+      "status": "verified"
+    },
+    "qualityFlags": [
+      "regional-marker-not-sampling-site",
+      "source-latitude-convention-unspecified"
+    ]
+  }
+]

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Starman API Reference</title>
+  <link rel="stylesheet" href="./reference.css">
+  <script src="./reference.js" type="module"></script>
+</head>
+<body>
+  <header class="top">
+    <a href="#start" class="brand">Starman <span>API Reference</span></a>
+    <nav class="top-links" aria-label="Documentation formats">
+      <a class="spec-link" href="./openapi.json">OpenAPI 3.1 <span aria-hidden="true">↗</span></a>
+      <a class="spec-link" href="../llms.txt">AI quick start <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+  <div class="layout">
+    <aside>
+      <nav aria-label="Getting started">
+        <a href="#start">Getting started</a>
+        <a href="#reference">Endpoint explorer</a>
+      </nav>
+      <label for="search">Find an endpoint</label>
+      <input id="search" type="search" placeholder="Try “Mars” or “rankings”">
+      <p id="search-status" aria-live="polite"></p>
+      <nav id="routes" aria-label="API endpoints"></nav>
+    </aside>
+    <main>
+      <section id="start" class="intro">
+        <h1>Starman API</h1>
+        <p>Build planet cards, Earth analog maps, and Earth–Moon or Earth–Mars comparisons with public, read-only JSON endpoints.</p>
+        <div class="starter">
+          <div>
+            <h2>Start locally</h2>
+            <p>With Node.js 24, run Vercel from the repository root to serve the app and API on the same origin.</p>
+            <pre><code>npm ci
+npm run dev:vercel</code></pre>
+          </div>
+          <div>
+            <h2>Choose an endpoint</h2>
+            <ul>
+              <li><a href="#getEarthLocations">Build an Earth map</a></li>
+              <li><a href="#getLunarAnalogs">Explore nine lunar comparison axes</a></li>
+              <li><a href="#getComparison">Compare a curated Earth–Mars pair</a></li>
+              <li><a href="#getSources">Find source records and credits</a></li>
+            </ul>
+          </div>
+        </div>
+        <p>Use the Vercel deployment origin in production. No API key is required. The eight regional handlers support an optional CORS allowlist. Serve the docs from the backend origin to try every route in your browser.</p>
+      </section>
+      <section id="reference" aria-labelledby="endpoint-title">
+        <p id="load-status" role="status">Loading endpoints…</p>
+        <div id="endpoint" hidden>
+          <p id="endpoint-category" class="category"></p>
+          <h2 id="endpoint-title" tabindex="-1"></h2>
+          <code id="endpoint-path" class="path"></code>
+          <p id="endpoint-description"></p>
+          <form id="request-form">
+            <div class="examples-select">
+              <label for="example">Request example</label>
+              <select id="example"></select>
+            </div>
+            <label for="base">Backend origin</label>
+            <input id="base" type="url" required spellcheck="false" autocomplete="off">
+            <fieldset id="parameter-fields">
+              <legend>Parameters</legend>
+              <div id="parameters"></div>
+            </fieldset>
+            <div class="actions">
+              <button type="submit" id="send">Send GET</button>
+              <button type="button" id="copy">Copy curl</button>
+              <span id="copy-status" role="status"></span>
+            </div>
+          </form>
+          <h3>curl</h3>
+          <pre><code id="curl"></code></pre>
+          <h3>Response example</h3>
+          <pre><code id="example-response"></code></pre>
+          <h3>Live response</h3>
+          <p id="response-status" role="status">Send a request to see the status and timing.</p>
+          <pre id="live-panel" hidden><code id="live-response"></code></pre>
+          <h3>Response fields</h3>
+          <div id="fields"></div>
+          <h3>Status codes</h3>
+          <ul id="statuses"></ul>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,301 @@
+{
+  "repository": "ClydioSeven/Starman-Backend",
+  "baseCommit": "4d1f05d39b15dfa72f4522cb2df86a722cc81d45",
+  "instructions": "Apply over the original checkout. No file deletions. Review modifications if your branch differs from the baseline.",
+  "files": [
+    {
+      "path": ".gitignore",
+      "change": "modified",
+      "baseGitBlobSha": "fbd07d019e5c074b4547819ee31143a5545c1e70",
+      "sha256": "e9851023821f87ff8b0b60f66ee5b5afef8c1e2b76186da6f625fa6ad948a7df"
+    },
+    {
+      "path": "api/analogs.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "6177055483b92050c385b3f99be856edf38c1d6fdc3d09225615c1dacc19eaf4"
+    },
+    {
+      "path": "api/compare.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "9edfe623d5a46d057f9462b8385d51e453a6af701c4753dbe5b50eafd72df99a"
+    },
+    {
+      "path": "api/datasets.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "a527999c5e24f3ba1eac1ae31c106902566d06d557759fe5536c94c70713f97e"
+    },
+    {
+      "path": "api/imagery.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "f68232dee3ab4c60c622af5a580dca1c2c83faec3f9c3465fc7c2b531f811076"
+    },
+    {
+      "path": "api/locations.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "47777352035f4f2873749eb944c8555df0a1e6b20c277814a98777e9e463363f"
+    },
+    {
+      "path": "api/planetary.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "32e53eebc8d7ada00c6867e0993305f9d2e5cc58af374e4f73d0e01d36fc2535"
+    },
+    {
+      "path": "api/rankings.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "a246dec5f3425a4aff4de5faba42e4647564e1e8b6f3a5bc64b2b2d6d61ef300"
+    },
+    {
+      "path": "api/sources.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "024ace2f3038822409965f6cdac5cf528cfca48c6e17d186287e7202ed85f307"
+    },
+    {
+      "path": "data/analog-comparisons.json",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "8740b6c2c3e92f2d8c75ab600bfedc2b6c843b674c55b9fa9bc4fb5e74c37936"
+    },
+    {
+      "path": "data/earth-locations.geojson",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "1cad5ff629171ac7fd56ae1290def60821081cc4780609cc5e2859e8142e167a"
+    },
+    {
+      "path": "data/earth-locations.json",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "fece60eb40ebbbb2f4bf35e75f03dfe78d3259cf09b17f7c8c6fb03f7690dc14"
+    },
+    {
+      "path": "data/planetary-locations.json",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "74b9f0e54b9ad90e66a127b5defcc9566b664d0ad3049a0a5fce1925ab4addeb"
+    },
+    {
+      "path": "data/satellite-imagery.json",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "25f61f0731e12de33087d363ef5e1efc9d40bb9ed78f952e2ac67760ad38c482"
+    },
+    {
+      "path": "data/scientific-sources.json",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "bf07255422b354b33aae7d12e6aa936fa3186082fb522301a41dc3ec069ab7db"
+    },
+    {
+      "path": "docs/analog-api.md",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "6c8e3f9e7c6f2a58a9a3916239c2a3afb468803a6f49584cc11bc354902ea881"
+    },
+    {
+      "path": "docs/presentation-narrative.md",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "6ecec7deef8f2b0ba5098cb99ebad06837ca955850d3f14f7fb968bccb503e92"
+    },
+    {
+      "path": "package-lock.json",
+      "change": "modified",
+      "baseGitBlobSha": "e2a5b33297410b284752718170fa185814529560",
+      "sha256": "a67f4e3efdb5fcfc6d0d369a87ec9beee0100fbe6247c15f1fae71366a2e7be2"
+    },
+    {
+      "path": "package.json",
+      "change": "modified",
+      "baseGitBlobSha": "c965863ae76c01e235115eb5fc6a7731585809bb",
+      "sha256": "7558d7c1263a41e3ac6117ef477311e03d84f83a5283f4b16576f63db84577cc"
+    },
+    {
+      "path": "README.md",
+      "change": "modified",
+      "baseGitBlobSha": "daeb622327e32fdc2da1331e24fc28a3b33bc700",
+      "sha256": "b00e09eba2b8a1b1ff47a48febf9a3a135946c6f77e62021158142e502969922"
+    },
+    {
+      "path": "research/baja-california-planetary-analogs.md",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "31038a30e73c7182d5aa0a69ac91e2643b023b61d3e3005b019c842bf8fc16b5"
+    },
+    {
+      "path": "research/data-quality-report.md",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "a1d5ec2f9b36b2db510afce62a32723cee4f1e8ab85f15c63e9b8625fddff25d"
+    },
+    {
+      "path": "research/implementation-plan.md",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "cc0207d54e1a9b2d86205325d5f1bc2e90ed7d3904552079cdcda30d292f79e3"
+    },
+    {
+      "path": "research/methodology.md",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "de6c507ce36f267e7492f668096fa771a34170aa82db09a08250e20f96d1d9f3"
+    },
+    {
+      "path": "research/power-ingestion.json",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "63ed492b68a9f78a97672d41256f75163e2ae6066239bcf2b74518bfa22781d4"
+    },
+    {
+      "path": "research/raw/power-algodones-2024.json",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "988da4976f45694c18575b2d663a9278e857e34ebf2d9b865523ee11dfa1ddda"
+    },
+    {
+      "path": "research/raw/power-cerro-prieto-2024.json",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "ff605f43ccd4a6663c3b0a94b56adc0111d931d869d20756bdbb9aea371cbbbe"
+    },
+    {
+      "path": "research/raw/power-san-quintin-2024.json",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "38a6481d704e74c8509d6883f109b86da5352c4544d2003ca200ec4fe70da80a"
+    },
+    {
+      "path": "research/repository-baseline.json",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "696949ba3d893175c1782445e486447a0268dcdf9552714e553b1fb53f9ab528"
+    },
+    {
+      "path": "research/source-catalog.json",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "bf07255422b354b33aae7d12e6aa936fa3186082fb522301a41dc3ec069ab7db"
+    },
+    {
+      "path": "research/url-checks.json",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "4f0b09ae0baee0236edfe1f475f52b981b5d945538f887cbf6e5bd8bc7cc8432"
+    },
+    {
+      "path": "scripts/fetch-power.mjs",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "a4e11a2b3a5efaf2eff6b3f539cfd80017d41c5ab60ffcd863f705da98ad7b46"
+    },
+    {
+      "path": "scripts/verify-sources.mjs",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "2742d3298dc337abd5f0ad8c98cf2a0bff2f07a16ab043174519987fddba9599"
+    },
+    {
+      "path": "server/analogApi.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "856e7c6620f0820a823e178ade9ea113788faeb363e198555c11188ea4f9bb81"
+    },
+    {
+      "path": "server/analogRepository.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "127515cd78fc3c6e92181da8172893a8e27bc8fb515b308c20b241f7506f7794"
+    },
+    {
+      "path": "src/examples/BajaAnalogExplorer.tsx",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "3728fa24ac42612995d023d512545ae6c0a601e983555955343e99b7e48d88e5"
+    },
+    {
+      "path": "src/lib/analogApiClient.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "798b60d7cdb0c1e9ea5ec27a7d219d0c9555f89b03ab6275b07c17de62837c3b"
+    },
+    {
+      "path": "src/lib/analogScoring.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "693583c24fe32086c4be19798338daf6b37d7b10449895fbcd5906370ac80908"
+    },
+    {
+      "path": "src/lib/analogValidation.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "4129df26e73439d7ed0fa0c54b17b5e08efce966c199dcac41ab441cf7f7842a"
+    },
+    {
+      "path": "src/main.tsx",
+      "change": "modified",
+      "baseGitBlobSha": "eef5ecef5486e75582b3d16770a4033bdcd307ca",
+      "sha256": "d997af4c44e5be2e0accdba0bc89a01941fb065ef5b65ed900690d6fdd886191"
+    },
+    {
+      "path": "src/styles.css",
+      "change": "modified",
+      "baseGitBlobSha": "10ec56288554916249e097abc9195116614fe4c0",
+      "sha256": "2f20f652ffae7dd35b332ce4047dd409084778fa0b822be0632b7a99f3d6503f"
+    },
+    {
+      "path": "src/types/planetaryAnalog.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "e67551d36406fde25260339ac3d89fb490435d99bb9b4ab8975d8d13c2222c9f"
+    },
+    {
+      "path": "tests/analogData.test.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "87ef8127303dfcb20cedfe45feed3a7d2a3a49fcf63adf99e745346c41eac514"
+    },
+    {
+      "path": "tests/analogScoring.test.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "dfb616f6e89f386526c604130096cd40df2420326a72315e6c0fe09a8e777b5f"
+    },
+    {
+      "path": "tests/apiValidation.test.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "2ec27a0359b208d4b781b3c99c3e8cfa93b2d24b892bca1faea75f584198d796"
+    },
+    {
+      "path": "tests/httpIntegration.test.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "872b41f408b146e764054704e3b2b86f4ae7329c137e640ef3d0c887b44f4985"
+    },
+    {
+      "path": "tests/powerData.test.ts",
+      "change": "added",
+      "baseGitBlobSha": null,
+      "sha256": "be7fde38975f82ad55f84418e33338cf1fcf16ba2370ac2643eabd721b61c3e0"
+    },
+    {
+      "path": "tsconfig.json",
+      "change": "modified",
+      "baseGitBlobSha": "9edb6750a1a03eab5d18251d39e02d2fd6eb041d",
+      "sha256": "76a17d37014c52ab05fed13b90d8273665e7c8334f67b2a615798d550f85e685"
+    },
+    {
+      "path": "vercel.json",
+      "change": "modified",
+      "baseGitBlobSha": "be4a6e5d2d667e6557fe411d0fd4bfad3b6c0513",
+      "sha256": "4b4836219118442d0496e4d2c5ceeeebf20de7df1c94a68152db2c99648dfdcc"
+    }
+  ]
+}

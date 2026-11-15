@@ -1,0 +1,623 @@
+/* ==========================================================================
+   Starman Playground — consola de exploración de análogos de la Luna y Marte.
+   Claro: fondo azul grisáceo suave, panel azul pálido y acentos azul profundo.
+   Oscuro: los mismos elementos sobre la paleta espacial del sitio.
+   ========================================================================== */
+
+:root {
+  --pg-console: #e1e8f1;
+  --pg-console-edge: #c3cfde;
+  --pg-panel: #eaf3fc;
+  --pg-panel-edge: #c6daef;
+  --pg-accent: #1d3f8f;
+  --pg-accent-hover: #163273;
+  --pg-accent-soft: #d3e1f6;
+  --pg-ink: #13294b;
+  --pg-muted: #3c5170;
+  --pg-moon: #3f4a66;
+  --pg-moon-soft: #dde2ee;
+  --pg-mars: #9c3417;
+  --pg-mars-soft: #f6e0d6;
+  --pg-screen: #0b1124;
+  --pg-screen-text: #dfe6f3;
+  --pg-map-bg: #cdd8e6;
+}
+
+:root[data-theme='dark'] {
+  --pg-console: #0b1120;
+  --pg-console-edge: rgba(255, 255, 255, 0.1);
+  --pg-panel: #111a2e;
+  --pg-panel-edge: rgba(255, 255, 255, 0.12);
+  --pg-accent: #4f9cf9;
+  --pg-accent-hover: #7ab5fb;
+  --pg-accent-soft: rgba(79, 156, 249, 0.16);
+  --pg-ink: #eef1f7;
+  --pg-muted: #a7b0c4;
+  --pg-moon: #d0d5e6;
+  --pg-moon-soft: rgba(208, 213, 230, 0.12);
+  --pg-mars: #f3a184;
+  --pg-mars-soft: rgba(226, 113, 74, 0.16);
+  --pg-screen: #04070f;
+  --pg-screen-text: #dfe6f3;
+  --pg-map-bg: #0d1424;
+}
+
+.playground {
+  padding: 3.5rem 0;
+  background: var(--band-bg);
+}
+
+@media (min-width: 48rem) {
+  .playground {
+    padding: 4.5rem 0;
+  }
+}
+
+/* ---------- Consola ---------- */
+
+.pg-console {
+  position: relative;
+  padding: 1rem;
+  border: 1px solid var(--pg-console-edge);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--pg-accent) 6%, transparent), transparent 9rem),
+    var(--pg-console);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #ffffff 40%, transparent),
+    0 10px 30px rgba(15, 30, 70, 0.1);
+  color: var(--pg-ink);
+}
+
+@media (min-width: 48rem) {
+  .pg-console {
+    padding: 1.5rem;
+    border-radius: 34px;
+  }
+}
+
+.pg-console__head {
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.pg-console__title {
+  margin: 0;
+  font-size: clamp(1.7rem, 1.2rem + 2vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--pg-accent);
+}
+
+.pg-console__title:focus {
+  outline: none;
+}
+
+.pg-console__title:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+.pg-console__lead {
+  max-width: 40rem;
+  margin: 0.4rem auto 0;
+  color: var(--pg-muted);
+}
+
+.pg-console__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 60rem) {
+  .pg-console__grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(21rem, 1fr);
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+}
+
+/* ---------- Mapa (elemento dominante) ---------- */
+
+.pg-map {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 2px solid var(--pg-accent);
+  border-radius: 22px;
+  background: var(--pg-map-bg);
+}
+
+.pg-map__canvas {
+  flex: 1;
+  width: 100%;
+  min-height: 22rem;
+  background: var(--pg-map-bg);
+}
+
+/*
+ * Escritorio: el mapa ocupa la columna con una altura cómoda y se queda a la
+ * vista mientras se lee el panel (que puede ser más alto que la pantalla).
+ */
+@media (min-width: 60rem) {
+  .pg-console__grid {
+    align-items: start;
+  }
+
+  .pg-map {
+    position: sticky;
+    top: calc(var(--header-height) + 1rem);
+    height: min(calc(100vh - var(--header-height) - 2rem), 46rem);
+    min-height: 34rem;
+  }
+
+  .pg-map__canvas {
+    min-height: 0;
+  }
+}
+
+.pg-map__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.55rem 0.9rem;
+  border-top: 1px solid var(--pg-console-edge);
+  background: var(--pg-console);
+}
+
+.pg-map__hint {
+  margin: 0;
+  flex: 1 1 16rem;
+  font-size: 0.85rem;
+  color: var(--pg-muted);
+}
+
+.pg-map__all {
+  min-height: 40px;
+  padding: 0.35rem 0.9rem;
+  border: 2px solid var(--pg-accent);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--pg-accent);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.pg-map__all:hover {
+  background: var(--pg-accent);
+  color: #ffffff;
+}
+
+:root[data-theme='dark'] .pg-map__all:hover {
+  color: #04070f;
+}
+
+.pg-map__all:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.pg-map > .pg-state,
+.pg-map > .data-state {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  min-height: 22rem;
+  margin: 0;
+}
+
+/* Marcadores numerados */
+.pg-marker {
+  background: none;
+  border: 0;
+}
+
+.pg-marker__dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  background: #3f4a66;
+  color: #ffffff;
+  font: 800 0.95rem/1 var(--font-sans);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease;
+}
+
+.pg-marker--mars .pg-marker__dot {
+  background: #9c3417;
+}
+
+.pg-marker.is-active .pg-marker__dot {
+  background: var(--pg-accent);
+  font-size: 1.1rem;
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--pg-accent) 35%, transparent),
+    0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme='dark'] .pg-marker.is-active .pg-marker__dot {
+  color: #04070f;
+}
+
+.pg-marker:hover .pg-marker__dot {
+  transform: scale(1.08);
+}
+
+.leaflet-marker-icon.pg-marker:focus {
+  outline: none;
+}
+
+.leaflet-marker-icon.pg-marker:focus-visible .pg-marker__dot {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-marker__dot {
+    transition: none;
+  }
+}
+
+/* ---------- Panel de exploración ---------- */
+
+.pg-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--pg-panel-edge);
+  border-radius: 22px;
+  background: var(--pg-panel);
+}
+
+/* 1. Visor */
+.pg-viewer {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.pg-tabs {
+  display: inline-flex;
+  justify-self: start;
+  padding: 0.2rem;
+  border: 1px solid var(--pg-panel-edge);
+  border-radius: 999px;
+  background: var(--pg-console);
+}
+
+.pg-tab {
+  min-height: 40px;
+  padding: 0.35rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--pg-muted);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pg-tab[aria-pressed='true'] {
+  background: var(--pg-accent);
+  color: #ffffff;
+}
+
+:root[data-theme='dark'] .pg-tab[aria-pressed='true'] {
+  color: #04070f;
+}
+
+.pg-carousel {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.pg-carousel__figure {
+  margin: 0;
+}
+
+.pg-carousel__frame,
+.pg-3d__canvas {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--pg-panel-edge);
+  border-radius: 14px;
+  background: var(--pg-screen);
+}
+
+.pg-carousel__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pg-carousel__caption {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--pg-muted);
+}
+
+.pg-carousel__controls,
+.pg-3d__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.pg-carousel__counter {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--pg-ink);
+}
+
+.pg-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--pg-accent);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--pg-accent);
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.pg-icon-button:hover:not(:disabled) {
+  background: var(--pg-accent);
+  color: #ffffff;
+}
+
+:root[data-theme='dark'] .pg-icon-button:hover:not(:disabled) {
+  color: #04070f;
+}
+
+.pg-icon-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pg-3d {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.pg-3d__canvas {
+  background: radial-gradient(80% 70% at 50% 35%, #1c2b4f, var(--pg-screen));
+  cursor: grab;
+  touch-action: none;
+}
+
+.pg-3d__hint {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--pg-muted);
+}
+
+.pg-3d__buttons {
+  display: flex;
+  gap: 0.4rem;
+}
+
+/* Estados (imagen o modelo no disponible, cargando) */
+.pg-state {
+  margin: 0;
+  padding: 1rem;
+  border: 1px dashed var(--pg-panel-edge);
+  border-radius: 14px;
+  color: var(--pg-muted);
+  text-align: center;
+}
+
+.pg-state--image {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  border: 0;
+  color: var(--pg-screen-text);
+}
+
+/* 2. Slider */
+.pg-slider {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.pg-slider__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.pg-slider__label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--pg-muted);
+}
+
+.pg-slider__counter {
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  background: var(--pg-accent-soft);
+  color: var(--pg-ink);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.pg-slider__input {
+  width: 100%;
+  height: 32px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.pg-slider__input::-webkit-slider-runnable-track {
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--pg-accent) var(--pg-progress), var(--pg-accent-soft) var(--pg-progress));
+  border: 1px solid var(--pg-panel-edge);
+}
+
+.pg-slider__input::-moz-range-track {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--pg-accent-soft);
+  border: 1px solid var(--pg-panel-edge);
+}
+
+.pg-slider__input::-moz-range-progress {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--pg-accent);
+}
+
+.pg-slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 26px;
+  height: 26px;
+  margin-top: -9px;
+  border: 3px solid var(--pg-panel);
+  border-radius: 50%;
+  background: var(--pg-accent);
+  box-shadow: 0 0 0 2px var(--pg-accent);
+}
+
+.pg-slider__input::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--pg-panel);
+  border-radius: 50%;
+  background: var(--pg-accent);
+  box-shadow: 0 0 0 2px var(--pg-accent);
+}
+
+.pg-slider__input:focus {
+  outline: none;
+}
+
+.pg-slider__input:focus-visible::-webkit-slider-thumb {
+  box-shadow:
+    0 0 0 2px var(--pg-accent),
+    0 0 0 6px var(--color-focus);
+}
+
+.pg-slider__input:focus-visible::-moz-range-thumb {
+  box-shadow:
+    0 0 0 2px var(--pg-accent),
+    0 0 0 6px var(--color-focus);
+}
+
+ol.pg-slider__ticks {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0 4px;
+  list-style: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--pg-muted);
+}
+
+.pg-slider__ticks li.is-active {
+  color: var(--pg-accent);
+}
+
+/* 3. Título del área */
+.pg-area {
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--pg-panel-edge);
+}
+
+.pg-area__badge {
+  display: inline-block;
+  margin: 0.6rem 0 0;
+  padding: 0.15rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pg-area__badge--moon {
+  background: var(--pg-moon-soft);
+  color: var(--pg-moon);
+}
+
+.pg-area__badge--mars {
+  background: var(--pg-mars-soft);
+  color: var(--pg-mars);
+}
+
+.pg-area__title {
+  margin: 0.35rem 0 0.15rem;
+  font-size: clamp(1.45rem, 1.15rem + 1.2vw, 2rem);
+  line-height: 1.15;
+  color: var(--pg-ink);
+  overflow-wrap: break-word;
+}
+
+.pg-area__place {
+  margin: 0;
+  color: var(--pg-muted);
+}
+
+/* 4. Descripción con viñetas */
+ul.pg-bullets {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pg-bullets li {
+  display: grid;
+  gap: 0.15rem;
+  padding-left: 0.85rem;
+  border-left: 3px solid var(--pg-accent);
+  line-height: 1.5;
+}
+
+.pg-bullets__label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--pg-accent);
+}
+
+.pg-panel a,
+.pg-map__hint a {
+  color: var(--pg-accent);
+}
+
+.pg-panel button:focus-visible,
+.pg-panel a:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}

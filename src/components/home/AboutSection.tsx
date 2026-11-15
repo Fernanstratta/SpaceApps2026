@@ -1,5 +1,5 @@
 import { Link } from '../../router/Link';
-import { ROUTES } from '../../router/routes';
+import { ROUTES, SECTION_IDS } from '../../router/routes';
 import { useMessages } from '../../i18n/I18nContext';
 
 /** Estilos de la sección, incluidos aquí para no depender de un archivo .css aparte. */
@@ -184,7 +184,7 @@ const VIEW_ACCENTS = ['earth', 'mars'] as const;
 export function AboutSection() {
   const { ABOUT } = useMessages();
   return (
-    <section id="about" className="about" aria-labelledby="about-title">
+    <section id={SECTION_IDS.about} className="about" aria-labelledby="about-title">
       <style>{ABOUT_STYLES}</style>
       <div className="container">
         <p className="about__eyebrow">{ABOUT.eyebrow}</p>

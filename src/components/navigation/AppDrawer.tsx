@@ -136,6 +136,12 @@ export function AppDrawer({ open, onClose, onNavigate }: AppDrawerProps) {
               </SectionLink>
             </li>
             <li>
+              <NavLink to={ROUTES.playground} className="drawer-item" onClick={onNavigate}>
+                <GlobeIcon />
+                {NAV_LABELS.playground}
+              </NavLink>
+            </li>
+            <li>
               <NavLink to={ROUTES.portalAccess} match={ROUTES.portal} className="drawer-item" onClick={onNavigate}>
                 <CompassIcon />
                 {NAV_LABELS.portal}

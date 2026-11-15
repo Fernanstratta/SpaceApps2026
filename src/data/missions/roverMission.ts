@@ -30,7 +30,18 @@ export type SourceId =
   | 'photo-elegante'
   | 'photo-barringer'
   | 'photo-north-ray'
-  | 'photo-station-11';
+  | 'photo-station-11'
+  // Starman Playground (análogos de la Luna y de Marte)
+  | 'arads-nasa'
+  | 'pia03714-devon'
+  | 'osinski-2020-gullies'
+  | 'wiki-haughton'
+  | 'yungay-location'
+  | 'photo-pinacate-sentinel'
+  | 'photo-meteor-aster'
+  | 'photo-haughton-landsat'
+  | 'photo-haughton-edge'
+  | 'photo-k10-haughton';
 
 export interface MissionSource {
   /** Título original de la fuente (no se traduce). */
@@ -51,6 +62,58 @@ export function isSimulated(sourceIds: readonly SourceId[]): boolean {
 }
 
 export const MISSION_SOURCES: Record<SourceId, MissionSource> = {
+  // ---- Starman Playground ----
+  'arads-nasa': {
+    title: 'NASA Tests Life Detection Drill in the Atacama Desert (25 de abril de 2017)',
+    publisher: 'NASA Astrobiology',
+    url: 'https://astrobiology.nasa.gov/news/nasa-tests-life-detection-drill-in-the-atacama-desert/',
+  },
+  'pia03714-devon': {
+    title: 'Mars Researchers Rendezvous on Remote Arctic Island (PIA03714)',
+    publisher: 'NASA / JPL Photojournal',
+    url: 'https://science.nasa.gov/photojournal/mars-researchers-rendezvous-on-remote-arctic-island',
+  },
+  'osinski-2020-gullies': {
+    title:
+      'Osinski et al. (2020), Gully Formation at the Haughton Impact Structure (Arctic Canada) Through the Melting of Snow and Ground Ice, with Implications for Gully Formation on Mars. LPSC 2020',
+    publisher: 'NASA Technical Reports Server',
+    url: 'https://ntrs.nasa.gov/citations/20200001979',
+  },
+  'wiki-haughton': {
+    title: 'Haughton impact crater (coordenadas del cráter)',
+    publisher: 'Wikipedia',
+    url: 'https://en.wikipedia.org/wiki/Haughton_impact_crater',
+  },
+  'yungay-location': {
+    title: 'Yungay, le cimetière.JPG — foto geolocalizada del pueblo de Yungay (ubicación aproximada)',
+    publisher: 'Wikimedia Commons',
+    url: 'https://commons.wikimedia.org/wiki/File:Yungay,_le_cimeti%C3%A8re.JPG',
+  },
+  'photo-pinacate-sentinel': {
+    title: 'Craters dot the lava fields of El Pinacate in Mexico — contiene datos modificados de Copernicus Sentinel 2026',
+    publisher: 'Wikimedia Commons / Copernicus (UE)',
+    url: 'https://commons.wikimedia.org/wiki/File:Craters_dot_the_lava_fields_of_El_Pinacate_in_Mexico_(Copernicus_2026-11-08).webp',
+  },
+  'photo-meteor-aster': {
+    title: 'Meteor Crater, Arizona (ASTER) — NASA/METI/AIST/Japan Space Systems, dominio público',
+    publisher: 'Wikimedia Commons',
+    url: 'https://commons.wikimedia.org/wiki/File:Meteor_Crater,_Arizona_(ASTER).jpg',
+  },
+  'photo-haughton-landsat': {
+    title: 'Haughton Crater - Landsat 8 — Justin Cowart (datos de Landsat 8), dominio público',
+    publisher: 'Wikimedia Commons',
+    url: 'https://commons.wikimedia.org/wiki/File:Haughton_Crater_-_Landsat_8_(48010457521).png',
+  },
+  'photo-haughton-edge': {
+    title: 'Edge of Haughton Crater — Haughton Mars Project (2008), dominio público',
+    publisher: 'Wikimedia Commons',
+    url: 'https://commons.wikimedia.org/wiki/File:Edge_of_Haughton_Crater_(2672692755).jpg',
+  },
+  'photo-k10-haughton': {
+    title: 'K10 black rover at Haughton Crater — NASA (2007), dominio público',
+    publisher: 'Wikimedia Commons',
+    url: 'https://commons.wikimedia.org/wiki/File:K10_black_rover_at_Haughton_Crater.jpg',
+  },
   'copernicus-dem': {
     title: 'Copernicus DEM GLO-90 (2021)',
     publisher: 'ESA / Unión Europea (Copernicus)',

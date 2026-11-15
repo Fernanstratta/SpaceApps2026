@@ -49,6 +49,7 @@ export const es = {
 
   NAV_LABELS: {
     home: 'Inicio',
+    playground: 'Playground',
     about: 'Sobre Nosotros',
     resources: 'Recursos',
     portal: 'Portal Educativo',

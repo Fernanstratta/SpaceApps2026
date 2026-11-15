@@ -1,7 +1,7 @@
-import { RESOURCE_TEXT } from '../../content/strings';
 import type { Resource, ResourceCategory } from '../../types';
 import { DataStateMessage } from '../common/DataStateMessage';
 import { ResourceCard } from './ResourceCard';
+import { useMessages } from '../../i18n/I18nContext';
 
 interface ResourceCategorySectionProps {
   category: ResourceCategory;
@@ -9,6 +9,7 @@ interface ResourceCategorySectionProps {
 }
 
 export function ResourceCategorySection({ category, resources }: ResourceCategorySectionProps) {
+  const { RESOURCE_TEXT } = useMessages();
   const headingId = `${category.id}-titulo`;
   return (
     <section id={category.id} className="resource-category" aria-labelledby={headingId}>

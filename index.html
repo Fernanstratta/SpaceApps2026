@@ -9,10 +9,32 @@
       content="Starman: recurso educativo para explorar conceptos astronómicos de la Tierra y la Luna."
     />
     <meta name="theme-color" content="#000000" />
+    <!--
+      País del visitante para elegir el idioma inicial (ES / EN). Vacío en hosting
+      estático. El backend o el edge puede rellenarlo al servir este HTML
+      (p. ej. content="MX"). Ver docs/i18n.md.
+    -->
+    <meta name="starman-country" content="" />
     <title>Starman</title>
+    <script>
+      // Aplica el tema guardado antes de pintar para evitar un destello del otro modo.
+      (function () {
+        var theme = 'light';
+        try {
+          var stored = localStorage.getItem('starman-theme');
+          if (stored === 'dark' || stored === 'light') theme = stored;
+          else if (window.matchMedia('(prefers-color-scheme: dark)').matches) theme = 'dark';
+        } catch (e) {}
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
   </head>
   <body>
-    <noscript>Starman necesita JavaScript para funcionar. Actívalo en tu navegador.</noscript>
+    <noscript>
+      Starman necesita JavaScript para funcionar. Actívalo en tu navegador. /
+      <span lang="en">Starman needs JavaScript to work. Please enable it in your browser.</span>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

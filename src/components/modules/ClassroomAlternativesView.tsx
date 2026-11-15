@@ -1,7 +1,7 @@
-import { CLASSROOM_ALTERNATIVE_LABELS } from '../../content/strings';
 import type { ClassroomAlternative, ClassroomAlternativeType } from '../../types';
 import { ExternalLink } from '../common/ExternalLink';
 import { TextList } from '../common/TextList';
+import { useMessages } from '../../i18n/I18nContext';
 
 const TYPE_ORDER: ClassroomAlternativeType[] = [
   'physical-model',
@@ -13,6 +13,7 @@ const TYPE_ORDER: ClassroomAlternativeType[] = [
 
 /** Classroom alternatives grouped by type. Only renders groups with entries. */
 export function ClassroomAlternativesView({ alternatives }: { alternatives: ClassroomAlternative[] }) {
+  const { CLASSROOM_ALTERNATIVE_LABELS } = useMessages();
   return (
     <div className="subsection-stack">
       {TYPE_ORDER.map((type) => {

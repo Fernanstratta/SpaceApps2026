@@ -1,4 +1,4 @@
-import { UI } from '../../content/strings';
+import { useMessages } from '../../i18n/I18nContext';
 import type { DataState } from '../../utils/nullable';
 
 interface DataStateMessageProps {
@@ -14,11 +14,12 @@ interface DataStateMessageProps {
  */
 export function DataStateMessage({
   state,
-  pendingMessage = UI.pending,
-  emptyMessage = UI.empty,
+  pendingMessage,
+  emptyMessage,
   compact = false,
 }: DataStateMessageProps) {
-  const message = state === 'pending' ? pendingMessage : emptyMessage;
+  const { UI } = useMessages();
+  const message = state === 'pending' ? (pendingMessage ?? UI.pending) : (emptyMessage ?? UI.empty);
   return (
     <p
       className={`data-state data-state--${state}${compact ? ' data-state--compact' : ''}`}

@@ -1,15 +1,16 @@
-import { LEARNING_ACTIVITY_TYPE_LABELS, STUDENT_SECTIONS } from '../../content/strings';
 import type { StudentModule } from '../../types';
 import { getDataState } from '../../utils/nullable';
 import { NullableSection } from '../common/NullableSection';
 import { TextList } from '../common/TextList';
 import { LocationDetails } from '../maps/LocationDetails';
 import { LocationMap } from '../maps/LocationMap';
+import { useMessages } from '../../i18n/I18nContext';
 import { CelestialBodyPanel } from './CelestialBodyPanel';
 import { ComparisonTable } from './ComparisonTable';
 import { SectionNav } from './SectionNav';
 
-const SECTIONS = [
+/** Ids de las secciones (anclas) del lado del estudiante. */
+const sectionsFor = (STUDENT_SECTIONS: ReturnType<typeof useMessages>['STUDENT_SECTIONS']) => [
   { id: 'introduccion', label: STUDENT_SECTIONS.introduction },
   { id: 'conceptos', label: STUDENT_SECTIONS.scientificConcepts },
   { id: 'tierra-luna', label: STUDENT_SECTIONS.bodies },
@@ -21,6 +22,7 @@ const SECTIONS = [
 
 /** Student view of a topic. Every section is null-safe. */
 export function StudentModuleView({ module }: { module: StudentModule }) {
+  const { STUDENT_SECTIONS, LEARNING_ACTIVITY_TYPE_LABELS } = useMessages();
   const bodiesState =
     getDataState(module.earthInformation) === 'pending' &&
     getDataState(module.moonInformation) === 'pending'
@@ -29,7 +31,7 @@ export function StudentModuleView({ module }: { module: StudentModule }) {
 
   return (
     <div className="module-view module-view--student">
-      <SectionNav sections={SECTIONS} />
+      <SectionNav sections={sectionsFor(STUDENT_SECTIONS)} />
 
       <div className="module-view__sections">
         <NullableSection id="introduccion" title={STUDENT_SECTIONS.introduction} data={module.introduction}>

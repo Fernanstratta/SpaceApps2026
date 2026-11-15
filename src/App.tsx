@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { Layout } from './components/layout/Layout';
 import { ReferenceLocationProvider } from './context/ReferenceLocationContext';
+import { ThemeProvider } from './context/ThemeContext';
+import { I18nProvider } from './i18n/I18nContext';
+import { AuthPage } from './pages/AuthPage';
 import { EducationalPortalPage } from './pages/EducationalPortalPage';
 import { HomePage } from './pages/HomePage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -36,6 +39,10 @@ function AppRoutes() {
       return <HomePage />;
     case ROUTES.portal:
       return <EducationalPortalPage />;
+    case ROUTES.login:
+      return <AuthPage key="login" mode="login" />;
+    case ROUTES.register:
+      return <AuthPage key="register" mode="register" />;
     default: {
       const submoduleMatch = matchPath(SUBMODULE_ROUTE_PATTERN, path);
       if (submoduleMatch?.topicId && submoduleMatch.submoduleId) {
@@ -53,12 +60,16 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <RouterProvider>
-      <ReferenceLocationProvider>
-        <Layout>
-          <AppRoutes />
-        </Layout>
-      </ReferenceLocationProvider>
-    </RouterProvider>
+    <ThemeProvider>
+      <RouterProvider>
+        <I18nProvider>
+          <ReferenceLocationProvider>
+            <Layout>
+              <AppRoutes />
+            </Layout>
+          </ReferenceLocationProvider>
+        </I18nProvider>
+      </RouterProvider>
+    </ThemeProvider>
   );
 }

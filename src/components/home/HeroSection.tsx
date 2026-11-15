@@ -1,10 +1,11 @@
-import { HOME_CONTENT } from '../../content/home';
 import { Link } from '../../router/Link';
 import { ROUTES, SECTION_IDS } from '../../router/routes';
-import { MoonImage } from './MoonImage';
+import { EarthModel } from './EarthModel';
+import { useMessages } from '../../i18n/I18nContext';
 
-/** Full-viewport black introduction: text on the left, the Moon on the right. */
+/** Full-viewport black introduction: text on the left, the Earth filling the right side. */
 export function HeroSection() {
+  const { HOME: HOME_CONTENT } = useMessages();
   const { hero } = HOME_CONTENT;
   return (
     <section id={SECTION_IDS.home} className="hero" aria-labelledby="hero-title" data-scroll-top="true">
@@ -18,8 +19,8 @@ export function HeroSection() {
             {hero.primaryCta}
           </Link>
         </div>
-        <MoonImage />
       </div>
+      <EarthModel />
     </section>
   );
 }

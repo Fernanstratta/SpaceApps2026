@@ -9,19 +9,22 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "verify:data": "tsx scripts/verify-data.ts"
+    "verify:data": "tsx scripts/verify-data.ts",
+    "verify:i18n": "tsx scripts/verify-i18n.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-leaflet": "^5.0.0"
+    "react-leaflet": "^5.0.0",
+    "three": "^0.187.0"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.20",
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@types/three": "^0.187.0",
     "@vitejs/plugin-react": "^5.0.0",
     "tsx": "^4.20.0",
     "typescript": "~5.9.2",

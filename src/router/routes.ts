@@ -4,6 +4,8 @@ import type { TopicId } from '../types';
 export const ROUTES = {
   home: '/',
   portal: '/portal-educativo',
+  login: '/iniciar-sesion',
+  register: '/crear-cuenta',
   topic: (topicId: TopicId) => `/portal-educativo/${topicId}`,
   submodule: (topicId: TopicId, submoduleId: string) => `/portal-educativo/${topicId}/${submoduleId}`,
 } as const;

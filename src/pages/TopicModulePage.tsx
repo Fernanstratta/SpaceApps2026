@@ -5,15 +5,16 @@ import { TopicBanner } from '../components/modules/TopicBanner';
 import { TopicTabs } from '../components/modules/TopicTabs';
 import { SubmoduleList } from '../components/portal/TopicRow';
 import { TopicPager } from '../components/portal/TopicPager';
-import { PORTAL_TEXT, UI } from '../content/strings';
 import { TOPIC_VISUALS, topicStyle } from '../content/topicVisuals';
-import { getStudentModule, getSubmodulesByTopic, getTeacherModule, getTopicById, isTopicId } from '../data';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { Link } from '../router/Link';
 import { ROUTES } from '../router/routes';
+import { useMessages, useData } from '../i18n/I18nContext';
 
 /** A topic: banner, its submodules, then the "Aprender" / "Enseñar" tabs. */
 export function TopicModulePage({ topicId }: { topicId: string }) {
+  const { PORTAL_TEXT, UI } = useMessages();
+  const { getStudentModule, getSubmodulesByTopic, getTeacherModule, getTopicById, isTopicId } = useData();
   const topic = isTopicId(topicId) ? getTopicById(topicId) : null;
   useDocumentTitle(topic ? topic.name : PORTAL_TEXT.topicNotFoundTitle);
 

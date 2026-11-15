@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react';
 import { topicStyle } from '../../content/topicVisuals';
-import { getImage } from '../../data';
 import type { TopicId } from '../../types';
 import { TopicPhoto } from '../common/TopicPhoto';
 import { ImageCredit } from '../portal/ImageCredits';
 import { TopicIcon } from '../portal/TopicIcon';
+import { useData } from '../../i18n/I18nContext';
 
 interface TopicBannerProps {
   topicId: TopicId;
@@ -17,6 +17,7 @@ interface TopicBannerProps {
 
 /** Page header in the topic's color with its real-world photo. */
 export function TopicBanner({ topicId, title, lead, imageId, eyebrow }: TopicBannerProps) {
+  const { getImage } = useData();
   return (
     <header className="topic-banner" style={topicStyle(topicId)}>
       <div className="container topic-banner__inner">

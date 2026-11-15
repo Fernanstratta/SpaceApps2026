@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react';
-import { LOCATION_TEXT } from '../../content/strings';
 import { useReferenceLocation } from '../../hooks/useReferenceLocation';
 import type { GeoLocation } from '../../types';
 import { distanceInKm, formatCoordinates, formatDistanceKm, isValidCoordinates } from '../../utils/geo';
 import { FieldList, type FieldItem } from '../common/FieldList';
 import { TextList } from '../common/TextList';
+import { useI18n } from '../../i18n/I18nContext';
 
 interface LocationDetailsProps {
   location: GeoLocation;
@@ -23,6 +23,8 @@ export function LocationDetails({
   extraFields = [],
   children,
 }: LocationDetailsProps) {
+  const { locale, messages } = useI18n();
+  const { LOCATION_TEXT } = messages;
   const { referenceLocation } = useReferenceLocation();
   const hasCoords = isValidCoordinates(location.coordinates);
 
@@ -35,14 +37,14 @@ export function LocationDetails({
           <TextList items={location.geographicFeatures} />
         ) : null,
     },
-    { label: LOCATION_TEXT.coordinates, value: hasCoords ? formatCoordinates(location.coordinates) : null },
+    { label: LOCATION_TEXT.coordinates, value: hasCoords ? formatCoordinates(location.coordinates, locale, LOCATION_TEXT.cardinal) : null },
   ];
 
   if (showDistance) {
     fields.push({
       label: `${LOCATION_TEXT.distance} (${referenceLocation.name})`,
       value: hasCoords
-        ? formatDistanceKm(distanceInKm(referenceLocation.coordinates, location.coordinates))
+        ? formatDistanceKm(distanceInKm(referenceLocation.coordinates, location.coordinates), locale)
         : null,
     });
   }

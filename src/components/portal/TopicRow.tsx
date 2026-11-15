@@ -19,26 +19,31 @@ export function SubmoduleList({ submodules, label }: { submodules: Submodule[]; 
   );
 }
 
-/** One topic of the portal: colored heading (the category) and its cards. */
+/**
+ * One topic of the portal: a full-width band in the topic's color (see
+ * `TOPIC_VISUALS`), with its heading (the category) and its cards.
+ */
 export function TopicRow({ topic, submodules }: { topic: Topic; submodules: Submodule[] }) {
   const { PORTAL_TEXT } = useMessages();
   const headingId = `fila-${topic.id}`;
   return (
-    <section className="topic-row" style={topicStyle(topic.id)} aria-labelledby={headingId}>
-      <div className="topic-row__header">
-        <h2 id={headingId} className="topic-row__title">
-          <span className="topic-row__icon" aria-hidden="true">
-            <TopicIcon topicId={topic.id} />
-          </span>
-          {topic.name}
-        </h2>
-        <Link to={ROUTES.topic(topic.id)} className="topic-row__more">
-          {PORTAL_TEXT.viewTopic}
-          <span className="visually-hidden">: {topic.name}</span>
-          <span aria-hidden="true"> →</span>
-        </Link>
+    <section className="topic-row" style={topicStyle(topic.id)} aria-labelledby={headingId} data-topic={topic.id}>
+      <div className="container">
+        <div className="topic-row__header">
+          <h2 id={headingId} className="topic-row__title">
+            <span className="topic-row__icon" aria-hidden="true">
+              <TopicIcon topicId={topic.id} />
+            </span>
+            {topic.name}
+          </h2>
+          <Link to={ROUTES.topic(topic.id)} className="topic-row__more">
+            {PORTAL_TEXT.viewTopic}
+            <span className="visually-hidden">: {topic.name}</span>
+            <span aria-hidden="true"> →</span>
+          </Link>
+        </div>
+        <SubmoduleList submodules={submodules} label={`${PORTAL_TEXT.submodulesTitle}: ${topic.name}`} />
       </div>
-      <SubmoduleList submodules={submodules} label={`${PORTAL_TEXT.submodulesTitle}: ${topic.name}`} />
     </section>
   );
 }

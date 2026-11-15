@@ -1,11 +1,12 @@
 import type {
-  ByTopic,
   FieldTrip,
   GeoLocation,
   GeographicalRecommendation,
   ReferenceLocation,
   RelatedLocation,
+  SubmoduleKey,
 } from '../types';
+import { mapSubmodules } from './submodules';
 
 /**
  * Default reference location used to compute distances to recommended places.
@@ -28,38 +29,17 @@ export const DEFAULT_REFERENCE_LOCATION: ReferenceLocation = {
  */
 export const locationCatalog: GeoLocation[] | null = null;
 
-/** Student: Earth locations related to each topic. All `null` for now. */
-export const relatedLocationsByTopic: ByTopic<RelatedLocation[] | null> = {
-  'size-scale': null,
-  gravity: null,
-  'surface-terrain': null,
-  'earth-moon-distance': null,
-  temperature: null,
-  'impact-craters': null,
-  atmosphere: null,
-  'water-ice': null,
+/** "Aprender": Earth locations related to each submodule. All `null` for now. */
+export const relatedLocationsBySubmodule: Record<SubmoduleKey, RelatedLocation[] | null> = {
+  ...mapSubmodules(() => null),
 };
 
-/** Teacher: geographical recommendations per topic. All `null` for now. */
-export const geographicalRecommendationsByTopic: ByTopic<GeographicalRecommendation[] | null> = {
-  'size-scale': null,
-  gravity: null,
-  'surface-terrain': null,
-  'earth-moon-distance': null,
-  temperature: null,
-  'impact-craters': null,
-  atmosphere: null,
-  'water-ice': null,
+/** "Enseñar": geographical recommendations per submodule. All `null` for now. */
+export const geographicalRecommendationsBySubmodule: Record<SubmoduleKey, GeographicalRecommendation[] | null> = {
+  ...mapSubmodules(() => null),
 };
 
-/** Teacher: potential field trips per topic. All `null` for now. */
-export const fieldTripsByTopic: ByTopic<FieldTrip[] | null> = {
-  'size-scale': null,
-  gravity: null,
-  'surface-terrain': null,
-  'earth-moon-distance': null,
-  temperature: null,
-  'impact-craters': null,
-  atmosphere: null,
-  'water-ice': null,
+/** "Enseñar": potential field trips per submodule. All `null` for now. */
+export const fieldTripsBySubmodule: Record<SubmoduleKey, FieldTrip[] | null> = {
+  ...mapSubmodules(() => null),
 };

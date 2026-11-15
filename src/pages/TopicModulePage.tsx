@@ -1,20 +1,30 @@
 import { PageHeader } from '../components/layout/PageHeader';
-import { StudentModuleView } from '../components/modules/StudentModuleView';
-import { TeacherModuleView } from '../components/modules/TeacherModuleView';
+import { MissionCallout } from '../components/mission/MissionCallout';
+import { StudentModuleIntro, TeacherModuleIntro } from '../components/modules/ModuleIntro';
 import { TopicBanner } from '../components/modules/TopicBanner';
-import { TopicTabs } from '../components/modules/TopicTabs';
-import { SubmoduleList } from '../components/portal/TopicRow';
+import { PortalViewSwitch } from '../components/portal/PortalViewSwitch';
+import { SubmoduleCarousel } from '../components/portal/SubmoduleCarousel';
 import { TopicPager } from '../components/portal/TopicPager';
 import { TOPIC_VISUALS, topicStyle } from '../content/topicVisuals';
+import { submoduleKey } from '../data/submodules';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { usePortalView } from '../hooks/usePortalView';
+import { useData, useMessages } from '../i18n/I18nContext';
 import { Link } from '../router/Link';
 import { ROUTES } from '../router/routes';
-import { useMessages, useData } from '../i18n/I18nContext';
 
-/** A topic: banner, its submodules, then the "Aprender" / "Enseñar" tabs. */
+/**
+ * A topic ("módulo"): banner with its photo, the Estudiante / Docente switch,
+ * then the intro and its submodules. The active view (see `PortalViewContext`)
+ * picks the content: "Aprender" shows the student presentation, "Enseñar" the
+ * module plan (teaching sheet + lesson sequence) and opens each submodule's
+ * lesson plan. Both views share the same layout and navigation.
+ */
 export function TopicModulePage({ topicId }: { topicId: string }) {
-  const { PORTAL_TEXT, UI } = useMessages();
-  const { getStudentModule, getSubmodulesByTopic, getTeacherModule, getTopicById, isTopicId } = useData();
+  const { view } = usePortalView();
+  const { PORTAL_TEXT, MODULE_TEXT, UI } = useMessages();
+  const { getStudentModule, getSubmodulesByTopic, getTeacherModule, getTeacherSubmodule, getTopicById, isTopicId } =
+    useData();
   const topic = isTopicId(topicId) ? getTopicById(topicId) : null;
   useDocumentTitle(topic ? topic.name : PORTAL_TEXT.topicNotFoundTitle);
 
@@ -48,29 +58,52 @@ export function TopicModulePage({ topicId }: { topicId: string }) {
             <span className="banner-tag">
               {PORTAL_TEXT.topicNumber} {String(topic.order).padStart(2, '0')}
             </span>
+            <span className="banner-tag">{MODULE_TEXT.submoduleCount(submodules.length)}</span>
           </>
         }
       />
-      <div className="container page-body" style={topicStyle(topic.id)}>
-        {submodules.length > 0 ? (
-          <section className="topic-submodules" aria-labelledby="submodulos-titulo">
-            <h2 id="submodulos-titulo" className="section-title">
+      <div className="container page-body topic-page" style={topicStyle(topic.id)}>
+        <PortalViewSwitch showLabel className="topic-page__view" />
+
+        {view === 'learn' ? (
+          <StudentModuleIntro module={getStudentModule(topic.id)} />
+        ) : (
+          <TeacherModuleIntro
+            module={getTeacherModule(topic.id)}
+            sessions={submodules.map((item) => ({
+              id: item.id,
+              title: item.title,
+              to: ROUTES.submodule(topic.id, item.id),
+              duration: getTeacherSubmodule(submoduleKey(item))?.estimatedDuration ?? null,
+            }))}
+          />
+        )}
+
+        <MissionCallout topicId={topic.id} view={view} />
+
+        <section className="topic-submodules" aria-labelledby="submodulos-titulo">
+          <div className="topic-submodules__header">
+            <h2 id="submodulos-titulo" className="topic-submodules__title">
               {PORTAL_TEXT.submodulesTitle}
             </h2>
-            <SubmoduleList submodules={submodules} label={`${PORTAL_TEXT.submodulesTitle}: ${topic.name}`} />
-          </section>
-        ) : null}
+            <p className="topic-submodules__intro">
+              {view === 'learn' ? MODULE_TEXT.submodulesLearnIntro : MODULE_TEXT.submodulesTeachIntro}
+            </p>
+          </div>
+          {submodules.length > 0 ? (
+            <SubmoduleCarousel
+              submodules={submodules}
+              label={`${PORTAL_TEXT.submodulesTitle}: ${topic.name}`}
+              view={view}
+              getMeta={
+                view === 'teach' ? (item) => getTeacherSubmodule(submoduleKey(item))?.estimatedDuration ?? null : undefined
+              }
+            />
+          ) : (
+            <p className="data-state data-state--empty">{UI.empty}</p>
+          )}
+        </section>
 
-        <TopicTabs
-          idPrefix={`tema-${topic.id}`}
-          renderPanel={(tab) =>
-            tab === 'learn' ? (
-              <StudentModuleView module={getStudentModule(topic.id)} />
-            ) : (
-              <TeacherModuleView topic={topic} module={getTeacherModule(topic.id)} />
-            )
-          }
-        />
         <TopicPager currentId={topic.id} />
       </div>
     </>

@@ -41,7 +41,7 @@ export function PortalPreviewSection() {
               </li>
             ))}
           </ul>
-          <Link to={ROUTES.portal} className="button button--secondary home-portal-link">
+          <Link to={ROUTES.portalAccess} className="button button--secondary home-portal-link">
             {audiences.cta}
           </Link>
         </div>

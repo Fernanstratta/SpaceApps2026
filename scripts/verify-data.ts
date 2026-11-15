@@ -1,8 +1,11 @@
 /**
  * Verifies the initial data state required for this phase:
- *  - Student and teacher modules exist for every shared topic id.
+ *  - Student ("Aprender") and teacher ("Enseñar") modules exist for every
+ *    shared topic id, and every submodule has content for both views.
  *  - Comparison and geographic fields are `null`.
  *  - All teacher-specific content fields are `null`.
+ *  - Every `sourceIds` / `imageId` used by submodule content points to a known
+ *    resource / image.
  *  - Every resource has the required fields and an http(s) source URL.
  *  - Every topic has submodules; each submodule points to a real topic and
  *    image, has a unique id and no generated content (`summary` is null).
@@ -11,17 +14,20 @@
  * Run with: npm run verify:data
  */
 import {
-  comparisonsByTopic,
+  comparisonsBySubmodule,
+  fieldTripsBySubmodule,
+  geographicalRecommendationsBySubmodule,
   images,
-  submodules,
-  fieldTripsByTopic,
-  geographicalRecommendationsByTopic,
   locationCatalog,
-  relatedLocationsByTopic,
+  relatedLocationsBySubmodule,
   resourceCategories,
   resources,
   studentModules,
+  studentSubmodules,
+  SUBMODULE_KEYS,
+  submodules,
   teacherModules,
+  teacherSubmodules,
   topics,
 } from '../src/data';
 import { TOPIC_IDS } from '../src/types';
@@ -37,21 +43,27 @@ for (const id of TOPIC_IDS) {
   check(topics.some((topic) => topic.id === id), `Missing topic: ${id}`);
 }
 
-// Student modules
-const studentNullFields = ['earthInformation', 'moonInformation', 'comparisons', 'relatedLocations'] as const;
+// Topic-level modules ("Aprender" / "Enseñar")
+const teacherModuleNullFields = ['gradeLevel', 'estimatedDuration', 'learningObjectives', 'requiredMaterials'] as const;
 for (const id of TOPIC_IDS) {
-  const module = studentModules[id];
-  check(!!module, `Missing student module: ${id}`);
-  if (!module) continue;
-  check(module.topicId === id, `Student module topicId mismatch: ${id}`);
-  for (const field of studentNullFields) {
-    check(module[field] === null, `studentModules.${id}.${field} must be null`);
+  const student = studentModules[id];
+  check(!!student, `Missing student module: ${id}`);
+  if (student) check(student.topicId === id, `Student module topicId mismatch: ${id}`);
+
+  const teacher = teacherModules[id];
+  check(!!teacher, `Missing teacher module: ${id}`);
+  if (!teacher) continue;
+  check(teacher.topicId === id, `Teacher module topicId mismatch: ${id}`);
+  for (const field of teacherModuleNullFields) {
+    check(teacher[field] === null, `teacherModules.${id}.${field} must be null`);
   }
 }
 
-// Teacher modules
+// Submodule content for both views
+const knownResourceIds = new Set(resources.map((resource) => resource.id));
+const knownImageIds = new Set(images.map((image) => image.id));
+const studentNullFields = ['earthInformation', 'moonInformation', 'comparisons', 'relatedLocations'] as const;
 const teacherNullFields = [
-  'gradeLevel',
   'estimatedDuration',
   'learningObjectives',
   'requiredMaterials',
@@ -61,23 +73,43 @@ const teacherNullFields = [
   'fieldTrips',
   'classroomAlternatives',
 ] as const;
-for (const id of TOPIC_IDS) {
-  const module = teacherModules[id];
-  check(!!module, `Missing teacher module: ${id}`);
-  if (!module) continue;
-  check(module.topicId === id, `Teacher module topicId mismatch: ${id}`);
-  for (const field of teacherNullFields) {
-    check(module[field] === null, `teacherModules.${id}.${field} must be null`);
+for (const key of SUBMODULE_KEYS) {
+  const student = studentSubmodules[key];
+  check(!!student && student.key === key, `Missing or mismatched student content: ${key}`);
+  if (student) {
+    for (const field of studentNullFields) {
+      check(student[field] === null, `studentSubmodules['${key}'].${field} must be null`);
+    }
+    for (const sourceId of student.sourceIds ?? []) {
+      check(knownResourceIds.has(sourceId), `studentSubmodules['${key}'] cites unknown resource ${sourceId}`);
+    }
+    for (const block of student.blocks ?? []) {
+      if (block.imageId) check(knownImageIds.has(block.imageId), `studentSubmodules['${key}'] uses unknown image ${block.imageId}`);
+    }
+  }
+
+  const teacher = teacherSubmodules[key];
+  check(!!teacher && teacher.key === key, `Missing or mismatched teacher content: ${key}`);
+  if (teacher) {
+    for (const field of teacherNullFields) {
+      check(teacher[field] === null, `teacherSubmodules['${key}'].${field} must be null`);
+    }
+    for (const sourceId of teacher.sourceIds ?? []) {
+      check(knownResourceIds.has(sourceId), `teacherSubmodules['${key}'] cites unknown resource ${sourceId}`);
+    }
   }
 }
 
 // Comparison & location sources
 check(locationCatalog === null, 'locationCatalog must be null');
-for (const id of TOPIC_IDS) {
-  check(comparisonsByTopic[id] === null, `comparisonsByTopic.${id} must be null`);
-  check(relatedLocationsByTopic[id] === null, `relatedLocationsByTopic.${id} must be null`);
-  check(geographicalRecommendationsByTopic[id] === null, `geographicalRecommendationsByTopic.${id} must be null`);
-  check(fieldTripsByTopic[id] === null, `fieldTripsByTopic.${id} must be null`);
+for (const key of SUBMODULE_KEYS) {
+  check(comparisonsBySubmodule[key] === null, `comparisonsBySubmodule['${key}'] must be null`);
+  check(relatedLocationsBySubmodule[key] === null, `relatedLocationsBySubmodule['${key}'] must be null`);
+  check(
+    geographicalRecommendationsBySubmodule[key] === null,
+    `geographicalRecommendationsBySubmodule['${key}'] must be null`,
+  );
+  check(fieldTripsBySubmodule[key] === null, `fieldTripsBySubmodule['${key}'] must be null`);
 }
 
 // Resources
@@ -128,7 +160,7 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `✓ Data verified: ${topics.length} topics, ${TOPIC_IDS.length} student + ${TOPIC_IDS.length} teacher modules, ` +
-    `${resources.length} resources in ${resourceCategories.length} categories, ${submodules.length} submodules, ` +
+  `✓ Data verified: ${topics.length} topics (Aprender + Enseñar), ${submodules.length} submodules with content for both views, ` +
+    `${resources.length} resources in ${resourceCategories.length} categories, ` +
     `${images.length} images. All comparison, geographic and submodule content fields are null.`,
 );

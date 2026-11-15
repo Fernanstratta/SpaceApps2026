@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 /**
  * Tracks which section of the page is currently being read, so the
  * navigation can mark it. A section is "active" once its top passes a line
- * one third down the viewport. Returns `null` when disabled.
+ * `lineRatio` down the viewport (one third by default; pages with many short
+ * sections use a higher line). Returns `null` when disabled.
  */
-export function useActiveSection(ids: readonly string[], enabled: boolean): string | null {
+export function useActiveSection(ids: readonly string[], enabled: boolean, lineRatio = 1 / 3): string | null {
   const [active, setActive] = useState<string | null>(null);
   const key = ids.join('|');
 
@@ -18,7 +19,7 @@ export function useActiveSection(ids: readonly string[], enabled: boolean): stri
     let frame = 0;
     const update = () => {
       frame = 0;
-      const line = window.innerHeight / 3;
+      const line = window.innerHeight * lineRatio;
       let current: string | null = ids[0] ?? null;
       for (const id of ids) {
         const element = document.getElementById(id);
@@ -44,7 +45,7 @@ export function useActiveSection(ids: readonly string[], enabled: boolean): stri
       if (frame) window.cancelAnimationFrame(frame);
     };
     // `key` captures the contents of `ids`.
-  }, [key, enabled]);
+  }, [key, enabled, lineRatio]);
 
   return active;
 }

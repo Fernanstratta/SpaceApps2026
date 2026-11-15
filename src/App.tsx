@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Layout } from './components/layout/Layout';
+import { PortalViewProvider } from './context/PortalViewContext';
 import { ReferenceLocationProvider } from './context/ReferenceLocationContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { I18nProvider } from './i18n/I18nContext';
@@ -10,6 +11,7 @@ import { LunitaMissionPage } from './pages/LunitaMissionPage';
 import { EducationalPortalPage } from './pages/EducationalPortalPage';
 import { HomePage } from './pages/HomePage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { RoleSelectPage } from './pages/RoleSelectPage';
 import { SubmodulePage } from './pages/SubmodulePage';
 import { TopicModulePage } from './pages/TopicModulePage';
 import { matchPath, RouterProvider, useRouter } from './router/Router';
@@ -50,6 +52,8 @@ function AppRoutes() {
       return <HomePage />;
     case ROUTES.portal:
       return <EducationalPortalPage />;
+    case ROUTES.portalAccess:
+      return <RoleSelectPage />;
     case ROUTES.login:
       return <AuthPage key="login" mode="login" />;
     case ROUTES.register:
@@ -88,11 +92,13 @@ export default function App() {
     <ThemeProvider>
       <RouterProvider>
         <I18nProvider>
-          <ReferenceLocationProvider>
-            <Layout>
-              <AppRoutes />
-            </Layout>
-          </ReferenceLocationProvider>
+          <PortalViewProvider>
+            <ReferenceLocationProvider>
+              <Layout>
+                <AppRoutes />
+              </Layout>
+            </ReferenceLocationProvider>
+          </PortalViewProvider>
         </I18nProvider>
       </RouterProvider>
     </ThemeProvider>

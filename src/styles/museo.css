@@ -198,20 +198,19 @@
 }
 
 /*
- * Cada tema es una sala de ancho completo (alterna hielo y lavanda suaves).
- * La sombra extendida + clip-path pinta el fondo de borde a borde sin crear
- * desplazamiento horizontal.
+ * Cada tema es una banda de ancho completo con el color de SU tema
+ * (`--topic-band`, derivado de TOPIC_VISUALS en global.css): el mismo color
+ * que su icono, su página y sus tarjetas, en claro y en oscuro. Un borde fino
+ * del mismo tono marca el paso de un tema al siguiente.
  */
 :root .portal__rows .topic-row {
   padding-block: 2rem 2.25rem;
-  background: var(--museo-ice-soft);
-  box-shadow: 0 0 0 100vmax var(--museo-ice-soft);
-  clip-path: inset(0 -100vmax);
+  background: var(--topic-band);
+  border-top: 1px solid var(--topic-band-edge);
 }
 
-:root .portal__rows .topic-row:nth-child(even) {
-  background: var(--museo-lavender-soft);
-  box-shadow: 0 0 0 100vmax var(--museo-lavender-soft);
+:root .portal__rows .topic-row:last-child {
+  border-bottom: 1px solid var(--topic-band-edge);
 }
 
 :root .portal .image-credits {
@@ -228,8 +227,8 @@
 
 :root .topic-submodules {
   padding-block: 1.5rem 2rem;
-  background: var(--museo-ice-soft);
-  box-shadow: 0 0 0 100vmax var(--museo-ice-soft);
+  background: var(--topic-band);
+  box-shadow: 0 0 0 100vmax var(--topic-band);
   clip-path: inset(0 -100vmax);
 }
 

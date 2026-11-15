@@ -8,16 +8,19 @@ import type {
   ResourceCategory,
   ResourceCategoryId,
   StudentModule,
+  StudentSubmodule,
   Submodule,
+  SubmoduleKey,
   TeacherModule,
+  TeacherSubmodule,
   Topic,
   TopicId,
 } from '../types';
 import { images } from './images';
 import { resourceCategories, resources } from './resources';
-import { studentModules } from './studentModules';
+import { studentModules, studentSubmodules } from './studentModules';
 import { submodules } from './submodules';
-import { teacherModules } from './teacherModules';
+import { teacherModules, teacherSubmodules } from './teacherModules';
 import { isTopicId, topics } from './topics';
 
 /**
@@ -43,6 +46,10 @@ export interface DataApi {
   getResourcesByCategory: (categoryId: ResourceCategoryId) => Resource[];
   getStudentModule: (topicId: TopicId) => StudentModule;
   getTeacherModule: (topicId: TopicId) => TeacherModule;
+  /** "Aprender" content of a submodule (see `submoduleKey`). */
+  getStudentSubmodule: (key: SubmoduleKey) => StudentSubmodule | undefined;
+  /** "Enseñar" content (teaching guide) of a submodule. */
+  getTeacherSubmodule: (key: SubmoduleKey) => TeacherSubmodule | undefined;
   localizeReferenceLocation: (location: ReferenceLocation) => ReferenceLocation;
 }
 
@@ -103,10 +110,12 @@ function buildDataApi(language: Language): DataApi {
     resourceCategories: localizedCategories,
     resources: localizedResources,
     getResourcesByCategory: (categoryId) => localizedResources.filter((item) => item.categoryId === categoryId),
-    // Los módulos todavía no tienen contenido (todo `null`); cuando lo tengan,
-    // sus textos se traducirán aquí igual que los temas.
+    // Los módulos y submódulos todavía no tienen contenido (todo `null`);
+    // cuando lo tengan, sus textos se traducirán aquí igual que los temas.
     getStudentModule: (topicId) => studentModules[topicId],
     getTeacherModule: (topicId) => teacherModules[topicId],
+    getStudentSubmodule: (key) => studentSubmodules[key],
+    getTeacherSubmodule: (key) => teacherSubmodules[key],
     localizeReferenceLocation: (location) =>
       t?.referenceLocations[location.id] ? { ...location, ...t.referenceLocations[location.id] } : location,
   };

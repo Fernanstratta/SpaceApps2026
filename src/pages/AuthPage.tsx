@@ -41,7 +41,7 @@ export function AuthPage({ mode }: { mode: AuthMode }) {
             <p>
               <strong>{AUTH.comingSoonTitle}</strong> {AUTH.comingSoonBody}
             </p>
-            <Link to={ROUTES.portal} className="button button--primary">
+            <Link to={ROUTES.portalAccess} className="button button--primary">
               {AUTH.goToPortal}
             </Link>
           </div>

@@ -4,6 +4,8 @@ import type { TopicId } from '../types';
 export const ROUTES = {
   home: '/',
   portal: '/portal-educativo',
+  /** Pantalla de entrada al Portal: elegir la vista de estudiante o de docente. */
+  portalAccess: '/portal-educativo/acceso',
   login: '/iniciar-sesion',
   register: '/crear-cuenta',
   /** Misión 01, dentro del Portal Educativo: vista del estudiante («Iniciar misión»). */

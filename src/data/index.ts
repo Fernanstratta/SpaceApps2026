@@ -1,6 +1,6 @@
-import type { StudentModule, TeacherModule, TopicId } from '../types';
-import { studentModules } from './studentModules';
-import { teacherModules } from './teacherModules';
+import type { StudentModule, StudentSubmodule, SubmoduleKey, TeacherModule, TeacherSubmodule, TopicId } from '../types';
+import { studentModules, studentSubmodules } from './studentModules';
+import { teacherModules, teacherSubmodules } from './teacherModules';
 
 export * from './topics';
 export * from './resources';
@@ -8,8 +8,8 @@ export * from './comparisons';
 export * from './locations';
 export * from './images';
 export * from './submodules';
-export { studentModules } from './studentModules';
-export { teacherModules } from './teacherModules';
+export { studentModules, studentSubmodules } from './studentModules';
+export { teacherModules, teacherSubmodules } from './teacherModules';
 
 /**
  * Data-access functions used by pages. When static datasets are introduced
@@ -21,4 +21,12 @@ export function getStudentModule(topicId: TopicId): StudentModule {
 
 export function getTeacherModule(topicId: TopicId): TeacherModule {
   return teacherModules[topicId];
+}
+
+export function getStudentSubmodule(key: SubmoduleKey): StudentSubmodule | undefined {
+  return studentSubmodules[key];
+}
+
+export function getTeacherSubmodule(key: SubmoduleKey): TeacherSubmodule | undefined {
+  return teacherSubmodules[key];
 }

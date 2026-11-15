@@ -15,6 +15,7 @@ import {
   UserIcon,
 } from '../common/Icons';
 import { BrandMark } from '../layout/BrandMark';
+import { PortalViewSwitch } from '../portal/PortalViewSwitch';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { SectionLink } from './SectionLink';
 import { ThemeSwitch } from './ThemeControls';
@@ -29,7 +30,10 @@ interface AppDrawerProps {
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-/** Menú lateral (☰): cuenta, navegación, espacio personal, preferencias y soporte. */
+/**
+ * Menú lateral (☰): cuenta, navegación, vista del Portal (estudiante /
+ * docente), espacio personal, preferencias y soporte.
+ */
 export function AppDrawer({ open, onClose, onNavigate }: AppDrawerProps) {
   const { UI, NAV_LABELS, DRAWER } = useMessages();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -132,12 +136,20 @@ export function AppDrawer({ open, onClose, onNavigate }: AppDrawerProps) {
               </SectionLink>
             </li>
             <li>
-              <NavLink to={ROUTES.portal} className="drawer-item" onClick={onNavigate}>
+              <NavLink to={ROUTES.portalAccess} match={ROUTES.portal} className="drawer-item" onClick={onNavigate}>
                 <CompassIcon />
                 {NAV_LABELS.portal}
               </NavLink>
             </li>
           </DrawerGroup>
+
+          <section className="drawer-group" aria-labelledby="drawer-portal-view">
+            <h2 id="drawer-portal-view" className="drawer-group__title">
+              {DRAWER.portalGroup}
+            </h2>
+            <p className="drawer-setting__label">{DRAWER.portalView}</p>
+            <PortalViewSwitch className="drawer-view-switch" />
+          </section>
 
           <DrawerGroup id="space" title={DRAWER.mySpace}>
             <SoonItem icon={<ChartIcon />} label={DRAWER.progress} badge={DRAWER.soon} />

@@ -86,6 +86,8 @@ export const es = {
     support: 'Soporte',
     helpCenter: 'Centro de ayuda',
     soon: 'Pronto',
+    portalGroup: 'Portal Educativo',
+    portalView: 'Ver el portal como',
   },
 
   AUTH: {
@@ -190,6 +192,34 @@ export const es = {
     },
   },
 
+  /** Selector de vista del Portal (menú lateral, barra lateral de submódulos, portal y temas). */
+  VIEW_SWITCH: {
+    label: 'Vista del Portal Educativo',
+    showingAs: 'Ver como',
+    learn: 'Estudiante',
+    teach: 'Docente',
+  },
+
+  /** Pantalla de entrada al Portal: elegir la vista. */
+  ROLE_SELECT: {
+    documentTitle: 'Elige tu vista',
+    title: '¿Cómo quieres entrar al Portal Educativo?',
+    lead: 'Los módulos son los mismos en las dos vistas; cambia el contenido que verás en cada uno.',
+    optionsLabel: 'Vistas disponibles',
+    learn: {
+      label: 'Soy estudiante',
+      description: 'Aprende cada tema con explicaciones, fotografías, ejemplos y actividades.',
+      cta: 'Entrar a aprender',
+    },
+    teach: {
+      label: 'Soy docente',
+      description: 'Consulta el plan de clase de cada módulo: objetivos, estructura de la sesión, actividades y evaluación.',
+      cta: 'Entrar a enseñar',
+    },
+    current: 'Vista actual',
+    note: 'Puedes cambiar de vista cuando quieras con el selector «Estudiante / Docente» del menú lateral.',
+  },
+
   PORTAL_TEXT: {
     title: 'Portal Educativo',
     modulesTitle: 'Módulos',
@@ -204,6 +234,9 @@ export const es = {
     submodulesTitle: 'Submódulos',
     topicNotFoundTitle: 'Tema no encontrado',
     topicNotFoundBody: 'El tema que buscas no existe o cambió de dirección.',
+    gamesEyebrow: 'Juegos educativos',
+    gamesTitle: 'Misiones interactivas',
+    gamesIntro: 'Pon en práctica lo que aprendiste en los módulos con estas misiones.',
   },
 
   PAGER: {
@@ -212,12 +245,43 @@ export const es = {
     next: 'Tema siguiente',
   },
 
+  /** Página de un tema («módulo»). */
+  MODULE_TEXT: {
+    submoduleCount: (n: number) => (n === 1 ? '1 submódulo' : `${n} submódulos`),
+    aboutTopic: 'Acerca de este tema',
+    submodulesLearnIntro: 'Cada submódulo explora una parte del tema. Síguelos en orden o elige el que más te interese.',
+    submodulesTeachIntro: 'Cada submódulo incluye su guía docente: objetivos, plan de clase, actividades y recursos.',
+    submoduleNumber: 'Submódulo',
+    summaryPending: 'Resumen pendiente',
+    startLearning: 'Comenzar',
+    openTeacherGuide: 'Ver guía docente',
+    teacherSheet: 'Ficha docente',
+    teacherPlanTitle: 'Plan del módulo',
+    lessonSequence: 'Secuencia de clases',
+    lessonSequenceHint: 'Una sesión por submódulo, en este orden.',
+    carouselPrevious: 'Ver submódulos anteriores',
+    carouselNext: 'Ver más submódulos',
+  },
+
+  /** Página de un submódulo. */
   SUBMODULE_TEXT: {
-    notFoundTitle: 'Módulo no encontrado',
-    notFoundBody: 'El módulo que buscas no existe o cambió de dirección.',
-    contentTitle: 'Contenido del módulo',
-    backToTopic: (topic: string) => `Ir al tema «${topic}»`,
-    otherInTopic: 'Más módulos de este tema',
+    notFoundTitle: 'Submódulo no encontrado',
+    notFoundBody: 'El submódulo que buscas no existe o cambió de dirección.',
+    backToTopic: (topic: string) => `Volver a ${topic}`,
+    position: (current: number, total: number) => `Submódulo ${current} de ${total}`,
+    sidebarLabel: 'Índice del submódulo',
+    hideSidebar: 'Esconder',
+    showSidebar: 'Mostrar índice',
+    modules: 'Módulos',
+    topicOverview: 'Presentación del tema',
+    references: 'Referencias',
+    referencesPending: 'Las referencias se mostrarán cuando este submódulo tenga contenido con fuentes verificadas.',
+    submodules: 'Submódulos',
+    current: 'Estás aquí',
+    pagerLabel: 'Navegación entre submódulos',
+    previous: 'Submódulo anterior',
+    next: 'Submódulo siguiente',
+    nextTopic: 'Siguiente tema',
   },
 
   IMAGE_TEXT: {
@@ -230,19 +294,23 @@ export const es = {
 
   STUDENT_SECTIONS: {
     introduction: 'Introducción',
+    development: 'Desarrollo del tema',
+    conclusion: 'Conclusión',
     scientificConcepts: 'Conceptos científicos',
     earth: 'La Tierra',
     moon: 'La Luna',
     bodies: 'La Tierra y la Luna',
-    comparisons: 'Comparaciones entre la Tierra y la Luna',
+    comparisons: 'Comparación',
+    comparisonsDescription: 'Cómo se comparan la Tierra y la Luna en este submódulo.',
     relatedLocations: 'Lugares de la Tierra relacionados',
-    additionalFacts: 'Datos adicionales',
+    additionalFacts: '¿Sabías que…?',
     learningActivities: 'Actividades de aprendizaje',
   },
 
   TEACHER_SECTIONS: {
     general: 'Información general',
-    topicName: 'Nombre del tema',
+    topicName: 'Tema',
+    submoduleName: 'Submódulo',
     description: 'Descripción',
     gradeLevel: 'Nivel educativo recomendado',
     estimatedDuration: 'Duración estimada',

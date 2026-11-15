@@ -62,6 +62,8 @@ export const en: Messages = {
     support: 'Support',
     helpCenter: 'Help center',
     soon: 'Soon',
+    portalGroup: 'Educational Portal',
+    portalView: 'View the portal as',
   },
 
   AUTH: {
@@ -165,6 +167,32 @@ export const en: Messages = {
     },
   },
 
+  VIEW_SWITCH: {
+    label: 'Educational Portal view',
+    showingAs: 'View as',
+    learn: 'Student',
+    teach: 'Teacher',
+  },
+
+  ROLE_SELECT: {
+    documentTitle: 'Choose your view',
+    title: 'How would you like to enter the Educational Portal?',
+    lead: 'The modules are the same in both views; what changes is the content you will see in each one.',
+    optionsLabel: 'Available views',
+    learn: {
+      label: 'I’m a student',
+      description: 'Learn each topic through explanations, photographs, examples and activities.',
+      cta: 'Start learning',
+    },
+    teach: {
+      label: 'I’m a teacher',
+      description: 'Open the lesson plan for each module: objectives, session structure, activities and assessment.',
+      cta: 'Start teaching',
+    },
+    current: 'Current view',
+    note: 'You can switch views at any time with the “Student / Teacher” selector in the side menu.',
+  },
+
   PORTAL_TEXT: {
     title: 'Educational Portal',
     modulesTitle: 'Modules',
@@ -179,6 +207,9 @@ export const en: Messages = {
     submodulesTitle: 'Submodules',
     topicNotFoundTitle: 'Topic not found',
     topicNotFoundBody: 'The topic you are looking for doesn’t exist or has moved.',
+    gamesEyebrow: 'Educational games',
+    gamesTitle: 'Interactive missions',
+    gamesIntro: 'Put what you learned in the modules into practice with these missions.',
   },
 
   PAGER: {
@@ -187,12 +218,43 @@ export const en: Messages = {
     next: 'Next topic',
   },
 
+  /** Topic ("module") page. */
+  MODULE_TEXT: {
+    submoduleCount: (n: number) => (n === 1 ? '1 submodule' : `${n} submodules`),
+    aboutTopic: 'About this topic',
+    submodulesLearnIntro: 'Each submodule explores one part of the topic. Follow them in order or pick the one you like best.',
+    submodulesTeachIntro: 'Each submodule includes its teaching guide: objectives, lesson plan, activities and resources.',
+    submoduleNumber: 'Submodule',
+    summaryPending: 'Summary pending',
+    startLearning: 'Start',
+    openTeacherGuide: 'View teaching guide',
+    teacherSheet: 'Teaching sheet',
+    teacherPlanTitle: 'Module plan',
+    lessonSequence: 'Lesson sequence',
+    lessonSequenceHint: 'One session per submodule, in this order.',
+    carouselPrevious: 'Show previous submodules',
+    carouselNext: 'Show more submodules',
+  },
+
+  /** Submodule page. */
   SUBMODULE_TEXT: {
-    notFoundTitle: 'Module not found',
-    notFoundBody: 'The module you are looking for doesn’t exist or has moved.',
-    contentTitle: 'Module content',
-    backToTopic: (topic: string) => `Go to the topic “${topic}”`,
-    otherInTopic: 'More modules in this topic',
+    notFoundTitle: 'Submodule not found',
+    notFoundBody: 'The submodule you are looking for doesn’t exist or has moved.',
+    backToTopic: (topic: string) => `Back to ${topic}`,
+    position: (current: number, total: number) => `Submodule ${current} of ${total}`,
+    sidebarLabel: 'Submodule contents',
+    hideSidebar: 'Hide',
+    showSidebar: 'Show contents',
+    modules: 'Modules',
+    topicOverview: 'Topic overview',
+    references: 'References',
+    referencesPending: 'References will appear once this submodule has content with verified sources.',
+    submodules: 'Submodules',
+    current: 'You are here',
+    pagerLabel: 'Submodule navigation',
+    previous: 'Previous submodule',
+    next: 'Next submodule',
+    nextTopic: 'Next topic',
   },
 
   IMAGE_TEXT: {
@@ -205,19 +267,23 @@ export const en: Messages = {
 
   STUDENT_SECTIONS: {
     introduction: 'Introduction',
+    development: 'Exploring the topic',
+    conclusion: 'Conclusion',
     scientificConcepts: 'Scientific concepts',
     earth: 'The Earth',
     moon: 'The Moon',
     bodies: 'The Earth and the Moon',
-    comparisons: 'Earth–Moon comparisons',
+    comparisons: 'Comparison',
+    comparisonsDescription: 'How the Earth and the Moon compare in this submodule.',
     relatedLocations: 'Related places on Earth',
-    additionalFacts: 'Additional facts',
+    additionalFacts: 'Did you know…?',
     learningActivities: 'Learning activities',
   },
 
   TEACHER_SECTIONS: {
     general: 'General information',
-    topicName: 'Topic name',
+    topicName: 'Topic',
+    submoduleName: 'Submodule',
     description: 'Description',
     gradeLevel: 'Recommended grade level',
     estimatedDuration: 'Estimated duration',

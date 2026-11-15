@@ -75,7 +75,11 @@ export function SiteHeader() {
                       {NAV_LABELS[item.label]}
                     </SectionLink>
                   ) : (
-                    <NavLink to={item.to} className={`main-nav__link${item.cta ? ' main-nav__link--cta' : ''}`}>
+                    <NavLink
+                      to={item.to}
+                      match={item.match}
+                      className={`main-nav__link${item.cta ? ' main-nav__link--cta' : ''}`}
+                    >
                       {NAV_LABELS[item.label]}
                     </NavLink>
                   )}

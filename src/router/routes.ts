@@ -4,6 +4,8 @@ import type { TopicId } from '../types';
 export const ROUTES = {
   home: '/',
   portal: '/portal-educativo',
+  /** Starman Playground: análogos terrestres de la Luna y de Marte (página propia, como el Portal). */
+  playground: '/playground',
   login: '/iniciar-sesion',
   register: '/crear-cuenta',
   /** Misión 01, dentro del Portal Educativo: vista del estudiante («Iniciar misión»). */

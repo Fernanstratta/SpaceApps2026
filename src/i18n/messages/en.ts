@@ -26,6 +26,7 @@ export const en: Messages = {
 
   NAV_LABELS: {
     home: 'Home',
+    playground: 'Playground',
     about: 'About Us',
     resources: 'Resources',
     portal: 'Educational Portal',

@@ -6,6 +6,12 @@ export const ROUTES = {
   portal: '/portal-educativo',
   login: '/iniciar-sesion',
   register: '/crear-cuenta',
+  /** Misión 01, dentro del Portal Educativo: vista del estudiante («Iniciar misión»). */
+  missionStart: '/portal-educativo/mision/rover-lunar/iniciar',
+  /** Misión 01, dentro del Portal Educativo: guía docente («Impartir esta clase»). */
+  missionTeach: '/portal-educativo/mision/rover-lunar/clase',
+  /** Misión 4Kids (6–12 años): «Lunita necesita un camino». */
+  lunita: '/portal-educativo/mision/lunita',
   topic: (topicId: TopicId) => `/portal-educativo/${topicId}`,
   submodule: (topicId: TopicId, submoduleId: string) => `/portal-educativo/${topicId}/${submoduleId}`,
 } as const;

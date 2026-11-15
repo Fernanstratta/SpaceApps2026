@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import { bootstrapLanguage } from './i18n/bootstrap';
 import './styles/global.css';
+import './styles/mission.css';
+import './styles/lunita.css';
 
 const container = document.getElementById('root');
 if (!container) throw new Error('No se encontró el elemento raíz #root.');

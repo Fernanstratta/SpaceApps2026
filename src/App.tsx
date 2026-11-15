@@ -4,6 +4,9 @@ import { ReferenceLocationProvider } from './context/ReferenceLocationContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { I18nProvider } from './i18n/I18nContext';
 import { AuthPage } from './pages/AuthPage';
+import { MissionStudentPage } from './pages/MissionStudentPage';
+import { MissionTeacherPage } from './pages/MissionTeacherPage';
+import { LunitaMissionPage } from './pages/LunitaMissionPage';
 import { EducationalPortalPage } from './pages/EducationalPortalPage';
 import { HomePage } from './pages/HomePage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -43,6 +46,12 @@ function AppRoutes() {
       return <AuthPage key="login" mode="login" />;
     case ROUTES.register:
       return <AuthPage key="register" mode="register" />;
+    case ROUTES.missionStart:
+      return <MissionStudentPage />;
+    case ROUTES.missionTeach:
+      return <MissionTeacherPage />;
+    case ROUTES.lunita:
+      return <LunitaMissionPage />;
     default: {
       const submoduleMatch = matchPath(SUBMODULE_ROUTE_PATTERN, path);
       if (submoduleMatch?.topicId && submoduleMatch.submoduleId) {

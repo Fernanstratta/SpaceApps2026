@@ -10,7 +10,10 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "verify:data": "tsx scripts/verify-data.ts",
-    "verify:i18n": "tsx scripts/verify-i18n.ts"
+    "verify:i18n": "tsx scripts/verify-i18n.ts",
+    "verify:mission": "tsx scripts/verify-mission.ts",
+    "verify:lunita": "tsx scripts/verify-lunita.ts",
+    "fetch:terrain": "tsx scripts/fetch-mission-terrain.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

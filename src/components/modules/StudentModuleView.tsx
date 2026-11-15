@@ -5,6 +5,7 @@ import { TextList } from '../common/TextList';
 import { LocationDetails } from '../maps/LocationDetails';
 import { LocationMap } from '../maps/LocationMap';
 import { useMessages } from '../../i18n/I18nContext';
+import { MissionCallout } from '../mission/MissionCallout';
 import { CelestialBodyPanel } from './CelestialBodyPanel';
 import { ComparisonTable } from './ComparisonTable';
 import { SectionNav } from './SectionNav';
@@ -34,6 +35,7 @@ export function StudentModuleView({ module }: { module: StudentModule }) {
       <SectionNav sections={sectionsFor(STUDENT_SECTIONS)} />
 
       <div className="module-view__sections">
+        <MissionCallout topicId={module.topicId} view="learn" />
         <NullableSection id="introduccion" title={STUDENT_SECTIONS.introduction} data={module.introduction}>
           {(text) => <p>{text}</p>}
         </NullableSection>

@@ -1,6 +1,8 @@
 # Starman — Fase 1 (base funcional)
 
 Plataforma educativa bilingüe (español / inglés) para explorar conceptos astronómicos de la Tierra y la Luna.
+**Misión 01** — «¿Dónde probarías un rover antes de enviarlo a la Luna?»: vista de estudiantes y guía docente de 45 min, con datos de elevación reales de la Tierra y la Luna. Ver [docs/mission-rover.md](docs/mission-rover.md).
+**Misión 4Kids** — «Lunita necesita un camino» (6–12 años): rompecabezas de un mapa ilustrado y un camino dibujado que Lunita recorre. Ver [docs/mission-lunita.md](docs/mission-lunita.md).
 El idioma se elige por la URL (`/es`, `/en`), la elección del usuario, el país o el navegador: ver [docs/i18n.md](docs/i18n.md).
 Esta fase entrega la estructura, la navegación, el portal de módulos (cada tema con pestañas Aprender/Enseñar) y la arquitectura de datos.
 **No** contiene comparaciones, mediciones, planes de clase ni recomendaciones geográficas: esos campos están en `null` a propósito.
@@ -20,6 +22,9 @@ npm run preview      # sirve el build de producción
 npm run typecheck    # solo TypeScript
 npm run verify:data  # comprueba datos: campos pendientes en null, submódulos e imágenes válidos
 npm run verify:i18n  # comprueba la elección de idioma (MX, US, país desconocido…) y que no falten traducciones
+npm run verify:mission # comprueba la Misión 01: DEM contra dimensiones publicadas, fuentes y recorrido
+npm run verify:lunita  # comprueba la misión 4Kids: rutas válidas y bloqueadas, corrección, guardado y textos
+npm run fetch:terrain  # (opcional, con internet) vuelve a descargar los datos de elevación de la misión
 ```
 
 > **Despliegue:** la app usa rutas del History API (`/es/portal-educativo/gravity`, `/en/educational-portal/gravity`). En hosting estático configura

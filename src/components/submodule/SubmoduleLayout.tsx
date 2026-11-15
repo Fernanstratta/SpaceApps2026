@@ -1,6 +1,4 @@
 import { useState, type MouseEvent, type ReactNode } from 'react';
-import { SUBMODULE_TEXT, UI } from '../../content/strings';
-import { getSortedTopics, getSubmodulesByTopic } from '../../data';
 import { useActiveSection } from '../../hooks/useActiveSection';
 import { Link } from '../../router/Link';
 import { ROUTES } from '../../router/routes';
@@ -8,6 +6,7 @@ import type { TopicId } from '../../types';
 import { scrollToSection } from '../../utils/scroll';
 import { Chevron } from '../common/Chevron';
 import { TopicIcon } from '../portal/TopicIcon';
+import { useData, useMessages } from '../../i18n/I18nContext';
 
 export interface SubmoduleSectionLink {
   id: string;
@@ -54,6 +53,8 @@ function storeOpen(open: boolean): void {
  * tree of modules with their submodules) and the reading column.
  */
 export function SubmoduleLayout({ sections, topicId, submoduleId, children }: SubmoduleLayoutProps) {
+  const { SUBMODULE_TEXT, UI } = useMessages();
+  const { getSortedTopics, getSubmodulesByTopic } = useData();
   const [open, setOpen] = useState(readInitialOpen);
   // Many sections are short, so one counts as "being read" once it reaches
   // the top fifth of the screen.

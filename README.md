@@ -1,6 +1,9 @@
 # Starman — Fase 1 (base funcional)
 
-Plataforma educativa en español para explorar conceptos astronómicos de la Tierra y la Luna.
+Plataforma educativa bilingüe (español / inglés) para explorar conceptos astronómicos de la Tierra y la Luna.
+**Misión 01** — «¿Dónde probarías un rover antes de enviarlo a la Luna?»: vista de estudiantes y guía docente de 45 min, con datos de elevación reales de la Tierra y la Luna. Ver [docs/mission-rover.md](docs/mission-rover.md).
+**Misión 4Kids** — «Lunita necesita un camino» (6–12 años): rompecabezas de un mapa ilustrado y un camino dibujado que Lunita recorre. Ver [docs/mission-lunita.md](docs/mission-lunita.md).
+El idioma se elige por la URL (`/es`, `/en`), la elección del usuario, el país o el navegador: ver [docs/i18n.md](docs/i18n.md).
 Esta fase entrega la estructura, la navegación, el portal de módulos (cada tema con pestañas Aprender/Enseñar) y la arquitectura de datos.
 **No** contiene comparaciones, mediciones, planes de clase ni recomendaciones geográficas: esos campos están en `null` a propósito.
 
@@ -18,9 +21,13 @@ npm run build        # verificación de tipos + build de producción en dist/
 npm run preview      # sirve el build de producción
 npm run typecheck    # solo TypeScript
 npm run verify:data  # comprueba datos: campos pendientes en null, submódulos e imágenes válidos
+npm run verify:i18n  # comprueba la elección de idioma (MX, US, país desconocido…) y que no falten traducciones
+npm run verify:mission # comprueba la Misión 01: DEM contra dimensiones publicadas, fuentes y recorrido
+npm run verify:lunita  # comprueba la misión 4Kids: rutas válidas y bloqueadas, corrección, guardado y textos
+npm run fetch:terrain  # (opcional, con internet) vuelve a descargar los datos de elevación de la misión
 ```
 
-> **Despliegue:** la app usa rutas del History API (`/portal-educativo/gravity`). En hosting estático configura
+> **Despliegue:** la app usa rutas del History API (`/es/portal-educativo/gravity`, `/en/educational-portal/gravity`). En hosting estático configura
 > el *fallback* a `index.html` (Netlify `_redirects`, Vercel `rewrites`, etc.). Si se publica en una subruta,
 > cambia `base` en `vite.config.ts`.
 
@@ -44,7 +51,8 @@ src/
 │   ├── modules/     TopicBanner, TopicTabs, StudentModuleView, TeacherModuleView, ComparisonTable, ...
 │   ├── resources/   ResourceCategorySection, ResourceCard
 │   └── maps/        LocationMap (wrapper null-safe), LeafletMap (lazy), ReferenceLocationCard, LocationDetails
-├── content/         Textos en español (strings.ts, home.ts, about.ts) y colores por tema (topicVisuals.ts)
+├── i18n/            Bilingüismo: detección de idioma, rutas /es y /en, textos (messages/) y traducción de datos (content/)
+├── content/         Colores por tema (topicVisuals.ts) y textos de Sobre Nosotros (about.ts, sin uso actual)
 ├── context/         ReferenceLocationContext (Mexicali por defecto)
 ├── data/            topics, submodules, images, studentModules, teacherModules, resources, comparisons, locations
 ├── hooks/           useReferenceLocation, useDocumentTitle, useSectionNavigation, useActiveSection

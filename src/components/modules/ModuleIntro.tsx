@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
-import { MODULE_TEXT, TEACHER_SECTIONS } from '../../content/strings';
 import type { StudentModule, TeacherModule } from '../../types';
 import { getDataState } from '../../utils/nullable';
 import { DataStateMessage } from '../common/DataStateMessage';
 import { FieldList } from '../common/FieldList';
 import { Paragraphs } from '../common/Paragraphs';
 import { TextList } from '../common/TextList';
+import { useMessages } from '../../i18n/I18nContext';
 
 interface ModuleIntroProps {
   tagline: string | null;
@@ -15,6 +15,7 @@ interface ModuleIntroProps {
 
 /** Tagline + explanatory paragraph of a topic, with an optional side panel. */
 function ModuleIntro({ tagline, overview, aside }: ModuleIntroProps) {
+  const { MODULE_TEXT } = useMessages();
   const overviewState = getDataState(overview);
 
   return (
@@ -43,6 +44,7 @@ export function StudentModuleIntro({ module }: { module: StudentModule }) {
 
 /** "Enseñar": same intro plus the topic's teaching sheet. */
 export function TeacherModuleIntro({ module }: { module: TeacherModule }) {
+  const { MODULE_TEXT, TEACHER_SECTIONS } = useMessages();
   return (
     <ModuleIntro
       tagline={module.tagline}

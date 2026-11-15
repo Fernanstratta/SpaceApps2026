@@ -1,4 +1,3 @@
-import { LEARNING_ACTIVITY_TYPE_LABELS, STUDENT_SECTIONS, SUBMODULE_TEXT } from '../../content/strings';
 import type { StudentSubmodule, Submodule } from '../../types';
 import { getDataState } from '../../utils/nullable';
 import { DataStateMessage } from '../common/DataStateMessage';
@@ -11,6 +10,9 @@ import { SubmoduleReferences } from '../submodule/SubmoduleReferences';
 import { CelestialBodyPanel } from './CelestialBodyPanel';
 import { ComparisonTable } from './ComparisonTable';
 import { SubmodulePhoto } from './SubmodulePhoto';
+import { useMessages } from '../../i18n/I18nContext';
+
+type Messages = ReturnType<typeof useMessages>;
 
 const ID = {
   introduction: 'introduccion',
@@ -28,7 +30,10 @@ const ID = {
 const blockId = (id: string) => `tema-${id}`;
 
 /** Sections of the "Aprender" view, in reading order (for "En esta página"). */
-export function studentSubmoduleSections(content: StudentSubmodule): SubmoduleSectionLink[] {
+export function studentSubmoduleSections(
+  content: StudentSubmodule,
+  { STUDENT_SECTIONS, SUBMODULE_TEXT }: Messages,
+): SubmoduleSectionLink[] {
   const blocks =
     content.blocks && content.blocks.length > 0
       ? content.blocks.map((block) => ({ id: blockId(block.id), label: block.title }))
@@ -69,6 +74,7 @@ interface StudentSubmoduleViewProps {
  * blocks, comparison, conclusion and references. Every section is null-safe.
  */
 export function StudentSubmoduleView({ submodule, content }: StudentSubmoduleViewProps) {
+  const { STUDENT_SECTIONS, LEARNING_ACTIVITY_TYPE_LABELS } = useMessages();
   const introductionState = getDataState(content.introduction);
   const bodiesState =
     getDataState(content.earthInformation) === 'pending' && getDataState(content.moonInformation) === 'pending'

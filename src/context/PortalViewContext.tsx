@@ -59,7 +59,8 @@ export function PortalViewProvider({ children }: { children: ReactNode }) {
   // query string when navigating), and nowhere else.
   useEffect(() => {
     const url = new URL(window.location.href);
-    const onTopicPage = path.startsWith('/portal-educativo/');
+    // Topic and submodule pages only (missions have their own student/teacher routes).
+    const onTopicPage = path.startsWith('/portal-educativo/') && !path.startsWith('/portal-educativo/mision/');
     if (onTopicPage && view === 'teach') url.searchParams.set(QUERY_KEY, QUERY_VALUE.teach);
     else url.searchParams.delete(QUERY_KEY);
     if (url.href !== window.location.href) window.history.replaceState(window.history.state, '', url);

@@ -1,11 +1,12 @@
-import { TEACHER_SECTIONS } from '../../content/strings';
 import type { LessonPlan } from '../../types';
 import { NullableSection } from '../common/NullableSection';
 import { TextList } from '../common/TextList';
 import { ClassroomActivityList } from './ClassroomActivityList';
+import { useMessages } from '../../i18n/I18nContext';
 
 /** Renders a provided lesson plan. Never called with `null`. */
 export function LessonPlanView({ plan }: { plan: LessonPlan }) {
+  const { TEACHER_SECTIONS } = useMessages();
   return (
     <div className="subsection-stack">
       <NullableSection title={TEACHER_SECTIONS.lessonIntroduction} data={plan.introduction} headingLevel={3}>

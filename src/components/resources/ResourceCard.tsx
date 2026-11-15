@@ -1,8 +1,9 @@
-import { RESOURCE_TEXT } from '../../content/strings';
 import type { Resource } from '../../types';
 import { ExternalLink } from '../common/ExternalLink';
+import { useMessages } from '../../i18n/I18nContext';
 
 export function ResourceCard({ resource }: { resource: Resource }) {
+  const { RESOURCE_TEXT } = useMessages();
   return (
     <article className="resource-card">
       <h4 className="resource-card__title">{resource.name}</h4>

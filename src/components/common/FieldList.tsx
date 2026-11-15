@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import { UI } from '../../content/strings';
 import { getDataState } from '../../utils/nullable';
+import { useMessages } from '../../i18n/I18nContext';
 
 export interface FieldItem {
   label: string;
@@ -10,6 +10,7 @@ export interface FieldItem {
 
 /** Label/value pairs as a description list. Missing values are marked as pending. */
 export function FieldList({ fields }: { fields: FieldItem[] }) {
+  const { UI } = useMessages();
   return (
     <dl className="field-list">
       {fields.map(({ label, value }) => {

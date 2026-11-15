@@ -1,13 +1,13 @@
-import { HOME_CONTENT } from '../../content/home';
-import { TOPIC_TABS } from '../../content/strings';
 import { topicStyle } from '../../content/topicVisuals';
-import { getSortedTopics } from '../../data';
 import { Link } from '../../router/Link';
 import { ROUTES } from '../../router/routes';
 import { TopicIcon } from '../portal/TopicIcon';
+import { useMessages, useData } from '../../i18n/I18nContext';
 
 /** What Starman is, the two views of every topic and the topic list. Part of Inicio. */
 export function PortalPreviewSection() {
+  const { HOME: HOME_CONTENT, TOPIC_TABS } = useMessages();
+  const { getSortedTopics } = useData();
   const { intro, audiences, topicsTitle } = HOME_CONTENT;
 
   return (

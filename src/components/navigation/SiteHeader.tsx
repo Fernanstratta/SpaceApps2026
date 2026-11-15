@@ -1,102 +1,96 @@
-import { useEffect, useRef, useState } from 'react';
-import { UI } from '../../content/strings';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useActiveSection } from '../../hooks/useActiveSection';
+import { useMessages } from '../../i18n/I18nContext';
 import { NavLink } from '../../router/Link';
 import { useRouter } from '../../router/Router';
 import { ROUTES, SECTION_IDS } from '../../router/routes';
+import { MenuIcon } from '../common/Icons';
 import { BrandMark } from '../layout/BrandMark';
+import { AppDrawer } from './AppDrawer';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { NAV_ITEMS, navItemKey, SECTION_NAV_IDS } from './navItems';
 import { SectionLink } from './SectionLink';
+import { ThemeToggleButton } from './ThemeControls';
 
 /**
- * Site header with a collapsible menu on small screens.
- * Inicio / Sobre Nosotros / Recursos scroll within the home page;
- * Portal Educativo navigates to the portal and is styled as the primary CTA.
- * No hover-dependent behavior.
+ * Header fijo: botón ☰ (menú lateral con cuenta, navegación y preferencias)
+ * y marca a la izquierda; navegación principal, selector ES / EN y cambio de
+ * tema a la derecha. En pantallas pequeñas la navegación vive solo en el menú
+ * lateral, pero ES / EN y el tema siguen visibles en el header.
  */
 export function SiteHeader() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { UI, NAV_LABELS } = useMessages();
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const { path } = useRouter();
-  const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const activeSection = useActiveSection(SECTION_NAV_IDS, path === ROUTES.home);
 
-  // Close the menu whenever the route changes.
+  // Cierra el menú cuando cambia la ruta.
   useEffect(() => {
-    setIsOpen(false);
+    setDrawerOpen(false);
   }, [path]);
 
-  // Close with Escape and return focus to the toggle.
-  useEffect(() => {
-    if (!isOpen) return undefined;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsOpen(false);
-        toggleRef.current?.focus();
-      }
-    };
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [isOpen]);
+  const closeDrawer = useCallback(() => {
+    setDrawerOpen(false);
+    menuButtonRef.current?.focus();
+  }, []);
 
-  // Section links don't change the route, so they close the menu themselves.
-  const closeMenu = () => setIsOpen(false);
+  const closeAfterNavigation = useCallback(() => setDrawerOpen(false), []);
 
   return (
-    <header className="site-header">
-      <div className="container site-header__inner">
-        <SectionLink sectionId={SECTION_IDS.home} className="brand" onClick={closeMenu}>
-          <BrandMark />
-          <span className="brand__name">{UI.siteName}</span>
-        </SectionLink>
+    <>
+      <header className="site-header">
+        <div className="container site-header__inner">
+          <div className="site-header__start">
+            <button
+              ref={menuButtonRef}
+              type="button"
+              className="icon-button menu-button"
+              aria-expanded={drawerOpen}
+              aria-controls="app-drawer"
+              aria-label={UI.openMenu}
+              onClick={() => setDrawerOpen(true)}
+            >
+              <MenuIcon size={22} />
+            </button>
+            <SectionLink sectionId={SECTION_IDS.home} className="brand">
+              <BrandMark />
+              <span className="brand__name">{UI.siteName}</span>
+            </SectionLink>
+          </div>
 
-        <button
-          ref={toggleRef}
-          type="button"
-          className="nav-toggle"
-          aria-expanded={isOpen}
-          aria-controls="main-nav"
-          aria-label={isOpen ? UI.closeMenu : UI.openMenu}
-          onClick={() => setIsOpen((open) => !open)}
-        >
-          <span className="nav-toggle__bar" aria-hidden="true" />
-          <span className="nav-toggle__bar" aria-hidden="true" />
-          <span className="nav-toggle__bar" aria-hidden="true" />
-        </button>
+          <nav className="main-nav" aria-label={UI.mainNavLabel}>
+            <ul className="main-nav__list">
+              {NAV_ITEMS.map((item) => (
+                <li
+                  key={navItemKey(item)}
+                  className={item.kind === 'route' && item.cta ? 'main-nav__item--cta' : undefined}
+                >
+                  {item.kind === 'section' ? (
+                    <SectionLink
+                      sectionId={item.sectionId}
+                      className={`main-nav__link${activeSection === item.sectionId ? ' is-active' : ''}`}
+                      aria-current={activeSection === item.sectionId ? 'location' : undefined}
+                    >
+                      {NAV_LABELS[item.label]}
+                    </SectionLink>
+                  ) : (
+                    <NavLink to={item.to} className={`main-nav__link${item.cta ? ' main-nav__link--cta' : ''}`}>
+                      {NAV_LABELS[item.label]}
+                    </NavLink>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        <nav
-          id="main-nav"
-          className={`main-nav${isOpen ? ' is-open' : ''}`}
-          aria-label={UI.mainNavLabel}
-        >
-          <ul className="main-nav__list">
-            {NAV_ITEMS.map((item) => (
-              <li
-                key={navItemKey(item)}
-                className={item.kind === 'route' && item.cta ? 'main-nav__item--cta' : undefined}
-              >
-                {item.kind === 'section' ? (
-                  <SectionLink
-                    sectionId={item.sectionId}
-                    className={`main-nav__link${activeSection === item.sectionId ? ' is-active' : ''}`}
-                    aria-current={activeSection === item.sectionId ? 'location' : undefined}
-                    onClick={closeMenu}
-                  >
-                    {item.label}
-                  </SectionLink>
-                ) : (
-                  <NavLink
-                    to={item.to}
-                    className={`main-nav__link${item.cta ? ' main-nav__link--cta' : ''}`}
-                    onClick={closeMenu}
-                  >
-                    {item.label}
-                  </NavLink>
-                )}
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-    </header>
+          <div className="site-header__end">
+            <LanguageSwitcher />
+            <ThemeToggleButton />
+          </div>
+        </div>
+      </header>
+      <AppDrawer open={drawerOpen} onClose={closeDrawer} onNavigate={closeAfterNavigation} />
+    </>
   );
 }

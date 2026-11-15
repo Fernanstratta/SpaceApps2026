@@ -1,5 +1,5 @@
 import type { AnchorHTMLAttributes, MouseEvent } from 'react';
-import { toHref, useRouter } from './Router';
+import { useRouter } from './Router';
 
 type LinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & {
   to: string;
@@ -11,7 +11,7 @@ function isModifiedClick(event: MouseEvent<HTMLAnchorElement>): boolean {
 
 /** Internal navigation link. Falls back to normal browser behavior on modified clicks. */
 export function Link({ to, onClick, target, ...rest }: LinkProps) {
-  const { navigate } = useRouter();
+  const { navigate, href } = useRouter();
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     onClick?.(event);
@@ -20,7 +20,7 @@ export function Link({ to, onClick, target, ...rest }: LinkProps) {
     navigate(to);
   };
 
-  return <a href={toHref(to)} onClick={handleClick} target={target} {...rest} />;
+  return <a href={href(to)} onClick={handleClick} target={target} {...rest} />;
 }
 
 type NavLinkProps = LinkProps & {

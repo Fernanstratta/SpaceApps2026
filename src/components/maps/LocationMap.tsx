@@ -1,9 +1,9 @@
 import { lazy, Suspense } from 'react';
-import { LOCATION_TEXT } from '../../content/strings';
 import type { GeoLocation, ReferenceLocation } from '../../types';
 import { getDataState } from '../../utils/nullable';
 import { DataStateMessage } from '../common/DataStateMessage';
 import { ErrorBoundary } from '../common/ErrorBoundary';
+import { useMessages } from '../../i18n/I18nContext';
 
 const LeafletMap = lazy(() => import('./LeafletMap'));
 
@@ -20,6 +20,7 @@ interface LocationMapProps {
  * Leaflet and the OSM tiles are only downloaded when there is data to show.
  */
 export function LocationMap({ locations, referenceLocation }: LocationMapProps) {
+  const { LOCATION_TEXT } = useMessages();
   const state = getDataState(locations);
 
   if (state !== 'available' || !locations) {

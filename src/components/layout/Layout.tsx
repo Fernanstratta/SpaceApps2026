@@ -1,10 +1,11 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { UI } from '../../content/strings';
 import { useRouter } from '../../router/Router';
 import { SiteHeader } from '../navigation/SiteHeader';
 import { SiteFooter } from './SiteFooter';
+import { useMessages } from '../../i18n/I18nContext';
 
 export function Layout({ children }: { children: ReactNode }) {
+  const { UI } = useMessages();
   const { path } = useRouter();
   const mainRef = useRef<HTMLElement>(null);
   const previousPath = useRef(path);

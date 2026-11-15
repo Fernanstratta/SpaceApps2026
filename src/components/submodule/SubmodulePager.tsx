@@ -1,8 +1,7 @@
-import { SUBMODULE_TEXT } from '../../content/strings';
-import { getSortedTopics } from '../../data';
 import { Link } from '../../router/Link';
 import { ROUTES } from '../../router/routes';
 import type { Submodule, Topic } from '../../types';
+import { useData, useMessages } from '../../i18n/I18nContext';
 
 interface SubmodulePagerProps {
   topic: Topic;
@@ -15,6 +14,8 @@ interface SubmodulePagerProps {
  * the topic presentation; after the last one, to the next topic.
  */
 export function SubmodulePager({ topic, submodules, current }: SubmodulePagerProps) {
+  const { SUBMODULE_TEXT } = useMessages();
+  const { getSortedTopics } = useData();
   const index = submodules.findIndex((item) => item.id === current.id);
   const previous = index > 0 ? submodules[index - 1] : undefined;
   const next = index >= 0 && index < submodules.length - 1 ? submodules[index + 1] : undefined;

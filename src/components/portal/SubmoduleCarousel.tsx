@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { MODULE_TEXT } from '../../content/strings';
 import type { PortalView } from '../../context/PortalViewContext';
 import type { Submodule } from '../../types';
 import { Chevron } from '../common/Chevron';
 import { SubmoduleCard } from './SubmoduleCard';
+import { useMessages } from '../../i18n/I18nContext';
 
 interface SubmoduleCarouselProps {
   submodules: Submodule[];
@@ -23,6 +23,7 @@ function prefersReducedMotion(): boolean {
  * cards do not fit; touch, trackpad and keyboard (Tab) scrolling always work.
  */
 export function SubmoduleCarousel({ submodules, label, view, currentId, getMeta }: SubmoduleCarouselProps) {
+  const { MODULE_TEXT } = useMessages();
   const trackRef = useRef<HTMLUListElement>(null);
   const [edges, setEdges] = useState({ overflow: false, atStart: true, atEnd: true });
 

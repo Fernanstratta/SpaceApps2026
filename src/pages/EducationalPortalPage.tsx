@@ -1,9 +1,9 @@
 import { useId, useMemo, useState } from 'react';
+import { MissionsShowcase } from '../components/mission/MissionsShowcase';
 import { ImageCredits } from '../components/portal/ImageCredits';
 import { TopicRow } from '../components/portal/TopicRow';
-import { PORTAL_TEXT } from '../content/strings';
-import { getSortedTopics, getSubmodulesByTopic } from '../data';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { useData, useMessages } from '../i18n/I18nContext';
 import type { Submodule, Topic } from '../types';
 import { normalizeText } from '../utils/text';
 
@@ -12,16 +12,14 @@ interface TopicGroup {
   submodules: Submodule[];
 }
 
-const ALL_GROUPS: TopicGroup[] = getSortedTopics().map((topic) => ({
-  topic,
-  submodules: getSubmodulesByTopic(topic.id),
-}));
-
-/** A topic whose name matches keeps all its cards; otherwise only matching cards stay. */
-function filterGroups(query: string): TopicGroup[] {
+/**
+ * A topic whose name matches keeps all its cards; otherwise only matching cards stay.
+ * Search runs on the texts of the active language.
+ */
+function filterGroups(allGroups: TopicGroup[], query: string): TopicGroup[] {
   const q = normalizeText(query);
-  if (!q) return ALL_GROUPS;
-  return ALL_GROUPS.flatMap(({ topic, submodules }) => {
+  if (!q) return allGroups;
+  return allGroups.flatMap(({ topic, submodules }) => {
     const topicMatches = normalizeText(`${topic.name} ${topic.description ?? ''}`).includes(q);
     const matching = topicMatches
       ? submodules
@@ -35,10 +33,16 @@ function filterGroups(query: string): TopicGroup[] {
  * (each topic is a category) with its submodule cards. No mode selection.
  */
 export function EducationalPortalPage() {
+  const { PORTAL_TEXT } = useMessages();
+  const { getSortedTopics, getSubmodulesByTopic } = useData();
   useDocumentTitle(PORTAL_TEXT.title);
   const [query, setQuery] = useState('');
   const searchId = useId();
-  const groups = useMemo(() => filterGroups(query), [query]);
+  const allGroups = useMemo<TopicGroup[]>(
+    () => getSortedTopics().map((topic) => ({ topic, submodules: getSubmodulesByTopic(topic.id) })),
+    [getSortedTopics, getSubmodulesByTopic],
+  );
+  const groups = useMemo(() => filterGroups(allGroups, query), [allGroups, query]);
   const resultCount = groups.reduce((total, group) => total + group.submodules.length, 0);
   const isSearching = query.trim().length > 0;
 
@@ -77,7 +81,16 @@ export function EducationalPortalPage() {
             ) : null}
           </div>
         </header>
+      </div>
 
+      {/*
+        Las misiones se ocultan mientras se buscan módulos. Primero la de
+        12–17 años; justo debajo, la 4Kids (6–12). Van en salas de ancho
+        completo (diseño «Museo»), en modo claro y en oscuro.
+      */}
+      {isSearching ? null : <MissionsShowcase />}
+
+      <div className="container">
         <p className={isSearching ? 'portal__count' : 'visually-hidden'} role="status">
           {isSearching ? PORTAL_TEXT.resultCount(resultCount) : ''}
         </p>

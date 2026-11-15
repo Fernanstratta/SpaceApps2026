@@ -1,5 +1,5 @@
-import { Component, type ErrorInfo, type ReactNode } from 'react';
-import { UI } from '../../content/strings';
+import { Component, type ContextType, type ErrorInfo, type ReactNode } from 'react';
+import { I18nContext } from '../../i18n/I18nContext';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -12,6 +12,9 @@ interface ErrorBoundaryState {
 
 /** Keeps a failing section (e.g. the map) from breaking the whole page. */
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  static contextType = I18nContext;
+  declare context: ContextType<typeof I18nContext>;
+
   state: ErrorBoundaryState = { hasError: false };
 
   static getDerivedStateFromError(): ErrorBoundaryState {
@@ -26,7 +29,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     if (this.state.hasError) {
       return (
         <p className="data-state data-state--error" role="alert">
-          {this.props.fallbackMessage ?? UI.genericError}
+          {this.props.fallbackMessage ?? this.context?.messages.UI.genericError}
         </p>
       );
     }

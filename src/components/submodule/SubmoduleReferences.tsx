@@ -1,7 +1,6 @@
-import { RESOURCE_TEXT, SUBMODULE_TEXT } from '../../content/strings';
-import { resources } from '../../data/resources';
 import { DataStateMessage } from '../common/DataStateMessage';
 import { ExternalLink } from '../common/ExternalLink';
+import { useData, useMessages } from '../../i18n/I18nContext';
 
 interface SubmoduleReferencesProps {
   id: string;
@@ -11,6 +10,8 @@ interface SubmoduleReferencesProps {
 
 /** "Referencias": the verified sources a submodule cites. */
 export function SubmoduleReferences({ id, sourceIds }: SubmoduleReferencesProps) {
+  const { RESOURCE_TEXT, SUBMODULE_TEXT } = useMessages();
+  const { resources } = useData();
   const cited = [...new Set(sourceIds)]
     .map((sourceId) => resources.find((resource) => resource.id === sourceId))
     .filter((resource) => resource !== undefined);

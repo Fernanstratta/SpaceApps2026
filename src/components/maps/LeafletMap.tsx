@@ -1,8 +1,8 @@
 import 'leaflet/dist/leaflet.css';
 import { CircleMarker, MapContainer, Popup, TileLayer } from 'react-leaflet';
-import { LOCATION_TEXT } from '../../content/strings';
 import type { GeoLocation, ReferenceLocation } from '../../types';
 import { isValidCoordinates } from '../../utils/geo';
+import { useMessages } from '../../i18n/I18nContext';
 
 export interface LeafletMapProps {
   locations: GeoLocation[];
@@ -18,6 +18,7 @@ type LatLngTuple = [number, number];
  * CircleMarkers are used to avoid bundler issues with Leaflet's default icons.
  */
 export default function LeafletMap({ locations, referenceLocation }: LeafletMapProps) {
+  const { LOCATION_TEXT } = useMessages();
   const validLocations = locations.filter((location) => isValidCoordinates(location.coordinates));
   const points: LatLngTuple[] = validLocations.map(({ coordinates }) => [
     coordinates.latitude,

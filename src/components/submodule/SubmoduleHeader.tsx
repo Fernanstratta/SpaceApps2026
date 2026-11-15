@@ -1,9 +1,9 @@
-import { PORTAL_TEXT, SUBMODULE_TEXT } from '../../content/strings';
 import { topicStyle } from '../../content/topicVisuals';
 import { Link } from '../../router/Link';
 import { ROUTES } from '../../router/routes';
 import type { Submodule, Topic } from '../../types';
 import { TopicIcon } from '../portal/TopicIcon';
+import { useMessages } from '../../i18n/I18nContext';
 
 interface SubmoduleHeaderProps {
   topic: Topic;
@@ -13,6 +13,7 @@ interface SubmoduleHeaderProps {
 
 /** Submodule header: back link to the topic, icon and submodule name. */
 export function SubmoduleHeader({ topic, submodule, total }: SubmoduleHeaderProps) {
+  const { PORTAL_TEXT, SUBMODULE_TEXT } = useMessages();
   return (
     <header className="submodule-header" style={topicStyle(topic.id)}>
       <div className="container">

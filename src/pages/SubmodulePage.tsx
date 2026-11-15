@@ -5,20 +5,11 @@ import { SubmoduleCarousel } from '../components/portal/SubmoduleCarousel';
 import { SubmoduleHeader } from '../components/submodule/SubmoduleHeader';
 import { SubmoduleLayout } from '../components/submodule/SubmoduleLayout';
 import { SubmodulePager } from '../components/submodule/SubmodulePager';
-import { PORTAL_TEXT, SUBMODULE_TEXT, UI } from '../content/strings';
 import { topicStyle } from '../content/topicVisuals';
-import {
-  getStudentSubmodule,
-  getSubmodule,
-  getSubmodulesByTopic,
-  getTeacherModule,
-  getTeacherSubmodule,
-  getTopicById,
-  isTopicId,
-  submoduleKey,
-} from '../data';
+import { submoduleKey } from '../data/submodules';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { usePortalView } from '../hooks/usePortalView';
+import { useData, useMessages } from '../i18n/I18nContext';
 import { Link } from '../router/Link';
 import { ROUTES } from '../router/routes';
 
@@ -31,6 +22,17 @@ const SUBMODULES_ID = 'submodulos';
  */
 export function SubmodulePage({ topicId, submoduleId }: { topicId: string; submoduleId: string }) {
   const { view } = usePortalView();
+  const messages = useMessages();
+  const { PORTAL_TEXT, SUBMODULE_TEXT, UI } = messages;
+  const {
+    getStudentSubmodule,
+    getSubmodule,
+    getSubmodulesByTopic,
+    getTeacherModule,
+    getTeacherSubmodule,
+    getTopicById,
+    isTopicId,
+  } = useData();
   const topic = isTopicId(topicId) ? getTopicById(topicId) : null;
   const submodule = topic ? getSubmodule(topic.id, submoduleId) : undefined;
   useDocumentTitle(topic && submodule ? `${submodule.title} · ${topic.name}` : SUBMODULE_TEXT.notFoundTitle);
@@ -59,7 +61,7 @@ export function SubmodulePage({ topicId, submoduleId }: { topicId: string; submo
 
   const siblings = getSubmodulesByTopic(topic.id);
   const sections = [
-    ...(studentContent ? studentSubmoduleSections(studentContent) : teacherSubmoduleSections()),
+    ...(studentContent ? studentSubmoduleSections(studentContent, messages) : teacherSubmoduleSections(messages)),
     { id: SUBMODULES_ID, label: SUBMODULE_TEXT.submodules },
   ];
 

@@ -1,4 +1,3 @@
-import { LOCATION_TEXT, SUBMODULE_TEXT, TEACHER_SECTIONS } from '../../content/strings';
 import { useReferenceLocation } from '../../hooks/useReferenceLocation';
 import type { Submodule, TeacherModule, TeacherSubmodule, Topic } from '../../types';
 import { getDataState } from '../../utils/nullable';
@@ -14,6 +13,9 @@ import { SubmoduleReferences } from '../submodule/SubmoduleReferences';
 import { ClassroomActivityList } from './ClassroomActivityList';
 import { ClassroomAlternativesView } from './ClassroomAlternativesView';
 import { LessonPlanView } from './LessonPlanView';
+import { useMessages } from '../../i18n/I18nContext';
+
+type Messages = ReturnType<typeof useMessages>;
 
 const ID = {
   general: 'informacion-general',
@@ -26,7 +28,7 @@ const ID = {
 } as const;
 
 /** Sections of the "Enseñar" view, in reading order (for "En esta página"). */
-export function teacherSubmoduleSections(): SubmoduleSectionLink[] {
+export function teacherSubmoduleSections({ TEACHER_SECTIONS, SUBMODULE_TEXT }: Messages): SubmoduleSectionLink[] {
   return [
     { id: ID.general, label: TEACHER_SECTIONS.general },
     { id: ID.lessonPlan, label: TEACHER_SECTIONS.lessonPlan },
@@ -55,6 +57,7 @@ interface TeacherSubmoduleViewProps {
 
 /** "Enseñar" view of a submodule (teaching guide). All teacher content is null-safe. */
 export function TeacherSubmoduleView({ topic, submodule, module, content }: TeacherSubmoduleViewProps) {
+  const { LOCATION_TEXT, TEACHER_SECTIONS } = useMessages();
   const { referenceLocation } = useReferenceLocation();
   const recommendations = content.geographicalRecommendations;
   const recommendationsState = getDataState(recommendations);

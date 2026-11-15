@@ -1,9 +1,10 @@
-import { UI } from '../../content/strings';
 import { Link } from '../../router/Link';
 import { NAV_ITEMS, navItemKey } from '../navigation/navItems';
 import { SectionLink } from '../navigation/SectionLink';
+import { useMessages } from '../../i18n/I18nContext';
 
 export function SiteFooter() {
+  const { UI, NAV_LABELS } = useMessages();
   return (
     <footer className="site-footer">
       <div className="container site-footer__inner">
@@ -16,9 +17,9 @@ export function SiteFooter() {
             {NAV_ITEMS.map((item) => (
               <li key={navItemKey(item)}>
                 {item.kind === 'section' ? (
-                  <SectionLink sectionId={item.sectionId}>{item.label}</SectionLink>
+                  <SectionLink sectionId={item.sectionId}>{NAV_LABELS[item.label]}</SectionLink>
                 ) : (
-                  <Link to={item.to}>{item.label}</Link>
+                  <Link to={item.to}>{NAV_LABELS[item.label]}</Link>
                 )}
               </li>
             ))}

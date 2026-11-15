@@ -1,21 +1,14 @@
 import { PageHeader } from '../components/layout/PageHeader';
+import { MissionCallout } from '../components/mission/MissionCallout';
 import { StudentModuleIntro, TeacherModuleIntro } from '../components/modules/ModuleIntro';
 import { TopicBanner } from '../components/modules/TopicBanner';
 import { SubmoduleCarousel } from '../components/portal/SubmoduleCarousel';
 import { TopicPager } from '../components/portal/TopicPager';
-import { MODULE_TEXT, PORTAL_TEXT, UI } from '../content/strings';
 import { TOPIC_VISUALS, topicStyle } from '../content/topicVisuals';
-import {
-  getStudentModule,
-  getSubmodulesByTopic,
-  getTeacherModule,
-  getTeacherSubmodule,
-  getTopicById,
-  isTopicId,
-  submoduleKey,
-} from '../data';
+import { submoduleKey } from '../data/submodules';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { usePortalView } from '../hooks/usePortalView';
+import { useData, useMessages } from '../i18n/I18nContext';
 import { Link } from '../router/Link';
 import { ROUTES } from '../router/routes';
 
@@ -27,6 +20,9 @@ import { ROUTES } from '../router/routes';
  */
 export function TopicModulePage({ topicId }: { topicId: string }) {
   const { view } = usePortalView();
+  const { PORTAL_TEXT, MODULE_TEXT, UI } = useMessages();
+  const { getStudentModule, getSubmodulesByTopic, getTeacherModule, getTeacherSubmodule, getTopicById, isTopicId } =
+    useData();
   const topic = isTopicId(topicId) ? getTopicById(topicId) : null;
   useDocumentTitle(topic ? topic.name : PORTAL_TEXT.topicNotFoundTitle);
 
@@ -70,6 +66,8 @@ export function TopicModulePage({ topicId }: { topicId: string }) {
         ) : (
           <TeacherModuleIntro module={getTeacherModule(topic.id)} />
         )}
+
+        <MissionCallout topicId={topic.id} view={view} />
 
         <section className="topic-submodules" aria-labelledby="submodulos-titulo">
           <div className="topic-submodules__header">

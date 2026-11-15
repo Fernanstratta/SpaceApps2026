@@ -10,7 +10,8 @@ import { MissionTeacherPage } from './pages/MissionTeacherPage';
 import { LunitaMissionPage } from './pages/LunitaMissionPage';
 import { EducationalPortalPage } from './pages/EducationalPortalPage';
 import { HomePage } from './pages/HomePage';
-import { PlaygroundPage } from './pages/PlaygroundPage';
+// TEMPORALMENTE DESACTIVADO: faltan src/data/playground.ts y src/i18n/playground.ts (no se subieron en el commit de freemode).
+// import { PlaygroundPage } from './pages/PlaygroundPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { RoleSelectPage } from './pages/RoleSelectPage';
 import { SubmodulePage } from './pages/SubmodulePage';
@@ -55,8 +56,9 @@ function AppRoutes() {
       return <EducationalPortalPage />;
     case ROUTES.portalAccess:
       return <RoleSelectPage />;
-    case ROUTES.playground:
-      return <PlaygroundPage />;
+    // TEMPORALMENTE DESACTIVADO: faltan src/data/playground.ts y src/i18n/playground.ts (no se subieron en el commit de freemode).
+    // case ROUTES.playground:
+    //   return <PlaygroundPage />;
     case ROUTES.login:
       return <AuthPage key="login" mode="login" />;
     case ROUTES.register:

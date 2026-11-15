@@ -135,12 +135,15 @@ export function AppDrawer({ open, onClose, onNavigate }: AppDrawerProps) {
                 {NAV_LABELS.resources}
               </SectionLink>
             </li>
+            {/*
+              TEMPORALMENTE DESACTIVADO: faltan src/data/playground.ts y src/i18n/playground.ts (no se subieron en el commit de freemode).
             <li>
               <NavLink to={ROUTES.playground} className="drawer-item" onClick={onNavigate}>
                 <GlobeIcon />
                 {NAV_LABELS.playground}
               </NavLink>
             </li>
+            */}
             <li>
               <NavLink to={ROUTES.portalAccess} match={ROUTES.portal} className="drawer-item" onClick={onNavigate}>
                 <CompassIcon />

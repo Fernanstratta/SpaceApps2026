@@ -16,7 +16,8 @@ export const NAV_ITEMS: NavItem[] = [
   { kind: 'section', sectionId: SECTION_IDS.home, label: 'home' },
   { kind: 'section', sectionId: SECTION_IDS.about, label: 'about' },
   { kind: 'section', sectionId: SECTION_IDS.resources, label: 'resources' },
-  { kind: 'route', to: ROUTES.playground, label: 'playground' },
+  // TEMPORALMENTE DESACTIVADO: faltan src/data/playground.ts y src/i18n/playground.ts (no se subieron en el commit de freemode).
+  // { kind: 'route', to: ROUTES.playground, label: 'playground' },
   // «Portal Educativo» abre primero la pantalla para elegir la vista (estudiante o docente).
   { kind: 'route', to: ROUTES.portalAccess, match: ROUTES.portal, label: 'portal', cta: true },
 ];

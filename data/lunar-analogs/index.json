@@ -1,0 +1,127 @@
+[
+  {
+    "pair_id": "elegante_linne",
+    "title_es": "Cráter El Elegante ↔ Cráter Linné",
+    "ils": {
+      "value": 53.3,
+      "formula": "sum(w_i * S_i) / sum(w_i)",
+      "axes_used": 9,
+      "data_completeness": 1.0,
+      "has_placeholders": false
+    },
+    "earth_site": {
+      "site_id": "el_elegante",
+      "name": "Cráter El Elegante",
+      "lat": 31.8467,
+      "lon": -113.3913,
+      "coordinate_status": "reference"
+    },
+    "moon_site": {
+      "site_id": "linne",
+      "name": "Cráter Linné",
+      "lat": 27.73,
+      "lon": 11.79,
+      "coordinate_status": "reference"
+    }
+  },
+  {
+    "pair_id": "pinacate_marius",
+    "title_es": "Escudo del Pinacate ↔ Marius Hills",
+    "ils": {
+      "value": 56.0,
+      "formula": "sum(w_i * S_i) / sum(w_i)",
+      "axes_used": 9,
+      "data_completeness": 1.0,
+      "has_placeholders": false
+    },
+    "earth_site": {
+      "site_id": "pinacate",
+      "name": "Escudo del Pinacate",
+      "lat": 31.77239,
+      "lon": -113.49909,
+      "coordinate_status": "reference"
+    },
+    "moon_site": {
+      "site_id": "marius_hills",
+      "name": "Marius Hills",
+      "lat": 14.0917,
+      "lon": -56.7701,
+      "coordinate_status": "reference"
+    }
+  },
+  {
+    "pair_id": "cerro_prieto_gruithuisen",
+    "title_es": "Cerro Prieto ↔ Domos de Gruithuisen",
+    "ils": {
+      "value": 57.5,
+      "formula": "sum(w_i * S_i) / sum(w_i)",
+      "axes_used": 9,
+      "data_completeness": 1.0,
+      "has_placeholders": false
+    },
+    "earth_site": {
+      "site_id": "cerro_prieto",
+      "name": "Cerro Prieto",
+      "lat": 32.41353,
+      "lon": -115.30978,
+      "coordinate_status": "reference"
+    },
+    "moon_site": {
+      "site_id": "gruithuisen",
+      "name": "Domos de Gruithuisen",
+      "lat": 36.45715,
+      "lon": -40.79602,
+      "coordinate_status": "reference"
+    }
+  },
+  {
+    "pair_id": "laguna_salada_tranquillitatis",
+    "title_es": "Laguna Salada ↔ Mare Tranquillitatis",
+    "ils": {
+      "value": 66.1,
+      "formula": "sum(w_i * S_i) / sum(w_i)",
+      "axes_used": 8,
+      "data_completeness": 0.8857,
+      "has_placeholders": false
+    },
+    "earth_site": {
+      "site_id": "laguna_salada",
+      "name": "Laguna Salada",
+      "lat": 32.29276,
+      "lon": -115.64358,
+      "coordinate_status": "reference"
+    },
+    "moon_site": {
+      "site_id": "tranquillitatis_apollo11",
+      "name": "Mare Tranquillitatis",
+      "lat": 0.67416,
+      "lon": 23.47314,
+      "coordinate_status": "reference"
+    }
+  },
+  {
+    "pair_id": "cucapa_shackleton",
+    "title_es": "Sierra Cucapá ↔ Borde de Shackleton",
+    "ils": {
+      "value": 50.1,
+      "formula": "sum(w_i * S_i) / sum(w_i)",
+      "axes_used": 8,
+      "data_completeness": 0.8919,
+      "has_placeholders": false
+    },
+    "earth_site": {
+      "site_id": "sierra_cucapa",
+      "name": "Sierra Cucapá",
+      "lat": 32.36631,
+      "lon": -115.4548,
+      "coordinate_status": "reference"
+    },
+    "moon_site": {
+      "site_id": "shackleton",
+      "name": "Borde de Shackleton",
+      "lat": -89.7815,
+      "lon": -155.253,
+      "coordinate_status": "reference"
+    }
+  }
+]

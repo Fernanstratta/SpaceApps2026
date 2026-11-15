@@ -1,0 +1,29 @@
+{
+  "accessedAt": "2026-11-14T22:37:28.459Z",
+  "records": [
+    {
+      "id": "cerro-prieto",
+      "status": "retrieved",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M&community=AG&longitude=-115.305&latitude=32.418&start=20240101&end=20241231&format=JSON",
+      "sha256": "ff605f43ccd4a6663c3b0a94b56adc0111d931d869d20756bdbb9aea371cbbbe",
+      "validDays": 366,
+      "meanC": 24.307868852459027
+    },
+    {
+      "id": "algodones",
+      "status": "retrieved",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M&community=AG&longitude=-115.1329&latitude=32.98303333333333&start=20240101&end=20241231&format=JSON",
+      "sha256": "988da4976f45694c18575b2d663a9278e857e34ebf2d9b865523ee11dfa1ddda",
+      "validDays": 366,
+      "meanC": 23.593551912568326
+    },
+    {
+      "id": "san-quintin",
+      "status": "retrieved",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M&community=AG&longitude=-116.012&latitude=30.467&start=20240101&end=20241231&format=JSON",
+      "sha256": "38a6481d704e74c8509d6883f109b86da5352c4544d2003ca200ec4fe70da80a",
+      "validDays": 366,
+      "meanC": 17.17743169398907
+    }
+  ]
+}

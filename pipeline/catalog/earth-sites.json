@@ -1,0 +1,94 @@
+[
+  {
+    "name": "Cráter El Elegante",
+    "region": "Reserva de la Biosfera El Pinacate y Gran Desierto de Altar, Sonora, México",
+    "type_es": "Maar (cráter volcánico freatomagmático)",
+    "lat": 31.8467,
+    "lon": -113.3913,
+    "aoi": {
+      "shape": "circle",
+      "radius_m": 1200,
+      "note": "Interior + borde del cráter (borde a ~800 m del centro)"
+    },
+    "facts": {
+      "diameter_m": 1600,
+      "depth_m": 244,
+      "age_ka": 32
+    },
+    "site_id": "el_elegante",
+    "body": "earth",
+    "coordinate_status": "reference"
+  },
+  {
+    "site_id": "pinacate",
+    "body": "earth",
+    "name": "Escudo del Pinacate",
+    "region": "Sonora, México",
+    "type_es": "Escudo volcánico basáltico",
+    "lat": 31.77239,
+    "lon": -113.49909,
+    "coordinate_status": "reference",
+    "aoi": {
+      "shape": "circle",
+      "radius_m": 5000,
+      "note": "Centrado en la cumbre del escudo (1198 m en Copernicus DEM). Incluye coladas y conos; NDVI mediano 0.10, sin agua (SCL 6)."
+    },
+    "facts": {},
+    "coordinate_method": "Punto más alto del DEM dentro de 6 km de la referencia GVP. Copernicus DEM GLO-30 a 30 m (UTM) y Sentinel-2 L2A (SCL y NDVI), 2022–2024",
+    "coordinate_source_url": "https://volcano.si.edu/volcano.cfm?vn=341001"
+  },
+  {
+    "site_id": "cerro_prieto",
+    "body": "earth",
+    "name": "Cerro Prieto",
+    "region": "Mexicali, Baja California, México",
+    "type_es": "Domo de dacita",
+    "lat": 32.41353,
+    "lon": -115.30978,
+    "coordinate_status": "reference",
+    "aoi": {
+      "shape": "circle",
+      "radius_m": 1200,
+      "note": "Centroide del domo de dacita (terreno > 40 m sobre la planicie de ~11 m). El pie del domo está a 1.1–1.3 km; el radio deja fuera los cultivos y las lagunas de evaporación geotérmica (agua < 1 %, NDVI > 0.2 en 0.3 %)."
+    },
+    "facts": {},
+    "coordinate_source_url": "https://volcano.si.edu/volcano.cfm?vn=341000",
+    "coordinate_method": "Perfiles radiales del DEM y umbral de 40 m sobre la planicie. Copernicus DEM GLO-30 a 30 m (UTM) y Sentinel-2 L2A (SCL y NDVI), 2022–2024"
+  },
+  {
+    "site_id": "laguna_salada",
+    "body": "earth",
+    "name": "Laguna Salada",
+    "region": "Baja California, México",
+    "type_es": "Playa endorreica",
+    "lat": 32.29276,
+    "lon": -115.64358,
+    "coordinate_status": "reference",
+    "aoi": {
+      "shape": "circle",
+      "radius_m": 5000,
+      "note": "Círculo más plano del fondo de la playa que no se inundó en 6 escenas húmedas (2022–2024): agua ≤ 0.1 %, NDVI 0.057, pendiente media 0.15°. Usar escenas de mayo a agosto."
+    },
+    "facts": {},
+    "coordinate_method": "Pendiente media mínima con z < 5 m y sin agua SCL 6 en ninguna fecha. Copernicus DEM GLO-30 a 30 m (UTM) y Sentinel-2 L2A (SCL y NDVI), 2022–2024",
+    "coordinate_source_url": "https://en.wikipedia.org/wiki/Laguna_Salada_(Mexico)"
+  },
+  {
+    "site_id": "sierra_cucapa",
+    "body": "earth",
+    "name": "Sierra Cucapá",
+    "region": "Baja California, México",
+    "type_es": "Sierra rocosa",
+    "lat": 32.36631,
+    "lon": -115.4548,
+    "coordinate_status": "reference",
+    "aoi": {
+      "shape": "circle",
+      "radius_m": 2500,
+      "note": "Círculo de 2.5 km con más pendiente > 15° en toda la sierra (94 % del área). NDVI 0.066, sin agua."
+    },
+    "facts": {},
+    "coordinate_method": "Fracción máxima de pendiente > 15° en un círculo de 2.5 km. Copernicus DEM GLO-30 a 30 m (UTM) y Sentinel-2 L2A (SCL y NDVI), 2022–2024",
+    "coordinate_source_url": "https://en.wikipedia.org/wiki/Sierra_de_Los_Cucapah"
+  }
+]

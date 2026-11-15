@@ -1,0 +1,277 @@
+{
+  "checkedAt": "2026-11-14T22:47:15.608Z",
+  "note": "Transport only. Browser search access may differ; does not overwrite reviewed scientific metadata.",
+  "checks": [
+    {
+      "id": "gvp-cerro",
+      "url": "https://volcano.si.edu/volcano.cfm?vn=341000",
+      "finalUrl": "https://volcano.si.edu/volcano.cfm?vn=341000",
+      "httpStatus": 403,
+      "reachable": false
+    },
+    {
+      "id": "cerro-alteration",
+      "url": "https://www.osti.gov/servlets/purl/891301",
+      "finalUrl": "https://www.osti.gov/servlets/purl/891301",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "gusev-silica",
+      "url": "https://ares.jsc.nasa.gov/missions/mer/important-discoveries.html/1000",
+      "finalUrl": "https://ares.jsc.nasa.gov/missions/mer/important-discoveries.html/1000",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "silica-alternatives",
+      "url": "https://science.nasa.gov/resource/alteration-effects-at-gale-and-gusev-craters/",
+      "finalUrl": "https://science.nasa.gov/resource/alteration-effects-at-gale-and-gusev-craters/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "spirit-location",
+      "url": "https://science.nasa.gov/mission/mer-spirit/",
+      "finalUrl": "https://science.nasa.gov/mission/mer-spirit/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "gvp-quintin",
+      "url": "https://volcano.si.edu/volcano.cfm?vn=341002",
+      "finalUrl": "https://volcano.si.edu/volcano.cfm?vn=341002",
+      "httpStatus": 403,
+      "reachable": false
+    },
+    {
+      "id": "tranquillitatis",
+      "url": "https://science.nasa.gov/image-detail/20100528/",
+      "finalUrl": "https://science.nasa.gov/image-detail/20100528/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "algodones-blm",
+      "url": "https://www.blm.gov/sites/blm.gov/files/docs/2021-03/ISDRAbroREV2020-121620_508.pdf",
+      "finalUrl": "https://www.blm.gov/sites/blm.gov/files/docs/2021-03/ISDRAbroREV2020-121620_508.pdf",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "dune-spectra",
+      "url": "https://pubs.usgs.gov/publication/70240143",
+      "finalUrl": "https://pubs.usgs.gov/publication/70240143",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "bagnold",
+      "url": "https://science.nasa.gov/resource/curiositys-bagnold-dunes-campaign-two-types-of-dunes/",
+      "finalUrl": "https://science.nasa.gov/resource/curiositys-bagnold-dunes-campaign-two-types-of-dunes/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "hirise-bagnold",
+      "url": "https://www.uahirise.org/ESP_035917_1755",
+      "finalUrl": "https://www.uahirise.org/ESP_035917_1755",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "mars-facts",
+      "url": "https://science.nasa.gov/mars/facts/",
+      "finalUrl": "https://science.nasa.gov/mars/facts/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "moon-facts",
+      "url": "https://science.nasa.gov/moon/facts/",
+      "finalUrl": "https://science.nasa.gov/moon/facts/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "laguna-hydrology",
+      "url": "https://www.usgs.gov/publications/just-add-water-and-colorado-river-still-reaches-sea",
+      "finalUrl": "https://www.usgs.gov/publications/just-add-water-and-colorado-river-still-reaches-sea",
+      "httpStatus": 403,
+      "reachable": false
+    },
+    {
+      "id": "nasadem",
+      "url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-nasadem-hgt-001",
+      "finalUrl": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-nasadem-hgt-001",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "nasadem-access",
+      "url": "https://forum.earthdata.nasa.gov/viewtopic.php?sid=f41ec340f58ae7d38017bc5028b3f160&t=5421",
+      "finalUrl": "https://forum.earthdata.nasa.gov/viewtopic.php?sid=f41ec340f58ae7d38017bc5028b3f160&t=5421",
+      "httpStatus": 404,
+      "reachable": false
+    },
+    {
+      "id": "modis-lst",
+      "url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-mod11a2-061",
+      "finalUrl": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-mod11a2-061",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "power",
+      "url": "https://power.larc.nasa.gov/docs/tutorials/service-data-request/api/",
+      "finalUrl": "https://power.larc.nasa.gov/docs/tutorials/service-data-request/api/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "landsat",
+      "url": "https://www.usgs.gov/landsat-missions/landsat-collection-2-level-2-science-products",
+      "finalUrl": "https://www.usgs.gov/landsat-missions/landsat-collection-2-level-2-science-products",
+      "httpStatus": 403,
+      "reachable": false
+    },
+    {
+      "id": "pds-lro",
+      "url": "https://pds-geosciences.wustl.edu/missions/lro/",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/lro/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "pds-mer",
+      "url": "https://pds-geosciences.wustl.edu/missions/mer/",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/mer/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "earthdata",
+      "url": "https://www.earthdata.nasa.gov/",
+      "finalUrl": "https://www.earthdata.nasa.gov/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "earthdata-search",
+      "url": "https://search.earthdata.nasa.gov/",
+      "finalUrl": "https://search.earthdata.nasa.gov/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "gibs",
+      "url": "https://nasa-gibs.github.io/gibs-api-docs/",
+      "finalUrl": "https://nasa-gibs.github.io/gibs-api-docs/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "giovanni",
+      "url": "https://giovanni.gsfc.nasa.gov/giovanni/",
+      "finalUrl": "https://giovanni.gsfc.nasa.gov/giovanni/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "smap",
+      "url": "https://nsidc.org/data/smap",
+      "finalUrl": "https://nsidc.org/data/smap",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "lroc",
+      "url": "https://lroc.im-ldi.com/",
+      "finalUrl": "https://lroc.im-ldi.com/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "mro",
+      "url": "https://pds-geosciences.wustl.edu/missions/mro/",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/mro/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "mola",
+      "url": "https://pds-geosciences.wustl.edu/missions/mgs/mola.html",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/mgs/mola.html",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "odyssey",
+      "url": "https://pds-geosciences.wustl.edu/missions/odyssey/",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/odyssey/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "lunarp",
+      "url": "https://pds-geosciences.wustl.edu/missions/lunarp/",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/lunarp/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "chandrayaan",
+      "url": "https://pds-geosciences.wustl.edu/missions/chandrayaan1/",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/chandrayaan1/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "esa-psa",
+      "url": "https://psa.esa.int/psa/",
+      "finalUrl": "https://psa.esa.int/psa/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "usgs-maps",
+      "url": "https://astrogeology.usgs.gov/",
+      "finalUrl": "https://www.usgs.gov/centers/astrogeology-science-center",
+      "httpStatus": 403,
+      "reachable": false
+    },
+    {
+      "id": "inegi",
+      "url": "https://www.inegi.org.mx/temas/relieve/continental/",
+      "finalUrl": "https://www.inegi.org.mx/temas/relieve/continental/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "sgm",
+      "url": "https://www.sgm.gob.mx/",
+      "finalUrl": "https://www.sgm.gob.mx/",
+      "httpStatus": 200,
+      "reachable": true
+    },
+    {
+      "id": "conagua",
+      "url": "https://sina.conagua.gob.mx/sina/",
+      "reachable": false,
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "id": "cicese",
+      "url": "https://www.cicese.edu.mx/",
+      "reachable": false,
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "id": "unam",
+      "url": "https://www.geologia.unam.mx/",
+      "finalUrl": "https://www.geologia.unam.mx/",
+      "httpStatus": 200,
+      "reachable": true
+    }
+  ]
+}

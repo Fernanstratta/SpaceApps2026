@@ -1,0 +1,110 @@
+[
+  {
+    "pair_id": "elegante_linne",
+    "title_es": "Cráter El Elegante ↔ Cráter Linné",
+    "education": {
+      "match_es": "Dos cráteres de escala similar, con bordes elevados y afloramientos de basalto en sus paredes.",
+      "hook_es": "Divide la profundidad entre el diámetro: El Elegante tiene 244 m y 1600 m. Linné tiene 520 m y 2230 m. ¿Cuál es más profundo en proporción a su tamaño?",
+      "breaks_es": [
+        {
+          "axis": "origen",
+          "text": "El Elegante se formó cuando el magma entró en contacto con agua subterránea. Linné es un cráter de impacto."
+        },
+        {
+          "axis": "craters",
+          "text": "El Elegante conserva depósitos de un antiguo lago. Los dos estudios publicados también trazaron el borde y el fondo con métodos distintos."
+        },
+        {
+          "axis": "thermal",
+          "text": "La atmósfera terrestre y la duración del día lunar influyen en las diferencias térmicas. Falta calcular la amplitud en las dos áreas con productos comparables."
+        }
+      ]
+    },
+    "earth_site_id": "el_elegante",
+    "moon_site_id": "linne"
+  },
+  {
+    "pair_id": "pinacate_marius",
+    "title_es": "Escudo del Pinacate ↔ Marius Hills",
+    "education": {
+      "match_es": "En los dos campos volcánicos se pueden estudiar coladas de lava y aberturas relacionadas con el volcanismo.",
+      "hook_es": "Si encontraras un agujero desde órbita, ¿qué observarías para investigar si conduce a un tubo de lava?",
+      "breaks_es": [
+        {
+          "axis": "craters",
+          "text": "Un pozo o una abertura es evidencia cualitativa. El eje de cráteres compara la razón profundidad/diámetro de rasgos definidos."
+        },
+        {
+          "axis": "aridity",
+          "text": "La vegetación terrestre afecta la señal óptica. Conviene enmascararla al estudiar material volcánico."
+        }
+      ]
+    },
+    "earth_site_id": "pinacate",
+    "moon_site_id": "marius_hills"
+  },
+  {
+    "pair_id": "cerro_prieto_gruithuisen",
+    "title_es": "Cerro Prieto ↔ Domos de Gruithuisen",
+    "education": {
+      "match_es": "El volcanismo silícico permite comparar el domo de dacita de Mexicali con un terreno volcánico poco común en la Luna.",
+      "hook_es": "¿Qué señales espectrales buscarías para comparar las rocas de Cerro Prieto y los domos lunares?",
+      "breaks_es": [
+        {
+          "axis": "mineralogy",
+          "text": "La composición silícica puede reflejar procesos distintos. Hace falta calibrar los indicadores terrestres y lunares antes de calcular similitud."
+        },
+        {
+          "axis": "craters",
+          "text": "Los domos tienen escalas diferentes. Su altura y anchura se pueden estudiar aparte de la razón d/D de un cráter."
+        }
+      ]
+    },
+    "earth_site_id": "cerro_prieto",
+    "moon_site_id": "gruithuisen"
+  },
+  {
+    "pair_id": "laguna_salada_tranquillitatis",
+    "title_es": "Laguna Salada ↔ Mare Tranquillitatis",
+    "education": {
+      "match_es": "El terreno llano y el material fino ofrecen dos puntos de partida para comparar la playa seca y la planicie lunar.",
+      "hook_es": "¿Cómo identificarías una zona llana a partir de un mapa de pendientes?",
+      "breaks_es": [
+        {
+          "axis": "albedo",
+          "text": "Las sales pueden aclarar la playa, mientras que el basalto del mar lunar suele verse oscuro."
+        },
+        {
+          "axis": "dust",
+          "text": "En Laguna Salada el viento transporta polvo. En la Luna intervienen otros procesos, como los impactos."
+        },
+        {
+          "axis": "aridity",
+          "text": "La laguna puede inundarse. La fecha de la observación cambia qué superficie se está comparando."
+        }
+      ]
+    },
+    "earth_site_id": "laguna_salada",
+    "moon_site_id": "tranquillitatis_apollo11"
+  },
+  {
+    "pair_id": "cucapa_shackleton",
+    "title_es": "Sierra Cucapá ↔ Borde de Shackleton",
+    "education": {
+      "match_es": "El relieve accidentado ayuda a estudiar cómo cambian las rutas y la elección del terreno cuando aumentan las pendientes.",
+      "hook_es": "Si un vehículo tuviera que recorrer el borde, ¿cómo usarías un mapa de pendientes y sombras para trazar su ruta?",
+      "breaks_es": [
+        {
+          "axis": "ice",
+          "text": "La iluminación polar crea zonas de sombra persistente. La estabilidad térmica del hielo y la detección de hielo son observaciones distintas."
+        },
+        {
+          "axis": "mineralogy",
+          "text": "El granito y las rocas metamórficas de la sierra tienen una historia distinta de los materiales de las tierras altas lunares."
+        }
+      ]
+    },
+    "earth_site_id": "sierra_cucapa",
+    "moon_site_id": "shackleton"
+  }
+]

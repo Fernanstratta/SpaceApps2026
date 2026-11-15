@@ -1,0 +1,110 @@
+[
+  {
+    "id": "earth-cerro-prieto",
+    "locationId": "cerro-prieto",
+    "body": "Earth",
+    "product": "Landsat Collection 2 Level-2 scene discovery",
+    "productId": null,
+    "url": "https://earthexplorer.usgs.gov/",
+    "previewUrl": null,
+    "acquiredAt": null,
+    "spatialResolution": null,
+    "sourceIds": [
+      "landsat"
+    ],
+    "credit": "USGS/NASA Landsat",
+    "license": "No restrictions on Landsat products; cite selected dataset",
+    "status": "discovery-only",
+    "limitations": "No scene or thumbnail retrieved. Select a cloud-screened scene around this regional marker; do not display an invented acquisition date."
+  },
+  {
+    "id": "earth-algodones",
+    "locationId": "algodones",
+    "body": "Earth",
+    "product": "Landsat Collection 2 Level-2 scene discovery",
+    "productId": null,
+    "url": "https://earthexplorer.usgs.gov/",
+    "previewUrl": null,
+    "acquiredAt": null,
+    "spatialResolution": null,
+    "sourceIds": [
+      "landsat"
+    ],
+    "credit": "USGS/NASA Landsat",
+    "license": "No restrictions on Landsat products; cite selected dataset",
+    "status": "discovery-only",
+    "limitations": "No scene or thumbnail retrieved. Select a cloud-screened scene around this regional marker; do not display an invented acquisition date."
+  },
+  {
+    "id": "earth-san-quintin",
+    "locationId": "san-quintin",
+    "body": "Earth",
+    "product": "Landsat Collection 2 Level-2 scene discovery",
+    "productId": null,
+    "url": "https://earthexplorer.usgs.gov/",
+    "previewUrl": null,
+    "acquiredAt": null,
+    "spatialResolution": null,
+    "sourceIds": [
+      "landsat"
+    ],
+    "credit": "USGS/NASA Landsat",
+    "license": "No restrictions on Landsat products; cite selected dataset",
+    "status": "discovery-only",
+    "limitations": "No scene or thumbnail retrieved. Select a cloud-screened scene around this regional marker; do not display an invented acquisition date."
+  },
+  {
+    "id": "planet-gusev",
+    "locationId": "gusev",
+    "body": "Mars",
+    "product": "Spirit alteration context",
+    "productId": null,
+    "url": "https://science.nasa.gov/resource/alteration-effects-at-gale-and-gusev-craters/",
+    "previewUrl": null,
+    "acquiredAt": null,
+    "spatialResolution": null,
+    "sourceIds": [
+      "silica-alternatives"
+    ],
+    "credit": "See linked NASA resource credit",
+    "license": "Check asset-specific credit and reuse terms",
+    "status": "discovery-only",
+    "limitations": "No cached thumbnail. Context is not a co-registered paired analysis."
+  },
+  {
+    "id": "planet-bagnold",
+    "locationId": "bagnold",
+    "body": "Mars",
+    "product": "HiRISE Gale dune monitoring",
+    "productId": "ESP_035917_1755",
+    "url": "https://www.uahirise.org/ESP_035917_1755",
+    "previewUrl": null,
+    "acquiredAt": "2014-03-26",
+    "spatialResolution": "0.25 m/pixel map-projected full product",
+    "sourceIds": [
+      "hirise-bagnold"
+    ],
+    "credit": "NASA/JPL-Caltech/UArizona",
+    "license": "Public domain; credit NASA/JPL-Caltech/UArizona",
+    "status": "metadata-verified",
+    "limitations": "No cached thumbnail. Context is not a co-registered paired analysis."
+  },
+  {
+    "id": "planet-tranquillitatis",
+    "locationId": "tranquillitatis",
+    "body": "Moon",
+    "product": "LOLA mare context",
+    "productId": null,
+    "url": "https://science.nasa.gov/image-detail/20100528/",
+    "previewUrl": null,
+    "acquiredAt": null,
+    "spatialResolution": null,
+    "sourceIds": [
+      "tranquillitatis"
+    ],
+    "credit": "See linked NASA resource credit",
+    "license": "Check asset-specific credit and reuse terms",
+    "status": "discovery-only",
+    "limitations": "No cached thumbnail. Context is not a co-registered paired analysis."
+  }
+]

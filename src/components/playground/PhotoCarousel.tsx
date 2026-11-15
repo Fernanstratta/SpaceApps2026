@@ -1,6 +1,6 @@
 import { useState, type KeyboardEvent } from 'react';
 import type { PlaygroundPhoto } from '../../data/playground';
-import { SourceLink } from '../mission/SourceLink';
+import { ExternalLink } from '../common/ExternalLink';
 
 /**
  * Carrusel de fotos del área activa. Cambiar de foto solo cambia la imagen
@@ -64,7 +64,10 @@ export function PhotoCarousel({
           )}
         </div>
         <figcaption className="pg-carousel__caption">
-          {text?.caption} <SourceLink id={photo.sourceId} />
+          {text?.caption}{' '}
+          <ExternalLink href={photo.page}>
+            {photo.author} · {photo.license}
+          </ExternalLink>
         </figcaption>
       </figure>
       <div className="pg-carousel__controls">

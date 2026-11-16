@@ -6,7 +6,7 @@ export const ROUTES = {
   portal: '/portal-educativo',
   /** Pantalla de entrada al Portal: elegir la vista de estudiante o de docente. */
   portalAccess: '/portal-educativo/acceso',
-  /** Starman Playground: análogos terrestres de la Luna y de Marte (página propia, como el Portal). */
+  /** Terranauta Playground: análogos terrestres de la Luna y de Marte (página propia, como el Portal). */
   playground: '/playground',
   login: '/iniciar-sesion',
   register: '/crear-cuenta',

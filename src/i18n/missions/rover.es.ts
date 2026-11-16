@@ -222,7 +222,7 @@ export const roverEs = {
     title: 'Paso 5 · Ficha final',
     intro: 'La ficha final reúne su elección inicial, su hallazgo principal, la objeción y su decisión revisada.',
     neutral:
-      'Starman no califica qué sitio eligieron: cualquier sitio, o pedir más evidencia, es válido si el argumento se apoya en datos.',
+      'Terranauta no califica qué sitio eligieron: cualquier sitio, o pedir más evidencia, es válido si el argumento se apoya en datos.',
     print: 'Imprimir ficha final',
     preview: 'Ver la ficha',
     ready: 'Imprímanla o guárdenla como PDF desde el diálogo de impresión.',
@@ -343,7 +343,7 @@ export const roverEs = {
     },
     supportingFinding: 'Hallazgo que la respalda',
     neutral:
-      'Starman no califica el sitio elegido. Se valora que la evidencia se pueda localizar, que respalde la decisión y que el equipo reconozca qué falta investigar.',
+      'Terranauta no califica el sitio elegido. Se valora que la evidencia se pueda localizar, que respalde la decisión y que el equipo reconozca qué falta investigar.',
     reference: 'Referencia lunar',
     sources: 'Fuentes de los datos',
     closing: '¿Qué evidencia nos haría cambiar de opinión?',
@@ -448,7 +448,7 @@ export const roverEs = {
     ],
     answersTitle: 'Qué dicen los datos (para el docente)',
     answersIntro:
-      'Valores medidos por Starman con los mismos datos que ven los estudiantes, en el tramo oeste–este / norte–sur de cada sitio. Cualquier sitio es una respuesta válida si se justifica con evidencia.',
+      'Valores medidos por Terranauta con los mismos datos que ven los estudiantes, en el tramo oeste–este / norte–sur de cada sitio. Cualquier sitio es una respuesta válida si se justifica con evidencia.',
     answersArguments: [
       'A favor de El Elegante: su profundidad es la más parecida a los ~230 m que reporta el ALSJ para North Ray, y está en México.',
       'A favor de Meteor Crater: es un cráter de impacto, como North Ray, y su ancho de borde a borde es el más parecido.',
@@ -464,7 +464,7 @@ export const roverEs = {
     verified:
       'Verificados: las elevaciones (DEM), las fotos, las dimensiones de North Ray, el límite de pendiente del rover y la gravedad lunar. Cada dato enlaza a su fuente.',
     computed:
-      'Calculados por Starman: la pendiente, el desnivel y la distancia de borde a borde se calculan en el navegador a partir de los DEM, con una malla de 41 × 41 puntos cada 75 m.',
+      'Calculados por Terranauta: la pendiente, el desnivel y la distancia de borde a borde se calculan en el navegador a partir de los DEM, con una malla de 41 × 41 puntos cada 75 m.',
     simulated: 'Datos simulados: ninguno. Esta misión no usa valores inventados.',
     resolutionLimit:
       'Límite importante: los DEM tienen píxeles de 90 m (Tierra) y 59 m (Luna). Promedian el terreno, así que no muestran rocas, escalones ni cambios de pendiente más cortos que eso. Comparen las pendientes calculadas con los 30–35° que reporta el ALSJ para la pared de North Ray.',

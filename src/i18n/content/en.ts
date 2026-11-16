@@ -261,7 +261,7 @@ export const contentEn: ContentTranslation = {
     },
     openstreetmap: {
       organization: 'OpenStreetMap Foundation and contributors',
-      description: 'Open map data created by a global community. Starman will use it as the base map in its interactive maps.',
+      description: 'Open map data created by a global community. Terranauta will use it as the base map in its interactive maps.',
       informationType: 'Open cartographic data',
       license: 'Open Database License (ODbL). Attribution: “© OpenStreetMap contributors”.',
     },

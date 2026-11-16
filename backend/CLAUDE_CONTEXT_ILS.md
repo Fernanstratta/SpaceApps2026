@@ -18,7 +18,7 @@
   2. **API (Vercel Functions, TypeScript, solo lectura):** sirve esos JSON pre-calculados.
   3. **Frontend (React + Vite + TypeScript):** comparador y contenido educativo.
 
-## 2. El repositorio base ("Starman Space Explorer")
+## 2. El repositorio base ("Terranauta Space Explorer")
 
 Resumen del README que compartió el usuario:
 

@@ -2,7 +2,7 @@
  * Los nueve ejes comparativos Tierra–Luna del proyecto (documento del equipo
  * «Índice de Similitud Lunar (ILS)», esquema 1.0.0). Son a la vez:
  *  - la estructura temática del Portal Educativo (un tema por eje), y
- *  - las categorías de filtro de Starman Playground.
+ *  - las categorías de filtro de Terranauta Playground.
  * El orden es el del documento (eje 1 a eje 9). Los nombres visibles están en
  * `i18n/playground.{es,en}.ts` (`axes[id].name`), una sola vez por idioma.
  */

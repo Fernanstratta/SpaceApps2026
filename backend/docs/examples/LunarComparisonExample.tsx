@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import type { AnalogPairSummary, Comparison, DataResponse } from '../../src/lib/spaceApiTypes';
-import { createStarmanClient } from './starmanClient.js';
+import { createTerranautaClient } from './terranautaClient.js';
 
-const client = createStarmanClient();
+const client = createTerranautaClient();
 const percent = new Intl.NumberFormat('en', { style: 'percent', maximumFractionDigits: 2 });
 
 export function LunarComparisonExample() {

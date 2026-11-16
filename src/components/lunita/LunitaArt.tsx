@@ -3,7 +3,7 @@ import { FIELD, GOAL, GOAL_RADIUS, MAP_SIZE, PIECE_WIDTH, ROCKS, START, type Map
 
 /**
  * Ilustraciones de la misión 4Kids. Todas son dibujos (no datos reales) y
- * usan la paleta de la misión: caminos amarillos y turquesa sobre Starman.
+ * usan la paleta de la misión: caminos amarillos y turquesa sobre Terranauta.
  */
 
 export const LUNITA_COLORS = {

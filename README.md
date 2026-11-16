@@ -1,4 +1,4 @@
-# Starman — Fase 1 (base funcional)
+# Terranauta — Fase 1 (base funcional)
 
 Plataforma educativa bilingüe (español / inglés) para explorar conceptos astronómicos de la Tierra y la Luna.
 **Misión 01** — «¿Dónde probarías un rover antes de enviarlo a la Luna?»: vista de estudiantes y guía docente de 45 min, con datos de elevación reales de la Tierra y la Luna. Ver [docs/mission-rover.md](docs/mission-rover.md).
@@ -67,7 +67,7 @@ src/
 
 | Ruta | Página |
 | --- | --- |
-| `/` | Inicio de página única: portada, ¿Qué es Starman?, Sobre Nosotros (`#sobre-nosotros`) y Recursos (`#recursos`) |
+| `/` | Inicio de página única: portada, ¿Qué es Terranauta?, Sobre Nosotros (`#sobre-nosotros`) y Recursos (`#recursos`) |
 | `/portal-educativo` | Módulos: buscador y una fila por tema con sus submódulos |
 | `/portal-educativo/:topicId` | Tema: submódulos y pestañas Aprender / Enseñar (`?vista=ensenar` abre la segunda) |
 | `/portal-educativo/:topicId/:submoduleId` | Submódulo: foto, contenido (pendiente) y otros módulos del tema |
@@ -86,7 +86,7 @@ src/
 
 ### Colores de las secciones
 
-Portada negra (`--color-black`), ¿Qué es Starman? gris azulado claro (`--color-portal-bg`), Sobre Nosotros azul
+Portada negra (`--color-black`), ¿Qué es Terranauta? gris azulado claro (`--color-portal-bg`), Sobre Nosotros azul
 noche (`--color-about-bg`) y Recursos crema (`--color-resources-bg`). Todos están en `:root` en `global.css`.
 
 ### Imagen de la Luna (portada)
@@ -154,5 +154,6 @@ pide consultar los términos del sitio de origen.
 - Interfaz para que el docente cambie la ubicación de referencia (el contexto ya expone `setReferenceLocation`).
 - Revisar la [política de uso de teselas de OpenStreetMap](https://operations.osmfoundation.org/policies/tiles/)
   antes de producción con tráfico alto.
-#   S p a c e A p p s 2 0 2 6  
+#   S p a c e A p p s 2 0 2 6 
+ 
  

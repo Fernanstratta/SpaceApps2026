@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Starman: recurso educativo para explorar conceptos astronómicos de la Tierra y la Luna."
+      content="Terranauta: recurso educativo para explorar conceptos astronómicos de la Tierra y la Luna."
     />
     <meta name="theme-color" content="#000000" />
     <!--
@@ -14,14 +14,14 @@
       estático. El backend o el edge puede rellenarlo al servir este HTML
       (p. ej. content="MX"). Ver docs/i18n.md.
     -->
-    <meta name="starman-country" content="" />
-    <title>Starman</title>
+    <meta name="terranauta-country" content="" />
+    <title>Terranauta</title>
     <script>
       // Aplica el tema guardado antes de pintar para evitar un destello del otro modo.
       (function () {
         var theme = 'light';
         try {
-          var stored = localStorage.getItem('starman-theme');
+          var stored = localStorage.getItem('terranauta-theme');
           if (stored === 'dark' || stored === 'light') theme = stored;
           else if (window.matchMedia('(prefers-color-scheme: dark)').matches) theme = 'dark';
         } catch (e) {}
@@ -32,8 +32,8 @@
   </head>
   <body>
     <noscript>
-      Starman necesita JavaScript para funcionar. Actívalo en tu navegador. /
-      <span lang="en">Starman needs JavaScript to work. Please enable it in your browser.</span>
+      Terranauta necesita JavaScript para funcionar. Actívalo en tu navegador. /
+      <span lang="en">Terranauta needs JavaScript to work. Please enable it in your browser.</span>
     </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

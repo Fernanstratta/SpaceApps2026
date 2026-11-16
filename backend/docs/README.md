@@ -1,6 +1,6 @@
-# Starman API documentation
+# Terranauta API documentation
 
-Starman Space Explorer serves a public, read-only HTTP API for space content, maps, regional Earth–Moon and Earth–Mars comparisons, and the nine-axis Lunar Similarity Index (ILS).
+Terranauta Space Explorer serves a public, read-only HTTP API for space content, maps, regional Earth–Moon and Earth–Mars comparisons, and the nine-axis Lunar Similarity Index (ILS).
 
 | Start here | What you’ll find |
 | --- | --- |

@@ -1,7 +1,7 @@
 import type { scoreAnalog } from '../../src/lib/analogScoring';
 import type { ApodResponse, Comparison, DataResponse, HealthResponse, PlanetsResponse } from '../../src/lib/spaceApiTypes';
 import type { AnalogComparison, CollectionResponse, EarthLocation, PlanetaryLocation, SatelliteImage, ScientificSource } from '../../src/types/planetaryAnalog';
-import { createStarmanClient } from './starmanClient.js';
+import { createTerranautaClient } from './terranautaClient.js';
 
 type RankedAnalog = AnalogComparison & { ranking: ReturnType<typeof scoreAnalog> };
 interface ComparisonResult {
@@ -22,7 +22,7 @@ interface EarthGeoJson {
   meta: CollectionResponse<EarthLocation>['meta'];
 }
 
-const api = createStarmanClient();
+const api = createTerranautaClient();
 
 export function endpointCalls() {
   return {

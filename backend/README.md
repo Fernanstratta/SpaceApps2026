@@ -1,4 +1,4 @@
-# Starman Space Explorer
+# Terranauta Space Explorer
 
 **[API documentation](docs/README.md)** · [Endpoint quick reference](docs/api-cheatsheet.md) · [OpenAPI 3.1](public/docs/openapi.json) · [AI quick start](public/llms.txt)
 
@@ -10,7 +10,7 @@ This update adds three traceable Earth–planet comparison records, modeled NASA
 
 Run `npm test`, `npm run typecheck`, and `npm run build` after installing dependencies. Use `npm run data:power` only for offline data refresh. The delivered source overlay must be applied to the original repository so its binary preview assets remain available.
 
-Starman pairs a React, Vite, and TypeScript demo with twelve read-only TypeScript Vercel Functions. The app uses the same origin for UI and API requests and requires no student accounts, database, or NASA API key.
+Terranauta pairs a React, Vite, and TypeScript demo with twelve read-only TypeScript Vercel Functions. The app uses the same origin for UI and API requests and requires no student accounts, database, or NASA API key.
 
 The **Comparador lunar** presents five Baja California/Sonora–Moon pairs across nine axes. See the [ILS data and reproduction guide](docs/dataset-access.md#índice-de-similitud-lunar-ils).
 

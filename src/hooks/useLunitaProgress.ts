@@ -55,7 +55,7 @@ export const EMPTY_LUNITA: LunitaProgress = {
   done: false,
 };
 
-const STORAGE_KEY = 'starman-mission-lunita-v1';
+const STORAGE_KEY = 'terranauta-mission-lunita-v1';
 const MAX_POINTS = 2000;
 
 const oneOf = <T extends string>(list: readonly T[], value: unknown): T | null =>

@@ -4,7 +4,7 @@ export type ThemePreference = 'light' | 'dark' | 'system';
 export type ResolvedTheme = 'light' | 'dark';
 
 /** Misma clave que usa el script de `index.html` para aplicar el tema antes de pintar. */
-const STORAGE_KEY = 'starman-theme';
+const STORAGE_KEY = 'terranauta-theme';
 const DARK_QUERY = '(prefers-color-scheme: dark)';
 const META_COLORS: Record<ResolvedTheme, string> = { light: '#ffffff', dark: '#000000' };
 

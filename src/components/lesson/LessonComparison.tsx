@@ -11,7 +11,7 @@ import { useAnalogText } from '../analogs/useAnalogText';
 
 /**
  * Comparación Tierra–Luna de una lección, con los datos del backend de sus
- * pares. Usa los mismos componentes que Starman Playground, con el nivel de
+ * pares. Usa los mismos componentes que Terranauta Playground, con el nivel de
  * detalle de la lección:
  *  - `simple` (primaria): la escala y una ficha sencilla por par.
  *  - `guided` (secundaria): además, tolerancia, peso, confianza y advertencias.

@@ -1,4 +1,4 @@
-# Starman Space Explorer API
+# Terranauta Space Explorer API
 
 > Public, read-only JSON API for planet content, Earth analog maps, curated Earth–Moon and Earth–Mars comparisons, and the nine-axis Lunar Similarity Index (ILS).
 
@@ -28,6 +28,6 @@ Use the origin serving this file as the API base URL. For local development, run
 - The nine-axis lunar ILS uses only axes with two eligible values. Keep placeholders labeled and excluded, preserve each side's status and source, and treat `source_plan` as planned inputs.
 - Regional Earth coordinates are WGS84. Regional lunar and Martian longitudes use east-positive [0, 360). Lunar ILS site longitudes use east-positive [-180, 180]. Keep each body's markers in its own coordinate system.
 - Application errors have `{error:{code,message}}`. Use HTTP status and the stable error code in integrations. APOD can return HTTP 200 with archive content during an upstream failure.
-- All routes support GET with no request body. The eight regional handlers and their aliases support OPTIONS for browser preflight and emit cross-origin access headers only for origins configured in `STARMAN_ALLOWED_ORIGINS`. Use same-origin access for the four other routes.
+- All routes support GET with no request body. The eight regional handlers and their aliases support OPTIONS for browser preflight and emit cross-origin access headers only for origins configured in `TERRANAUTA_ALLOWED_ORIGINS`. Use same-origin access for the four other routes.
 
 Use OpenAPI for the exact contract. Fetch the API when you need current catalog records or scores. Captured responses illustrate the contract at the documented baseline.

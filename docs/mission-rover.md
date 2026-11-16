@@ -1,6 +1,6 @@
 # Misión 01 — ¿Dónde probarías un rover antes de enviarlo a la Luna?
 
-Primera misión del laboratorio de misiones de Starman. Un equipo elige un sitio de la Tierra para ensayar una
+Primera misión del laboratorio de misiones de Terranauta. Un equipo elige un sitio de la Tierra para ensayar una
 maniobra del rover lunar (bajar por la pared interior de un cráter y volver a subir al borde) y defiende la
 decisión con evidencia topográfica.
 
@@ -25,7 +25,7 @@ Se entra desde la misión destacada del Portal Educativo y desde las pestañas A
 5. **Ficha final:** elección inicial, hallazgo principal, objeción y decisión revisada. La app **no califica** el
    sitio: cualquier decisión vale si está respaldada por datos.
 
-Todo vive en `localStorage` (`starman-mission-rover-v2`; el formato anterior se migra solo). No hay cuentas ni
+Todo vive en `localStorage` (`terranauta-mission-rover-v2`; el formato anterior se migra solo). No hay cuentas ni
 sincronización: las fichas se intercambian impresas o en PDF. Si una fuente se marca como `simulated` en
 `MISSION_SOURCES`, la etiqueta «dato simulado» aparece en el visor, la bitácora y la ficha.
 

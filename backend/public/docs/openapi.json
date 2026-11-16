@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Starman API",
+    "title": "Terranauta API",
     "version": "1.0.0",
-    "description": "Public read-only API for Starman Space Explorer. Set the base URL to the Vercel deployment origin or use the local Vercel dev server."
+    "description": "Public read-only API for Terranauta Space Explorer. Set the base URL to the Vercel deployment origin or use the local Vercel dev server."
   },
   "servers": [
     {
@@ -1369,7 +1369,7 @@
                 }
               },
               "Access-Control-Allow-Origin": {
-                "description": "Returned only when Origin matches STARMAN_ALLOWED_ORIGINS.",
+                "description": "Returned only when Origin matches TERRANAUTA_ALLOWED_ORIGINS.",
                 "schema": {
                   "type": "string"
                 }
@@ -1686,7 +1686,7 @@
                             "status": "insufficient-data",
                             "reason": "Requires at least 70% weighted coverage and up to three measured dimensions. No missing value is treated as zero.",
                             "confidence": null,
-                            "method": "starman-distance-v1; heuristic thresholds, not scientific validation"
+                            "method": "terranauta-distance-v1; heuristic thresholds, not scientific validation"
                           }
                         }
                       ],
@@ -1971,7 +1971,7 @@
                           "status": "insufficient-data",
                           "reason": "Requires at least 70% weighted coverage and up to three measured dimensions. No missing value is treated as zero.",
                           "confidence": null,
-                          "method": "starman-distance-v1; heuristic thresholds, not scientific validation"
+                          "method": "terranauta-distance-v1; heuristic thresholds, not scientific validation"
                         }
                       }
                     },
@@ -2280,7 +2280,7 @@
                 }
               },
               "Access-Control-Allow-Origin": {
-                "description": "Returned only when Origin matches STARMAN_ALLOWED_ORIGINS.",
+                "description": "Returned only when Origin matches TERRANAUTA_ALLOWED_ORIGINS.",
                 "schema": {
                   "type": "string"
                 }
@@ -2812,7 +2812,7 @@
                 }
               },
               "Access-Control-Allow-Origin": {
-                "description": "Returned only when Origin matches STARMAN_ALLOWED_ORIGINS.",
+                "description": "Returned only when Origin matches TERRANAUTA_ALLOWED_ORIGINS.",
                 "schema": {
                   "type": "string"
                 }
@@ -3106,7 +3106,7 @@
                             "status": "insufficient-data",
                             "reason": "Requires at least 70% weighted coverage and up to three measured dimensions. No missing value is treated as zero.",
                             "confidence": null,
-                            "method": "starman-distance-v1; heuristic thresholds, not scientific validation"
+                            "method": "terranauta-distance-v1; heuristic thresholds, not scientific validation"
                           }
                         },
                         "earth": {
@@ -3764,7 +3764,7 @@
                 }
               },
               "Access-Control-Allow-Origin": {
-                "description": "Returned only when Origin matches STARMAN_ALLOWED_ORIGINS.",
+                "description": "Returned only when Origin matches TERRANAUTA_ALLOWED_ORIGINS.",
                 "schema": {
                   "type": "string"
                 }
@@ -4081,7 +4081,7 @@
                             "status": "insufficient-data",
                             "reason": "Requires at least 70% weighted coverage and up to three measured dimensions. No missing value is treated as zero.",
                             "confidence": null,
-                            "method": "starman-distance-v1; heuristic thresholds, not scientific validation"
+                            "method": "terranauta-distance-v1; heuristic thresholds, not scientific validation"
                           }
                         }
                       ],
@@ -4366,7 +4366,7 @@
                           "status": "insufficient-data",
                           "reason": "Requires at least 70% weighted coverage and up to three measured dimensions. No missing value is treated as zero.",
                           "confidence": null,
-                          "method": "starman-distance-v1; heuristic thresholds, not scientific validation"
+                          "method": "terranauta-distance-v1; heuristic thresholds, not scientific validation"
                         }
                       }
                     },
@@ -4619,7 +4619,7 @@
                 }
               },
               "Access-Control-Allow-Origin": {
-                "description": "Returned only when Origin matches STARMAN_ALLOWED_ORIGINS.",
+                "description": "Returned only when Origin matches TERRANAUTA_ALLOWED_ORIGINS.",
                 "schema": {
                   "type": "string"
                 }
@@ -4972,7 +4972,7 @@
                 }
               },
               "Access-Control-Allow-Origin": {
-                "description": "Returned only when Origin matches STARMAN_ALLOWED_ORIGINS.",
+                "description": "Returned only when Origin matches TERRANAUTA_ALLOWED_ORIGINS.",
                 "schema": {
                   "type": "string"
                 }
@@ -5314,7 +5314,7 @@
                 }
               },
               "Access-Control-Allow-Origin": {
-                "description": "Returned only when Origin matches STARMAN_ALLOWED_ORIGINS.",
+                "description": "Returned only when Origin matches TERRANAUTA_ALLOWED_ORIGINS.",
                 "schema": {
                   "type": "string"
                 }
@@ -5665,7 +5665,7 @@
                 }
               },
               "Access-Control-Allow-Origin": {
-                "description": "Returned only when Origin matches STARMAN_ALLOWED_ORIGINS.",
+                "description": "Returned only when Origin matches TERRANAUTA_ALLOWED_ORIGINS.",
                 "schema": {
                   "type": "string"
                 }
@@ -6075,7 +6075,7 @@
                 }
               },
               "Access-Control-Allow-Origin": {
-                "description": "Returned only when Origin matches STARMAN_ALLOWED_ORIGINS.",
+                "description": "Returned only when Origin matches TERRANAUTA_ALLOWED_ORIGINS.",
                 "schema": {
                   "type": "string"
                 }
@@ -6368,7 +6368,7 @@
                           "status": "insufficient-data",
                           "reason": "Requires at least 70% weighted coverage and up to three measured dimensions. No missing value is treated as zero.",
                           "confidence": null,
-                          "method": "starman-distance-v1; heuristic thresholds, not scientific validation"
+                          "method": "terranauta-distance-v1; heuristic thresholds, not scientific validation"
                         }
                       }
                     },
@@ -6650,7 +6650,7 @@
                 }
               },
               "Access-Control-Allow-Origin": {
-                "description": "Returned only when Origin matches STARMAN_ALLOWED_ORIGINS.",
+                "description": "Returned only when Origin matches TERRANAUTA_ALLOWED_ORIGINS.",
                 "schema": {
                   "type": "string"
                 }
@@ -6971,7 +6971,7 @@
                 }
               },
               "Access-Control-Allow-Origin": {
-                "description": "Returned only when Origin matches STARMAN_ALLOWED_ORIGINS.",
+                "description": "Returned only when Origin matches TERRANAUTA_ALLOWED_ORIGINS.",
                 "schema": {
                   "type": "string"
                 }
@@ -7290,7 +7290,7 @@
                 }
               },
               "Access-Control-Allow-Origin": {
-                "description": "Returned only when Origin matches STARMAN_ALLOWED_ORIGINS.",
+                "description": "Returned only when Origin matches TERRANAUTA_ALLOWED_ORIGINS.",
                 "schema": {
                   "type": "string"
                 }

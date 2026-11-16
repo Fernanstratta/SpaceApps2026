@@ -1,8 +1,8 @@
 {
-  "name": "starman",
+  "name": "terranauta",
   "private": true,
   "version": "0.1.0",
-  "description": "Starman: plataforma educativa para explorar la Tierra y la Luna.",
+  "description": "Terranauta: plataforma educativa para explorar la Tierra y la Luna.",
   "type": "module",
   "scripts": {
     "dev": "vite",

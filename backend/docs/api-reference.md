@@ -2,12 +2,12 @@
 
 Use `http://localhost:3000` with local Vercel or the deployed origin in production. Every request below uses GET. See the [quick reference](api-cheatsheet.md) for a task-to-path table and the [OpenAPI specification](../public/docs/openapi.json) for every field and unabridged HTTP response example. JSON excerpts preserve the shape and values of the selected response.
 
-The TypeScript calls use the [reusable Fetch client](examples/starmanClient.ts) and the types in [endpointCalls.ts](examples/endpointCalls.ts). Import the client and types in your module before copying a call.
+The TypeScript calls use the [reusable Fetch client](examples/terranautaClient.ts) and the types in [endpointCalls.ts](examples/endpointCalls.ts). Import the client and types in your module before copying a call.
 
 ```ts
-import { createStarmanClient } from './starmanClient';
+import { createTerranautaClient } from './terranautaClient';
 
-const api = createStarmanClient();
+const api = createTerranautaClient();
 ```
 
 ## Regional request rules
@@ -207,7 +207,7 @@ curl -i 'http://localhost:3000/api/analogs?limit=1'
         "status": "insufficient-data",
         "reason": "Requires at least 70% weighted coverage and up to three measured dimensions. No missing value is treated as zero.",
         "confidence": null,
-        "method": "starman-distance-v1; heuristic thresholds, not scientific validation"
+        "method": "terranauta-distance-v1; heuristic thresholds, not scientific validation"
       }
     }
   ],
@@ -344,7 +344,7 @@ curl -i 'http://localhost:3000/api/compare?earth=cerro-prieto&planetary=gusev'
         "status": "insufficient-data",
         "reason": "Requires at least 70% weighted coverage and up to three measured dimensions. No missing value is treated as zero.",
         "confidence": null,
-        "method": "starman-distance-v1; heuristic thresholds, not scientific validation"
+        "method": "terranauta-distance-v1; heuristic thresholds, not scientific validation"
       }
     },
     "earth": {
@@ -438,7 +438,7 @@ curl -i 'http://localhost:3000/api/rankings?planet=Mars&profile=geology&limit=1'
         "status": "insufficient-data",
         "reason": "Requires at least 70% weighted coverage and up to three measured dimensions. No missing value is treated as zero.",
         "confidence": null,
-        "method": "starman-distance-v1; heuristic thresholds, not scientific validation"
+        "method": "terranauta-distance-v1; heuristic thresholds, not scientific validation"
       }
     }
   ],
@@ -692,7 +692,7 @@ curl -i 'http://localhost:3000/api/analogs/cerro-prieto-gusev'
       "status": "insufficient-data",
       "reason": "Requires at least 70% weighted coverage and up to three measured dimensions. No missing value is treated as zero.",
       "confidence": null,
-      "method": "starman-distance-v1; heuristic thresholds, not scientific validation"
+      "method": "terranauta-distance-v1; heuristic thresholds, not scientific validation"
     }
   }
 }

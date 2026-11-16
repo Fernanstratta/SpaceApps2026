@@ -1,5 +1,5 @@
 /**
- * Filtro de Starman Playground (funciones puras, probadas en
+ * Filtro de Terranauta Playground (funciones puras, probadas en
  * `scripts/verify-playground.ts`).
  *
  * El único filtro es el ILS mínimo (0–100). Un par SIN índice

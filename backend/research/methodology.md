@@ -1,4 +1,4 @@
-# Starman analogy methodology, version 1
+# Terranauta analogy methodology, version 1
 
 Prepared 2026-11-14. This release is a curated, traceable MVP, not a validation study.
 

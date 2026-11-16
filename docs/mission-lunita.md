@@ -5,7 +5,7 @@ Segunda misión del Laboratorio de misiones. En el Portal Educativo aparece **ju
 
 - Ruta: `/es/portal-educativo/mision/lunita` · `/en/educational-portal/mission/lunita`
 - Sin cuentas ni servidor: el avance (incluida la ruta dibujada) se guarda en `localStorage`
-  (`starman-mission-lunita-v1`) y sobrevive a una recarga.
+  (`terranauta-mission-lunita-v1`) y sobrevive a una recarga.
 - **Todo es ilustrativo.** El mapa terrestre, el campo de rocas y el terreno lunar son dibujos.
   La interfaz lo marca con la etiqueta «Mapa ilustrativo».
 

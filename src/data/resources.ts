@@ -157,7 +157,7 @@ export const resources: Resource[] = [
     name: 'OpenStreetMap',
     organization: 'Fundación OpenStreetMap y colaboradores',
     description:
-      'Datos de mapas abiertos creados por una comunidad global. Starman los usará como mapa base en sus mapas interactivos.',
+      'Datos de mapas abiertos creados por una comunidad global. Terranauta los usará como mapa base en sus mapas interactivos.',
     sourceUrl: 'https://www.openstreetmap.org/',
     informationType: 'Datos cartográficos abiertos',
     license: 'Open Database License (ODbL). Atribución: «© Colaboradores de OpenStreetMap».',

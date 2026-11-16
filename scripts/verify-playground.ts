@@ -1,5 +1,5 @@
 /**
- * Verifica Starman Playground sin navegador (`npm run verify:playground`):
+ * Verifica Terranauta Playground sin navegador (`npm run verify:playground`):
  *  - Las cinco áreas son los cinco pares del backend, con sus coordenadas,
  *    radios de análisis e ILS tal como los envía (nunca recalculados).
  *  - Los ejes sin dato comparable nunca se muestran como 0.

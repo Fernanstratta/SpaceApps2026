@@ -135,7 +135,7 @@ export const images: CommonsImage[] = [
     author: 'NASA / Michael Studinger (Operación IceBridge)',
     license: 'Dominio público',
   },
-  // Sitios lunares de los pares de Starman Playground (mismos archivos que su catálogo).
+  // Sitios lunares de los pares de Terranauta Playground (mismos archivos que su catálogo).
   {
     id: 'apollo11-lro',
     file: 'LRO_Gets_Additional_View_of_Apollo_11_Landing_Site_(4092985062).jpg',

@@ -13,8 +13,8 @@ const sharedEn: CurriculumShared = {
   sessionDuration: (minutes) => `${minutes} minutes (one session)`,
   moduleDuration: (sessions, minutes) => `${sessions} sessions, ${minutes} minutes in total`,
   playground: (axis) => ({
-    title: 'Explore in Starman Playground',
-    description: `Open Starman Playground, choose the “${axis}” axis in “One axis across the five pairs” and compare this lesson’s sites with the other pairs.`,
+    title: 'Explore in Terranauta Playground',
+    description: `Open Terranauta Playground, choose the “${axis}” axis in “One axis across the five pairs” and compare this lesson’s sites with the other pairs.`,
   }),
   quizKey: (number, question, answer) => `Answer key, question ${number} (“${question}”): ${answer}.`,
   printable: {

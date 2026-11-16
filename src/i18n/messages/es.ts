@@ -26,11 +26,11 @@ const classroomAlternativeTypes: Record<ClassroomAlternativeType, string> = {
 
 export const es = {
   META: {
-    description: 'Starman: recurso educativo para explorar conceptos astronómicos de la Tierra y la Luna.',
+    description: 'Terranauta: recurso educativo para explorar conceptos astronómicos de la Tierra y la Luna.',
   },
 
   UI: {
-    siteName: 'Starman',
+    siteName: 'Terranauta',
     tagline: 'Recurso educativo sobre la Tierra y la Luna',
     skipToContent: 'Saltar al contenido principal',
     openMenu: 'Abrir menú de navegación',
@@ -114,7 +114,7 @@ export const es = {
     password: 'Contraseña',
     passwordHint: 'Mínimo 8 caracteres.',
     remember: 'Recordarme en este dispositivo',
-    comingSoonTitle: 'Las cuentas de Starman estarán disponibles muy pronto.',
+    comingSoonTitle: 'Las cuentas de Terranauta estarán disponibles muy pronto.',
     comingSoonBody: 'Mientras tanto puedes explorar todo el contenido sin registrarte.',
     goToPortal: 'Ir al Portal Educativo',
     continueAsGuest: 'Continuar como invitado',
@@ -122,19 +122,19 @@ export const es = {
 
   HOME: {
     hero: {
-      title: 'Starman',
+      title: 'Terranauta',
       lead: 'Explora el universo a través de la Tierra. Descubre cómo los fenómenos y características de la Luna y otros cuerpos celestes se relacionan con nuestro planeta mediante experiencias educativas.',
       primaryCta: 'Explorar Portal Educativo',
     },
     intro: {
-      title: '¿Qué es Starman?',
+      title: '¿Qué es Terranauta?',
       purpose: {
         title: '¿Para qué sirve?',
         body: 'Reúne temas de astronomía en un solo lugar, con información organizada para aprender en casa o en el salón de clases.',
       },
       realWorld: {
         title: 'Aprender desde lugares conocidos',
-        body: 'Starman relacionará la información astronómica con lugares reales de la Tierra. Así, los conceptos científicos se entienden a partir de entornos familiares y los docentes pueden planear actividades y salidas escolares.',
+        body: 'Terranauta relacionará la información astronómica con lugares reales de la Tierra. Así, los conceptos científicos se entienden a partir de entornos familiares y los docentes pueden planear actividades y salidas escolares.',
       },
     },
     audiences: {
@@ -150,7 +150,7 @@ export const es = {
 
   ABOUT: {
     eyebrow: 'Sobre el proyecto',
-    title: '¿Qué es Starman?',
+    title: '¿Qué es Terranauta?',
     lead: 'Un portal educativo para explorar el universo partiendo de lo que ya conocemos: la Tierra.',
     features: [
       {
@@ -159,7 +159,7 @@ export const es = {
       },
       {
         title: 'Aprender desde lugares conocidos',
-        text: 'Starman relacionará la información astronómica con lugares reales de la Tierra. Así, los conceptos científicos se entienden a partir de entornos familiares y los docentes pueden planear actividades y salidas escolares.',
+        text: 'Terranauta relacionará la información astronómica con lugares reales de la Tierra. Así, los conceptos científicos se entienden a partir de entornos familiares y los docentes pueden planear actividades y salidas escolares.',
       },
     ],
     viewsTitle: 'Cada tema, dos vistas',
@@ -320,7 +320,7 @@ export const es = {
     quizCorrect: '¡Correcto!',
     quizWrong: 'No exactamente.',
     quizAnswer: (answer: string) => `La respuesta es: ${answer}`,
-    exploreTitle: 'Explora más en Starman Playground',
+    exploreTitle: 'Explora más en Terranauta Playground',
     exploreText: 'Abre la comparación completa: los nueve ejes, las fotos de los dos sitios, las fuentes y dónde se rompe la analogía.',
   },
 
@@ -350,7 +350,7 @@ export const es = {
     classroomAlternatives: 'Alternativas dentro del aula',
     priorKnowledge: 'Conocimientos previos',
     playground: 'Para proyectar en clase',
-    playgroundText: 'Abre la comparación de los pares de esta sesión en Starman Playground.',
+    playgroundText: 'Abre la comparación de los pares de esta sesión en Terranauta Playground.',
   },
 
   LOCATION_TEXT: {
@@ -395,7 +395,7 @@ export const es = {
   RESOURCE_TEXT: {
     title: 'Recursos',
     intro:
-      'Estas son las fuentes científicas y los conjuntos de datos que Starman utiliza o utilizará. Todas pertenecen a organizaciones reconocidas y pueden consultarse en su sitio oficial.',
+      'Estas son las fuentes científicas y los conjuntos de datos que Terranauta utiliza o utilizará. Todas pertenecen a organizaciones reconocidas y pueden consultarse en su sitio oficial.',
     categoriesNav: 'Categorías de recursos',
     organization: 'Organización responsable',
     informationType: 'Tipo de información',

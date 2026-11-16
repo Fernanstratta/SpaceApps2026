@@ -4,7 +4,7 @@ import { useI18n } from '../i18n/I18nContext';
 import { PLAYGROUND_TEXT } from '../i18n/playground';
 
 /**
- * Starman Playground en su propia pestaña (`/playground`), como el Portal
+ * Terranauta Playground en su propia pestaña (`/playground`), como el Portal
  * Educativo: la consola de exploración de análogos de la Luna y de Marte.
  */
 export function PlaygroundPage() {

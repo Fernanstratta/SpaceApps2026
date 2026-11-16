@@ -25,6 +25,6 @@ A healthy API returns `200 OK` with `{"status":"ok"}`. Most other routes wrap th
 | Vercel preview or production | The Vercel URL or custom domain assigned to that deployment | Same relative path when the UI and API share an origin |
 | Separate frontend | Its own origin, with an explicit backend URL | Configure the backend's allowlist for regional routes |
 
-Requests are public. An `Accept: application/json` header is useful, and no token or cookie is required. Every route accepts `GET` with no request body. The eight regional handlers and their Vercel aliases also respond to `OPTIONS`. The server-side `STARMAN_ALLOWED_ORIGINS` variable accepts a comma-separated list of exact origins. See [browser and CORS troubleshooting](troubleshooting.md#browser-requests-and-cors).
+Requests are public. An `Accept: application/json` header is useful, and no token or cookie is required. Every route accepts `GET` with no request body. The eight regional handlers and their Vercel aliases also respond to `OPTIONS`. The server-side `TERRANAUTA_ALLOWED_ORIGINS` variable accepts a comma-separated list of exact origins. See [browser and CORS troubleshooting](troubleshooting.md#browser-requests-and-cors).
 
 The frontend build copies the docs to `dist/docs/`. The reference and captured examples can be read on a static server. Live requests require a running Vercel backend and a browser origin it allows.

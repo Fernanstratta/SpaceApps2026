@@ -1,9 +1,9 @@
 import type { ApiError } from '../../src/lib/spaceApiTypes';
 
-export class StarmanApiError extends Error {
+export class TerranautaApiError extends Error {
   constructor(message: string, public readonly status: number, public readonly code: string) {
     super(message);
-    this.name = 'StarmanApiError';
+    this.name = 'TerranautaApiError';
   }
 }
 
@@ -15,7 +15,7 @@ function isApiError(body: unknown): body is ApiError {
     && 'message' in error && typeof error.message === 'string';
 }
 
-export function createStarmanClient(baseUrl = '') {
+export function createTerranautaClient(baseUrl = '') {
   const origin = baseUrl.replace(/\/+$/, '');
 
   return {
@@ -34,11 +34,11 @@ export function createStarmanClient(baseUrl = '') {
         : null;
 
       if (!response.ok) {
-        if (isApiError(body)) throw new StarmanApiError(body.error.message, response.status, body.error.code);
-        throw new StarmanApiError(`Request failed with HTTP ${response.status}.`, response.status, 'HTTP_ERROR');
+        if (isApiError(body)) throw new TerranautaApiError(body.error.message, response.status, body.error.code);
+        throw new TerranautaApiError(`Request failed with HTTP ${response.status}.`, response.status, 'HTTP_ERROR');
       }
       if (body === null || typeof body !== 'object' || Array.isArray(body)) {
-        throw new StarmanApiError('Expected a JSON object from Starman.', response.status, 'INVALID_RESPONSE');
+        throw new TerranautaApiError('Expected a JSON object from Terranauta.', response.status, 'INVALID_RESPONSE');
       }
 
       return body as T;

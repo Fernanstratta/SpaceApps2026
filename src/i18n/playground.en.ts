@@ -1,13 +1,13 @@
 import type { PlaygroundText } from './playground.es';
 
 /**
- * English texts for Starman Playground (same shape as `playground.es.ts`).
+ * English texts for Terranauta Playground (same shape as `playground.es.ts`).
  * `backend` holds the translation of the texts the backend only sends in
  * Spanish (pair titles, site names, "how they are alike", "where it breaks").
  * `verify:data` checks that every backend text has a translation here.
  */
 export const playgroundEn: PlaygroundText = {
-  title: 'Starman Playground',
+  title: 'Terranauta Playground',
   lead: 'Compare places in Baja California and Sonora with sites on the Moon using the Lunar Similarity Index.',
   scope:
     'The team focused only on the Moon and only on sites in Baja California and Sonora, so students in the region can relate the content to places they know. The index does not say one site “is the same” as another: it shows how they are alike, how much, with what data, and where the analogy breaks.',
@@ -34,7 +34,7 @@ export const playgroundEn: PlaygroundText = {
     'risk-counterexample': 'Risk counterexample',
   },
 
-  mapLabel: 'Interactive map of the Earth sites in Starman Playground',
+  mapLabel: 'Interactive map of the Earth sites in Terranauta Playground',
   marker: (n, name) => `Pair ${n}: ${name}`,
   mapHint: 'Select a marker, or use Tab and Enter. The circle is the analysis area of each site.',
   mapLoading: 'Loading…',
@@ -54,7 +54,7 @@ export const playgroundEn: PlaygroundText = {
   photoError: 'This image could not be loaded.',
   noPhotos: 'This site has no photos yet.',
   goToComparison: 'See the full comparison',
-  openInPlayground: 'Explore in Starman Playground',
+  openInPlayground: 'Explore in Terranauta Playground',
 
   model3d: {
     label: (name) => `3D relief model of ${name}`,

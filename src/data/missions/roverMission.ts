@@ -31,7 +31,7 @@ export type SourceId =
   | 'photo-barringer'
   | 'photo-north-ray'
   | 'photo-station-11'
-  // Starman Playground (análogos de la Luna y de Marte)
+  // Terranauta Playground (análogos de la Luna y de Marte)
   | 'arads-nasa'
   | 'pia03714-devon'
   | 'osinski-2020-gullies'
@@ -62,7 +62,7 @@ export function isSimulated(sourceIds: readonly SourceId[]): boolean {
 }
 
 export const MISSION_SOURCES: Record<SourceId, MissionSource> = {
-  // ---- Starman Playground ----
+  // ---- Terranauta Playground ----
   'arads-nasa': {
     title: 'NASA Tests Life Detection Drill in the Atacama Desert (25 de abril de 2017)',
     publisher: 'NASA Astrobiology',

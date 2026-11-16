@@ -84,9 +84,9 @@ export interface MissionProgress {
 
 export const MAX_FINDINGS = 8;
 export const MIN_NOTE_LENGTH = 15;
-const STORAGE_KEY = 'starman-mission-rover-v2';
+const STORAGE_KEY = 'terranauta-mission-rover-v2';
 /** Formato anterior (observaciones sin nota); se migra al leerlo. */
-const LEGACY_STORAGE_KEY = 'starman-mission-rover-v1';
+const LEGACY_STORAGE_KEY = 'terranauta-mission-rover-v1';
 
 export const EMPTY_PROGRESS: MissionProgress = {
   step: 1,

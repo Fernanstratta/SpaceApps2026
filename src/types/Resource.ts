@@ -14,7 +14,7 @@ export interface ResourceCategory {
   description: string;
 }
 
-/** A verifiable scientific source or dataset used by Starman. */
+/** A verifiable scientific source or dataset used by Terranauta. */
 export interface Resource {
   id: string;
   categoryId: ResourceCategoryId;

@@ -180,7 +180,7 @@ const ABOUT_STYLES = `
 const FEATURE_ACCENTS = ['gold', 'moon'] as const;
 const VIEW_ACCENTS = ['earth', 'mars'] as const;
 
-/** "¿Qué es Starman?": continúa el tema oscuro del hero con los colores de los planetas. */
+/** "¿Qué es Terranauta?": continúa el tema oscuro del hero con los colores de los planetas. */
 export function AboutSection() {
   const { ABOUT } = useMessages();
   return (

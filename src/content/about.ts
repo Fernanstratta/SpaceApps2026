@@ -7,7 +7,7 @@ export interface AboutSection {
 /** Editable copy for the "Sobre Nosotros" page. */
 export const ABOUT_CONTENT: { title: string; lead: string; sections: AboutSection[] } = {
   title: 'Sobre Nosotros',
-  lead: 'Starman nace para acercar la astronomía a estudiantes y docentes.',
+  lead: 'Terranauta nace para acercar la astronomía a estudiantes y docentes.',
   sections: [
     {
       id: 'mision',

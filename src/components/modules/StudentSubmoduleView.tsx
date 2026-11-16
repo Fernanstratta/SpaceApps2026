@@ -262,7 +262,7 @@ export function StudentSubmoduleView({ submodule, content }: StudentSubmoduleVie
                 <h3 className="explore-callout__title">{STUDENT_SECTIONS.exploreTitle}</h3>
                 <p>{STUDENT_SECTIONS.exploreText}</p>
                 <Link className="button button--primary" to={playgroundLink({ pair: firstPair?.id ?? null, axis: content.comparison.axisId })}>
-                  Starman Playground →
+                  Terranauta Playground →
                 </Link>
               </aside>
             ) : null}

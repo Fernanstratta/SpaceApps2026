@@ -22,7 +22,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
-    console.error('[Starman] Error en una sección:', error, info);
+    console.error('[Terranauta] Error en una sección:', error, info);
   }
 
   render() {

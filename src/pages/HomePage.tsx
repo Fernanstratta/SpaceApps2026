@@ -7,7 +7,7 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { readHashId, scrollToSection } from '../utils/scroll';
 
 /**
- * Single-page Inicio: hero, "¿Qué es Starman?", Sobre Nosotros and Recursos,
+ * Single-page Inicio: hero, "¿Qué es Terranauta?", Sobre Nosotros and Recursos,
  * stacked vertically. The header navigation scrolls between sections.
  */
 export function HomePage() {

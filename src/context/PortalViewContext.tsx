@@ -17,7 +17,7 @@ export const PORTAL_VIEWS: PortalView[] = ['learn', 'teach'];
 
 const QUERY_KEY = 'vista';
 const QUERY_VALUE: Record<PortalView, string> = { learn: 'aprender', teach: 'ensenar' };
-const STORAGE_KEY = 'starman:vista';
+const STORAGE_KEY = 'terranauta:vista';
 
 function readStoredView(): PortalView | null {
   try {

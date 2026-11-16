@@ -3,11 +3,11 @@ import type { Messages } from './es';
 /** English interface copy. Same shape as `es.ts` (enforced by the `Messages` type). */
 export const en: Messages = {
   META: {
-    description: 'Starman: an educational resource to explore astronomy concepts about the Earth and the Moon.',
+    description: 'Terranauta: an educational resource to explore astronomy concepts about the Earth and the Moon.',
   },
 
   UI: {
-    siteName: 'Starman',
+    siteName: 'Terranauta',
     tagline: 'Educational resource about the Earth and the Moon',
     skipToContent: 'Skip to main content',
     openMenu: 'Open navigation menu',
@@ -90,7 +90,7 @@ export const en: Messages = {
     password: 'Password',
     passwordHint: 'At least 8 characters.',
     remember: 'Remember me on this device',
-    comingSoonTitle: 'Starman accounts are coming very soon.',
+    comingSoonTitle: 'Terranauta accounts are coming very soon.',
     comingSoonBody: 'In the meantime, you can explore all the content without signing up.',
     goToPortal: 'Go to the Educational Portal',
     continueAsGuest: 'Continue as a guest',
@@ -98,19 +98,19 @@ export const en: Messages = {
 
   HOME: {
     hero: {
-      title: 'Starman',
+      title: 'Terranauta',
       lead: 'Explore the universe through the Earth. Discover how the phenomena and features of the Moon and other celestial bodies relate to our planet through educational experiences.',
       primaryCta: 'Explore the Educational Portal',
     },
     intro: {
-      title: 'What is Starman?',
+      title: 'What is Terranauta?',
       purpose: {
         title: 'What is it for?',
         body: 'It brings astronomy topics together in one place, with organized information for learning at home or in the classroom.',
       },
       realWorld: {
         title: 'Learning from familiar places',
-        body: 'Starman will connect astronomical information with real places on Earth. That way, scientific concepts are understood through familiar settings, and teachers can plan activities and school trips.',
+        body: 'Terranauta will connect astronomical information with real places on Earth. That way, scientific concepts are understood through familiar settings, and teachers can plan activities and school trips.',
       },
     },
     audiences: {
@@ -126,7 +126,7 @@ export const en: Messages = {
 
   ABOUT: {
     eyebrow: 'About the project',
-    title: 'What is Starman?',
+    title: 'What is Terranauta?',
     lead: 'An educational portal to explore the universe starting from what we already know: the Earth.',
     features: [
       {
@@ -135,7 +135,7 @@ export const en: Messages = {
       },
       {
         title: 'Learning from familiar places',
-        text: 'Starman will connect astronomical information with real places on Earth. That way, scientific concepts are understood through familiar settings, and teachers can plan activities and school trips.',
+        text: 'Terranauta will connect astronomical information with real places on Earth. That way, scientific concepts are understood through familiar settings, and teachers can plan activities and school trips.',
       },
     ],
     viewsTitle: 'Every topic, two views',
@@ -293,7 +293,7 @@ export const en: Messages = {
     quizCorrect: 'Correct!',
     quizWrong: 'Not quite.',
     quizAnswer: (answer: string) => `The answer is: ${answer}`,
-    exploreTitle: 'Explore more in Starman Playground',
+    exploreTitle: 'Explore more in Terranauta Playground',
     exploreText: 'Open the full comparison: the nine axes, photos of both sites, the sources and where the analogy breaks down.',
   },
 
@@ -323,7 +323,7 @@ export const en: Messages = {
     classroomAlternatives: 'In-classroom alternatives',
     priorKnowledge: 'Prior knowledge',
     playground: 'To project in class',
-    playgroundText: 'Open the comparison of this session’s pairs in Starman Playground.',
+    playgroundText: 'Open the comparison of this session’s pairs in Terranauta Playground.',
   },
 
   LOCATION_TEXT: {
@@ -379,7 +379,7 @@ export const en: Messages = {
   RESOURCE_TEXT: {
     title: 'Resources',
     intro:
-      'These are the scientific sources and datasets that Starman uses or will use. All of them belong to recognized organizations and can be consulted on their official websites.',
+      'These are the scientific sources and datasets that Terranauta uses or will use. All of them belong to recognized organizations and can be consulted on their official websites.',
     categoriesNav: 'Resource categories',
     organization: 'Responsible organization',
     informationType: 'Type of information',

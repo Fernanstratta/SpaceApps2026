@@ -21,7 +21,7 @@ import '../styles/missions-preview.css';
  * El contenido (títulos, imágenes, edades, botones y rutas) es el real.
  */
 
-const STORAGE_KEY = 'starman-preview-missions';
+const STORAGE_KEY = 'terranauta-preview-missions';
 
 function readSaved(): ProposalId {
   try {

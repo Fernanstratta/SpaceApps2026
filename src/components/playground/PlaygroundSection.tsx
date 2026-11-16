@@ -40,7 +40,7 @@ const TERRAIN_BY_SITE: Partial<Record<string, MissionSiteId>> = { el_elegante: '
 type ViewMode = Body | '3d';
 
 /**
- * Starman Playground: el entorno de exploración de los cinco pares del ILS.
+ * Terranauta Playground: el entorno de exploración de los cinco pares del ILS.
  * Todo valor, similitud e ILS viene del backend (`data/lunarAnalogs.ts`);
  * aquí solo se elige qué mostrar. Para cada par responde: qué se mide, cuánto
  * vale en la Tierra y en la Luna, qué tan parecidos son, qué tan confiable es

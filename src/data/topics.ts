@@ -5,7 +5,7 @@ import { AXIS_DEFINITION_LIST } from './lunarAnalogs';
 
 /**
  * Shared topics for the Portal Educativo: the nine Earth–Moon comparative
- * axes. Both student and teacher modules reference these ids, and Starman
+ * axes. Both student and teacher modules reference these ids, and Terranauta
  * Playground uses them as filters.
  *
  * - `name` is the axis name (the backend's `name_es`, kept in the Playground

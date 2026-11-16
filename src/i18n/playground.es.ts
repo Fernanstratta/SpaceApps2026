@@ -1,7 +1,7 @@
 import type { AnalogyType, AxisId, AxisNormalization, Confidence, PairId, SimilarityMode, ValueStatus } from '../data/lunarAnalogs';
 
 /**
- * Textos de Starman Playground en español.
+ * Textos de Terranauta Playground en español.
  *
  * Los DATOS (valores, similitudes, ILS, nombres de sitios, «en qué se
  * parecen», «dónde se rompe») no están aquí: vienen del backend
@@ -112,7 +112,7 @@ export interface BackendTranslation {
 }
 
 export const playgroundEs = {
-  title: 'Starman Playground',
+  title: 'Terranauta Playground',
   lead: 'Compara lugares de Baja California y Sonora con sitios de la Luna usando el Índice de Similitud Lunar.',
   scope:
     'El equipo se concentró solo en la Luna y solo en sitios de Baja California y Sonora, para que estudiantes de la región relacionen el contenido con lugares que conocen. El ILS no dice que un sitio «es igual» a otro: muestra en qué se parecen, cuánto, con qué datos y dónde se rompe la analogía.',
@@ -139,7 +139,7 @@ export const playgroundEs = {
     'risk-counterexample': 'Contraejemplo de riesgo',
   } satisfies Record<AnalogyType, string>,
 
-  mapLabel: 'Mapa interactivo de los sitios terrestres de Starman Playground',
+  mapLabel: 'Mapa interactivo de los sitios terrestres de Terranauta Playground',
   marker: (n: number, name: string) => `Par ${n}: ${name}`,
   mapHint: 'Selecciona un marcador, o usa Tab y Enter. El círculo es el área de análisis de cada sitio.',
   mapLoading: 'Cargando…',
@@ -159,7 +159,7 @@ export const playgroundEs = {
   photoError: 'No se pudo cargar esta imagen.',
   noPhotos: 'Este sitio todavía no tiene fotos.',
   goToComparison: 'Ver la comparación completa',
-  openInPlayground: 'Explorar en Starman Playground',
+  openInPlayground: 'Explorar en Terranauta Playground',
 
   model3d: {
     label: (name: string) => `Modelo 3D del relieve de ${name}`,

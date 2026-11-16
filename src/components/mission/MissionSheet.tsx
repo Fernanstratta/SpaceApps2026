@@ -38,7 +38,7 @@ export function MissionSheet({ progress, variant }: { progress: MissionProgress;
       <header className="mission-sheet__head">
         <BrandMark size={34} />
         <div>
-          <p className="mission-sheet__eyebrow">Starman · {text.meta.code}</p>
+          <p className="mission-sheet__eyebrow">Terranauta · {text.meta.code}</p>
           <h2 id={`mission-sheet-title-${variant}`}>{variant === 'review' ? s.reviewHeading : s.finalHeading}</h2>
           <p className="mission-sheet__mission">{text.meta.title}</p>
         </div>

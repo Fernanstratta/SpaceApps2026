@@ -22,7 +22,7 @@ interface SubmoduleLayoutProps {
 }
 
 const DESKTOP_QUERY = '(min-width: 64rem)';
-const SIDEBAR_STORAGE_KEY = 'starman:submodule-sidebar';
+const SIDEBAR_STORAGE_KEY = 'terranauta:submodule-sidebar';
 
 function isDesktop(): boolean {
   return typeof window.matchMedia === 'function' && window.matchMedia(DESKTOP_QUERY).matches;

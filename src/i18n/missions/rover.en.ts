@@ -196,7 +196,7 @@ export const roverEn: RoverMissionText = {
     title: 'Step 5 · Final sheet',
     intro: 'The final sheet brings together your initial choice, your main finding, the objection and your revised decision.',
     neutral:
-      'Starman does not grade which site you chose: any site, or asking for more evidence, is valid if the argument rests on data.',
+      'Terranauta does not grade which site you chose: any site, or asking for more evidence, is valid if the argument rests on data.',
     print: 'Print final sheet',
     preview: 'View the sheet',
     ready: 'Print it or save it as a PDF from the print dialog.',
@@ -317,7 +317,7 @@ export const roverEn: RoverMissionText = {
     },
     supportingFinding: 'Supporting finding',
     neutral:
-      'Starman does not grade the chosen site. What matters is that the evidence can be located, that it supports the decision and that the team recognizes what is still missing.',
+      'Terranauta does not grade the chosen site. What matters is that the evidence can be located, that it supports the decision and that the team recognizes what is still missing.',
     reference: 'Lunar reference',
     sources: 'Data sources',
     closing: 'What evidence would make us change our minds?',
@@ -421,7 +421,7 @@ export const roverEn: RoverMissionText = {
     ],
     answersTitle: 'What the data says (for the teacher)',
     answersIntro:
-      'Values measured by Starman with the same data the students see, along each site’s west–east / north–south path. Any site is a valid answer if it is justified with evidence.',
+      'Values measured by Terranauta with the same data the students see, along each site’s west–east / north–south path. Any site is a valid answer if it is justified with evidence.',
     answersArguments: [
       'For El Elegante: its depth is the closest to the ~230 m the ALSJ reports for North Ray, and it is in Mexico.',
       'For Meteor Crater: it is an impact crater, like North Ray, and its rim-to-rim width is the closest.',
@@ -437,7 +437,7 @@ export const roverEn: RoverMissionText = {
     verified:
       'Verified: the elevations (DEM), the photos, North Ray’s dimensions, the rover’s slope limit and lunar gravity. Each item links to its source.',
     computed:
-      'Computed by Starman: slope, relief and rim-to-rim distance are calculated in the browser from the DEMs, on a 41 × 41 grid with points every 75 m.',
+      'Computed by Terranauta: slope, relief and rim-to-rim distance are calculated in the browser from the DEMs, on a 41 × 41 grid with points every 75 m.',
     simulated: 'Simulated data: none. This mission uses no made-up values.',
     resolutionLimit:
       'Important limit: the DEMs have 90 m (Earth) and 59 m (Moon) pixels. They average the terrain, so they do not show boulders, steps or slope changes shorter than that. Compare the computed slopes with the 30–35° the ALSJ reports for North Ray’s wall.',

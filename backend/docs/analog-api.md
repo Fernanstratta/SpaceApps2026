@@ -1,4 +1,4 @@
-# Starman analog API integration
+# Terranauta analog API integration
 
 This extension preserves `/api/health`, `/api/apod`, `/api/planets` and the existing visual comparisons. It adds eight lightweight local-data functions; the Lunar Similarity Index adds a separate function, for twelve total. No database or new secret is needed. Use Node 24 and the existing Vercel Vite configuration.
 
@@ -46,7 +46,7 @@ For a map, fetch the GeoJSON and use each feature ID to request `/api/analogs?lo
 
 For evidence exploration, resolve claim `sourceIds` against `/api/sources`. Source access status describes ingestion evidence, not general scientific reliability. Measurement rows distinguish modeled reanalysis from verified observations. The raw POWER files are audit artifacts; the API serves precomputed summaries.
 
-The API is same-origin by default. For a separate frontend set `STARMAN_ALLOWED_ORIGINS` to a comma-separated exact origin allowlist. No credentials or wildcard reflection is enabled. Public data are not access-controlled by CORS. Different Vercel deployments must configure that environment variable separately. The allowlist applies to these eight regional functions and their aliases. See [browser requests and CORS](troubleshooting.md#browser-requests-and-cors) for the other routes.
+The API is same-origin by default. For a separate frontend set `TERRANAUTA_ALLOWED_ORIGINS` to a comma-separated exact origin allowlist. No credentials or wildcard reflection is enabled. Public data are not access-controlled by CORS. Different Vercel deployments must configure that environment variable separately. The allowlist applies to these eight regional functions and their aliases. See [browser requests and CORS](troubleshooting.md#browser-requests-and-cors) for the other routes.
 
 ## Deployment and integration boundaries
 

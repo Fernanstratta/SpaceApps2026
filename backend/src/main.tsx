@@ -27,8 +27,8 @@ function App() {
 
   return (
     <main>
-      <h1>Starman Space Explorer</h1>
-      <nav className="explorer-nav" aria-label="Explore Starman">
+      <h1>Terranauta Space Explorer</h1>
+      <nav className="explorer-nav" aria-label="Explore Terranauta">
         <a href="#lunar-analogs" lang="es">Comparador lunar</a>
         <a href="#baja-explorer">Baja discoveries</a>
         <a href="#analog-comparisons">Earth analogs</a>

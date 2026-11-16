@@ -10,7 +10,7 @@ export type Language = (typeof LANGUAGES)[number];
 export const DEFAULT_LANGUAGE: Language = 'es';
 
 /** Clave de `localStorage` con la elección manual del usuario (selector ES / EN). */
-export const LANGUAGE_STORAGE_KEY = 'starman-lang';
+export const LANGUAGE_STORAGE_KEY = 'terranauta-lang';
 
 /** Configuración regional para formatear números y fechas. */
 export const LOCALES: Record<Language, string> = { es: 'es-MX', en: 'en-US' };

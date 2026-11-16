@@ -14,7 +14,7 @@ export interface LanguageDiagnostics {
 declare global {
   interface Window {
     /** Cómo se eligió el idioma en esta carga (útil para probar la detección). */
-    __STARMAN_I18N__?: LanguageDiagnostics;
+    __TERRANAUTA_I18N__?: LanguageDiagnostics;
   }
 }
 
@@ -45,13 +45,13 @@ export async function bootstrapLanguage(): Promise<Language> {
   }
 
   document.documentElement.lang = plan.language;
-  window.__STARMAN_I18N__ = {
+  window.__TERRANAUTA_I18N__ = {
     language: plan.language,
     source: plan.source,
     country: country.code,
     countrySource: country.source,
   };
-  if (import.meta.env.DEV) console.info('[Starman i18n]', window.__STARMAN_I18N__);
+  if (import.meta.env.DEV) console.info('[Terranauta i18n]', window.__TERRANAUTA_I18N__);
 
   return plan.language;
 }

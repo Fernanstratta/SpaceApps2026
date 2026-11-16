@@ -38,6 +38,6 @@ export function scoreAnalog(dimensions:SimilarityDimension[], weights:Weights=pr
     coverage, missingDimensions, weights, status:sufficient?'computed':'insufficient-data',
     reason:sufficient?'Renormalized over measured dimensions; coverage is reported separately.':'Requires at least 70% weighted coverage and up to three measured dimensions. No missing value is treated as zero.',
     confidence: eligible.length ? (eligible.some(d=>d.confidence==='low')?'low':eligible.some(d=>d.confidence==='medium')?'medium':'high') : null,
-    method:'starman-distance-v1; heuristic thresholds, not scientific validation',
+    method:'terranauta-distance-v1; heuristic thresholds, not scientific validation',
   };
 }

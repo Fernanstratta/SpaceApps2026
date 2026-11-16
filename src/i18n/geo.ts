@@ -7,8 +7,8 @@ import { normalizeCountryCode } from './detect';
  *
  *  1. `?country=MX` en la URL — solo para pruebas manuales.
  *  2. Valor inyectado por el servidor en el HTML (síncrono, sin esperas):
- *       <meta name="starman-country" content="MX">
- *     o `window.__STARMAN_GEO__ = { country: 'MX' }`.
+ *       <meta name="terranauta-country" content="MX">
+ *     o `window.__TERRANAUTA_GEO__ = { country: 'MX' }`.
  *  3. Endpoint del backend, si está configurado en `VITE_GEO_ENDPOINT`
  *     (p. ej. `/api/geo`). Debe responder JSON `GeoResponse`.
  *
@@ -31,7 +31,7 @@ export interface CountryDetection {
 
 declare global {
   interface Window {
-    __STARMAN_GEO__?: GeoResponse;
+    __TERRANAUTA_GEO__?: GeoResponse;
   }
 }
 
@@ -43,8 +43,8 @@ function fromQuery(): string | null {
 }
 
 function fromInjectedValue(): string | null {
-  const meta = document.querySelector<HTMLMetaElement>('meta[name="starman-country"]')?.content;
-  return normalizeCountryCode(window.__STARMAN_GEO__?.country ?? meta);
+  const meta = document.querySelector<HTMLMetaElement>('meta[name="terranauta-country"]')?.content;
+  return normalizeCountryCode(window.__TERRANAUTA_GEO__?.country ?? meta);
 }
 
 async function fromEndpoint(endpoint: string): Promise<string | null> {

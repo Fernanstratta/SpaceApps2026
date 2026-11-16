@@ -4,16 +4,16 @@ import { ROUTES } from '../../router/routes';
 import { TopicIcon } from '../portal/TopicIcon';
 import { useMessages, useData } from '../../i18n/I18nContext';
 
-/** What Starman is, the two views of every topic and the topic list. Part of Inicio. */
+/** What Terranauta is, the two views of every topic and the topic list. Part of Inicio. */
 export function PortalPreviewSection() {
   const { HOME: HOME_CONTENT, TOPIC_TABS } = useMessages();
   const { getSortedTopics } = useData();
   const { intro, audiences, topicsTitle } = HOME_CONTENT;
 
   return (
-    <section className="home-band home-band--portal" aria-labelledby="que-es-starman">
+    <section className="home-band home-band--portal" aria-labelledby="que-es-terranauta">
       <div className="container">
-        <h2 id="que-es-starman" className="band-title">
+        <h2 id="que-es-terranauta" className="band-title">
           {intro.title}
         </h2>
         <div className="intro-grid">

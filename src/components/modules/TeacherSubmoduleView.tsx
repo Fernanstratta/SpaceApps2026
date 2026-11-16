@@ -127,7 +127,7 @@ export function TeacherSubmoduleView({ topic, submodule, content }: TeacherSubmo
                 <h3 className="explore-callout__title">{TEACHER_SECTIONS.playground}</h3>
                 <p>{TEACHER_SECTIONS.playgroundText}</p>
                 <Link className="button button--primary" to={playgroundLink({ pair: firstPair, axis: comparison.axisId })}>
-                  Starman Playground →
+                  Terranauta Playground →
                 </Link>
               </aside>
             ) : null}

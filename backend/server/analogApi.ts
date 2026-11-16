@@ -17,7 +17,7 @@ export function createAnalogHandler(resource:Resource,repository:AnalogRepositor
   return async function handler(req:VercelRequest,res:VercelResponse) {
     // Same-origin by default. Explicit allowlist only; public read-only API uses no cookies.
     const origin=req.headers.origin;
-    const allowed=(process.env.STARMAN_ALLOWED_ORIGINS??'').split(',').map(x=>x.trim()).filter(Boolean);
+    const allowed=(process.env.TERRANAUTA_ALLOWED_ORIGINS??process.env.STARMAN_ALLOWED_ORIGINS??'').split(',').map(x=>x.trim()).filter(Boolean);
     res.setHeader('Vary','Origin');
     if(typeof origin==='string' && allowed.includes(origin))res.setHeader('Access-Control-Allow-Origin',origin);
     res.setHeader('Cache-Control','no-store');

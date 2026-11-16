@@ -7,10 +7,10 @@ import type { PlaygroundText } from './playground.es';
  * `verify:data` checks that every backend text has a translation here.
  */
 export const playgroundEn: PlaygroundText = {
-  title: 'Terranauta Playground',
-  lead: 'Compare places in Baja California and Sonora with sites on the Moon using the Lunar Similarity Index.',
+  title: 'Similarity',
+  lead: 'Compare places in Baja California and Sonora with sites on the Moon and measure how alike they are with the accuracy score.',
   scope:
-    'The team focused only on the Moon and only on sites in Baja California and Sonora, so students in the region can relate the content to places they know. The index does not say one site “is the same” as another: it shows how they are alike, how much, with what data, and where the analogy breaks.',
+    'The team focused only on the Moon and only on sites in Baja California and Sonora, so students in the region can relate the content to places they know. Accuracy does not say one site “is the same” as another: it shows how they are alike, how much, with what data, and where the analogy breaks.',
 
   filters: {
     panelLabel: 'Filters and axis explorer',
@@ -19,12 +19,12 @@ export const playgroundEn: PlaygroundText = {
     axesLegend: 'Explore by axis',
     axesHint: 'Pick an axis to see it across the five pairs: the value on Earth, the value on the Moon and how alike they are.',
     noAxis: 'None',
-    similarity: 'Minimum index',
+    similarity: 'Minimum accuracy',
     similarityValue: (n) => (n === 0 ? 'Any' : `${n} or more`),
-    similarityValueText: (n) => (n === 0 ? 'Any index value' : `Index of ${n} or more`),
+    similarityValueText: (n) => (n === 0 ? 'Any accuracy value' : `Accuracy of ${n} or more`),
     similarityScale: ['0', '50', '100'],
-    noMatches: 'No comparison reaches that index.',
-    noMatchesHint: 'Lower the minimum index or clear the filters to see the five pairs again.',
+    noMatches: 'No comparison reaches that accuracy.',
+    noMatchesHint: 'Lower the minimum accuracy or clear the filters to see the five pairs again.',
   },
   analogyTypes: {
     'crater-morphology': 'Crater morphology',
@@ -34,7 +34,7 @@ export const playgroundEn: PlaygroundText = {
     'risk-counterexample': 'Risk counterexample',
   },
 
-  mapLabel: 'Interactive map of the Earth sites in Terranauta Playground',
+  mapLabel: 'Interactive map of the Earth sites in the Similarity section',
   marker: (n, name) => `Pair ${n}: ${name}`,
   mapHint: 'Select a marker, or use Tab and Enter. The circle is the analysis area of each site.',
   mapLoading: 'Loading…',
@@ -54,7 +54,7 @@ export const playgroundEn: PlaygroundText = {
   photoError: 'This image could not be loaded.',
   noPhotos: 'This site has no photos yet.',
   goToComparison: 'See the full comparison',
-  openInPlayground: 'Explore in Terranauta Playground',
+  openInPlayground: 'Open in the Similarity section',
 
   model3d: {
     label: (name) => `3D relief model of ${name}`,
@@ -73,8 +73,11 @@ export const playgroundEn: PlaygroundText = {
   },
 
   ils: {
-    name: 'Lunar Similarity Index',
-    short: 'ILS',
+    name: 'Accuracy',
+    tooltipLabel: 'What is accuracy?',
+    tooltip:
+      'Accuracy is a number from 0 to 100 that sums up how alike the Earth site and the Moon site are. It is the weighted average of the similarity of every axis that has comparable data for both sites. It does not measure whether a place is habitable or safe to land on.',
+    short: 'Accuracy',
     outOf: 'out of 100',
     noData: 'No comparable data',
     completeness: 'Data completeness',
@@ -82,10 +85,10 @@ export const playgroundEn: PlaygroundText = {
     axesUsed: (n, total) => `${n} of ${total} axes`,
     hasPlaceholders: 'Includes provisional values, which are left out of the calculation.',
     disclaimer:
-      'The index is a teaching tool for comparing terrains. It does not measure whether a place is habitable or safe to land on, and a high value does not mean the two sites are the same.',
+      'Accuracy is a teaching tool for comparing terrains. It does not measure whether a place is habitable or safe to land on, and a high value does not mean the two sites are the same.',
     notRanking: 'The order between pairs changes with the axes that weigh most: it is not a scientific ranking.',
     generated: (date, schema) => `Data generated on ${date} · schema ${schema}`,
-    aria: (value, completeness) => `Lunar Similarity Index: ${value} out of 100, with ${completeness} completeness`,
+    aria: (value, completeness) => `Accuracy: ${value} out of 100, with ${completeness} completeness`,
   },
 
   sections: {
@@ -98,7 +101,7 @@ export const playgroundEn: PlaygroundText = {
     hook: 'Question for class',
     breaks: 'Where the analogy breaks',
     lowAxes: 'The axes where they are least alike',
-    method: 'How the index is calculated',
+    method: 'How accuracy is calculated',
     limitations: 'Data limitations',
     sources: 'Data sources',
     explorer: 'One axis across the five pairs',
@@ -140,9 +143,9 @@ export const playgroundEn: PlaygroundText = {
     alt: (pair, list) => `Bar chart with the similarity of each axis for ${pair}. ${list}`,
     altItem: (axis, value) => `${axis}: ${value}`,
     noData: 'No comparable data',
-    noDataLong: 'No comparable data: this axis is left out of the index.',
+    noDataLong: 'No comparable data: this axis is left out of the accuracy score.',
     weight: (value) => `weight ${value}`,
-    weightLegend: 'The thickness of each bar is the weight of the axis in the index.',
+    weightLegend: 'The thickness of each bar is the weight of the axis in the accuracy score.',
     confidenceLegend: 'The letter is the confidence of the method (A, B or C).',
     mostAlike: 'Most alike',
     leastAlike: 'Least alike',
@@ -193,7 +196,7 @@ export const playgroundEn: PlaygroundText = {
     measured: { label: 'Measured', meaning: 'Computed by the team from satellite data.' },
     literature: { label: 'Literature', meaning: 'Taken from a scientific publication.' },
     reference: { label: 'Reference', meaning: 'A value fixed by definition or convention; it is not an observation.' },
-    placeholder: { label: 'Provisional', meaning: 'An estimate still to be measured. It is left out of the index.' },
+    placeholder: { label: 'Provisional', meaning: 'An estimate still to be measured. It is left out of the accuracy score.' },
   },
   confidence: {
     A: 'Direct satellite data, comparable between the two bodies.',
@@ -228,19 +231,19 @@ export const playgroundEn: PlaygroundText = {
     tolerance: 'R is the tolerance of the axis: the difference at which the similarity reaches 0.',
     example: (c) =>
       `Example: for the crater axis R = ${c.R}. El Elegante has d/D = ${c.earth} and Linné ${c.moon}; the resulting similarity is ${c.similarity}.`,
-    totalTitle: 'The total index',
-    totalFormula: 'ILS = Σ (w · S) / Σ w',
+    totalTitle: 'The overall score',
+    totalFormula: 'Accuracy = Σ (w · S) / Σ w',
     total: (nominal, reduced) =>
       `w is the weight of each axis. Only axes with comparable data for both sites are added. The total weight of the nine axes is ${nominal}${
         reduced ? `, or ${reduced} when the ice axis loses weight` : ''
       }.`,
     completeness:
-      'Completeness is the weight of the axes used divided by the total weight. A pair without a comparable axis has a completeness below 100%, and that is shown next to the index.',
+      'Completeness is the weight of the axes used divided by the total weight. A pair without a comparable axis has a completeness below 100%, and that is shown next to the accuracy score.',
     absence: (weight) =>
       `Similarity by absence: if both sites have ice class 0, the similarity of axis 7 is 100, but it only means “both are dry”.${
         weight ? ` In that case the weight of the axis drops to ${weight}.` : ''
       }`,
-    missing: 'An axis without comparable data is left out of the index. It is not counted as a similarity of 0.',
+    missing: 'An axis without comparable data is left out of the accuracy score. It is not counted as a similarity of 0.',
     axesTitle: 'The nine axes',
     axesCaption: 'Comparison mode, tolerance, nominal weight and confidence of each axis',
     mode: 'Mode',
@@ -355,7 +358,7 @@ export const playgroundEn: PlaygroundText = {
       cratersMissing: {
         title: 'No such axis, by design',
         text: (c) =>
-          `There is no equivalent landform on both sides, so this axis is not compared and is left out of the index. The ${c.completeness} completeness of this pair is by design, not an error.`,
+          `There is no equivalent landform on both sides, so this axis is not compared and is left out of the accuracy score. The ${c.completeness} completeness of this pair is by design, not an error.`,
       },
       slopeResolution: {
         title: 'Same resolution on both bodies',

@@ -7,8 +7,8 @@ export const sharedEs: CurriculumShared = {
   sessionDuration: (minutes) => `${minutes} minutos (una sesión)`,
   moduleDuration: (sessions, minutes) => `${sessions} sesiones, ${minutes} minutos en total`,
   playground: (axis) => ({
-    title: 'Explora en Terranauta Playground',
-    description: `Abre Terranauta Playground, elige el eje «${axis}» en «Un eje en los cinco pares» y compara los sitios de esta lección con los otros pares.`,
+    title: 'Explora en la sección Similitud',
+    description: `Abre la sección Similitud, elige el eje «${axis}» en «Un eje en los cinco pares» y compara los sitios de esta lección con los otros pares.`,
   }),
   quizKey: (number, question, answer) => `Clave de la pregunta ${number} («${question}»): ${answer}.`,
   printable: {

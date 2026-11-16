@@ -49,7 +49,7 @@ export const es = {
 
   NAV_LABELS: {
     home: 'Inicio',
-    playground: 'Playground',
+    playground: 'Similitud',
     about: 'Sobre Nosotros',
     resources: 'Recursos',
     portal: 'Portal Educativo',
@@ -320,7 +320,7 @@ export const es = {
     quizCorrect: '¡Correcto!',
     quizWrong: 'No exactamente.',
     quizAnswer: (answer: string) => `La respuesta es: ${answer}`,
-    exploreTitle: 'Explora más en Terranauta Playground',
+    exploreTitle: 'Explora más en la sección Similitud',
     exploreText: 'Abre la comparación completa: los nueve ejes, las fotos de los dos sitios, las fuentes y dónde se rompe la analogía.',
   },
 
@@ -350,7 +350,7 @@ export const es = {
     classroomAlternatives: 'Alternativas dentro del aula',
     priorKnowledge: 'Conocimientos previos',
     playground: 'Para proyectar en clase',
-    playgroundText: 'Abre la comparación de los pares de esta sesión en Terranauta Playground.',
+    playgroundText: 'Abre la comparación de los pares de esta sesión en la sección Similitud.',
   },
 
   LOCATION_TEXT: {

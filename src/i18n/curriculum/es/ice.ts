@@ -250,7 +250,7 @@ export const iceEs: AxisCurriculumText = {
           {
             id: 'ausencia',
             title: 'Laguna Salada ↔ Tranquillitatis: los dos secos',
-            body: 'La Laguna Salada y Mare Tranquillitatis son clase 0. La similitud sale [[s laguna ice]], pero no significa una coincidencia fuerte: los dos sitios coinciden en no tener hielo.\n\nPor eso el backend marca «similitud por ausencia» y baja el peso del eje a [[w laguna ice]] en ese par, de modo que cuente menos en el ILS. Pasa lo mismo en los otros tres pares que no son polares.',
+            body: 'La Laguna Salada y Mare Tranquillitatis son clase 0. La similitud sale [[s laguna ice]], pero no significa una coincidencia fuerte: los dos sitios coinciden en no tener hielo.\n\nPor eso el backend marca «similitud por ausencia» y baja el peso del eje a [[w laguna ice]] en ese par, de modo que cuente menos en la exactitud. Pasa lo mismo en los otros tres pares que no son polares.',
             visualPair: 'laguna_salada_tranquillitatis',
           },
           {
@@ -270,7 +270,7 @@ export const iceEs: AxisCurriculumText = {
         comparisonLead: 'Revisa la ficha de cada par: el peso del eje no es igual en los dos. ¿Por qué?',
         facts: [
           'El borde de Shackleton está entre los sitios candidatos para las próximas misiones tripuladas por su luz casi constante y la cercanía de zonas en sombra.',
-          'Laguna Salada ↔ Tranquillitatis tiene un ILS de [[ils laguna]]; sin el ajuste de peso, el «[[s laguna ice]]» del hielo lo inflaría.',
+          'Laguna Salada ↔ Tranquillitatis tiene una exactitud de [[ils laguna]]; sin el ajuste de peso, el «[[s laguna ice]]» del hielo la inflaría.',
           'El agua de la Luna podría venir de cometas, asteroides y del viento solar, a lo largo de miles de millones de años.',
         ],
         activities: [
@@ -297,7 +297,7 @@ export const iceEs: AxisCurriculumText = {
           },
           {
             question: '¿Por qué el backend baja el peso del eje cuando hay similitud por ausencia?',
-            options: ['Para que coincidir en «no tener» cuente menos en el ILS', 'Para que el ILS sea 100', 'Porque falta el dato', 'Porque es un eje lunar'],
+            options: ['Para que coincidir en «no tener» cuente menos en la exactitud', 'Para que la exactitud sea 100', 'Porque falta el dato', 'Porque es un eje lunar'],
             answer: 0,
             explanation: 'Coincidir en ausencia da poca información sobre el parecido real.',
           },
@@ -309,7 +309,7 @@ export const iceEs: AxisCurriculumText = {
           },
         ],
         conclusion:
-          'En el eje del hielo, los números necesitan contexto: un [[s cucapa ice]] compara una sierra seca con un borde polar que guarda algo de hielo bajo el suelo; un [[s laguna ice]] solo dice que dos lugares son secos. El método del ILS reconoce esa diferencia, y la interpretación también debe hacerlo.',
+          'En el eje del hielo, los números necesitan contexto: un [[s cucapa ice]] compara una sierra seca con un borde polar que guarda algo de hielo bajo el suelo; un [[s laguna ice]] solo dice que dos lugares son secos. El método de la exactitud reconoce esa diferencia, y la interpretación también debe hacerlo.',
       },
       teacher: {
         objectives: [
@@ -336,7 +336,7 @@ export const iceEs: AxisCurriculumText = {
         dataActivity: {
           title: 'Quitar y poner un eje',
           description:
-            'Con la gráfica de barras de Laguna Salada ↔ Tranquillitatis, identifiquen la barra con trama (por ausencia) y su grosor. Discutan qué pasaría con el ILS ([[ils laguna]]) si ese eje pesara [[weight ice]] en lugar de [[w laguna ice]]; no se trata de recalcular el índice, sino de razonar su efecto.',
+            'Con la gráfica de barras de Laguna Salada ↔ Tranquillitatis, identifiquen la barra con trama (por ausencia) y su grosor. Discutan qué pasaría con la exactitud ([[ils laguna]]) si ese eje pesara [[weight ice]] en lugar de [[w laguna ice]]; no se trata de recalcular la exactitud, sino de razonar su efecto.',
           minutes: 10,
         },
         assessment: ['Revisar la propuesta de rediseño: ¿argumenta con información y peso?', 'Ensayo breve: «Un 100 que dice poco».'],
@@ -347,7 +347,7 @@ export const iceEs: AxisCurriculumText = {
         ],
         alternative: {
           title: 'Balanza de pesos',
-          description: 'Con una balanza y monedas, represente el ILS como promedio ponderado; quite peso al eje de hielo y observe el efecto.',
+          description: 'Con una balanza y monedas, represente la exactitud como promedio ponderado; quite peso al eje de hielo y observe el efecto.',
           type: 'physical-model',
           materials: ['Balanza escolar o regla con fulcro', 'Monedas'],
         },

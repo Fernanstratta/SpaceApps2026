@@ -245,7 +245,7 @@ export const cratersEs: AxisCurriculumText = {
           {
             id: 'huecos',
             title: 'Dos pares sin este eje, a propósito',
-            body: 'Laguna Salada ↔ Tranquillitatis es una playa contra un mar lunar; Sierra Cucapá ↔ Shackleton, una sierra contra el borde de un cráter. En ninguno hay una forma del relieve equivalente en los dos lados.\n\nEl eje queda «sin dato comparable» y no entra al ILS: no es un 0. Por eso esos pares tienen completitud de [[completeness laguna]] y [[completeness cucapa]], por diseño y no por error.',
+            body: 'Laguna Salada ↔ Tranquillitatis es una playa contra un mar lunar; Sierra Cucapá ↔ Shackleton, una sierra contra el borde de un cráter. En ninguno hay una forma del relieve equivalente en los dos lados.\n\nEl eje queda «sin dato comparable» y no entra en el cálculo de la exactitud: no es un 0. Por eso esos pares tienen completitud de [[completeness laguna]] y [[completeness cucapa]], por diseño y no por error.',
           },
           {
             id: 'pozo',
@@ -256,7 +256,7 @@ export const cratersEs: AxisCurriculumText = {
         ],
         concepts: [
           { term: 'Convergencia de forma', definition: 'Cuando procesos distintos producen formas parecidas.' },
-          { term: 'Eje no disponible', definition: 'Eje sin dato comparable en un par; no entra al ILS y no se cuenta como 0.' },
+          { term: 'Eje no disponible', definition: 'Eje sin dato comparable en un par; no entra en el cálculo de la exactitud y no se cuenta como 0.' },
           { term: 'Completitud', definition: 'Parte del peso total de los ejes que sí tiene dato comparable en un par.' },
           { term: 'Tubo de lava', definition: 'Túnel que deja la lava al vaciarse; en la Luna podría proteger de la radiación y la temperatura.' },
         ],
@@ -282,11 +282,11 @@ export const cratersEs: AxisCurriculumText = {
             question: '¿Por qué Laguna Salada ↔ Tranquillitatis no tiene valor en este eje?',
             options: ['Porque no hay una forma del relieve equivalente en los dos lados', 'Porque el satélite falló', 'Porque su similitud es 0', 'Porque es provisional'],
             answer: 0,
-            explanation: 'Es una decisión de diseño: el eje no aplica y no entra al ILS.',
+            explanation: 'Es una decisión de diseño: el eje no aplica y no entra en el cálculo de la exactitud.',
           },
           {
             question: '¿Qué significa que un eje esté «sin dato comparable»?',
-            options: ['Que vale 0', 'Que no entra al cálculo del ILS y baja la completitud', 'Que vale 100', 'Que se estima'],
+            options: ['Que vale 0', 'Que no entra al cálculo de la exactitud y baja la completitud', 'Que vale 100', 'Que se estima'],
             answer: 1,
             explanation: 'Un faltante nunca se convierte en 0.',
           },
@@ -317,7 +317,7 @@ export const cratersEs: AxisCurriculumText = {
           'Distinguir convergencia de forma y origen común.',
           'Explicar la completitud como consecuencia de un diseño metodológico.',
         ],
-        priorKnowledge: ['Razones d/D y h/D.', 'Completitud e ILS.', 'Orígenes de cráteres.'],
+        priorKnowledge: ['Razones d/D y h/D.', 'Completitud y exactitud.', 'Orígenes de cráteres.'],
         materials: ['Proyector', 'Hojas de argumentación'],
         explanation:
           'Lo esencial: tres pares comparan proporciones ([[s elegante craters]], [[s pinacate craters]], [[s cerro craters]]); dos no tienen el eje por diseño y su completitud baja ([[completeness laguna]], [[completeness cucapa]]). Error frecuente: interpretar el eje faltante como similitud 0 o como error de datos.',
@@ -325,18 +325,18 @@ export const cratersEs: AxisCurriculumText = {
           { title: 'Cinco filas', description: 'Muestre la escala con los cinco pares y pida que expliquen las filas rayadas.', minutes: 6 },
           { title: 'Tres pares', description: 'Analicen valores, métodos (d/D o h/D) y similitudes.', minutes: 12 },
           { title: 'Defiende o critica', description: 'Actividad de argumentación.', minutes: 15 },
-          { title: 'Completitud', description: 'Relacione el eje faltante con la completitud del ILS.', minutes: 10 },
+          { title: 'Completitud', description: 'Relacione el eje faltante con la completitud de la exactitud.', minutes: 10 },
           { title: 'Cierre', description: 'Comprobación de cuatro preguntas.', minutes: 7 },
         ],
         discussion: [
-          '¿Debería el ILS penalizar a los pares sin este eje? ¿Por qué el backend no lo hace?',
+          '¿Debería la exactitud penalizar a los pares sin este eje? ¿Por qué el backend no lo hace?',
           '¿Qué otra métrica permitiría comparar una sierra con el borde de un cráter?',
           '¿Cómo comunicarías una observación cualitativa, como el pozo de Marius Hills, junto a un índice numérico?',
         ],
         dataActivity: {
           title: 'Completitud por diseño',
           description:
-            'Con las tarjetas de los cinco pares, los equipos anotan el ILS y la completitud de cada uno ([[ils laguna]] con [[completeness laguna]]; [[ils cucapa]] con [[completeness cucapa]]; los otros tres con 100 %). Discutan por qué el orden entre pares no es un ranking científico.',
+            'Con las tarjetas de los cinco pares, los equipos anotan la exactitud y la completitud de cada uno ([[ils laguna]] con [[completeness laguna]]; [[ils cucapa]] con [[completeness cucapa]]; los otros tres con 100 %). Discutan por qué el orden entre pares no es un ranking científico.',
           minutes: 10,
         },
         assessment: ['Revisar los párrafos de «Defiende o critica»: ¿usan datos y una ruptura del backend?', 'Pregunta escrita sobre la diferencia entre 0 y «sin dato comparable».'],

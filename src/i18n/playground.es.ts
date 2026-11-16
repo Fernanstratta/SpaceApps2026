@@ -112,10 +112,10 @@ export interface BackendTranslation {
 }
 
 export const playgroundEs = {
-  title: 'Terranauta Playground',
-  lead: 'Compara lugares de Baja California y Sonora con sitios de la Luna usando el Índice de Similitud Lunar.',
+  title: 'Similitud',
+  lead: 'Compara lugares de Baja California y Sonora con sitios de la Luna y mide qué tan parecidos son con la exactitud.',
   scope:
-    'El equipo se concentró solo en la Luna y solo en sitios de Baja California y Sonora, para que estudiantes de la región relacionen el contenido con lugares que conocen. El ILS no dice que un sitio «es igual» a otro: muestra en qué se parecen, cuánto, con qué datos y dónde se rompe la analogía.',
+    'El equipo se concentró solo en la Luna y solo en sitios de Baja California y Sonora, para que estudiantes de la región relacionen el contenido con lugares que conocen. La exactitud no dice que un sitio «es igual» a otro: muestra en qué se parecen, cuánto, con qué datos y dónde se rompe la analogía.',
 
   filters: {
     panelLabel: 'Filtros y exploración por eje',
@@ -124,12 +124,12 @@ export const playgroundEs = {
     axesLegend: 'Explorar por eje',
     axesHint: 'Elige un eje para verlo en los cinco pares: valor en la Tierra, valor en la Luna y qué tan parecidos son.',
     noAxis: 'Ninguno',
-    similarity: 'ILS mínimo',
+    similarity: 'Exactitud mínima',
     similarityValue: (n: number) => (n === 0 ? 'Cualquiera' : `${n} o más`),
-    similarityValueText: (n: number) => (n === 0 ? 'Cualquier valor del índice' : `Índice de ${n} o más`),
+    similarityValueText: (n: number) => (n === 0 ? 'Cualquier valor de exactitud' : `Exactitud de ${n} o más`),
     similarityScale: ['0', '50', '100'],
-    noMatches: 'Ninguna comparación alcanza ese ILS.',
-    noMatchesHint: 'Baja el ILS mínimo o limpia los filtros para volver a ver los cinco pares.',
+    noMatches: 'Ninguna comparación alcanza esa exactitud.',
+    noMatchesHint: 'Baja la exactitud mínima o limpia los filtros para volver a ver los cinco pares.',
   },
   analogyTypes: {
     'crater-morphology': 'Morfología de cráter',
@@ -139,7 +139,7 @@ export const playgroundEs = {
     'risk-counterexample': 'Contraejemplo de riesgo',
   } satisfies Record<AnalogyType, string>,
 
-  mapLabel: 'Mapa interactivo de los sitios terrestres de Terranauta Playground',
+  mapLabel: 'Mapa interactivo de los sitios terrestres de la sección Similitud',
   marker: (n: number, name: string) => `Par ${n}: ${name}`,
   mapHint: 'Selecciona un marcador, o usa Tab y Enter. El círculo es el área de análisis de cada sitio.',
   mapLoading: 'Cargando…',
@@ -159,7 +159,7 @@ export const playgroundEs = {
   photoError: 'No se pudo cargar esta imagen.',
   noPhotos: 'Este sitio todavía no tiene fotos.',
   goToComparison: 'Ver la comparación completa',
-  openInPlayground: 'Explorar en Terranauta Playground',
+  openInPlayground: 'Abrir en la sección Similitud',
 
   model3d: {
     label: (name: string) => `Modelo 3D del relieve de ${name}`,
@@ -179,8 +179,11 @@ export const playgroundEs = {
   },
 
   ils: {
-    name: 'Índice de Similitud Lunar',
-    short: 'ILS',
+    name: 'Exactitud',
+    tooltipLabel: '¿Qué es la exactitud?',
+    tooltip:
+      'La exactitud es un número de 0 a 100 que resume qué tan parecidos son el sitio de la Tierra y el de la Luna. Es el promedio ponderado de la similitud de cada eje que tiene datos comparables en los dos sitios. No mide si un lugar es habitable ni si es seguro para aterrizar.',
+    short: 'Exactitud',
     outOf: 'de 100',
     noData: 'Sin datos comparables',
     completeness: 'Completitud de los datos',
@@ -188,10 +191,10 @@ export const playgroundEs = {
     axesUsed: (n: number, total: number) => `${n} de ${total} ejes`,
     hasPlaceholders: 'Incluye valores provisionales, que quedan fuera del cálculo.',
     disclaimer:
-      'El ILS es una herramienta didáctica para comparar terrenos. No mide si un lugar es habitable ni si es seguro para aterrizar, y un valor alto no significa que los dos sitios sean iguales.',
+      'La exactitud es una herramienta didáctica para comparar terrenos. No mide si un lugar es habitable ni si es seguro para aterrizar, y un valor alto no significa que los dos sitios sean iguales.',
     notRanking: 'El orden entre pares cambia según los ejes que más pesan: no es un ranking científico.',
     generated: (date: string, schema: string) => `Datos generados el ${date} · esquema ${schema}`,
-    aria: (value: string, completeness: string) => `Índice de Similitud Lunar: ${value} de 100, con completitud de ${completeness}`,
+    aria: (value: string, completeness: string) => `Exactitud: ${value} de 100, con completitud de ${completeness}`,
   },
 
   sections: {
@@ -204,7 +207,7 @@ export const playgroundEs = {
     hook: 'Pregunta para clase',
     breaks: 'Dónde se rompe la analogía',
     lowAxes: 'Los ejes donde menos se parecen',
-    method: 'Cómo se calcula el ILS',
+    method: 'Cómo se calcula la exactitud',
     limitations: 'Limitaciones de los datos',
     sources: 'Fuentes de datos',
     explorer: 'Un eje en los cinco pares',
@@ -246,9 +249,9 @@ export const playgroundEs = {
     alt: (pair: string, list: string) => `Gráfico de barras con la similitud de cada eje en ${pair}. ${list}`,
     altItem: (axis: string, value: string) => `${axis}: ${value}`,
     noData: 'Sin dato comparable',
-    noDataLong: 'Sin dato comparable: este eje no entra al ILS.',
+    noDataLong: 'Sin dato comparable: este eje no entra en el cálculo de la exactitud.',
     weight: (value: string) => `peso ${value}`,
-    weightLegend: 'El grosor de cada barra es el peso del eje en el índice.',
+    weightLegend: 'El grosor de cada barra es el peso del eje en la exactitud.',
     confidenceLegend: 'La letra es la confianza del método (A, B o C).',
     mostAlike: 'Lo más parecido',
     leastAlike: 'Lo menos parecido',
@@ -300,7 +303,7 @@ export const playgroundEs = {
     measured: { label: 'Medido', meaning: 'Calculado por el equipo a partir de datos satelitales.' },
     literature: { label: 'Literatura', meaning: 'Tomado de una publicación científica.' },
     reference: { label: 'Referencia', meaning: 'Valor fijo por definición o por convención; no es una observación.' },
-    placeholder: { label: 'Provisional', meaning: 'Estimación pendiente de medir. Queda fuera del ILS.' },
+    placeholder: { label: 'Provisional', meaning: 'Estimación pendiente de medir. Queda fuera del cálculo de la exactitud.' },
   } satisfies Record<ValueStatus, { label: string; meaning: string }>,
   confidence: {
     A: 'Dato satelital directo y comparable entre los dos cuerpos.',
@@ -335,19 +338,19 @@ export const playgroundEs = {
     tolerance: 'R es la tolerancia del eje: la diferencia con la que la similitud llega a 0.',
     example: (c: { R: string; earth: string; moon: string; similarity: string }) =>
       `Ejemplo: en el eje de cráteres R = ${c.R}. El Elegante tiene d/D = ${c.earth} y Linné ${c.moon}; la similitud que resulta es ${c.similarity}.`,
-    totalTitle: 'El índice total',
-    totalFormula: 'ILS = Σ (w · S) / Σ w',
+    totalTitle: 'La exactitud total',
+    totalFormula: 'Exactitud = Σ (w · S) / Σ w',
     total: (nominal: string, reduced: string | null) =>
       `w es el peso de cada eje. Solo se suman los ejes que tienen dato comparable en los dos sitios. El peso total de los nueve ejes es ${nominal}${
         reduced ? `, o ${reduced} cuando el eje de hielo baja de peso` : ''
       }.`,
     completeness:
-      'La completitud es el peso de los ejes usados entre el peso total. Un par sin un eje comparable tiene una completitud menor a 100 %, y eso se muestra junto al índice.',
+      'La completitud es el peso de los ejes usados entre el peso total. Un par sin un eje comparable tiene una completitud menor a 100 %, y eso se muestra junto a la exactitud.',
     absence: (weight: string | null) =>
       `Similitud por ausencia: si los dos sitios tienen hielo clase 0, la similitud del eje 7 es 100, pero solo significa «los dos son secos».${
         weight ? ` En ese caso el peso del eje baja a ${weight}.` : ''
       }`,
-    missing: 'Un eje sin dato comparable no entra al índice. No se cuenta como similitud 0.',
+    missing: 'Un eje sin dato comparable no entra en el cálculo de la exactitud. No se cuenta como similitud 0.',
     axesTitle: 'Los nueve ejes',
     axesCaption: 'Modo de comparación, tolerancia, peso nominal y confianza de cada eje',
     mode: 'Modo',
@@ -462,7 +465,7 @@ export const playgroundEs = {
       cratersMissing: {
         title: 'Sin este eje, por diseño',
         text: (c) =>
-          `No hay una forma del relieve equivalente en los dos lados, así que este eje no se compara y no entra al ILS. La completitud de ${c.completeness} de este par es por diseño, no un error.`,
+          `No hay una forma del relieve equivalente en los dos lados, así que este eje no se compara y no entra en el cálculo de la exactitud. La completitud de ${c.completeness} de este par es por diseño, no un error.`,
       },
       slopeResolution: {
         title: 'Misma resolución en los dos cuerpos',

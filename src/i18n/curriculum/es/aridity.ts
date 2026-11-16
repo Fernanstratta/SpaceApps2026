@@ -14,7 +14,7 @@ export const aridityEs: AxisCurriculumText = {
     objectives: [
       'Explicar qué mide el NDVI y por qué la vegetación cambia la luz reflejada.',
       'Distinguir un valor medido de un valor de referencia.',
-      'Interpretar por qué este eje pesa poco en el ILS.',
+      'Interpretar por qué este eje pesa poco en la exactitud.',
     ],
   },
   submodules: {
@@ -126,7 +126,7 @@ export const aridityEs: AxisCurriculumText = {
           {
             id: 'referencia',
             title: 'Un valor que no se mide',
-            body: 'En la Luna no se calcula el NDVI: se fija en 0 porque no hay vegetación. Por eso su estado es «referencia», no «medido».\n\nEste eje pesa [[weight aridity]], de los más bajos del índice: casi cualquier desierto se parece a la Luna en esto, así que ayuda poco a distinguir entre sitios.',
+            body: 'En la Luna no se calcula el NDVI: se fija en 0 porque no hay vegetación. Por eso su estado es «referencia», no «medido».\n\nEste eje pesa [[weight aridity]], de los más bajos en el cálculo de la exactitud: casi cualquier desierto se parece a la Luna en esto, así que ayuda poco a distinguir entre sitios.',
           },
         ],
         concepts: [
@@ -242,7 +242,7 @@ export const aridityEs: AxisCurriculumText = {
         concepts: [
           { term: 'Máscara', definition: 'Parte de una imagen que se quita del análisis, como la vegetación o el agua.' },
           { term: 'Inundación estacional', definition: 'Agua que cubre un lugar solo en cierta época del año.' },
-          { term: 'Peso del eje', definition: 'Cuánto cuenta un eje en el ILS; aridez pesa [[weight aridity]].' },
+          { term: 'Peso del eje', definition: 'Cuánto cuenta un eje en la exactitud; aridez pesa [[weight aridity]].' },
         ],
         earth: 'Tres sitios secos: Laguna Salada ([[earth laguna aridity]]), El Elegante ([[earth elegante aridity]]) y El Pinacate ([[earth pinacate aridity]]).',
         moon: 'Los tres sitios lunares tienen 0, el valor de referencia de un mundo sin vegetación.',
@@ -275,7 +275,7 @@ export const aridityEs: AxisCurriculumText = {
             explanation: 'Con agua, la superficie que se mide es distinta.',
           },
           {
-            question: '¿Por qué este eje pesa poco en el ILS?',
+            question: '¿Por qué este eje pesa poco en la exactitud?',
             options: ['Porque casi todos los desiertos se parecen a la Luna en esto', 'Porque no hay datos', 'Porque la Luna tiene plantas'],
             answer: 0,
             explanation: 'Ayuda poco a distinguir entre sitios áridos.',

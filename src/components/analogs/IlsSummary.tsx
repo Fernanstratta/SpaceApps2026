@@ -1,4 +1,5 @@
 import type { AnalogPair } from '../../data/lunarAnalogs';
+import { InfoTip } from '../common/InfoTip';
 import { useAnalogText } from './useAnalogText';
 
 /**
@@ -6,7 +7,18 @@ import { useAnalogText } from './useAnalogText';
  * completitud y los ejes usados. Si el backend no envía índice (`null`), se
  * dice «sin datos comparables»: nunca se muestra 0.
  */
-export function IlsSummary({ pair, compact = false, showDisclaimer = !compact }: { pair: AnalogPair; compact?: boolean; showDisclaimer?: boolean }) {
+export function IlsSummary({
+  pair,
+  compact = false,
+  showDisclaimer = !compact,
+  showInfo = true,
+}: {
+  pair: AnalogPair;
+  compact?: boolean;
+  showDisclaimer?: boolean;
+  /** Botón «?» con la explicación. Desactívalo dentro de otro botón (HTML no permite anidarlos). */
+  showInfo?: boolean;
+}) {
   const { t, ils, percent } = useAnalogText();
   const { ils: data, axes } = pair.data;
   const value = ils(pair);
@@ -15,7 +27,10 @@ export function IlsSummary({ pair, compact = false, showDisclaimer = !compact }:
   return (
     <div className={`ils-summary${compact ? ' ils-summary--compact' : ''}`}>
       <div className="ils-summary__score" role="group" aria-label={value ? t.ils.aria(value, completeness) : t.ils.noData}>
-        <span className="ils-summary__label">{compact ? t.ils.short : t.ils.name}</span>
+        <span className="ils-summary__label">
+          {compact ? t.ils.short : t.ils.name}
+          {showInfo ? <InfoTip label={t.ils.tooltipLabel} text={t.ils.tooltip} /> : null}
+        </span>
         {value ? (
           <span className="ils-summary__value" aria-hidden="true">
             {value}

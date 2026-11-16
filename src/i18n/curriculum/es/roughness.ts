@@ -269,7 +269,7 @@ export const roughnessEs: AxisCurriculumText = {
         facts: [
           'Cerro Prieto está junto a uno de los campos geotérmicos más grandes del mundo, que produce electricidad con el calor del subsuelo.',
           'Los domos de Gruithuisen son raros en la Luna: casi todo el volcanismo lunar fue basáltico.',
-          'Cerro Prieto ↔ Gruithuisen tiene un ILS de [[ils cerro]], con [[completeness cerro]] de completitud.',
+          'Cerro Prieto ↔ Gruithuisen tiene una exactitud de [[ils cerro]], con [[completeness cerro]] de completitud.',
         ],
         activities: [
           {

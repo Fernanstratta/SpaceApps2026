@@ -26,7 +26,7 @@ export const en: Messages = {
 
   NAV_LABELS: {
     home: 'Home',
-    playground: 'Playground',
+    playground: 'Similarity',
     about: 'About Us',
     resources: 'Resources',
     portal: 'Educational Portal',
@@ -293,7 +293,7 @@ export const en: Messages = {
     quizCorrect: 'Correct!',
     quizWrong: 'Not quite.',
     quizAnswer: (answer: string) => `The answer is: ${answer}`,
-    exploreTitle: 'Explore more in Terranauta Playground',
+    exploreTitle: 'Explore more in the Similarity section',
     exploreText: 'Open the full comparison: the nine axes, photos of both sites, the sources and where the analogy breaks down.',
   },
 
@@ -323,7 +323,7 @@ export const en: Messages = {
     classroomAlternatives: 'In-classroom alternatives',
     priorKnowledge: 'Prior knowledge',
     playground: 'To project in class',
-    playgroundText: 'Open the comparison of this session’s pairs in Terranauta Playground.',
+    playgroundText: 'Open the comparison of this session’s pairs in the Similarity section.',
   },
 
   LOCATION_TEXT: {

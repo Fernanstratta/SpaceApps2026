@@ -250,7 +250,7 @@ export const dustEs: AxisCurriculumText = {
         facts: [
           'Los ingenieros que preparan misiones lunares fabrican «simulantes» de regolito con rocas volcánicas molidas.',
           'El polvo lunar puede cargarse eléctricamente con la luz del Sol y flotar un poco sobre la superficie.',
-          'Este eje pesa [[weight dust]] en el ILS: menos que la pendiente o la composición.',
+          'Este eje pesa [[weight dust]] en la exactitud: menos que la pendiente o la composición.',
         ],
         activities: [
           {

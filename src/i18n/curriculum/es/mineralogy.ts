@@ -54,7 +54,7 @@ export const mineralogyEs: AxisCurriculumText = {
         facts: [
           'Las rocas que trajo el Apolo 15 incluyen la «roca Génesis», un trozo de anortosita de más de 4 000 millones de años.',
           'Los mares lunares se ven oscuros a simple vista desde la Tierra porque son basalto.',
-          'Junto con la pendiente, este eje tiene el peso más alto del índice: [[weight mineralogy]].',
+          'Junto con la pendiente, este eje tiene el peso más alto en la exactitud: [[weight mineralogy]].',
         ],
         activities: [
           {
@@ -167,7 +167,7 @@ export const mineralogyEs: AxisCurriculumText = {
         facts: [
           'Diviner es el radiómetro de la sonda LRO; mide la temperatura y la emisión térmica de la Luna en nueve canales.',
           'La «inmadurez» de un suelo lunar indica que lleva poco tiempo expuesto al espacio: el viento solar y los micrometeoritos aún no lo han oscurecido.',
-          'El peso de este eje es [[weight mineralogy]]: un artefacto aquí mueve mucho el ILS.',
+          'El peso de este eje es [[weight mineralogy]]: un artefacto aquí mueve mucho la exactitud.',
         ],
         activities: [
           {
@@ -207,7 +207,7 @@ export const mineralogyEs: AxisCurriculumText = {
             options: [
               'Los dos sitios tienen composiciones opuestas',
               'La similitud está afectada por un artefacto conocido y no debe leerse como diferencia real de composición',
-              'El backend calculó mal el ILS',
+              'El backend calculó mal la exactitud',
               'El Elegante no es basáltico',
             ],
             answer: 1,
@@ -237,7 +237,7 @@ export const mineralogyEs: AxisCurriculumText = {
         discussion: [
           '¿Qué cambiaría si se usara ASTER GED en lugar de MODIS?',
           '¿Cómo podría corregirse el efecto de la eyecta fresca de Linné?',
-          '¿Un valor con «limitaciones conocidas» debe quitarse del índice o mostrarse con su advertencia?',
+          '¿Un valor con «limitaciones conocidas» debe quitarse del cálculo de la exactitud o mostrarse con su advertencia?',
         ],
         dataActivity: {
           title: 'Crudo, anclas y escala',
@@ -285,7 +285,7 @@ export const mineralogyEs: AxisCurriculumText = {
           {
             id: 'artefacto',
             title: 'Un artefacto: El Elegante ↔ Linné',
-            body: 'El Elegante es máfico ([[earth elegante mineralogy]]) y Linné aparece félsico ([[moon elegante mineralogy]]). La similitud es [[s elegante mineralogy]]. Pero Linné está sobre basalto: su valor bajo viene de la eyecta fresca del cráter.\n\nCon un peso de [[weight mineralogy]], este artefacto baja el ILS del par, que queda en [[ils elegante]]. Leer el índice sin la advertencia llevaría a una conclusión falsa.',
+            body: 'El Elegante es máfico ([[earth elegante mineralogy]]) y Linné aparece félsico ([[moon elegante mineralogy]]). La similitud es [[s elegante mineralogy]]. Pero Linné está sobre basalto: su valor bajo viene de la eyecta fresca del cráter.\n\nCon un peso de [[weight mineralogy]], este artefacto baja la exactitud del par, que queda en [[ils elegante]]. Leer la exactitud sin la advertencia llevaría a una conclusión falsa.',
             imageId: 'linne-lro',
           },
         ],
@@ -293,7 +293,7 @@ export const mineralogyEs: AxisCurriculumText = {
           { term: 'Volcanismo silícico', definition: 'Erupciones de lava rica en sílice, viscosa, que forma domos empinados.' },
           { term: 'Eyecta', definition: 'Material lanzado por un impacto que cubre el cráter y sus alrededores.' },
           { term: 'Validez', definition: 'Grado en que una medición representa de verdad la propiedad que se quiere medir.' },
-          { term: 'Peso del eje', definition: 'Cuánto cuenta un eje en el promedio del ILS; mineralogía pesa [[weight mineralogy]].' },
+          { term: 'Peso del eje', definition: 'Cuánto cuenta un eje en el promedio de la exactitud; mineralogía pesa [[weight mineralogy]].' },
         ],
         earth: 'Tres sitios: el escudo basáltico del Pinacate ([[earth pinacate mineralogy]]), el domo de dacita de Cerro Prieto ([[earth cerro mineralogy]]) y el maar de El Elegante ([[earth elegante mineralogy]]).',
         moon: 'Tres sitios: Marius Hills ([[moon pinacate mineralogy]]), los domos de Gruithuisen ([[moon cerro mineralogy]]) y el cráter Linné ([[moon elegante mineralogy]]).',
@@ -301,7 +301,7 @@ export const mineralogyEs: AxisCurriculumText = {
         facts: [
           'Los domos de Gruithuisen son uno de los pocos lugares de la Luna con volcanismo silícico, y por eso son objetivo de futuras misiones.',
           'El Elegante se formó hace unos [[fact elegante earth age_ka]] mil años, cuando el magma encontró agua subterránea.',
-          'Pinacate ↔ Marius Hills tiene un ILS de [[ils pinacate]]; El Elegante ↔ Linné, de [[ils elegante]].',
+          'Pinacate ↔ Marius Hills tiene una exactitud de [[ils pinacate]]; El Elegante ↔ Linné, de [[ils elegante]].',
         ],
         activities: [
           {
@@ -326,8 +326,8 @@ export const mineralogyEs: AxisCurriculumText = {
             explanation: 'Una roca silícica con poco cuarzo libre puede parecer máfica con ese índice.',
           },
           {
-            question: '¿Cómo afecta el artefacto de Linné al ILS del par?',
-            options: ['No lo afecta', 'Lo baja, porque el eje de mineralogía pesa [[weight mineralogy]]', 'Lo sube', 'Hace que el par no tenga ILS'],
+            question: '¿Cómo afecta el artefacto de Linné a la exactitud del par?',
+            options: ['No la afecta', 'La baja, porque el eje de mineralogía pesa [[weight mineralogy]]', 'La sube', 'Hace que el par no tenga exactitud'],
             answer: 1,
             explanation: 'Una similitud de [[s elegante mineralogy]] en un eje de peso alto reduce el promedio ponderado.',
           },
@@ -344,7 +344,7 @@ export const mineralogyEs: AxisCurriculumText = {
       teacher: {
         objectives: [
           'Evaluar la validez de la similitud de composición en tres pares.',
-          'Explicar el efecto de un artefacto en un eje de peso alto sobre el ILS.',
+          'Explicar el efecto de un artefacto en un eje de peso alto sobre la exactitud.',
           'Argumentar con evidencia y advertencias del backend.',
         ],
         priorKnowledge: ['Escala félsico–máfico.', 'Funcionamiento de MODIS y Diviner (submódulo anterior).', 'Promedio ponderado.'],
@@ -355,7 +355,7 @@ export const mineralogyEs: AxisCurriculumText = {
           { title: 'Planteamiento', description: 'Presente las tres similitudes sin contexto y pida predicciones.', minutes: 6 },
           { title: 'Contexto geológico', description: 'Describa cada par: basalto, dacita y maar contra cráter de impacto.', minutes: 12 },
           { title: 'Juicio de evidencia', description: 'Los equipos clasifican cada similitud y la justifican.', minutes: 15 },
-          { title: 'Efecto en el ILS', description: 'Analicen cómo el peso del eje ([[weight mineralogy]]) traslada el artefacto al índice.', minutes: 10 },
+          { title: 'Efecto en la exactitud', description: 'Analicen cómo el peso del eje ([[weight mineralogy]]) traslada el artefacto a la exactitud.', minutes: 10 },
           { title: 'Cierre', description: 'Comprobación de cuatro preguntas.', minutes: 7 },
         ],
         discussion: [
@@ -366,7 +366,7 @@ export const mineralogyEs: AxisCurriculumText = {
         dataActivity: {
           title: 'Peso y artefacto',
           description:
-            'Con la gráfica de barras de El Elegante ↔ Linné, identifiquen el eje con barra en 0 y su grosor (peso). Expliquen con palabras por qué ese eje influye más en el ILS ([[ils elegante]]) que, por ejemplo, la aridez, que pesa [[weight aridity]].',
+            'Con la gráfica de barras de El Elegante ↔ Linné, identifiquen el eje con barra en 0 y su grosor (peso). Expliquen con palabras por qué ese eje influye más en la exactitud ([[ils elegante]]) que, por ejemplo, la aridez, que pesa [[weight aridity]].',
           minutes: 12,
         },
         assessment: [
@@ -375,7 +375,7 @@ export const mineralogyEs: AxisCurriculumText = {
         ],
         outcomes: [
           'El grupo distingue coincidencia real, caso dudoso y artefacto.',
-          'El grupo explica el efecto del peso de un eje en el ILS.',
+          'El grupo explica el efecto del peso de un eje en la exactitud.',
           'El grupo argumenta con evidencia y limitaciones.',
         ],
         alternative: {

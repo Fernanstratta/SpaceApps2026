@@ -252,7 +252,7 @@ export const thermalEs: AxisCurriculumText = {
           {
             id: 'lectura',
             title: 'Cómo leer un eje que casi siempre da 0',
-            body: 'Que un eje dé 0 no significa que el análogo no sirva. Significa que, para estudiar temperaturas, la Tierra no reproduce la Luna. Para estudiar rocas o relieve, sí puede servir. El ILS reúne todos los ejes, y este eje recuerda que ningún análogo es completo.',
+            body: 'Que un eje dé 0 no significa que el análogo no sirva. Significa que, para estudiar temperaturas, la Tierra no reproduce la Luna. Para estudiar rocas o relieve, sí puede servir. La exactitud reúne todos los ejes, y este eje recuerda que ningún análogo es completo.',
           },
         ],
         concepts: [

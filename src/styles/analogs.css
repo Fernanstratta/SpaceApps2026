@@ -954,3 +954,83 @@
 .pg-aoi { fill: var(--pg-accent); fill-opacity: 0.08; stroke: var(--pg-accent); stroke-width: 1.5; }
 .pg-aoi.is-active { fill-opacity: 0.18; stroke-width: 2.5; }
 .table-scroll { overflow-x: auto; }
+
+/* ---------- Tooltip «?» ---------- */
+
+.info-tip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.3rem;
+  vertical-align: middle;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.info-tip__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  padding: 0;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--pg-accent);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: help;
+}
+
+/* Área táctil de 44 px sin agrandar el icono. */
+.info-tip__button::after {
+  content: '';
+  position: absolute;
+  inset: -0.7rem;
+}
+
+.info-tip__bubble {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  z-index: 30;
+  width: max-content;
+  max-width: min(20rem, 80vw);
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  background: var(--pg-ink);
+  color: var(--pg-console);
+  box-shadow: 0 6px 18px rgba(10, 20, 40, 0.25);
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: left;
+  transform: translateX(calc(-50% + var(--tip-shift, 0px)));
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.info-tip:hover .info-tip__bubble,
+.info-tip:focus-within .info-tip__bubble,
+.info-tip.is-open .info-tip__bubble {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .info-tip__bubble { transition: none; }
+}
+
+/* Marcas 0 · 50 · 100 bajo el control de exactitud mínima. */
+.pg-slider__scale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--pg-muted);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}

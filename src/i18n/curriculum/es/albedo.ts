@@ -249,7 +249,7 @@ export const albedoEs: AxisCurriculumText = {
         comparisonLead: 'Busca el par con la línea más larga. ¿Qué tiene ese sitio terrestre que lo hace tan claro?',
         facts: [
           'Los cráteres jóvenes de la Luna, como Tycho, se ven brillantes porque su material no ha tenido tiempo de oscurecerse.',
-          'Laguna Salada ↔ Tranquillitatis tiene el ILS más alto de los cinco pares ([[ils laguna]]) a pesar de su similitud de [[s laguna albedo]] en albedo.',
+          'Laguna Salada ↔ Tranquillitatis tiene la exactitud más alta de los cinco pares ([[ils laguna]]) a pesar de su similitud de [[s laguna albedo]] en albedo.',
           'Un suelo oscuro absorbe más luz y se calienta más: el albedo también influye en la temperatura.',
         ],
         activities: [
@@ -275,10 +275,10 @@ export const albedoEs: AxisCurriculumText = {
             explanation: 'Las sales reflejan mucha luz.',
           },
           {
-            question: 'Laguna Salada ↔ Tranquillitatis tiene el ILS más alto pero similitud [[s laguna albedo]] en albedo. ¿Qué nos enseña?',
-            options: ['Que el ILS está mal', 'Que un par puede parecerse en unos ejes y no en otros', 'Que el albedo no importa'],
+            question: 'Laguna Salada ↔ Tranquillitatis tiene la exactitud más alta pero similitud [[s laguna albedo]] en albedo. ¿Qué nos enseña?',
+            options: ['Que la exactitud está mal', 'Que un par puede parecerse en unos ejes y no en otros', 'Que el albedo no importa'],
             answer: 1,
-            explanation: 'El ILS es un promedio: un eje muy distinto no impide que el par se parezca en otros.',
+            explanation: 'La exactitud es un promedio: un eje muy distinto no impide que el par se parezca en otros.',
           },
         ],
         conclusion:
@@ -288,7 +288,7 @@ export const albedoEs: AxisCurriculumText = {
         objectives: [
           'Interpretar la similitud de albedo en tres pares.',
           'Explicar procesos que aclaran u oscurecen una superficie.',
-          'Relacionar un eje bajo con un ILS alto mediante el promedio ponderado.',
+          'Relacionar un eje bajo con una exactitud alta mediante el promedio ponderado.',
         ],
         priorKnowledge: ['Albedo y su escala.', 'Idea de promedio.'],
         materials: ['Proyector o tabla impresa', 'Hojas de trabajo'],
@@ -298,7 +298,7 @@ export const albedoEs: AxisCurriculumText = {
           { title: 'Repaso', description: 'Recuerde la escala de albedo con los cuadros de color.', minutes: 5 },
           { title: 'Tres pares', description: 'Presente los pares con sus valores y fotos.', minutes: 13 },
           { title: 'Explica la diferencia', description: 'Actividad escrita individual.', minutes: 12 },
-          { title: 'Puesta en común', description: 'Discutan por qué el par con mayor ILS tiene el albedo más distinto.', minutes: 12 },
+          { title: 'Puesta en común', description: 'Discutan por qué el par con mayor exactitud tiene el albedo más distinto.', minutes: 12 },
           { title: 'Cierre', description: 'Comprobación de tres preguntas.', minutes: 8 },
         ],
         discussion: [
@@ -311,7 +311,7 @@ export const albedoEs: AxisCurriculumText = {
           description: 'Los equipos pintan seis cuadros con tonos de gris aproximados a los seis valores de albedo y los ordenan. Luego comparan su orden con la escala del eje.',
           minutes: 10,
         },
-        assessment: ['Revisar la explicación escrita: ¿da dos razones y usa vocabulario nuevo?', 'Pedir que expliquen con un ejemplo cómo un eje bajo no impide un ILS alto.'],
+        assessment: ['Revisar la explicación escrita: ¿da dos razones y usa vocabulario nuevo?', 'Pedir que expliquen con un ejemplo cómo un eje bajo no impide una exactitud alta.'],
         outcomes: ['El grupo interpreta la similitud de albedo.', 'El grupo explica procesos que cambian el albedo.'],
         alternative: {
           title: 'Tarjetas de tonos',

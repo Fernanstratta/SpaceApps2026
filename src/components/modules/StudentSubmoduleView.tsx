@@ -80,7 +80,7 @@ interface StudentSubmoduleViewProps {
  * blocks, comparison, conclusion and references. Every section is null-safe.
  */
 export function StudentSubmoduleView({ submodule, content }: StudentSubmoduleViewProps) {
-  const { STUDENT_SECTIONS, LEARNING_ACTIVITY_TYPE_LABELS } = useMessages();
+  const { STUDENT_SECTIONS, LEARNING_ACTIVITY_TYPE_LABELS, NAV_LABELS } = useMessages();
   const lessonPairs = (content.comparison?.pairIds ?? []).filter(isPairId).map(getPair);
   const firstPair = lessonPairs[0];
   const introductionState = getDataState(content.introduction);
@@ -262,7 +262,7 @@ export function StudentSubmoduleView({ submodule, content }: StudentSubmoduleVie
                 <h3 className="explore-callout__title">{STUDENT_SECTIONS.exploreTitle}</h3>
                 <p>{STUDENT_SECTIONS.exploreText}</p>
                 <Link className="button button--primary" to={playgroundLink({ pair: firstPair?.id ?? null, axis: content.comparison.axisId })}>
-                  Terranauta Playground →
+                  {NAV_LABELS.playground} →
                 </Link>
               </aside>
             ) : null}

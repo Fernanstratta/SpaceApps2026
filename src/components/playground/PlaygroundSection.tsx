@@ -20,6 +20,7 @@ import { IlsSummary } from '../analogs/IlsSummary';
 import { SimilarityBars } from '../analogs/SimilarityBars';
 import { useAnalogText } from '../analogs/useAnalogText';
 import { ErrorBoundary } from '../common/ErrorBoundary';
+import { InfoTip } from '../common/InfoTip';
 import { PhotoCarousel } from './PhotoCarousel';
 import { AnalogyPanel, AxisExplorer, LimitationsPanel, MethodPanel, PanelHeading, SourcesPanel } from './PlaygroundPanels';
 import { SitePanel } from './SitePanel';
@@ -111,9 +112,10 @@ export function PlaygroundSection() {
       </div>
       <div className="pg-slider pg-similarity">
         <div className="pg-slider__head">
-          <label htmlFor={similarityId} className="pg-slider__label">
-            {t.filters.similarity}
-          </label>
+          <span className="pg-slider__label">
+            <label htmlFor={similarityId}>{t.filters.similarity}</label>
+            <InfoTip label={t.ils.tooltipLabel} text={t.ils.tooltip} />
+          </span>
           <output htmlFor={similarityId} className="pg-slider__counter">
             {t.filters.similarityValue(filters.minSimilarity)}
           </output>
@@ -187,7 +189,7 @@ export function PlaygroundSection() {
                       </span>
                       <span className="pg-pair__type">{t.analogyTypes[item.analogyType]}</span>
                       <span className="pg-pair__name">{itemLabels.short}</span>
-                      <IlsSummary pair={item.pair} compact showDisclaimer={false} />
+                      <IlsSummary pair={item.pair} compact showDisclaimer={false} showInfo={false} />
                     </button>
                   </li>
                 );

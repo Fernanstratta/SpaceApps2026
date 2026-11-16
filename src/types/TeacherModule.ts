@@ -1,5 +1,5 @@
 import type { FieldTrip, GeographicalRecommendation } from './Location';
-import type { SubmoduleKey } from './Submodule';
+import type { EducationLevel, SubmoduleKey } from './Submodule';
 import type { TopicId } from './Topic';
 
 export interface ClassroomActivity {
@@ -22,6 +22,7 @@ export interface LessonPlan {
   introduction: string | null;
   /** Contents to teach in the session. */
   suggestedExplanation: string | null;
+  /** Step-by-step sequence of the session, with the minutes of each step. */
   classroomActivities: ClassroomActivity[] | null;
   discussionQuestions: string[] | null;
   experimentsOrDemonstrations: Demonstration[] | null;
@@ -65,10 +66,14 @@ export interface TeacherModule {
 /** "Enseñar" content (teaching guide) of one submodule. */
 export interface TeacherSubmodule {
   key: SubmoduleKey;
+  level: EducationLevel;
   estimatedDuration: string | null;
   learningObjectives: string[] | null;
+  /** What the group should already know before the session. */
+  priorKnowledge: string[] | null;
   requiredMaterials: string[] | null;
   lessonPlan: LessonPlan | null;
+  /** Practice with the comparison data. */
   activities: ClassroomActivity[] | null;
   geographicalRecommendations: GeographicalRecommendation[] | null;
   fieldTrips: FieldTrip[] | null;

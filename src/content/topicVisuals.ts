@@ -20,7 +20,7 @@ export const TOPIC_VISUALS: ByTopic<TopicVisual> = {
   albedo: { color: '#4f46e5', strong: '#3730a3', soft: '#eef2ff', coverImageId: 'blue-marble' },
   thermal: { color: '#dc2626', strong: '#991b1b', soft: '#fee2e2', coverImageId: 'diviner-south-pole' },
   aridity: { color: '#ca8a04', strong: '#854d0e', soft: '#fef9c3', coverImageId: 'earthrise' },
-  volatiles: { color: '#0d9488', strong: '#115e59', soft: '#ccfbf1', coverImageId: 'greenland-iceberg' },
+  ice: { color: '#0d9488', strong: '#115e59', soft: '#ccfbf1', coverImageId: 'greenland-iceberg' },
   dust: { color: '#64748b', strong: '#334155', soft: '#f1f5f9', coverImageId: 'bootprint' },
   craters: { color: '#db2777', strong: '#9d174d', soft: '#fce7f3', coverImageId: 'barringer' },
 };

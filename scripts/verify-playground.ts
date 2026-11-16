@@ -1,22 +1,16 @@
 /**
  * Verifica Starman Playground sin navegador (`npm run verify:playground`):
- * áreas reales con fuente, fotos con crédito, textos ES/EN equivalentes y
- * modelo 3D solo donde el proyecto tiene datos de elevación.
+ *  - Las cinco áreas son los cinco pares del backend, con sus coordenadas,
+ *    radios de análisis e ILS tal como los envía (nunca recalculados).
+ *  - Los ejes sin dato comparable nunca se muestran como 0.
+ *  - Fotos de los dos sitios con crédito y textos ES/EN equivalentes.
+ *  - Filtro de ILS mínimo y enlaces `#par=…&eje=…`.
  */
 import { topics } from '../src/data';
-import { AXIS_IDS, getLunarAnalogCatalog } from '../src/data/lunarAnalogs';
-import { MISSION_SITE_IDS } from '../src/data/missions/roverMission';
-import { PLAYGROUND_AREAS } from '../src/data/playground';
+import { AXIS_IDS, getLunarAnalogCatalog, isComparable } from '../src/data/lunarAnalogs';
+import { PLAYGROUND_AREAS, playgroundLink, readPlaygroundTarget } from '../src/data/playground';
 import { PLAYGROUND_TEXT } from '../src/i18n/playground';
-import {
-  clampSimilarity,
-  filterAreas,
-  hasActiveFilters,
-  hasSimilarityData,
-  matchesSimilarity,
-  NO_FILTERS,
-  toggleAxis,
-} from '../src/utils/playgroundFilters';
+import { clampSimilarity, filterAreas, hasActiveFilters, matchesSimilarity, NO_FILTERS } from '../src/utils/playgroundFilters';
 
 let failures = 0;
 let passed = 0;
@@ -29,79 +23,63 @@ function check(condition: boolean, message: string): void {
 }
 
 const { es, en } = PLAYGROUND_TEXT;
-check(PLAYGROUND_AREAS.length >= 2, 'Hay al menos dos áreas');
+const catalog = getLunarAnalogCatalog();
+check(PLAYGROUND_AREAS.length === catalog.summaries.length, 'Un área por par del backend');
 check(new Set(PLAYGROUND_AREAS.map((a) => a.id)).size === PLAYGROUND_AREAS.length, 'Ids de área únicos');
-check(es.counter(1, PLAYGROUND_AREAS.length) === `1 de ${PLAYGROUND_AREAS.length}`, 'Indicador «1 de N» calculado de las áreas');
+check(PLAYGROUND_AREAS.every((a, i) => a.number === i + 1), 'Números fijos 1…n en el orden del backend');
 
 for (const area of PLAYGROUND_AREAS) {
   const tag = area.id;
-  check(Math.abs(area.lat) <= 90 && Math.abs(area.lon) <= 180, `${tag}: coordenadas válidas`);
-  for (const photo of area.photos) {
-    check(photo.src.startsWith('https://'), `${tag}: foto por https`);
-    check(photo.page.startsWith('https://') && Boolean(photo.author.trim()), `${tag}: foto con crédito`);
+  const summary = catalog.summaries.find((item) => item.pair_id === area.id);
+  check(summary !== undefined, `${tag}: está en index.json`);
+  check(area.similarity === area.pair.data.ils.value, `${tag}: el ILS es el del backend`);
+  check(summary?.ils.value === area.pair.data.ils.value, `${tag}: el ILS coincide con index.json`);
+  check(area.lat === area.pair.data.earth_site.lat && area.lon === area.pair.data.earth_site.lon, `${tag}: coordenadas del backend`);
+  check(area.radiusM === area.pair.data.earth_site.aoi.radius_m, `${tag}: radio de análisis del backend`);
+  for (const axis of area.pair.data.axes) {
+    if (!axis.available) check(axis.similarity === null && !isComparable(axis), `${tag}/${axis.key}: sin dato comparable, nunca 0`);
   }
-  check(area.terrainSiteId === null || MISSION_SITE_IDS.includes(area.terrainSiteId), `${tag}: el modelo 3D usa un DEM del proyecto`);
-  for (const [lang, text] of [['es', es], ['en', en]] as const) {
-    const t = text.pairs[area.id].earth;
-    check(t.photos.length === area.photos.length, `${tag}/${lang}: una descripción por foto`);
-    check(t.photos.every((p) => p.alt.trim() && p.caption.trim()), `${tag}/${lang}: fotos con texto alternativo y pie`);
+  for (const body of ['earth', 'moon'] as const) {
+    const photos = area.pair.photos[body];
+    check(photos.length > 0, `${tag}: tiene fotos de ${body}`);
+    for (const photo of photos) {
+      check(photo.src.startsWith('https://'), `${tag}: foto por https`);
+      check(photo.page.startsWith('https://') && Boolean(photo.author.trim()), `${tag}: foto con crédito`);
+    }
+    for (const [lang, text] of [['es', es], ['en', en]] as const) {
+      const texts = text.pairs[area.id].photos[body];
+      check(texts.length === photos.length, `${tag}/${lang}/${body}: una descripción por foto`);
+      check(texts.every((p) => p.alt.trim() && p.caption.trim()), `${tag}/${lang}/${body}: fotos con texto alternativo y pie`);
+    }
   }
 }
-const with3d = PLAYGROUND_AREAS.filter((a) => a.terrainSiteId).map((a) => a.id);
-console.log(`  ✓ ${PLAYGROUND_AREAS.length} áreas; con vista 3D: ${with3d.join(', ') || 'ninguna'}`);
+console.log(`  ✓ ${PLAYGROUND_AREAS.length} pares con datos, fotos y textos del backend`);
 
-// Selección por número: números fijos 1…n, únicos y en el orden del documento.
-check(
-  PLAYGROUND_AREAS.every((a, i) => a.number === i + 1),
-  'Cada área tiene un número fijo (1…n) en el orden del documento',
-);
-
-// Filtro por eje: mismos ids y nombres que el Portal Educativo.
+// Ejes: mismos ids y nombres que el Portal Educativo.
 check(AXIS_IDS.length === 9, 'Hay nueve ejes comparativos');
-check(
-  topics.every((topic) => topic.name === es.axes[topic.id].name),
-  'Los filtros usan los mismos nombres que los ejes del Portal Educativo',
-);
-check(filterAreas(PLAYGROUND_AREAS, NO_FILTERS).length === PLAYGROUND_AREAS.length, 'Sin filtros se ven todas las áreas');
-check(!hasActiveFilters(NO_FILTERS), 'NO_FILTERS no cuenta como filtro activo');
-for (const axis of AXIS_IDS) {
-  const shown = filterAreas(PLAYGROUND_AREAS, { axes: [axis], minSimilarity: 0 });
-  check(shown.length > 0, `El eje ${axis} tiene al menos una comparación asociada`);
-  check(shown.every((a) => a.axes.includes(axis)), `Con el eje ${axis} solo se ven áreas asociadas a él`);
-}
-const two = filterAreas(PLAYGROUND_AREAS, { axes: ['volatiles', 'dust'], minSimilarity: 0 });
-check(
-  two.length > 0 && two.every((a) => a.axes.includes('volatiles') || a.axes.includes('dust')),
-  'Varios ejes: se ven las áreas asociadas a cualquiera de ellos',
-);
-let selected = toggleAxis([], 'craters', AXIS_IDS);
-selected = toggleAxis(selected, 'slope', AXIS_IDS);
-check(selected.join(',') === 'slope,craters', 'toggleAxis añade ejes en el orden del documento');
-check(toggleAxis(selected, 'slope', AXIS_IDS).join(',') === 'craters', 'toggleAxis quita un eje ya elegido');
+check(topics.every((topic) => topic.name === es.axes[topic.id].name), 'Los ejes usan los mismos nombres que el Portal Educativo');
 
-// Similitud: sin datos reales, el filtro no oculta nada ni inventa valores.
-check(
-  getLunarAnalogCatalog().pairs.every((pair) => pair.similarityPercent === null),
-  'Ningún par tiene un porcentaje de similitud inventado (todos null hasta tener datos)',
-);
-check(!hasSimilarityData(PLAYGROUND_AREAS), 'El Playground sabe que aún no hay datos de similitud');
-for (const min of [0, 35, 100]) {
+// Filtro de ILS mínimo
+check(filterAreas(PLAYGROUND_AREAS, NO_FILTERS).length === PLAYGROUND_AREAS.length, 'Sin filtros se ven todos los pares');
+check(!hasActiveFilters(NO_FILTERS), 'NO_FILTERS no cuenta como filtro activo');
+for (const min of [0, 50, 60, 100]) {
+  const shown = filterAreas(PLAYGROUND_AREAS, { minSimilarity: min });
   check(
-    filterAreas(PLAYGROUND_AREAS, { axes: [], minSimilarity: min }).length === PLAYGROUND_AREAS.length,
-    `Similitud ≥ ${min} % sin datos no oculta áreas`,
+    shown.every((a) => a.similarity === null || a.similarity >= min),
+    `ILS ≥ ${min}: solo pares que lo alcanzan (o sin índice)`,
   );
 }
-check(
-  filterAreas(PLAYGROUND_AREAS, { axes: ['craters'], minSimilarity: 80 }).length ===
-    filterAreas(PLAYGROUND_AREAS, { axes: ['craters'], minSimilarity: 0 }).length,
-  'La ausencia de datos de similitud no altera el filtro por eje',
-);
-// Lógica preparada para datos reales (casos sintéticos, no son datos del proyecto).
-check(matchesSimilarity({ axes: [], similarity: 72 }, 70), 'Con dato: 72 % pasa el mínimo de 70 %');
-check(!matchesSimilarity({ axes: [], similarity: 64 }, 70), 'Con dato: 64 % no pasa el mínimo de 70 %');
-check(clampSimilarity(140) === 100 && clampSimilarity(-5) === 0, 'El slider se limita a 0–100 %');
-check(hasActiveFilters({ axes: [], minSimilarity: 10 }), 'Una similitud mínima > 0 cuenta como filtro activo');
-console.log(`  ✓ Filtros por eje (${AXIS_IDS.length}) y de similitud (pendiente de datos) verificados`);
+// Casos sintéticos de la lógica (no son datos del proyecto).
+check(matchesSimilarity({ similarity: null }, 90), 'Un par sin índice no se excluye ni se trata como 0');
+check(!matchesSimilarity({ similarity: 40 }, 50), 'Un índice menor al mínimo se excluye');
+check(clampSimilarity(140) === 100 && clampSimilarity(-5) === 0, 'El control se limita a 0–100');
+
+// Enlaces desde las lecciones
+const link = playgroundLink({ pair: 'laguna_salada_tranquillitatis', axis: 'slope' });
+check(link === '/playground#par=laguna_salada_tranquillitatis&eje=slope', 'Enlace con par y eje');
+const target = readPlaygroundTarget(link.split('#')[1] ?? '');
+check(target.pair === 'laguna_salada_tranquillitatis' && target.axis === 'slope', 'El enlace se lee de vuelta');
+check(readPlaygroundTarget('#par=marte&eje=x').pair === null, 'Un par desconocido se ignora');
 
 console.log('');
 if (failures > 0) {

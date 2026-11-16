@@ -1,16 +1,34 @@
-import type { AxisId, LearningActivityType } from '../../types';
-import type { Confidence } from '../../utils/ils';
+import type { PairId } from '../../data/lunarAnalogs';
+import type { AxisId, ClassroomAlternativeType, EducationLevel, LearningActivityType, LessonVisualKind, SubmoduleStage } from '../../types';
 
 /**
- * Textos pedagógicos de los nueve ejes del Portal Educativo.
+ * Contenido educativo de los nueve ejes: una lección de estudiante y un plan
+ * docente por cada submódulo (27 en total), en cada idioma.
  *
- * El contenido científico de cada eje (qué mide, por qué importa, fuentes,
- * consideraciones y los pares de sitios) NO está aquí: se reutiliza de
- * `i18n/playground.{es,en}.ts`, que viene del documento ILS del equipo. Aquí
- * solo va el encuadre para enseñar y aprender: presentación, ganchos,
- * conceptos clave, actividades, preguntas y plantillas de cada etapa.
- * Ninguna plantilla introduce mediciones: los únicos números provienen del
- * catálogo (`data/lunarAnalogs.ts`).
+ * CADA SUBMÓDULO SE ESCRIBE PARA SU NIVEL (`data/submodules.ts`): no es el
+ * mismo texto con otro vocabulario. Primaria tiene menos bloques, frases
+ * cortas y ejemplos concretos; secundaria introduce los términos y guía la
+ * lectura de datos; preparatoria entra al método, a sus limitaciones y al
+ * análisis crítico.
+ *
+ * NINGÚN NÚMERO DE COMPARACIÓN SE ESCRIBE A MANO. Los valores del backend se
+ * citan con marcas que `data/curriculumTokens.ts` sustituye al construir el
+ * contenido (los pares se abrevian: elegante, pinacate, cerro, laguna, cucapa):
+ *
+ *   [[earth laguna slope]]   valor del sitio terrestre        → «1»
+ *   [[moon laguna slope]]    valor del sitio lunar            → «0.98»
+ *   [[s laguna slope]]       similitud del eje en ese par     → «96.0»
+ *   [[rawE elegante roughness]] / [[rawM …]]  valor crudo     → «-6.434 dB»
+ *   [[times elegante thermal]]  cuántas veces mayor           → «9»
+ *   [[ils laguna]]           ILS del par                      → «66.1»
+ *   [[completeness laguna]]  completitud del par              → «89 %»
+ *   [[pct earth laguna slope]]  valor de un lado como porcentaje → «100 %»
+ *   [[R slope]] [[weight slope]] [[conf slope]]  tolerancia, peso nominal y confianza del eje
+ *   [[w laguna ice]]         peso del eje en ese par (con «similitud por ausencia» baja) → «0.5»
+ *   [[fact elegante earth depth_m]]  dato del sitio (`facts`) → «244»
+ *
+ * Si una marca apunta a un dato que el backend no tiene, la construcción
+ * falla (lo detecta `npm run verify:data`): un faltante nunca se rellena.
  */
 
 export interface ConceptText {
@@ -23,74 +41,108 @@ export interface ActivityText {
   description: string;
 }
 
-/** Lo propio de cada eje (todo lo demás se construye con las plantillas). */
+export interface BlockText {
+  /** Identificador estable del bloque (igual en todos los idiomas). */
+  id: string;
+  title: string;
+  /** Uno o varios párrafos separados por una línea en blanco. */
+  body: string;
+  /** Foto de `data/images.ts`. */
+  imageId?: string;
+  /** Figura o visualización contextual (ver `LessonVisualKind`). */
+  visual?: LessonVisualKind;
+  /** Par del catálogo que muestra la figura; por omisión, los pares de la lección. */
+  visualPair?: PairId;
+}
+
+export interface QuizText {
+  question: string;
+  options: string[];
+  /** Índice de la opción correcta. */
+  answer: number;
+  explanation: string;
+}
+
+export interface StepText {
+  title: string;
+  description: string;
+  minutes: number;
+}
+
+export interface StudentLessonText {
+  introduction: string;
+  blocks: BlockText[];
+  concepts: ConceptText[];
+  /** El eje en la Tierra y en la Luna (paneles «La Tierra» y «La Luna»). */
+  earth: string;
+  moon: string;
+  /** Qué mirar en los datos reales de la sección «Comparación». */
+  comparisonLead: string;
+  facts: string[];
+  activities: (ActivityText & { type: LearningActivityType; minutes: number })[];
+  quiz: QuizText[];
+  conclusion: string;
+}
+
+export interface TeacherLessonText {
+  objectives: string[];
+  priorKnowledge: string[];
+  materials: string[];
+  /** Contenidos a impartir: lo esencial y el error frecuente que conviene atajar. */
+  explanation: string;
+  /** Secuencia de la sesión; los minutos suman la duración de la sesión. */
+  steps: StepText[];
+  discussion: string[];
+  /** Práctica con los datos de comparación del backend. */
+  dataActivity: ActivityText & { minutes: number };
+  assessment: string[];
+  outcomes: string[];
+  /** Variante para el aula cuando no hay internet o falta algún material. */
+  alternative: ActivityText & { type: ClassroomAlternativeType; materials: string[] };
+  /** Qué observar en los sitios reales de la región relacionados con la lección. */
+  siteActivities: string[];
+}
+
+export interface SubmoduleText {
+  /** Resumen de la tarjeta del submódulo. */
+  summary: string;
+  student: StudentLessonText;
+  teacher: TeacherLessonText;
+}
+
+/** Contenido de un eje: su presentación y sus tres submódulos. */
 export interface AxisCurriculumText {
   student: { tagline: string; overview: string };
   teacher: { tagline: string; overview: string; objectives: string[] };
-  /** Submódulo 1 (concepto). */
-  concept: {
-    /** Gancho de entrada; lo comparten el estudiante y el plan docente. */
-    introduction: string;
-    concepts: ConceptText[];
-    activity: ActivityText & { type: LearningActivityType };
-    discussion: string[];
-  };
+  submodules: Record<SubmoduleStage, SubmoduleText>;
 }
 
-/** Plantillas comunes a los nueve ejes. `axis` es el nombre del eje. */
-export interface CurriculumTemplates {
-  blocks: {
-    measures: string;
-    why: string;
-    earth: string;
-    moon: string;
-    notes: string;
-    breaks: string;
+/** Textos comunes a todas las lecciones (lo que se arma con datos, no la lección misma). */
+export interface CurriculumShared {
+  levels: Record<EducationLevel, string>;
+  /** «Primaria a preparatoria». */
+  levelRange: (first: string, last: string) => string;
+  sessionDuration: (minutes: number) => string;
+  moduleDuration: (sessions: number, minutes: number) => string;
+  /** Actividad de exploración que lleva del submódulo al Playground. */
+  playground: (axis: string) => ActivityText;
+  /** Clave de la comprobación, añadida a la evaluación del plan docente. */
+  quizKey: (number: number, question: string, answer: string) => string;
+  printable: {
+    title: string;
+    description: (axis: string, units: string) => string;
+    row: (pair: string, earth: string, moon: string, similarity: string) => string;
+    rowMissing: (pair: string) => string;
+    materials: string[];
   };
-  concept: {
-    facts: (axisNumber: number, total: number, pairCount: number) => string[];
-    conclusion: (axis: string) => string;
-    objectives: (axis: string, terms: string) => string[];
-    assessment: string[];
-    outcomes: (axis: string) => string[];
+  location: {
+    description: (type: string, radius: string, note: string) => string;
+    relation: (axis: string, earthValue: string) => string;
+    relationMissing: (axis: string) => string;
   };
-  measurement: {
-    introduction: (axis: string) => string;
-    metric: string;
-    formulas: { linear: ConceptText; log: ConceptText };
-    tolerance: { term: string; definition: (value: string) => string };
-    confidence: { term: (level: Confidence) => string; definition: (meaning: string) => string };
-    facts: { weight: (weight: string, total: string) => string; absence: (weight: string) => string };
-    activity: (axis: string) => ActivityText;
-    conclusion: string;
-    objectives: (axis: string, metric: string) => string[];
-    discussion: (level: Confidence) => string[];
-    assessment: string[];
-    outcomes: (level: Confidence) => string[];
-  };
-  analogs: {
-    introduction: (axis: string, pairCount: number) => string;
-    none: (axis: string) => string;
-    concepts: ConceptText[];
-    facts: {
-      strong: (pair: string, axis: string) => string;
-      published: (pair: string, earth: string, moon: string) => string;
-      provisional: (pair: string, earth: string, moon: string) => string;
-    };
-    questionTitle: (pair: string) => string;
-    playground: (axis: string) => ActivityText;
-    conclusion: (axis: string) => string;
-    explanation: (axis: string) => string;
-    discussion: (axis: string) => string[];
-    objectives: string[];
-    assessment: string[];
-    outcomes: string[];
-  };
-  /** Actividad del docente (sección «Actividades»): exploración guiada en Playground. */
-  teacherPlayground: (axis: string, stage: 'concept' | 'measurement' | 'analogs') => ActivityText;
 }
 
 export interface CurriculumText {
   axes: Record<AxisId, AxisCurriculumText>;
-  templates: CurriculumTemplates;
+  shared: CurriculumShared;
 }

@@ -6,6 +6,7 @@ import './styles/global.css';
 import './styles/mission.css';
 import './styles/lunita.css';
 import './styles/playground.css';
+import './styles/analogs.css';
 // Modo claro «Museo interactivo»: va al final para prevalecer; solo aplica con data-theme='light'.
 import './styles/museo.css';
 

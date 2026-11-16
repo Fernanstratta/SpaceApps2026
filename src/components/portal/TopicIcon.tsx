@@ -66,7 +66,7 @@ const ICONS: Record<TopicId, ReactElement> = {
     </>
   ),
   // Humedad y hielo: gota.
-  volatiles: (
+  ice: (
     <>
       <path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z" />
       <path d="M9.5 14.5h5M12 12v5" />

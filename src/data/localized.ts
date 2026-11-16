@@ -19,7 +19,7 @@ import type {
 import { getCurriculum } from './curriculum';
 import { images } from './images';
 import { resourceCategories, resources } from './resources';
-import { submodules } from './submodules';
+import { submoduleKey, submodules } from './submodules';
 import { isTopicId, topics } from './topics';
 
 /**
@@ -68,9 +68,11 @@ function buildDataApi(language: Language): DataApi {
     .sort((a, b) => a.order - b.order);
   const topicMap = new Map(localizedTopics.map((topic) => [topic.id, topic]));
 
-  const localizedSubmodules: Submodule[] = submodules.map((item) =>
-    t?.submodules[item.id] ? { ...item, ...t.submodules[item.id] } : item,
-  );
+  // El resumen de cada tarjeta viene de su lección (`i18n/curriculum`).
+  const localizedSubmodules: Submodule[] = submodules.map((item) => {
+    const translated = t?.submodules[item.id] ? { ...item, ...t.submodules[item.id] } : item;
+    return { ...translated, summary: curriculum.summaries[submoduleKey(item)] ?? translated.summary };
+  });
 
   const localizedImages: CommonsImage[] = images.map((image) =>
     t?.images[image.id] ? { ...image, ...t.images[image.id] } : image,

@@ -6,7 +6,7 @@
  * El orden es el del documento (eje 1 a eje 9). Los nombres visibles están en
  * `i18n/playground.{es,en}.ts` (`axes[id].name`), una sola vez por idioma.
  */
-export const AXIS_IDS = ['slope', 'roughness', 'mineralogy', 'albedo', 'thermal', 'aridity', 'volatiles', 'dust', 'craters'] as const;
+export const AXIS_IDS = ['slope', 'roughness', 'mineralogy', 'albedo', 'thermal', 'aridity', 'ice', 'dust', 'craters'] as const;
 
 export type AxisId = (typeof AXIS_IDS)[number];
 
